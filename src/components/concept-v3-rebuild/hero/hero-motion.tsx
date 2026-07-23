@@ -188,7 +188,10 @@ export function HeroMotion({ children, layoutMode }: HeroMotionProps) {
       const isCoarse = window.matchMedia("(pointer: coarse)").matches;
       const composition: HeroMotionFamily = heroFamily;
       const timeScale = flags.slow ? 0.4 : 1;
-      const settledRotate = composition === "cinematic" ? -1.15 : 0;
+      // Outer artifact shells always settle at neutral transforms (no rotate /
+      // no clip). Cinematic depth is provided by inner layers + decorative
+      // sheets, and by the pointer tilt applied to the inner surface only.
+      const settledRotate = 0;
 
       const atmosphere = el.querySelectorAll("[data-atmosphere]");
       const floor = el.querySelector("[data-atmosphere-floor]");
@@ -200,6 +203,7 @@ export function HeroMotion({ children, layoutMode }: HeroMotionProps) {
       const actions = el.querySelector("[data-hero-actions]");
       const socials = el.querySelector("[data-hero-socials]");
       const upwork = el.querySelector<HTMLElement>("[data-artifact='upwork']");
+      const upworkShell = el.querySelector<HTMLElement>("[data-upwork-shell]");
       const commerce = el.querySelector("[data-artifact='commerce']");
       const education = el.querySelector("[data-artifact='education']");
       const products = el.querySelector("[data-artifact='products']");
@@ -277,8 +281,10 @@ export function HeroMotion({ children, layoutMode }: HeroMotionProps) {
             rotate: 0,
           });
         }
-        if (upwork && composition === "cinematic") {
-          gsap.set(upwork, { rotate: settledRotate });
+        if (upworkShell) {
+          gsap.set(upworkShell, {
+            clearProps: "transform,rotateX,rotateY",
+          });
         }
         if (progress) {
           progress.style.strokeDashoffset = String(
@@ -626,6 +632,7 @@ export function HeroMotion({ children, layoutMode }: HeroMotionProps) {
       // Drop stale transforms from the previous composition before rebuilding.
       clearLayoutTransforms([
         upwork,
+        upworkShell,
         commerce as Element | null,
         education as Element | null,
         products as Element | null,
@@ -699,21 +706,25 @@ export function HeroMotion({ children, layoutMode }: HeroMotionProps) {
           duration: 0.65,
           ease: "power3.out",
         });
-        const qRotY = upwork
-          ? gsap.quickTo(upwork, "rotateY", {
+        // Tilt the INNER surface only — never the outer layout shell — so the
+        // grid box stays stable, edges stay complete, and neighbours stay
+        // aligned during pointer parallax.
+        const tiltTarget = upworkShell ?? null;
+        const qRotY = tiltTarget
+          ? gsap.quickTo(tiltTarget, "rotateY", {
               duration: 0.45,
               ease: "power3.out",
             })
           : null;
-        const qRotX = upwork
-          ? gsap.quickTo(upwork, "rotateX", {
+        const qRotX = tiltTarget
+          ? gsap.quickTo(tiltTarget, "rotateX", {
               duration: 0.45,
               ease: "power3.out",
             })
           : null;
 
-        if (upwork) {
-          gsap.set(upwork, { transformPerspective: 900 });
+        if (tiltTarget) {
+          gsap.set(tiltTarget, { transformPerspective: 900 });
         }
 
         const onMove = (event: PointerEvent) => {
@@ -758,6 +769,7 @@ export function HeroMotion({ children, layoutMode }: HeroMotionProps) {
         ambientTweens.length = 0;
         if (progress) gsap.killTweensOf(progress);
         if (upwork) gsap.killTweensOf(upwork);
+        if (upworkShell) gsap.killTweensOf(upworkShell);
         tl.kill();
       };
     },

@@ -34,6 +34,16 @@ export default function ConceptV3RebuildPage() {
 
   return (
     <MotionPreferenceProvider>
+      {/* Pre-hydration layout-mode resolver: sets data-layout-mode synchronously
+          so token-driven sections (Origin/Career) never flash. Hero structure
+          itself is media-query driven and needs no JS to be correct on first
+          paint. Mirrors resolveLayoutMode() in layout-mode.ts. */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html:
+            "(function(){try{var w=window.innerWidth,h=window.innerHeight,vv=window.visualViewport;if(vv){w=Math.round(vv.width);h=Math.round(vv.height);}var m;if(w<768)m='mobile';else if(w>=1050&&h<680)m='short-landscape';else if(w>=1400&&h>=760)m='spacious-desktop';else if(w>=1080&&h>=680)m='standard-desktop';else if(w>=768&&h>=w)m='portrait-tablet';else m='medium-landscape';document.documentElement.dataset.layoutMode=m;}catch(e){}})();",
+        }}
+      />
       <LayoutModeProvider>
         <div className={styles.rebuild} data-concept-rebuild>
           <RebuildNav />

@@ -15,3 +15,4 @@ archive1fwYU.tar.gz
 # Operating-system and editor artifacts
 .DS_Store
 Thumbs.db
+/docs/portfolio-v3/qa

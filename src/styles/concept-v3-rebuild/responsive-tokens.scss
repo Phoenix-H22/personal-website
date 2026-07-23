@@ -61,20 +61,13 @@ html[data-layout-mode="mobile"] {
   --v3-film-gap: 0.85rem;
 }
 
-/* Ultra-wide: reclaim side margins without stretching content awkwardly */
+/* Ultra-wide: give chapters a slightly wider, still-bounded reading column.
+   Hero stage width is bounded directly in hero.module.scss (min(92vw,1920px));
+   these tokens only affect Origin/Career reading columns — never the hero. */
 @media (min-width: 1920px) and (min-height: 900px) {
   html[data-layout-mode="spacious-desktop"] {
-    --v3-hero-max: min(100vw - 5rem, 128rem);
-    --v3-chapter-max: 96rem;
-    --v3-film-max: 80rem;
-    --v3-story-max: 84rem;
-  }
-}
-
-@media (min-width: 2200px) and (min-height: 960px) {
-  html[data-layout-mode="spacious-desktop"] {
-    --v3-hero-max: min(100vw - 6rem, 140rem);
-    --v3-chapter-max: 104rem;
-    --v3-film-max: 88rem;
+    --v3-chapter-max: 92rem;
+    --v3-film-max: 78rem;
+    --v3-story-max: 82rem;
   }
 }
