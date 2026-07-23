@@ -1,0 +1,479 @@
+.frame {
+  --artifact-accent: var(--color-signal-cyan);
+  --artifact-radius: 1.25rem;
+  position: relative;
+  display: block;
+  color: var(--color-text-primary);
+  isolation: isolate;
+}
+
+.frameInteractive {
+  cursor: default;
+}
+
+.frameInteractive:focus-visible {
+  outline: 2px solid var(--color-signal-blue);
+  outline-offset: 4px;
+}
+
+.frameEdge {
+  pointer-events: none;
+}
+
+.frameAccentCyan {
+  --artifact-accent: var(--color-signal-cyan);
+}
+
+.frameAccentBlue {
+  --artifact-accent: var(--color-signal-blue);
+}
+
+.frameAccentAmber {
+  --artifact-accent: var(--color-signal-amber);
+}
+
+.frameAccentViolet {
+  --artifact-accent: var(--color-signal-violet);
+}
+
+.frameAccentUpwork {
+  --artifact-accent: var(--color-upwork-green);
+}
+
+.frameAccentComm {
+  --artifact-accent: var(--color-signal-green);
+}
+
+.metric {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.metricValue {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: clamp(1.35rem, 2.2vw, 2rem);
+  font-weight: 560;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.metricAccentCyan .metricValue {
+  color: var(--color-signal-cyan);
+}
+
+.metricAccentBlue .metricValue {
+  color: var(--color-signal-blue);
+}
+
+.metricAccentAmber .metricValue {
+  color: var(--color-signal-amber);
+}
+
+.metricAccentViolet .metricValue {
+  color: var(--color-signal-violet);
+}
+
+.metricAccentUpwork .metricValue {
+  color: var(--color-upwork-green);
+}
+
+.metricAccentComm .metricValue {
+  color: var(--color-signal-green);
+}
+
+.metricLabel {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+.metricContext {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2rem;
+  border: 1px solid rgb(20 168 0 / 35%);
+  border-radius: 999px;
+  background: rgb(20 168 0 / 10%);
+  padding: 0.35rem 0.8rem;
+  color: #b6f5a8;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.sealDot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--color-upwork-green);
+  box-shadow: 0 0 0 0.25rem rgb(20 168 0 / 16%);
+  flex-shrink: 0;
+}
+
+.temporaryMark {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.temporaryMarkWord {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 1.35rem;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.temporaryMarkWordUpwork {
+  color: #e8ffe4;
+  font-size: clamp(1.4rem, 2vw, 1.75rem);
+  letter-spacing: -0.05em;
+}
+
+.temporaryMarkNote {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.akCore {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  color: var(--color-text-primary);
+}
+
+.akCoreSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.akCorePath {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.2;
+  opacity: 0.92;
+}
+
+.akCoreFill {
+  fill: currentColor;
+  opacity: 0.9;
+}
+
+.akCoreMono {
+  color: #d7e1ec;
+}
+
+/* Upwork Credential */
+.upwork {
+  --upwork-green: var(--color-upwork-green);
+  position: relative;
+  width: 100%;
+  perspective: 1200px;
+  overflow: visible;
+}
+
+@media (max-width: 767px) {
+  .upworkEdgeGlow {
+    inset: -8% -4% -10%;
+    filter: blur(18px);
+  }
+
+  .upworkThickness {
+    display: none;
+  }
+}
+
+.upworkInner {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.upworkSlab {
+  position: relative;
+  overflow: visible;
+  border-radius: 1.35rem 1.1rem 1.5rem 0.85rem;
+  background:
+    linear-gradient(145deg, rgb(18 42 28 / 88%) 0%, rgb(8 18 14 / 96%) 48%, rgb(6 14 12 / 98%) 100%);
+  box-shadow:
+    0 28px 60px rgb(0 0 0 / 45%),
+    0 0 0 1px rgb(20 168 0 / 18%),
+    inset 0 1px 0 rgb(180 255 160 / 12%);
+  clip-path: polygon(
+    0% 8%,
+    4% 0%,
+    100% 0%,
+    100% 88%,
+    96% 100%,
+    0% 100%
+  );
+}
+
+.upworkThickness {
+  position: absolute;
+  top: 10%;
+  right: -0.55rem;
+  bottom: 6%;
+  width: 0.55rem;
+  border-radius: 0 0.4rem 0.55rem 0;
+  background: linear-gradient(180deg, rgb(34 90 48 / 90%), rgb(8 22 14 / 95%));
+  box-shadow: 4px 8px 18px rgb(0 0 0 / 35%);
+  transform: skewY(-8deg);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.upworkSlab::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, rgb(180 255 160 / 14%) 0%, transparent 28%),
+    linear-gradient(300deg, rgb(20 168 0 / 18%) 0%, transparent 36%);
+  mask-image: linear-gradient(to bottom, black, transparent 80%);
+}
+
+.upworkSlab::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  border: 1px solid rgb(139 171 204 / 10%);
+  border-top-color: rgb(180 255 160 / 28%);
+  border-left-color: rgb(20 168 0 / 24%);
+  clip-path: inherit;
+}
+
+.upworkEdgeGlow {
+  position: absolute;
+  inset: -18% -12% -22%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 70% 30%, rgb(20 168 0 / 28%), transparent 42%),
+    radial-gradient(circle at 20% 80%, rgb(49 230 208 / 10%), transparent 40%);
+  filter: blur(28px);
+  opacity: 0.9;
+}
+
+.upworkBody {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.35rem 1.35rem 1.5rem;
+}
+
+.upworkHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.upworkProof {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.upworkCopy {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.upworkSummary {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.upworkScore {
+  position: relative;
+  width: 6.75rem;
+  height: 6.75rem;
+  flex-shrink: 0;
+}
+
+.upworkScoreSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform: rotate(-90deg);
+}
+
+.upworkScoreTrack {
+  fill: none;
+  stroke: rgb(139 171 204 / 16%);
+  stroke-width: 8;
+}
+
+.upworkScoreProgress {
+  fill: none;
+  stroke: var(--upwork-green);
+  stroke-linecap: round;
+  stroke-width: 8;
+  filter: drop-shadow(0 0 8px rgb(20 168 0 / 45%));
+}
+
+.upworkScoreCenter {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: 0.1rem;
+}
+
+.upworkScoreValue {
+  margin: 0;
+  color: #e9ffe6;
+  font-size: 1.55rem;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.upworkScoreLabel {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.upworkFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-top: 1px solid rgb(139 171 204 / 12%);
+  padding-top: 0.9rem;
+}
+
+.upworkEyebrow {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.upworkLink {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  color: #b6f5a8;
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.upworkLink:hover {
+  color: #e8ffe4;
+}
+
+/* Narrative default — flat readable slab */
+.upworkInner {
+  transform: none;
+}
+
+.upworkSlab {
+  border-radius: 1.15rem 1rem 1.25rem 0.9rem;
+}
+
+/* Layered — tablet dimensional angle */
+@media (min-width: 768px) {
+  .upworkInner {
+    transform: rotateY(-12deg) rotateX(5deg) rotateZ(-1.5deg);
+    transform-origin: 70% 40%;
+  }
+
+  .upworkSlab {
+    box-shadow:
+      14px 24px 44px rgb(0 0 0 / 45%),
+      -1px 0 0 rgb(180 255 160 / 16%),
+      0 0 0 1px rgb(20 168 0 / 16%),
+      inset 0 1px 0 rgb(180 255 160 / 12%);
+  }
+
+  .upworkEdgeGlow {
+    opacity: 0.75;
+    filter: blur(26px);
+  }
+}
+
+/* Cinematic — stronger near-camera angle */
+@media (min-width: 1280px) {
+  .upworkInner {
+    transform: rotateY(-16deg) rotateX(7deg) rotateZ(-2deg);
+  }
+
+  .upworkSlab {
+    box-shadow:
+      18px 28px 50px rgb(0 0 0 / 48%),
+      -1px 0 0 rgb(180 255 160 / 18%),
+      0 0 0 1px rgb(20 168 0 / 16%),
+      inset 0 1px 0 rgb(180 255 160 / 14%);
+  }
+
+  .upworkEdgeGlow {
+    opacity: 1;
+    filter: blur(34px);
+  }
+}
+
+@media (max-width: 389px) {
+  .upworkProof {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+
+  .upworkScore {
+    width: 7rem;
+    height: 7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @media (min-width: 768px) {
+    .upworkInner {
+      transform: rotateY(-8deg) rotateX(3deg);
+    }
+  }
+}

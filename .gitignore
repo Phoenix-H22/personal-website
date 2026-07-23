@@ -1,2 +1,17 @@
 archive1fwYU.tar.gz
 /old_site
+
+# Dependencies and generated Next.js output
+/node_modules
+/.next
+/out
+*.tsbuildinfo
+
+# Local environment and deployment files
+.env*
+!.env.example
+.vercel
+
+# Operating-system and editor artifacts
+.DS_Store
+Thumbs.db

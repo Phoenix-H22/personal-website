@@ -1,0 +1,53 @@
+{
+  "name": "abdalrhman-alkady",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The personal site of backend-focused product engineer Abdalrhman Alkady.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.25.0",
+    "motion": "^12.42.2",
+    "next": "^16.2.11",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.1.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.11",
+    "playwright": "^1.55.0",
+    "sass": "^1.101.3",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Phoenix-H22/personal-website.git"
+  },
+  "keywords": [
+    "backend-engineer",
+    "product-engineer",
+    "laravel",
+    "nodejs"
+  ],
+  "author": "Abdalrhman Mohamed Alkady",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Phoenix-H22/personal-website/issues"
+  },
+  "homepage": "https://github.com/Phoenix-H22/personal-website#readme",
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}

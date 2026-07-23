@@ -1,0 +1,191 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   chapters.module.scss — Shared chapter primitives for concept-v3-rebuild
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ——— Design tokens ——— */
+:root {
+  --chapter-gutter: clamp(1rem, 4vw, 3.5rem);
+  --chapter-max: 80rem;
+  --chapter-cyan: #31e6d0;
+  --chapter-cyan-muted: rgb(49 230 208 / 60%);
+  --chapter-amber: #f2b84f;
+  --chapter-violet: #9d72ff;
+  --chapter-surface: #03060b;
+  --chapter-surface-elevated: #060c14;
+  --chapter-text: #f3f7fb;
+  --chapter-text-muted: #a8b6c8;
+  --chapter-border: rgb(139 171 204 / 14%);
+}
+
+/* ——— Portfolio Chapter Shell ——— */
+.chapter {
+  position: relative;
+  padding-block: clamp(3rem, 8vh, 6rem);
+  background: var(--chapter-surface);
+}
+
+.chapterCareer {
+  padding-block: clamp(1.75rem, 5vh, 3.5rem);
+}
+
+.chapterInner {
+  width: min(100%, var(--v3-chapter-max, var(--chapter-max)));
+  margin-inline: auto;
+  padding-inline: var(--chapter-gutter);
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* ——— Transition from hero ——— */
+.transitionFromHero {
+  position: relative;
+  margin-top: -1px;
+}
+
+.transitionFromHero::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: clamp(4rem, 12vh, 8rem);
+  background: linear-gradient(180deg, rgb(3 6 11 / 0%) 0%, var(--chapter-surface) 100%);
+  pointer-events: none;
+}
+
+/* ——— Chapter atmosphere ——— */
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.atmosphereGradient {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: min(64rem, 100%);
+  height: 60%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgb(49 230 208 / 4%), transparent 70%);
+}
+
+.atmosphereGrain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* ——— Chapter Marker ——— */
+.marker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.markerPulse {
+  position: relative;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--chapter-cyan);
+  box-shadow: 0 0 0 0.15rem rgb(49 230 208 / 25%);
+}
+
+.markerPulse::after {
+  content: "";
+  position: absolute;
+  inset: -0.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--chapter-cyan-muted);
+  opacity: 0.45;
+}
+
+.markerIndex {
+  color: rgb(49 230 208 / 55%);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.markerLabel {
+  color: var(--chapter-cyan);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  margin: 0 0 0.45rem;
+  color: rgb(168 182 200 / 72%);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ——— Chapter Heading ——— */
+.heading {
+  margin: 0 0 0.5rem;
+  color: var(--chapter-text);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.subheading {
+  margin: 0;
+  max-width: 48ch;
+  color: var(--chapter-text-muted);
+  font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+  line-height: 1.55;
+}
+
+/* ——— Variant atmospheres ——— */
+.atmosphereOrigin .atmosphereGradient {
+  background: radial-gradient(ellipse 70% 45% at 30% 10%, rgb(157 114 255 / 5%), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 70% 20%, rgb(49 230 208 / 4%), transparent 55%);
+}
+
+.atmosphereCareer .atmosphereGradient {
+  background: radial-gradient(ellipse 75% 50% at 50% 5%, rgb(49 230 208 / 5%), transparent 65%),
+    radial-gradient(ellipse 50% 35% at 80% 40%, rgb(242 184 79 / 3%), transparent 50%);
+}
+
+/* ——— Focus states ——— */
+.chapter :focus-visible {
+  outline: 2px solid #5e8fff;
+  outline-offset: 3px;
+}
+
+/* ——— Responsive ——— */
+@media (min-width: 768px) {
+  .chapter {
+    padding-block: clamp(4rem, 10vh, 7rem);
+  }
+
+  .marker {
+    gap: 0.85rem;
+  }
+
+  .markerLabel {
+    font-size: 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .chapter {
+    padding-block: clamp(5rem, 12vh, 8rem);
+  }
+
+  .heading {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+  }
+}
+

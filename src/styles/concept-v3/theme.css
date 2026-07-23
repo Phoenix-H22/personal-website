@@ -1,0 +1,74 @@
+@theme {
+  --color-canvas-void: #03060b;
+  --color-canvas-deep: #06101a;
+  --color-canvas-navy: #071522;
+
+  --color-surface-low: #0a121c;
+  --color-surface-mid: #0e1926;
+  --color-surface-high: #142235;
+  --color-surface-focus: #1a2a40;
+
+  --color-text-primary: #f3f7fb;
+  --color-text-secondary: #a8b6c8;
+  --color-text-muted: #6f7f92;
+
+  --color-signal-cyan: #31e6d0;
+  --color-signal-blue: #5e8fff;
+  --color-signal-amber: #f2b84f;
+  --color-signal-violet: #9d72ff;
+  --color-signal-green: #27c76f;
+  --color-signal-danger: #ff6b6b;
+  --color-upwork-green: #14a800;
+
+  --color-border-subtle: rgb(139 171 204 / 12%);
+  --color-border-medium: rgb(139 171 204 / 22%);
+  --color-border-active: rgb(49 230 208 / 52%);
+
+  --text-hero-name: clamp(3.1rem, 6.2vw, 7.25rem);
+  --text-hero-headline: clamp(1.75rem, 3vw, 3.4rem);
+  --text-section-title: clamp(2.25rem, 4.4vw, 5rem);
+  --text-artifact-title: clamp(1rem, 1.3vw, 1.35rem);
+  --text-body-large: clamp(1rem, 1.15vw, 1.2rem);
+  --text-body: 1rem;
+  --text-meta: 0.8125rem;
+
+  --page-gutter-v3: clamp(1.25rem, 4vw, 4.5rem);
+  --content-max-v3: 96rem;
+  --reading-max-v3: 46rem;
+}
+
+.concept-v3 {
+  --v3-page-gutter: var(--page-gutter-v3);
+  --v3-content-max: var(--content-max-v3);
+  --v3-reading-max: var(--reading-max-v3);
+
+  background: var(--color-canvas-void);
+  color: var(--color-text-primary);
+  font-family: var(--font-geist), Arial, sans-serif;
+  min-height: 100svh;
+  isolation: isolate;
+  overflow-x: clip;
+}
+
+body:has(.concept-v3),
+body:has(.concept-v3-rebuild) {
+  background: var(--color-canvas-void);
+}
+
+body:has(.concept-v3) .skip-link,
+body:has(.concept-v3-rebuild) .skip-link {
+  background: var(--color-surface-high);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-medium);
+}
+
+.concept-v3 :focus-visible {
+  outline: 2px solid var(--color-signal-blue);
+  outline-offset: 3px;
+}
+
+.concept-v3__shell {
+  width: min(100%, var(--v3-content-max));
+  margin-inline: auto;
+  padding-inline: var(--v3-page-gutter);
+}

@@ -1,0 +1,80 @@
+/* Shared responsive tokens for concept-v3-rebuild composition modes. */
+
+:root {
+  --v3-page-gutter: clamp(1rem, 4vw, 3.5rem);
+  --v3-chapter-max: 80rem;
+  --v3-hero-max: 96rem;
+  --v3-hero-gap: clamp(0.75rem, 1.6vw, 1.5rem);
+  --v3-artifact-gap: clamp(0.55rem, 1.2vw, 1rem);
+  --v3-artifact-compact-height: 11.5rem;
+  --v3-artifact-desktop-min: 16.5rem;
+  --v3-artifact-desktop-max: 21.5rem;
+  --v3-chapter-rhythm: clamp(1.75rem, 5vh, 3.5rem);
+  --v3-film-milestone: clamp(6.6rem, 8.5vw, 8.2rem);
+  --v3-film-gap: clamp(1rem, 2.4vw, 2rem);
+  --v3-film-max: 68rem;
+  --v3-story-max: 72rem;
+  --v3-proof-pad-block: 0.9rem;
+  --v3-proof-pad-inline: 0.95rem;
+}
+
+html[data-layout-mode="spacious-desktop"] {
+  --v3-hero-max: min(100vw - 4rem, 112rem);
+  --v3-hero-gap: clamp(1rem, 2vw, 1.75rem);
+  --v3-artifact-gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  --v3-artifact-desktop-max: 23rem;
+  --v3-chapter-max: min(100vw - 3rem, 88rem);
+  --v3-film-max: min(100vw - 4rem, 76rem);
+  --v3-film-milestone: clamp(6.5rem, 7.2vw, 7.6rem);
+  --v3-film-gap: clamp(0.85rem, 1.8vw, 1.65rem);
+}
+
+html[data-layout-mode="standard-desktop"] {
+  --v3-hero-max: min(100vw - 3rem, 96rem);
+  --v3-hero-gap: clamp(0.75rem, 1.5vw, 1.35rem);
+  --v3-artifact-gap: clamp(0.6rem, 1.2vw, 1rem);
+  --v3-artifact-desktop-max: 20.5rem;
+}
+
+html[data-layout-mode="short-landscape"] {
+  --v3-hero-max: min(100vw - 1.5rem, 90rem);
+  --v3-hero-gap: clamp(0.35rem, 0.9vh, 0.65rem);
+  --v3-artifact-gap: clamp(0.4rem, 0.9vw, 0.7rem);
+  --v3-artifact-compact-height: clamp(10.25rem, 30vh, 12.5rem);
+  --v3-film-milestone: clamp(6.2rem, 7.2vw, 7.4rem);
+  --v3-film-gap: clamp(0.75rem, 1.6vw, 1.35rem);
+  --v3-proof-pad-block: 0.55rem;
+  --v3-proof-pad-inline: 0.65rem;
+}
+
+html[data-layout-mode="medium-landscape"],
+html[data-layout-mode="portrait-tablet"] {
+  --v3-hero-gap: 1.1rem;
+  --v3-artifact-gap: 0.85rem;
+}
+
+html[data-layout-mode="mobile"] {
+  --v3-page-gutter: clamp(1rem, 4vw, 1.25rem);
+  --v3-hero-gap: 0.85rem;
+  --v3-artifact-gap: 0.75rem;
+  --v3-film-milestone: 6.1rem;
+  --v3-film-gap: 0.85rem;
+}
+
+/* Ultra-wide: reclaim side margins without stretching content awkwardly */
+@media (min-width: 1920px) and (min-height: 900px) {
+  html[data-layout-mode="spacious-desktop"] {
+    --v3-hero-max: min(100vw - 5rem, 128rem);
+    --v3-chapter-max: 96rem;
+    --v3-film-max: 80rem;
+    --v3-story-max: 84rem;
+  }
+}
+
+@media (min-width: 2200px) and (min-height: 960px) {
+  html[data-layout-mode="spacious-desktop"] {
+    --v3-hero-max: min(100vw - 6rem, 140rem);
+    --v3-chapter-max: 104rem;
+    --v3-film-max: 88rem;
+  }
+}

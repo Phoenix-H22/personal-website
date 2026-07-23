@@ -1,0 +1,880 @@
+/* Career Filmstrip — art-directed reel */
+
+.reel {
+  --cr-cyan: #31e6d0;
+  --cr-amber: #f2b84f;
+  --cr-violet: #9d72ff;
+  --cr-blue: #5e8fff;
+  --cr-text: #f3f7fb;
+  --cr-muted: #a8b6c8;
+  --cr-border: rgb(139 171 204 / 14%);
+  position: relative;
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.bridge {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0 0 0.15rem;
+  color: rgb(168 182 200 / 50%);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.bridge::before {
+  content: "";
+  width: 2.25rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(49 230 208 / 45%));
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.direction {
+  margin: 0 auto;
+  width: fit-content;
+  color: rgb(168 182 200 / 50%);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.eraContext {
+  margin: 0;
+  color: rgb(186 245 236 / 82%);
+  font-size: 0.9rem;
+  font-weight: 520;
+  letter-spacing: 0.02em;
+}
+
+.eraContextIndependent {
+  color: rgb(246 208 137 / 82%);
+}
+
+/* ——— Filmstrip ——— */
+.filmstrip {
+  position: relative;
+  padding: 0.35rem 0 0.55rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.filmstripDim {
+  opacity: 0.42;
+  transition: opacity 220ms ease;
+}
+
+.filmstrip:not(.filmstripDim) {
+  transition: opacity 220ms ease;
+}
+
+.filmAtmosphere {
+  position: absolute;
+  inset: 8% 0 18% 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgb(157 114 255 / 10%) 0%,
+      rgb(94 143 255 / 7%) 38%,
+      rgb(49 230 208 / 8%) 72%,
+      rgb(242 184 79 / 6%) 100%
+    );
+  mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
+  opacity: 0.55;
+}
+
+.filmScroll {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  padding: 1.15rem 1.25rem 1.35rem;
+  mask-image: none;
+}
+
+.filmScroll[data-overflowing="true"] {
+  padding: 1.15rem calc(50% - 4.1rem) 1.35rem;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 4%,
+    #000 96%,
+    transparent 100%
+  );
+}
+
+.filmScroll[data-overflowing="false"] {
+  overflow-x: hidden;
+  scroll-snap-type: none;
+  mask-image: none;
+  display: flex;
+  justify-content: center;
+}
+
+.filmScroll[data-overflowing="false"] .filmTrack {
+  width: max-content;
+  min-width: 0;
+  max-width: min(100%, var(--v3-film-max, 68rem));
+  justify-content: center;
+  gap: var(--v3-film-gap, clamp(1.15rem, 2.8vw, 2.5rem));
+  margin-inline: auto;
+}
+
+.filmScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.filmScroll:focus-visible {
+  outline: 2px solid rgb(49 230 208 / 40%);
+  outline-offset: 2px;
+}
+
+.filmTrack {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--v3-film-gap, clamp(1rem, 2.4vw, 2rem));
+  width: max-content;
+  min-width: 100%;
+  justify-content: center;
+  padding-inline: 0.25rem;
+  margin-inline: auto;
+}
+
+.routeLine {
+  position: absolute;
+  left: 1.5rem;
+  width: auto;
+  right: 1.5rem;
+  bottom: 3.55rem;
+  height: 3px;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(139 171 204 / 14%) 8%,
+      rgb(139 171 204 / 28%) 50%,
+      rgb(139 171 204 / 14%) 92%,
+      transparent 100%
+    );
+  pointer-events: none;
+  box-shadow:
+    0 0 14px rgb(49 230 208 / 12%),
+    0 1px 0 rgb(255 255 255 / 4%);
+}
+
+.routeProgress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    rgb(157 114 255 / 45%),
+    rgb(94 143 255 / 62%),
+    rgb(49 230 208 / 92%)
+  );
+  box-shadow:
+    0 0 12px rgb(49 230 208 / 42%),
+    0 0 28px rgb(49 230 208 / 22%),
+    0 0 2px rgb(255 255 255 / 25%);
+}
+
+.routeSignal {
+  position: absolute;
+  left: 0;
+  bottom: 3.55rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  margin-bottom: -0.18rem;
+  margin-left: -0.21rem;
+  border-radius: 50%;
+  background: var(--cr-cyan);
+  box-shadow: 0 0 14px rgb(49 230 208 / 70%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+  will-change: transform, opacity;
+}
+
+/* ——— Milestone ——— */
+.milestone {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: var(--v3-film-milestone, clamp(6.6rem, 8.5vw, 8.2rem));
+  display: grid;
+  justify-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.2rem 0.15rem;
+  border: 0;
+  background: transparent;
+  color: var(--cr-muted);
+  cursor: pointer;
+  scroll-snap-align: center;
+  transition: color 160ms ease;
+}
+
+.milestone:hover .pedestal {
+  border-color: rgb(139 171 204 / 32%);
+  transform: translateY(-2px);
+}
+
+.milestone:focus-visible {
+  outline: none;
+}
+
+.milestone:focus-visible .pedestal {
+  box-shadow:
+    0 0 0 0.18rem rgb(49 230 208 / 22%),
+    0 10px 24px rgb(0 0 0 / 35%);
+}
+
+.pedestal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.55rem;
+  height: 3.55rem;
+  border-radius: 1rem;
+  border: 1px solid rgb(139 171 204 / 20%);
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 30%, rgb(255 255 255 / 6%), transparent 55%),
+    rgb(10 16 24 / 92%);
+  box-shadow:
+    0 8px 18px rgb(0 0 0 / 28%),
+    inset 0 1px 0 rgb(255 255 255 / 5%);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.pedestal::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: -0.45rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 35%);
+  filter: blur(3px);
+  opacity: 0.55;
+}
+
+.milestoneActive .pedestal {
+  transform: translateY(-5px);
+  border-color: rgb(49 230 208 / 50%);
+  box-shadow:
+    0 0 0 0.2rem rgb(49 230 208 / 12%),
+    0 0 28px rgb(49 230 208 / 22%),
+    0 14px 28px rgb(0 0 0 / 35%),
+    inset 0 1px 0 rgb(255 255 255 / 8%);
+}
+
+.milestoneIndieActive .pedestal {
+  transform: translateY(-4px);
+  border-color: rgb(242 184 79 / 48%);
+  box-shadow:
+    0 0 0 0.18rem rgb(242 184 79 / 12%),
+    0 0 24px rgb(242 184 79 / 18%),
+    0 12px 24px rgb(0 0 0 / 32%);
+}
+
+.milestoneName {
+  font-size: 0.9rem;
+  font-weight: 580;
+  color: rgb(243 247 251 / 72%);
+  text-align: center;
+  line-height: 1.2;
+  max-width: 100%;
+}
+
+.milestoneActive .milestoneName,
+.milestoneIndieActive .milestoneName {
+  color: var(--cr-text);
+}
+
+.milestoneYear {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  opacity: 0.68;
+  text-align: center;
+}
+
+.milestoneCurrent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: -0.1rem;
+  color: #27c76f;
+  font-size: 0.68rem;
+  font-weight: 560;
+  opacity: 0;
+  transform: translateY(2px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.milestoneActive .milestoneCurrent {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.milestoneCurrentDot {
+  width: 0.28rem;
+  height: 0.28rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ——— Independent compact ——— */
+.indieCompact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem 0.85rem;
+  padding: 0.15rem 0.1rem 0.35rem;
+}
+
+.indieCompactActive {
+  opacity: 1;
+}
+
+.indieCompactQuiet {
+  opacity: 0.72;
+}
+
+.indieHeading {
+  margin: 0;
+  color: rgb(246 208 137 / 65%);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.indieLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.indieChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.6rem;
+  padding: 0.3rem 0.7rem 0.3rem 0.35rem;
+  border-radius: 999px;
+  border: 1px solid rgb(242 184 79 / 18%);
+  background: rgb(242 184 79 / 4%);
+  color: var(--cr-muted);
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.indieChip:hover {
+  color: var(--cr-text);
+  border-color: rgb(242 184 79 / 32%);
+}
+
+.indieChipActive {
+  color: var(--cr-text);
+  border-color: rgb(242 184 79 / 42%);
+  background: rgb(242 184 79 / 10%);
+  box-shadow: 0 0 0 1px rgb(242 184 79 / 10%);
+}
+
+.indieChipName {
+  font-size: 0.85rem;
+  font-weight: 540;
+}
+
+/* ——— Anchor ——— */
+.anchor {
+  display: flex;
+  justify-content: center;
+  height: 0.85rem;
+  pointer-events: none;
+}
+
+.anchorLine {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, rgb(49 230 208 / 45%), transparent);
+}
+
+.anchorIndependent .anchorLine {
+  background: linear-gradient(180deg, rgb(242 184 79 / 45%), transparent);
+}
+
+/* ——— Experience story ——— */
+.storyStage {
+  position: relative;
+  min-height: 11.5rem;
+  width: min(100%, var(--v3-story-max, 72rem));
+  margin-inline: auto;
+}
+
+.storyStack {
+  position: relative;
+  min-height: 11.5rem;
+}
+
+.storyLayer {
+  width: 100%;
+}
+
+.storyLayer[data-story="outgoing"] {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.story {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.2rem;
+  border: 1px solid var(--cr-border);
+  background: rgb(7 13 22 / 90%);
+  padding: clamp(1.2rem, 2.5vw, 1.85rem);
+  box-shadow: 0 24px 48px rgb(0 0 0 / 28%);
+}
+
+.storySignature {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+.storySignature::before {
+  content: "";
+  position: absolute;
+  width: 42%;
+  height: 70%;
+  right: -4%;
+  top: 8%;
+  border-radius: 40% 60% 55% 45%;
+  background: radial-gradient(circle, rgb(49 230 208 / 14%), transparent 68%);
+  filter: blur(2px);
+}
+
+.storySignature::after {
+  content: "";
+  position: absolute;
+  inset: 12% 8% 18% auto;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgb(139 171 204 / 22%), transparent);
+}
+
+.story[data-company="eraasoft"] .storySignature::before {
+  background: radial-gradient(circle, rgb(157 114 255 / 16%), transparent 68%);
+}
+
+.story[data-company="intsolutions"] .storySignature::before {
+  background: radial-gradient(circle, rgb(94 143 255 / 16%), transparent 68%);
+}
+
+.story[data-company="klliq"] .storySignature::before {
+  background: radial-gradient(circle, rgb(157 114 255 / 12%), rgb(49 230 208 / 10%), transparent 70%);
+}
+
+.story[data-company="tjar"] .storySignature::before {
+  background: radial-gradient(circle, rgb(39 199 111 / 12%), rgb(49 230 208 / 10%), transparent 70%);
+}
+
+.story[data-company="theqah"] .storySignature::before {
+  background: radial-gradient(circle, rgb(49 230 208 / 16%), transparent 68%);
+}
+
+.story[data-company="kayanac-erp"] .storySignature::before {
+  background: radial-gradient(circle, rgb(220 80 80 / 10%), rgb(49 230 208 / 10%), transparent 70%);
+}
+
+.story[data-company="mohssilh"] .storySignature::before {
+  background: radial-gradient(circle, rgb(49 230 208 / 14%), rgb(242 184 79 / 8%), transparent 70%);
+}
+
+.storyIndependent .storySignature::before {
+  background: radial-gradient(circle, rgb(242 184 79 / 14%), transparent 68%);
+}
+
+.story[data-era="entering-production"] {
+  border-color: rgb(157 114 255 / 24%);
+}
+
+.story[data-era="shipping-products"] {
+  border-color: rgb(94 143 255 / 24%);
+}
+
+.story[data-era="owning-production-systems"] {
+  border-color: rgb(49 230 208 / 26%);
+}
+
+.storyIndependent {
+  border-color: rgb(242 184 79 / 26%);
+}
+
+.storySpread {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1.35rem 2.25rem;
+}
+
+.storyIdentity {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.storyKicker {
+  margin: 0 0 0.35rem;
+  color: rgb(49 230 208 / 78%);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.storyIndependent .storyKicker {
+  color: rgb(246 208 137 / 85%);
+}
+
+.storyCompany {
+  margin: 0;
+  color: var(--cr-text);
+  font-size: clamp(1.45rem, 2.5vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.storyRole {
+  margin: 0.35rem 0 0;
+  color: var(--cr-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.storyMeta {
+  margin: 0.4rem 0 0;
+  color: rgb(168 182 200 / 70%);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.85rem;
+}
+
+.storyCurrent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.55rem;
+  width: fit-content;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgb(39 199 111 / 28%);
+  background: rgb(39 199 111 / 12%);
+  color: #27c76f;
+  font-size: 0.78rem;
+  font-weight: 560;
+}
+
+.storyCurrentDot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.storyBody {
+  display: grid;
+  gap: 1.1rem;
+  align-content: start;
+}
+
+.storyOwnership {
+  margin: 0;
+  max-width: 38ch;
+  color: var(--cr-text);
+  font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+  line-height: 1.45;
+  font-weight: 520;
+  letter-spacing: -0.01em;
+}
+
+.storyHighlights {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.storyHighlights li {
+  position: relative;
+  padding-left: 0.95rem;
+  color: var(--cr-muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.storyHighlights li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.28rem;
+  height: 0.28rem;
+  border-radius: 50%;
+  background: rgb(49 230 208 / 70%);
+}
+
+.proofStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin: 0;
+  padding: 0.65rem 0 0;
+  border-top: 1px solid rgb(242 184 79 / 18%);
+  list-style: none;
+}
+
+.proofItem {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.proofValue {
+  color: #f6d089;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.proofHint {
+  color: rgb(246 208 137 / 55%);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.storyTech {
+  margin: 0;
+  color: rgb(168 182 200 / 52%);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+}
+
+.closing {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.35rem 0 0;
+  color: rgb(186 198 212 / 72%);
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+  max-width: 46ch;
+}
+
+.closing::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgb(49 230 208 / 55%), transparent);
+  flex-shrink: 0;
+}
+
+@media (min-width: 900px) {
+  .storySpread {
+    grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
+    align-items: start;
+  }
+
+  .eraContext {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .filmScroll {
+    mask-image: none;
+    padding-inline: 1.5rem;
+  }
+
+  .filmScroll[data-overflowing="false"] {
+    padding-inline: 1.5rem;
+  }
+
+  .filmScroll[data-overflowing="false"] .filmTrack {
+    width: max-content;
+    min-width: 0;
+    max-width: min(100%, var(--v3-film-max, 68rem));
+    justify-content: center;
+    gap: var(--v3-film-gap, clamp(1.15rem, 2.6vw, 2.35rem));
+    margin-inline: auto;
+  }
+
+  .filmScroll[data-overflowing="true"] .filmTrack {
+    width: max-content;
+    min-width: 100%;
+    justify-content: flex-start;
+  }
+
+  .milestone {
+    width: var(--v3-film-milestone, clamp(6.5rem, 7.5vw, 7.75rem));
+  }
+}
+
+@media (max-width: 1023px) {
+  .filmScroll[data-overflowing="true"] {
+    padding-inline: calc(50% - 3.25rem);
+  }
+
+  .milestone {
+    width: 6.5rem;
+  }
+
+  .pedestal {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .reel {
+    gap: 0.65rem;
+    margin-top: 0.85rem;
+  }
+
+  .direction {
+    font-size: 0.68rem;
+  }
+
+  .eraContext {
+    display: block;
+    font-size: 0.85rem;
+  }
+
+  .filmScroll[data-overflowing="true"] {
+    padding: 0.95rem calc(50% - 3.05rem) 1.15rem;
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 10%,
+      #000 90%,
+      transparent 100%
+    );
+  }
+
+  .filmTrack {
+    gap: 0.85rem;
+    justify-content: center;
+  }
+
+  .milestone {
+    width: 6.1rem;
+  }
+
+  .pedestal {
+    width: 2.95rem;
+    height: 2.95rem;
+    border-radius: 0.85rem;
+  }
+
+  .milestoneName {
+    font-size: 0.82rem;
+  }
+
+  .milestoneYear {
+    font-size: 0.68rem;
+  }
+
+  .routeLine,
+  .routeSignal {
+    bottom: 3.2rem;
+  }
+
+  .indieCompact {
+    gap: 0.4rem 0.65rem;
+  }
+
+  .story {
+    padding: 1.15rem;
+  }
+
+  .storySpread {
+    grid-template-columns: 1fr;
+  }
+
+  .storyKicker {
+    display: none;
+  }
+
+  .storyCompany {
+    font-size: 1.35rem;
+  }
+
+  .storyOwnership {
+    font-size: 1.05rem;
+  }
+
+  .closing {
+    font-size: 0.92rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pedestal,
+  .filmstrip,
+  .indieChip,
+  .milestoneCurrent {
+    transition: none;
+  }
+
+  .filmScroll {
+    scroll-behavior: auto;
+  }
+}
+
+:global(html[data-effective-motion="reduced"]) .routeSignal {
+  display: none;
+}
