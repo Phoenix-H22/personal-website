@@ -266,7 +266,10 @@ export function EducationJourney({
                 <span data-edu-route />
               </div>
               <ol className={styles.educationTrack}>
-                {artifact.milestones.map((milestone, index) => (
+                {artifact.milestones.map((milestone, index) => {
+                  const isLast =
+                    index === artifact.milestones.length - 1;
+                  return (
                   <li
                     key={milestone.id}
                     className={styles.milestone}
@@ -306,12 +309,41 @@ export function EducationJourney({
                         {milestone.qualification}
                       </p>
                       {milestone.highlight ? (
-                        <p
-                          className={styles.milestoneHighlight}
-                          data-edu-highlight={index === 1 ? "true" : undefined}
-                        >
-                          {milestone.highlight}
-                        </p>
+                        isLast ? (
+                          <div className={styles.educationResultRow}>
+                            <p
+                              className={styles.milestoneHighlight}
+                              data-edu-highlight="true"
+                            >
+                              {milestone.highlight}
+                            </p>
+                            <span
+                              className={styles.educationSeal}
+                              data-edu-seal
+                              aria-hidden="true"
+                            >
+                              A
+                            </span>
+                          </div>
+                        ) : (
+                          <p
+                            className={styles.milestoneHighlight}
+                            data-edu-highlight={undefined}
+                          >
+                            {milestone.highlight}
+                          </p>
+                        )
+                      ) : isLast ? (
+                        <div className={styles.educationResultRow}>
+                          <span />
+                          <span
+                            className={styles.educationSeal}
+                            data-edu-seal
+                            aria-hidden="true"
+                          >
+                            A
+                          </span>
+                        </div>
                       ) : null}
                       <p
                         className={styles.milestoneHighlightCompact}
@@ -323,11 +355,9 @@ export function EducationJourney({
                       </p>
                     </div>
                   </li>
-                ))}
+                  );
+                })}
               </ol>
-              <span className={styles.educationSeal} data-edu-seal aria-hidden="true">
-                A
-              </span>
             </div>
           </div>
         </div>

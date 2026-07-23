@@ -13,7 +13,7 @@ export const portfolioAssets = {
 
   companies: {
     mohssilh: "/images/companies/mohssilh.png",
-    kayanac: "/images/companies/kayanac.webp",
+    kayanac: "/images/companies/kayanac.png",
     theqah: "/images/companies/theqah.webp",
     tjar: "/images/companies/tjar.png",
     klliq: "/images/companies/klliq.jpg",

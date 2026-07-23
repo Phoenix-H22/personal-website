@@ -884,6 +884,30 @@
   }
 }
 
+/* Wide portrait tablets (e.g. iPad Pro 1024×1366): Education | Product side by side.
+   Does NOT apply to 768×1024 (below 900), landscape tablets, or desktop constellation. */
+@media (min-width: 900px) and (max-width: 1079px) and (orientation: portrait) {
+  .composition {
+    grid-template-areas:
+      "identity identity"
+      "upwork commerce"
+      "education products";
+    align-items: start;
+  }
+
+  .slotEducation,
+  .slotProducts {
+    max-width: none;
+    width: 100%;
+    justify-self: stretch;
+    align-self: start;
+  }
+
+  .products {
+    height: auto;
+  }
+}
+
 /* ============================================================
    HERO COMPOSITION FAMILIES — media-query driven (SSR-safe, no flash)
    A. Cinematic       w >= 1400 & h >= 760   → constellation, spacious
