@@ -6,7 +6,7 @@ const QA = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "../docs/portfolio-v3/qa",
 );
-const PAGE = "http://localhost:3000/concept-v3-rebuild?motionOverride=full";
+const PAGE = "http://localhost:3000/?motionOverride=full";
 
 const browser = await chromium.launch({ headless: true });
 

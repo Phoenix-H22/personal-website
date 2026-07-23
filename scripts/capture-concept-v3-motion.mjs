@@ -36,7 +36,7 @@ async function main() {
   });
   page.on("pageerror", (err) => consoleErrors.push(String(err)));
 
-  const url = `${BASE}/concept-v3-rebuild`;
+  const url = `${BASE}/`;
 
   // Hard refresh
   await page.goto(url, { waitUntil: "networkidle" });
@@ -102,7 +102,7 @@ async function main() {
   try {
     const dev = await context.newPage();
     await dev.goto(
-      "http://localhost:3000/concept-v3-rebuild?motionDebug=1&motionSlow=1",
+      "http://localhost:3000/?motionDebug=1&motionSlow=1",
       { waitUntil: "networkidle", timeout: 8000 },
     );
     await dev.waitForSelector("[data-motion-panel]", { timeout: 8000 });

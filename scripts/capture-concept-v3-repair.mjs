@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const QA = path.join(ROOT, "docs", "portfolio-v3", "qa");
 const BASE = process.env.REPAIR_BASE_URL ?? "http://localhost:3000";
-const PAGE = `${BASE}/concept-v3-rebuild?motionOverride=full`;
+const PAGE = `${BASE}/?motionOverride=full`;
 
 const VIEWPORTS = [
   { name: "2413x1043", w: 2413, h: 1043 },

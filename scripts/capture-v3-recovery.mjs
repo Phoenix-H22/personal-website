@@ -10,7 +10,7 @@ const SHOT_DIR = process.env.SHOT_DIR ?? "after";
 const OUT = path.join(QA, SHOT_DIR);
 const COMPARE = process.env.COMPARE === "1";
 const BASE = process.env.REPAIR_BASE_URL ?? "http://localhost:3000";
-const PAGE = `${BASE}/concept-v3-rebuild?motionOverride=full`;
+const PAGE = `${BASE}/?motionOverride=full`;
 
 const FULL = [
   { name: "1251x611", w: 1251, h: 611 },

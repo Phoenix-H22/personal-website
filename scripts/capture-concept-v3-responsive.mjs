@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const QA = path.join(ROOT, "docs", "portfolio-v3", "qa");
 const BASE = process.env.RESPONSIVE_BASE_URL ?? "http://localhost:3000";
-const PAGE = `${BASE}/concept-v3-rebuild?motionOverride=full`;
+const PAGE = `${BASE}/?motionOverride=full`;
 
 const VIEWPORTS = [
   { name: "1251x611", w: 1251, h: 611 },
@@ -273,7 +273,7 @@ async function main() {
     await page.addInitScript(() => {
       localStorage.setItem("portfolio-motion-preference-v3", "reduced");
     });
-    await page.goto(`${BASE}/concept-v3-rebuild`, {
+    await page.goto(`${BASE}/`, {
       waitUntil: "networkidle",
       timeout: 90000,
     });

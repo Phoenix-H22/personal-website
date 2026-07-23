@@ -43,7 +43,7 @@ async function main() {
     page.on("console", (m) => {
       if (m.type() === "error") report.consoleErrors.push(`${vp.name}: ${m.text()}`);
     });
-    await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+    await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
     await page.waitForTimeout(500);
     const file = path.join(FRAMES, `settled-${vp.name}.png`);
     await page.screenshot({ path: file, fullPage: false });
@@ -66,7 +66,7 @@ async function main() {
       recordVideo: { dir: VIDEO_DIR, size: { width: 1440, height: 900 } },
     });
     const page = await context.newPage();
-    const url = `${DEV}/concept-v3-rebuild?motionDebug=1&motionOverride=full&motionSlow=1`;
+    const url = `${DEV}/?motionDebug=1&motionOverride=full&motionSlow=1`;
     await page.goto(url, { waitUntil: "networkidle" });
     await page.waitForSelector("[data-motion-panel]");
     await page.waitForFunction(() => {
@@ -116,7 +116,7 @@ async function main() {
       reducedMotion: "reduce",
     });
     const page = await context.newPage();
-    await page.goto(`${DEV}/concept-v3-rebuild?motionDebug=1`, {
+    await page.goto(`${DEV}/?motionDebug=1`, {
       waitUntil: "networkidle",
     });
     await page.waitForTimeout(800);
@@ -140,7 +140,7 @@ async function main() {
       reducedMotion: "reduce",
     });
     const page = await context.newPage();
-    await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+    await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
     await page.locator('button[aria-label="Open menu"]').focus();
     await page.keyboard.press("Enter");
     await page.waitForSelector('[role="dialog"]');
@@ -164,7 +164,7 @@ async function main() {
     });
     const page = await context.newPage();
     await page.goto(
-      `${DEV}/concept-v3-rebuild?motionDebug=1&motionOverride=full`,
+      `${DEV}/?motionDebug=1&motionOverride=full`,
       { waitUntil: "networkidle" },
     );
     await page.waitForFunction(() => {

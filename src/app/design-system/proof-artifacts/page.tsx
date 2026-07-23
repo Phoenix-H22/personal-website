@@ -46,9 +46,9 @@ export default function ProofArtifactsDesignSystemPage() {
           </p>
           <h1 className="text-4xl tracking-tight sm:text-5xl">Proof artifacts</h1>
           <p className="text-text-secondary text-base leading-relaxed">
-            Polished Concept V3 rebuild components. Not linked from production
+            Polished portfolio proof components. Not linked from production
             navigation. Review at 390 / 768 / 1440 and with{" "}
-            <code>?motionDebug=1</code> on the rebuild route.
+            <code>?motionDebug=1</code> on the primary portfolio route.
           </p>
         </header>
 

@@ -13,7 +13,7 @@ page.on("pageerror", (e) => console.log("PAGEERROR", e.message));
 page.on("console", (m) => {
   if (m.type() === "error") console.log("ERR", m.text());
 });
-await page.goto("http://localhost:3000/concept-v3-rebuild", {
+await page.goto("http://localhost:3000/", {
   waitUntil: "networkidle",
 });
 await page.waitForTimeout(1000);

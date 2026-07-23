@@ -52,7 +52,7 @@ async function main() {
     await page.addInitScript(() => {
       localStorage.setItem("portfolio-motion-preference-v3", "full");
     });
-    await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+    await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
     if (w >= 1280) {
       await page.waitForFunction(() => {
         const metrics = [...document.querySelectorAll("[data-metric-value]")].map(

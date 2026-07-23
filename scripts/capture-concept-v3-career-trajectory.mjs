@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const QA = path.join(ROOT, "docs", "portfolio-v3", "qa");
 const BASE = process.env.TRAJECTORY_BASE_URL ?? "http://localhost:3000";
-const PAGE = `${BASE}/concept-v3-rebuild`;
+const PAGE = `${BASE}/`;
 
 const ARCHIVE_NAMES = [
   "Maryzad",

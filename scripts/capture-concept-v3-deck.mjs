@@ -54,7 +54,7 @@ async function main() {
   report.cases.A = await withPage(
     { preference: null, reducedMotion: "reduce" },
     async (page) => {
-      await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+      await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
       await page.waitForTimeout(700);
       return page.evaluate(() => ({
         pref: document.documentElement.dataset.motionPreference,
@@ -74,7 +74,7 @@ async function main() {
     },
     async (page) => {
       await page.goto(
-        `${DEV}/concept-v3-rebuild?motionDebug=1`,
+        `${DEV}/?motionDebug=1`,
         { waitUntil: "networkidle" },
       );
       await page.waitForFunction(() => {
@@ -99,7 +99,7 @@ async function main() {
   report.cases.C = await withPage(
     { preference: null, reducedMotion: "no-preference" },
     async (page) => {
-      await page.goto(`${DEV}/concept-v3-rebuild?motionDebug=1`, {
+      await page.goto(`${DEV}/?motionDebug=1`, {
         waitUntil: "networkidle",
       });
       await page.waitForFunction(() => {
@@ -122,7 +122,7 @@ async function main() {
   report.cases.D = await withPage(
     { preference: "reduced", reducedMotion: "no-preference" },
     async (page) => {
-      await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+      await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
       await page.waitForTimeout(500);
       return page.evaluate(() => ({
         pref: document.documentElement.dataset.motionPreference,
@@ -140,7 +140,7 @@ async function main() {
       record: "concept-v3-deck-next-prev.webm",
     },
     async (page) => {
-      await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+      await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
       await page.waitForTimeout(2800);
       await page.locator('[aria-label="Show next project"]').click();
       await page.waitForTimeout(1100);
@@ -170,7 +170,7 @@ async function main() {
     },
     async (page) => {
       await page.setViewportSize({ width: 390, height: 844 });
-      await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+      await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
       await page.waitForTimeout(2500);
       const box = await page.locator("[data-product-deck]").boundingBox();
       if (box) {
@@ -212,7 +212,7 @@ async function main() {
       record: "concept-v3-deck-reduced-switch.webm",
     },
     async (page) => {
-      await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+      await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
       await page.waitForTimeout(400);
       await page.locator('[aria-label="Show next project"]').click();
       await page.waitForTimeout(300);

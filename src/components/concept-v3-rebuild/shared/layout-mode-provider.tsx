@@ -85,9 +85,10 @@ export function LayoutModeProvider({ children }: LayoutModeProviderProps) {
   }, []);
 
   useEffect(() => {
-    refresh();
-    setReady(true);
-    let frame = 0;
+    let frame = requestAnimationFrame(() => {
+      refresh();
+      setReady(true);
+    });
     const onResize = () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(refresh);

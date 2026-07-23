@@ -12,7 +12,7 @@ page.on("console", (m) => {
 page.on("pageerror", (e) => console.log("PAGEERROR", e));
 
 await page.goto(
-  "http://localhost:3000/concept-v3-rebuild?motionDebug=1&motionSlow=1",
+  "http://localhost:3000/?motionDebug=1&motionSlow=1",
   { waitUntil: "networkidle" },
 );
 

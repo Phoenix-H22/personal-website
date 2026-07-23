@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const QA = path.join(ROOT, "docs", "portfolio-v3", "qa");
 const DEV = process.env.S1A_BASE_URL ?? "http://localhost:3003";
-const PAGE = `${DEV}/concept-v3-rebuild`;
+const PAGE = `${DEV}/`;
 
 const shots = [
   { name: "origin-desktop", w: 1440, h: 900, target: "#education" },

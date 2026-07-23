@@ -5,7 +5,7 @@ import { chromium } from "playwright";
 const OUT = path.resolve("docs/portfolio-v3/qa/surgical");
 fs.mkdirSync(OUT, { recursive: true });
 const BASE = process.env.BASE ?? "http://localhost:3000";
-const PAGE = `${BASE}/concept-v3-rebuild?motionOverride=full`;
+const PAGE = `${BASE}/?motionOverride=full`;
 
 async function settle(page) {
   await page.goto(PAGE, { waitUntil: "domcontentloaded", timeout: 90000 });

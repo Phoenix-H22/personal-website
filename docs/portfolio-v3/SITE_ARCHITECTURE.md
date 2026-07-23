@@ -1,9 +1,9 @@
 # Site Architecture — Portfolio V3
 
-Status: **S0 — Architecture and content contracts**  
-Scope gate: hero at `/concept-v3-rebuild` is visually locked. Do not redesign it. Do not replace production `/` until Stage S7.
+Status: **Routes consolidated — `/` is the approved baseline; `/v2` is the next-iteration sandbox**  
+Scope gate: do not redesign the approved Hero. See `docs/portfolio-v3/PORTFOLIO_VERSIONING.md`.
 
-Primary sources: `docs/CANONICAL_CONTENT.md`, `src/content/*`, `src/lib/content/index.ts`, `docs/portfolio-v3/VISUAL_CONSTITUTION.md`, `docs/portfolio-v3/MISSING_ASSETS.md`.
+Primary sources: `docs/CANONICAL_CONTENT.md`, `src/content/*`, `src/lib/content/index.ts`, `docs/portfolio-v3/VISUAL_CONSTITUTION.md`, `docs/portfolio-v3/MISSING_ASSETS.md`, `docs/portfolio-v3/PORTFOLIO_VERSIONING.md`, `docs/portfolio-v3/projects/` (S2-PRE project foundation).
 
 ---
 
@@ -24,13 +24,16 @@ Homepage = scan. `/work/[slug]` = depth. Homepage must not become a résumé dum
 
 | Route | Role | Production nav? |
 |-------|------|-----------------|
-| `/` | Complete homepage (hero + chapters) | Yes |
-| `/work` | Full project portfolio index | Yes |
-| `/work/[slug]` | Art-directed case study | Via work / selected work |
+| `/` | Approved portfolio (Hero + Origin + Career) | Yes |
+| `/v2` | Next iteration sandbox; Selected Systems from S2A; **noindex** | **Never** |
+| `/v2/work` | Systems Atlas during development (S3); **noindex** | Via V2 only |
+| `/v2/work/[slug]` | System Dossier during development (S4–S5); **noindex** | Via Atlas |
+| `/work` | Systems Atlas after S8 promotion | Yes (when promoted) |
+| `/work/[slug]` | System Dossier after S8 promotion | Via work / Selected Systems |
 | `/about` | **Not recommended for v1** | No |
-| `/contact` | **Not recommended for v1** | No |
+| `/contact` | **Not recommended for v1** (inline contact in S6) | No |
 | `/design-system` | Visual QA / component lab | **Never** |
-| `/concept-v3-rebuild` | Locked hero sandbox until S7 | Dev / review only |
+| `/concept-v3-rebuild` | Permanent redirect → `/` | No |
 
 ### `/about` recommendation
 
@@ -54,7 +57,7 @@ Reconsider a contact route later only if tracking, calendaring, or structured in
 
 Ordered chapters (see `HOMEPAGE_STORYBOARD.md`):
 
-1. **Approved Hero** — locked composition at `/concept-v3-rebuild` (moves to `/` in S7)
+1. **Approved Hero** — locked composition on `/` (shared with `/v2` until S2+)
 2. **Origin** — Education expansion
 3. **Career Chapters** — Experience by era
 4. **Selected Work** — 4–5 strategic projects + CTA to `/work`
@@ -119,4 +122,4 @@ No Motion control in public nav (Full Motion default + OS reduced-motion; see mo
 | `V3 SITE ARCHITECTURE APPROVED — BUILD STAGE S1` | Begin Origin + Career UI |
 | Later stage phrases | Defined in `SITE_EXPANSION_PLAN.md` |
 
-Until S7 approval, production `/` remains the legacy homepage; hero work continues on `/concept-v3-rebuild` only.
+Production `/` is the approved portfolio baseline. Next iteration work happens on `/v2` only. See `PORTFOLIO_VERSIONING.md`.

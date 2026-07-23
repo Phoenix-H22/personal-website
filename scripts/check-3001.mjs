@@ -14,7 +14,7 @@ function get(path) {
   });
 }
 
-const page = await get("/concept-v3-rebuild");
+const page = await get("/");
 console.log("page", page.status);
 const assets = [
   ...page.body.matchAll(/\/_next\/static\/chunks\/[^"']+\.(?:css|js)/g),

@@ -12,6 +12,7 @@ import {
   getCareerTrajectoryPrimary,
   getCareerTrajectoryIndependent,
 } from "@/lib/content";
+import { MotionPreferenceProvider } from "@/lib/motion-preference-context";
 import chapStyles from "@/styles/concept-v3-rebuild/chapters.module.scss";
 
 export const metadata: Metadata = {
@@ -70,6 +71,7 @@ export default function ChaptersDesignSystemPage() {
   const sample = primary.find((entry) => entry.id === "mohssilh") ?? primary[0];
 
   return (
+    <MotionPreferenceProvider>
     <main
       id="main-content"
       style={{
@@ -166,5 +168,6 @@ export default function ChaptersDesignSystemPage() {
         </PreviewBlock>
       </div>
     </main>
+    </MotionPreferenceProvider>
   );
 }

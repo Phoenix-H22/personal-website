@@ -15,7 +15,7 @@ for (const vp of cases) {
     viewport: { width: vp.w, height: vp.h },
   });
   await page.goto(
-    "http://localhost:3000/concept-v3-rebuild?motionOverride=full",
+    "http://localhost:3000/?motionOverride=full",
     { waitUntil: "networkidle" },
   );
   await page.waitForTimeout(4200);

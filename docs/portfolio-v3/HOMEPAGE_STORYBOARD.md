@@ -1,7 +1,7 @@
 # Homepage Storyboard — Portfolio V3
 
-Status: **S0 — Specification only**  
-Hero composition: **locked**. Chapters below the hero are planned, not built.
+Status: **Current `/` locked** · V2 Selected Systems specified in S2-PRE  
+Canonical Selected Systems art direction: `projects/SELECTED_SYSTEMS_STORYBOARD.md`
 
 ---
 
@@ -12,7 +12,7 @@ Hero composition: **locked**. Chapters below the hero are planned, not built.
 | 1 | Approved Hero | (top) | Identity + selected proof + actions |
 | 2 | Origin | `#education` | Education depth without duplicating hero artifact |
 | 3 | Career Chapters | `#experience` | Progression and ownership eras |
-| 4 | Selected Work | `#work` | 4–5 strategic projects → `/work` |
+| 4 | Selected Systems (V2) | `#selected-systems` | Flagship + 3 supporting → Systems Atlas |
 | 5 | Engineering Ownership | `#ownership` | Problems he can own end to end |
 | 5b | Principles (merged coda) | (within `#ownership`) | Six short principles with proof refs |
 | 6 | Contact Conclusion | `#contact` | Closing offer + direct actions |
@@ -23,7 +23,7 @@ Hero composition: **locked**. Chapters below the hero are planned, not built.
 
 ## Chapter 1 — Approved Hero
 
-**Source of truth:** `/concept-v3-rebuild` implementation + Visual Constitution.
+**Source of truth:** `/` implementation (shared with `/v2`) + Visual Constitution.
 
 **Already communicates:**
 
@@ -121,35 +121,29 @@ Company logos: wired for most primary/supporting companies; Intsolutions and com
 
 ---
 
-## Chapter 4 — Selected Work
+## Chapter 4 — Selected Systems (V2)
 
-**Title direction:** `Systems that had to work when it mattered.`  
-**CTA:** `View all projects` → `/work`
+**Canonical art direction:** `projects/SELECTED_SYSTEMS_STORYBOARD.md`  
+**Selection:** `projects/PROJECT_SELECTION_MATRIX.md`  
+**Title:** Selected Systems  
+**Supporting:** Products, platforms, and infrastructure built for real operations.  
+**Anchor:** `#selected-systems`  
+**CTA:** Explore all systems → `/v2/work` (promotes to `/work` at S8)
 
-### Recommended homepage set (see `PROJECT_SELECTION_MATRIX.md`)
+### Homepage set (exactly 4)
 
-**Publish now (4):**
-
-1. Merchant Operations / Mohssilh  
+1. **Flagship:** Merchant Operations Platform  
 2. NABD Messaging Platform  
-3. Smart Vending / Medication Dispensing  
+3. Smart Vending Infrastructure  
 4. Virtual Clinic / Dr. Robot  
 
-**Fifth slot (conditional):** Your Obour Guide — after `pending_canonical_entry` → `canonical` and ownership fields confirmed.
-
-**Not homepage-selected until stronger:** AI PDF Extraction Pipeline; docs-only names without `projects.ts` entries.
-
-### Per-project beat (immediate scan)
-
-- What it is · problem · exact role · one challenge or result · category · case-study availability · public / private / confidential
+Current `/` does **not** implement this chapter. V2 receives it in S2A.
 
 ### Creative direction
 
-- Domain-specific visual scene per project (not one card template)
-- Shared type / interaction system
-- Real logos / approved screenshots when available; art-directed abstracts when not
-- Architecture diagrams belong in case studies, not as every cover
-- **Do not reprint** the Hero commerce KPI strip as the Merchant Ops cover story — lead with ownership / system boundary instead
+- One Flagship + three domain silhouettes (not four equal cards / Bento / Filmstrip)
+- **Do not reprint** the Hero commerce KPI strip as the Flagship beat
+- Preserve Education Journey + Product Deck for Current `/` when V2 Hero simplifies in S2A
 
 ---
 

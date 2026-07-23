@@ -12,7 +12,12 @@ const links = [
   { href: "#contact", label: "Contact" },
 ] as const;
 
-export function RebuildNav() {
+interface RebuildNavProps {
+  /** Primary brand home. Defaults to the approved root portfolio. */
+  homeHref?: "/";
+}
+
+export function RebuildNav({ homeHref = "/" }: RebuildNavProps) {
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -45,7 +50,7 @@ export function RebuildNav() {
   return (
     <header className={styles.nav} data-rebuild-nav>
       <div className={`${styles.shell} ${styles.navInner}`}>
-        <Link href="/concept-v3-rebuild" className={styles.brand}>
+        <Link href={homeHref} className={styles.brand}>
           <span className={styles.brandMark} aria-hidden="true">
             AK
           </span>

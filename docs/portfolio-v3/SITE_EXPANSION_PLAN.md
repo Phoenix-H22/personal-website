@@ -1,9 +1,10 @@
 # Site Expansion Plan — Portfolio V3
 
-Status: **S0 complete when architecture docs land**  
-Hero at `/concept-v3-rebuild`: visually locked. Production `/` replacement only in **S7**.
+Status: **S2-PRE complete — awaiting approval to build S2A**  
+Hero on `/`: visually locked as the approved baseline. Next-iteration changes happen on `/v2` only (see `PORTFOLIO_VERSIONING.md`).
 
-Related docs: `SITE_ARCHITECTURE.md`, `HOMEPAGE_STORYBOARD.md`, `WORK_INDEX_SPEC.md`, `CASE_STUDY_SPEC.md`, `PROJECT_CONTENT_MODEL.md`, `PROJECT_SELECTION_MATRIX.md`, `CONTENT_AND_ASSET_GAPS.md`.
+Project foundation (canonical): `docs/portfolio-v3/projects/`  
+Related: `SITE_ARCHITECTURE.md`, `HOMEPAGE_STORYBOARD.md`, `PORTFOLIO_VERSIONING.md`, `CONTENT_AND_ASSET_GAPS.md`.
 
 ---
 
@@ -82,128 +83,92 @@ GSAP / scroll enhancement only after S1A approval. Do not redesign compositions.
 
 ---
 
-## Stage S2 — Selected Work homepage chapter
+## Stage S2-PRE — Project foundation (complete)
 
-### Build
+Inventory, selection, domain/repo/API contracts, media audit, Selected Systems / Atlas / Dossier art direction.
 
-- 4 (or confirmed 5) project scenes with domain art direction
-- `View all projects` → `/work` (link may 404 until S3 — prefer shipping S2+S3 closely, or temporary anchor)
-- Verified data only
-
-### Acceptance
-
-- [ ] Distinct scenes; shared type system
-- [ ] No Hero KPI strip duplication as sole Merchant Ops story
-- [ ] Status / role / one result visible statically
+Canonical docs: `docs/portfolio-v3/projects/*`  
+Plan: `projects/S2_IMPLEMENTATION_PLAN.md`
 
 ### Stop phrase
 
-`V3 STAGE S2 APPROVED — BUILD STAGE S3`
+`S2 PROJECT FOUNDATION APPROVED — BUILD V2 SELECTED SYSTEMS`
 
 ---
 
-## Stage S3 — `/work`
+## Stage S2A — V2 Hero simplification + Selected Systems
 
 ### Build
 
-- Complete project index (opening, featured, archive)
-- Filters only if inventory justifies
-- Metadata / OG for `/work`
-
-### Acceptance
-
-- [ ] Not a clone of homepage cards
-- [ ] All canonical projects listed; pending unpublished or clearly gated
-- [ ] Preview contract fields present
+- V2-only Hero transition (remove Education Journey + Product Deck; add credential + Explore selected systems)
+- Selected Systems chapter on `/v2` for exactly four projects
+- LocalProjectRepository wiring for featured summaries
+- Responsive + motion + a11y per `SELECTED_SYSTEMS_STORYBOARD.md`
+- No changes to Current `/`
 
 ### Stop phrase
 
-`V3 STAGE S3 APPROVED — BUILD STAGE S4`
+`V3 STAGE S2A APPROVED — BUILD SYSTEMS ATLAS`
 
 ---
 
-## Stage S4 — Case-study system
+## Stage S3 — Systems Atlas (`/v2/work`)
 
-### Build
-
-- Reusable `/work/[slug]`
-- One flagship case study: **Merchant Operations / Mohssilh** (unless owner redirects)
-- Media gallery primitives; architecture section; metadata
-- Introduce MDX (or chosen) narrative path per `PROJECT_CONTENT_MODEL.md`
-
-### Acceptance
-
-- [ ] Full required section sequence where content exists; empty sections omitted
-- [ ] Confidentiality respected
-- [ ] Mobile-readable architecture
-- [ ] Prev/next scaffolding works
+Search, filters, URL state, project previews. Promote path to `/work` at S8.
 
 ### Stop phrase
 
-`V3 STAGE S4 APPROVED — BUILD STAGE S5`
+`V3 STAGE S3 APPROVED — BUILD SYSTEM DOSSIER`
 
 ---
 
-## Stage S5 — Remaining case studies
+## Stage S4 — System Dossier shell + Flagship case study
 
-### Build
-
-Sequential case studies (suggested order):
-
-1. NABD  
-2. Smart Vending (Wasfaty still gated)  
-3. Virtual Clinic  
-4. Your Obour Guide (after canonical)  
-5. AI PDF (after canonical)  
-
-Do not parallelize incomplete narratives.
+Reusable dossier + Merchant Operations Flagship.
 
 ### Stop phrase
 
-`V3 STAGE S5 APPROVED — BUILD STAGE S6`
+`V3 STAGE S4 APPROVED — BUILD REMAINING DOSSIERS`
 
 ---
 
-## Stage S6 — Ownership, Principles coda, Contact
+## Stage S5 — Remaining project pages
 
-### Build
-
-- Engineering Ownership chapter
-- Principles as Ownership coda (not six giant quote cards)
-- Contact conclusion with direct actions (no form unless owner requires)
-
-### Acceptance
-
-- [ ] Responsibility-first clustering
-- [ ] No skill percentages / badge clouds
-- [ ] Résumé + Email + LinkedIn + GitHub work
+NABD → Smart Vending (Wasfaty gated) → Virtual Clinic → Obour/AI PDF after canonical.
 
 ### Stop phrase
 
-`V3 STAGE S6 APPROVED — BUILD STAGE S7`
+`V3 STAGE S5 APPROVED — BUILD OWNERSHIP AND CONTACT`
 
 ---
 
-## Stage S7 — Production integration
+## Stage S6 — Engineering Ownership + Contact
 
-### Build
-
-- Replace production homepage with approved V3 composition + chapters
-- Production navigation
-- Sitemap, metadata, a11y, performance, visual regression
-- Content verification pass against canonical + gaps list
-- Retire or gate concept routes as appropriate
-
-### Acceptance
-
-- [ ] `/` carries locked hero + approved chapters
-- [ ] `/design-system` not in public nav
-- [ ] Reduced-motion + laptop hero fit preserved
-- [ ] No unpublished pending entries leaked
+Ownership chapter, contact (phone/WhatsApp only when approved), form + reCAPTCHA, footer.
 
 ### Stop phrase
 
-`V3 PRODUCTION HOMEPAGE APPROVED`
+`V3 STAGE S6 APPROVED — BUILD LARAVEL BACKEND`
+
+---
+
+## Stage S7 — Laravel backend
+
+Admin, media, ApiProjectRepository, cache revalidation.
+
+### Stop phrase
+
+`V3 STAGE S7 APPROVED — HARDEN AND PROMOTE`
+
+---
+
+## Stage S8 — SEO / performance / a11y / security + V2 → Current promotion
+
+Remove temporary version switch; update canonicals; retire `/v2`.
+
+### Stop phrase
+
+`V3 PRODUCTION PORTFOLIO APPROVED`
 
 ---
 

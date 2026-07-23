@@ -51,7 +51,7 @@ async function main() {
   report.behaviors.autoplay = await withPage(
     { preference: "full", record: "concept-v3-deck-smooth-autoplay.webm" },
     async (page) => {
-      await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+      await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
       await page.waitForTimeout(3200);
       const seen = [];
       for (let i = 0; i < 3; i++) {
@@ -78,7 +78,7 @@ async function main() {
   report.behaviors.dragComplete = await withPage(
     { preference: "full", record: "concept-v3-deck-smooth-drag.webm" },
     async (page) => {
-      await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+      await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
       await page.waitForTimeout(3200);
       const box = await page.locator("[data-deck-stack]").boundingBox();
       const before = await page
@@ -104,7 +104,7 @@ async function main() {
   report.behaviors.dragSnapBack = await withPage(
     { preference: "full", record: "concept-v3-deck-smooth-snapback.webm" },
     async (page) => {
-      await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+      await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
       await page.waitForTimeout(3200);
       const box = await page.locator("[data-deck-stack]").boundingBox();
       const before = await page
@@ -131,7 +131,7 @@ async function main() {
   report.behaviors.atmosphere = await withPage(
     { preference: "full", record: "concept-v3-deck-smooth-atmosphere.webm" },
     async (page) => {
-      await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+      await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
       await page.waitForTimeout(3000);
       const accents = [];
       for (const label of [
@@ -160,7 +160,7 @@ async function main() {
       record: "concept-v3-deck-smooth-mobile-swipe.webm",
     },
     async (page) => {
-      await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+      await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
       await page.waitForTimeout(2800);
       await page.locator("[data-product-deck]").scrollIntoViewIfNeeded();
       const box = await page.locator("[data-deck-stack]").boundingBox();
@@ -192,7 +192,7 @@ async function main() {
       record: "concept-v3-deck-smooth-reduced.webm",
     },
     async (page) => {
-      await page.goto(`${DEV}/concept-v3-rebuild`, { waitUntil: "networkidle" });
+      await page.goto(`${DEV}/`, { waitUntil: "networkidle" });
       await page.waitForTimeout(500);
       await page.locator('[aria-label="Show NABD Messaging"]').click();
       await page.waitForTimeout(350);

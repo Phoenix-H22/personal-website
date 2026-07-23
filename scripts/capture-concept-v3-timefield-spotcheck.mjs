@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const QA = path.resolve(__dirname, "../docs/portfolio-v3/qa");
-const PAGE = "http://localhost:3000/concept-v3-rebuild?motionOverride=full";
+const PAGE = "http://localhost:3000/?motionOverride=full";
 
 const browser = await chromium.launch({ headless: true });
 const report = {};
