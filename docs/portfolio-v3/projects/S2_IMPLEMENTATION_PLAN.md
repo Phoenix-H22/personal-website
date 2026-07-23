@@ -19,34 +19,20 @@ Status: **Ready for S2A when owner accepts foundation**
 
 ---
 
-## Exact S2A scope
+## Stage S2A — status
 
-### Allowed
-1. Flip `portfolioVariants.v2` hero flags: remove education journey + product deck; add credential + Explore selected systems signal  
-2. Enable `sections.showSelectedSystems` on V2 only  
-3. Build Selected Systems UI from `getFeaturedProjects()`  
-4. Wire LocalProjectRepository adapters / fixtures for the four projects  
-5. Responsive + motion + a11y per storyboard  
-6. Link Explore all systems → `/v2/work` (may be placeholder route **only if** S3 starts immediately; otherwise `#` disabled button is forbidden — prefer shipping S2A with CTA to a minimal stub **or** postpone Atlas CTA until S3 — **preferred: CTA visible linking to `/v2/work` with S3 landing in same program**)  
+**Implemented on `/v2`:**
 
-### Forbidden in S2A
-- Any change to Current `/`  
-- Building full Systems Atlas UI beyond what S3 owns (if CTA needs a page, coordinate S3)  
-- Case-study pages  
-- Contact  
-- Laravel  
-- Invented metrics/screenshots  
+- Simplified Hero (`hero.variant: "simplified"`)
+- Education credential + Explore selected systems signal
+- Selected Systems chapter via `getFeaturedProjects()`
+- Current `/` remains frozen (`full-proof-constellation`)
 
-### S2A acceptance
-- V2 Hero matches approved transition  
-- Four systems visible with Flagship dominance  
-- Public-safe titles/summaries/ownership/proof  
-- Reduced motion OK  
-- Current `/` pixel/behavior unchanged  
+See `docs/portfolio-v3/qa/S2A_IMPLEMENTATION_REPORT.md`.
 
-Stop phrase after S2A:
+Next: **S3 Systems Atlas** (`/v2/work`) after approval phrase:
 
-`V3 STAGE S2A APPROVED — BUILD SYSTEMS ATLAS`
+`S2A V2 SELECTED SYSTEMS APPROVED`
 
 ---
 

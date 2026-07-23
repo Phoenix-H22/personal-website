@@ -9,11 +9,15 @@ import { HeroMotion } from "@/components/concept-v3-rebuild/hero/hero-motion";
 import { ProductDeck } from "@/components/concept-v3-rebuild/product-deck/product-deck";
 import { toProductDeckItems } from "@/components/concept-v3-rebuild/product-deck/map-products";
 import { useLayoutMode } from "@/components/concept-v3-rebuild/shared/layout-mode-provider";
+import { EducationCredential } from "@/components/portfolio/hero/education-credential";
+import { ExploreSelectedSystemsSignal } from "@/components/portfolio/hero/explore-selected-systems-signal";
+import type { PortfolioVariantConfig } from "@/lib/portfolio/portfolio-variant";
 import type { ProofEngineHeroContent } from "@/lib/proof-engine/types";
 import styles from "@/styles/concept-v3-rebuild/hero.module.scss";
 
 interface RebuildHeroProps {
   content: ProofEngineHeroContent;
+  heroConfig: PortfolioVariantConfig["hero"];
 }
 
 function emphasizeHeadline(headline: string, emphasis?: string) {
@@ -30,28 +34,43 @@ function emphasizeHeadline(headline: string, emphasis?: string) {
   );
 }
 
-export function RebuildHero({ content }: RebuildHeroProps) {
+export function RebuildHero({ content, heroConfig }: RebuildHeroProps) {
   const { mode } = useLayoutMode();
   const upwork = content.artifacts.find((a) => a.kind === "credential");
   const commerce = content.artifacts.find((a) => a.kind === "commerce-scale");
   const education = content.artifacts.find((a) => a.kind === "education-journey");
   const products = content.artifacts.filter((a) => a.kind === "product");
   const artifactMode = "narrative" as const;
+  const simplified = heroConfig.variant === "simplified";
+  const showEducation = heroConfig.showEducationArtifact && !!education;
+  const showProducts = heroConfig.showProductDeck && products.length > 0;
 
   return (
-    <HeroMotion layoutMode={mode}>
+    <HeroMotion layoutMode={mode} composition={heroConfig.variant}>
       <section
         id="proof-stage"
         className={styles.stage}
         aria-labelledby="rebuild-hero-name"
         data-hero-layout={mode}
+        data-hero-composition={heroConfig.variant}
       >
         <div className={styles.atmosphere} aria-hidden="true" data-atmosphere>
           <div className={styles.atmosphereGlow} />
           <div className={`${styles.atmosphereLocal} ${styles.atmosphereLocalUpwork}`} />
-          <div className={`${styles.atmosphereLocal} ${styles.atmosphereLocalEducation}`} />
-          <div className={`${styles.atmosphereLocal} ${styles.atmosphereLocalCommerce}`} />
-          <div className={`${styles.atmosphereLocal} ${styles.atmosphereLocalProducts}`} data-atmosphere-products />
+          {showEducation ? (
+            <div
+              className={`${styles.atmosphereLocal} ${styles.atmosphereLocalEducation}`}
+            />
+          ) : null}
+          <div
+            className={`${styles.atmosphereLocal} ${styles.atmosphereLocalCommerce}`}
+          />
+          {showProducts ? (
+            <div
+              className={`${styles.atmosphereLocal} ${styles.atmosphereLocalProducts}`}
+              data-atmosphere-products
+            />
+          ) : null}
           <div className={styles.atmosphereFloor} data-atmosphere-floor />
           <div className={styles.atmosphereRoutes} data-constellation aria-hidden="true">
             <svg className={styles.constellationSvg} viewBox="0 0 1000 600" preserveAspectRatio="none">
@@ -69,15 +88,17 @@ export function RebuildHero({ content }: RebuildHeroProps) {
                 stroke="rgba(94,143,255,0.14)"
                 strokeWidth="1.2"
               />
-              <path
-                data-constellation-signal
-                d="M500 400 C620 430, 740 450, 840 470"
-                fill="none"
-                stroke="var(--hero-product-accent, #31e6d0)"
-                strokeWidth="1.4"
-                strokeLinecap="round"
-                pathLength={1}
-              />
+              {!simplified ? (
+                <path
+                  data-constellation-signal
+                  d="M500 400 C620 430, 740 450, 840 470"
+                  fill="none"
+                  stroke="var(--hero-product-accent, #31e6d0)"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  pathLength={1}
+                />
+              ) : null}
             </svg>
           </div>
           <div className={styles.atmosphereHaze} />
@@ -100,6 +121,7 @@ export function RebuildHero({ content }: RebuildHeroProps) {
             <p className={styles.summary} data-hero-summary>
               {content.summary}
             </p>
+            {heroConfig.showEducationCredential ? <EducationCredential /> : null}
             <div className={styles.actions} data-hero-actions>
               <a
                 className={styles.actionPrimary}
@@ -171,6 +193,9 @@ export function RebuildHero({ content }: RebuildHeroProps) {
                 </li>
               ))}
             </ul>
+            {heroConfig.showSelectedSystemsSignal ? (
+              <ExploreSelectedSystemsSignal />
+            ) : null}
           </div>
 
           {upwork && upwork.kind === "credential" ? (
@@ -191,7 +216,7 @@ export function RebuildHero({ content }: RebuildHeroProps) {
             </div>
           ) : null}
 
-          {products.length > 0 ? (
+          {showProducts ? (
             <div
               className={`${styles.slot} ${styles.slotProducts}`}
               data-slot="products"
@@ -202,7 +227,7 @@ export function RebuildHero({ content }: RebuildHeroProps) {
             </div>
           ) : null}
 
-          {education && education.kind === "education-journey" ? (
+          {showEducation && education && education.kind === "education-journey" ? (
             <div
               className={`${styles.slot} ${styles.slotEducation}`}
               data-slot="education"

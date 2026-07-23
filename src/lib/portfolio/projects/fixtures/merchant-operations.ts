@@ -1,6 +1,5 @@
 import type { ProjectCaseStudyDto } from "@/lib/portfolio/projects/schemas";
 
-/** Validated Flagship fixture for foundation tests — not wired to UI. */
 export const merchantOperationsFixture: ProjectCaseStudyDto = {
   id: "merchant-operations-salla-automation",
   slug: "merchant-operations-salla-automation",
@@ -22,13 +21,20 @@ export const merchantOperationsFixture: ProjectCaseStudyDto = {
   domains: ["commerce", "integrations"],
   roles: ["backend", "integrations"],
   platforms: ["web", "api"],
-  technologies: ["Laravel", "Salla", "Queues", "Webhooks", "Redis", "MySQL"],
+  technologies: [
+    "Laravel",
+    "Salla",
+    "Queues",
+    "Webhooks",
+    "Redis",
+    "MySQL",
+  ],
   ownershipSummary:
     "Backend integrations, queues, webhooks, reporting, and reconciliation",
   strongestProof: {
-    id: "merchants",
-    value: "200+",
-    label: "merchants",
+    id: "api-performance",
+    value: "70–80%",
+    label: "API performance improvement",
     evidenceStatus: "source-supported",
     public: true,
   },
@@ -42,7 +48,7 @@ export const merchantOperationsFixture: ProjectCaseStudyDto = {
     secondary: "amber",
     motif: "order-lifecycle",
   },
-  caseStudyAvailable: true,
+  caseStudyAvailable: false,
   problem:
     "High-volume commerce platform events needed reliable reporting, fulfillment visibility, and employee action without fragile sync.",
   ownership:
@@ -54,32 +60,18 @@ export const merchantOperationsFixture: ProjectCaseStudyDto = {
   ],
   metrics: [
     {
-      id: "merchants",
-      value: "200+",
-      label: "merchants",
+      id: "api-performance",
+      value: "70–80%",
+      label: "API performance improvement",
       evidenceStatus: "source-supported",
       public: true,
     },
     {
-      id: "orders",
-      value: "20K+",
-      label: "monthly orders",
+      id: "sync-errors",
+      value: "15%",
+      label: "synchronization error reduction",
       evidenceStatus: "source-supported",
       public: true,
-    },
-    {
-      id: "value",
-      value: "12M+ SAR",
-      label: "handled order activity",
-      evidenceStatus: "source-supported",
-      public: true,
-    },
-    {
-      id: "internal-debug",
-      value: "n/a",
-      label: "internal note",
-      evidenceStatus: "unverified",
-      public: false,
     },
   ],
   links: [],
@@ -99,33 +91,48 @@ export const merchantOperationsFixture: ProjectCaseStudyDto = {
       order: 2,
       publicationStatus: "published",
       heading: "System architecture",
-      summary: "Salla events enter through webhooks, queues protect request paths, and ops/reporting stay synchronized.",
+      summary:
+        "Commerce events enter through webhooks, queues protect request paths, and ops, alerts, and reporting stay synchronized.",
       nodes: [
         {
-          id: "salla",
-          label: "Salla",
-          detail: "Commerce events enter through a controlled integration boundary.",
+          id: "commerce-events",
+          label: "Commerce events",
+          detail: "Platform events enter through a controlled integration boundary.",
           kind: "client",
         },
         {
           id: "webhook",
-          label: "Webhooks",
+          label: "Webhook intake",
           detail: "Events are validated, normalized, and routed predictably.",
           kind: "core",
         },
         {
           id: "queue",
-          label: "Queue",
+          label: "Normalization",
           detail: "Background processing protects request paths and supports retries.",
           kind: "service",
         },
+        {
+          id: "operations",
+          label: "Operational states",
+          detail: "Orders, shipments, branches, and status rules stay synchronized.",
+          kind: "core",
+        },
+        {
+          id: "reconciliation",
+          label: "Reconciliation",
+          detail: "Operational events become reliable business visibility.",
+          kind: "outcome",
+        },
       ],
       connections: [
-        { from: "salla", to: "webhook" },
+        { from: "commerce-events", to: "webhook" },
         { from: "webhook", to: "queue" },
+        { from: "queue", to: "operations" },
+        { from: "queue", to: "reconciliation" },
       ],
       textAlternative:
-        "Salla connects to webhooks, which feed a queue for operational processing.",
+        "Commerce events connect to webhook intake, which feeds normalization that fans out to operational states and reconciliation.",
     },
   ],
   seo: {

@@ -73,17 +73,16 @@ export const portfolioVariants: Record<
     indexable: false,
     canonical: "/",
     hero: {
-      // Intentionally identical to current until S2-PRE / S2.
-      variant: "full-proof-constellation",
-      showEducationArtifact: true,
-      showProductDeck: true,
-      showEducationCredential: false,
-      showSelectedSystemsSignal: false,
+      variant: "simplified",
+      showEducationArtifact: false,
+      showProductDeck: false,
+      showEducationCredential: true,
+      showSelectedSystemsSignal: true,
     },
     sections: {
       showOrigin: true,
       showCareer: true,
-      showSelectedSystems: false,
+      showSelectedSystems: true,
       showOwnership: false,
       showContact: false,
     },

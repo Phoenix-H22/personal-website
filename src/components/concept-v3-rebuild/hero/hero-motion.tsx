@@ -101,12 +101,18 @@ function parseMetricValue(text: string) {
 interface HeroMotionProps {
   children: React.ReactNode;
   layoutMode?: LayoutMode;
+  /** Drives which proof slots the timeline expects. */
+  composition?: "full-proof-constellation" | "simplified";
 }
 
 /**
  * Priority: development query override → stored preference → OS preference.
  */
-export function HeroMotion({ children, layoutMode }: HeroMotionProps) {
+export function HeroMotion({
+  children,
+  layoutMode,
+  composition: heroComposition = "full-proof-constellation",
+}: HeroMotionProps) {
   const root = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const replayRef = useRef<(() => void) | null>(null);
@@ -345,28 +351,36 @@ export function HeroMotion({ children, layoutMode }: HeroMotionProps) {
         if (sheen) gsap.set(sheen, { xPercent: -130, autoAlpha: 0 });
 
         if (composition === "cinematic") {
-          gsap.set(upwork, {
-            autoAlpha: 0,
-            x: -52,
-            y: -34,
-            scale: 0.9,
-            rotate: -8,
-          });
-          gsap.set(commerce, {
-            autoAlpha: 0,
-            x: -42,
-            y: 40,
-            scale: 0.9,
-            rotate: 3,
-          });
-          gsap.set(education, {
-            autoAlpha: 0,
-            x: 48,
-            y: -32,
-            scale: 0.9,
-            rotate: 4,
-          });
-          gsap.set(products, { autoAlpha: 0, x: 36, y: 36, scale: 0.92 });
+          if (upwork) {
+            gsap.set(upwork, {
+              autoAlpha: 0,
+              x: -52,
+              y: -34,
+              scale: 0.9,
+              rotate: -8,
+            });
+          }
+          if (commerce) {
+            gsap.set(commerce, {
+              autoAlpha: 0,
+              x: -42,
+              y: 40,
+              scale: 0.9,
+              rotate: 3,
+            });
+          }
+          if (education) {
+            gsap.set(education, {
+              autoAlpha: 0,
+              x: 48,
+              y: -32,
+              scale: 0.9,
+              rotate: 4,
+            });
+          }
+          if (products) {
+            gsap.set(products, { autoAlpha: 0, x: 36, y: 36, scale: 0.92 });
+          }
           productNodes.forEach((node, index) => {
             gsap.set(node, {
               autoAlpha: 0,
@@ -380,14 +394,14 @@ export function HeroMotion({ children, layoutMode }: HeroMotionProps) {
             y: 18,
             scale: 0.96,
           });
-          gsap.set(productNodes, { autoAlpha: 0, y: 10 });
+          if (productNodes.length) gsap.set(productNodes, { autoAlpha: 0, y: 10 });
         } else {
           gsap.set([upwork, commerce, education, products].filter(Boolean), {
             autoAlpha: 0,
             y: 36,
             scale: 0.94,
           });
-          gsap.set(productNodes, { autoAlpha: 0, y: 16 });
+          if (productNodes.length) gsap.set(productNodes, { autoAlpha: 0, y: 16 });
         }
 
         if (progress) {
@@ -441,7 +455,8 @@ export function HeroMotion({ children, layoutMode }: HeroMotionProps) {
           .to(summary, { autoAlpha: 1, y: 0, duration: 0.38 }, 0.58)
           .to(actions, { autoAlpha: 1, y: 0, duration: 0.36 }, 0.7)
           .to(socials, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.82)
-          .to(
+        if (upwork) {
+          tl.to(
             upwork,
             {
               autoAlpha: 1,
@@ -452,18 +467,29 @@ export function HeroMotion({ children, layoutMode }: HeroMotionProps) {
               duration: 0.6,
             },
             0.95,
-          )
-          .to(
+          );
+        }
+        if (commerce) {
+          tl.to(
             commerce,
             { autoAlpha: 1, x: 0, y: 0, scale: 1, rotate: 0, duration: 0.56 },
             1.1,
-          )
-          .to(
+          );
+        }
+        if (education) {
+          tl.to(
             education,
             { autoAlpha: 1, x: 0, y: 0, scale: 1, rotate: 0, duration: 0.56 },
             1.22,
-          )
-          .to(products, { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: 0.5 }, 1.34);
+          );
+        }
+        if (products) {
+          tl.to(
+            products,
+            { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: 0.5 },
+            1.34,
+          );
+        }
 
         productNodes.forEach((node, index) => {
           tl.to(
@@ -773,7 +799,7 @@ export function HeroMotion({ children, layoutMode }: HeroMotionProps) {
         tl.kill();
       };
     },
-    { scope: root, dependencies: [flags.slow, flags.overrideFull, effective, heroFamily, mode] },
+    { scope: root, dependencies: [flags.slow, flags.overrideFull, effective, heroFamily, mode, heroComposition] },
   );
 
   const showDebug =

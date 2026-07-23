@@ -1,11 +1,12 @@
-# Selected Systems Storyboard — S2-PRE
+# Selected Systems Storyboard — S2-PRE / S2A
 
-Status: **Art direction for V2 only**  
-Do **not** implement in S2-PRE.  
+Status: **S2A implemented on `/v2`**  
 Chapter id / anchor: `#selected-systems`
 
 Working title: **Selected Systems**  
 Supporting line: **Products, platforms, and infrastructure built for real operations.**
+
+Implementation report: `docs/portfolio-v3/qa/S2A_IMPLEMENTATION_REPORT.md`
 
 Creative language: **Systems in Production** — not a terminal, OS clone, spaceship, SaaS dashboard, or repeated Bento grid.
 

@@ -5,6 +5,7 @@ import { CareerChapter } from "@/components/concept-v3-rebuild/career/career-cha
 import { LayoutModeProvider } from "@/components/concept-v3-rebuild/shared/layout-mode-provider";
 import { LayoutDebugPanel } from "@/components/concept-v3-rebuild/shared/layout-debug-panel";
 import { PortfolioVersionSwitchGate } from "@/components/portfolio/portfolio-version-switch-gate";
+import { SelectedSystemsSection } from "@/components/portfolio/selected-systems/selected-systems-section";
 import { MotionPreferenceProvider } from "@/lib/motion-preference-context";
 import { getProofEngineHero } from "@/lib/proof-engine/selectors";
 import {
@@ -52,7 +53,7 @@ export function PortfolioPage({ config }: PortfolioPageProps) {
         >
           <RebuildNav homeHref="/" />
           <main id="main-content" className={styles.main}>
-            <RebuildHero content={content} />
+            <RebuildHero content={content} heroConfig={config.hero} />
             {config.sections.showOrigin ? (
               <OriginChapter education={education} />
             ) : null}
@@ -62,6 +63,9 @@ export function PortfolioPage({ config }: PortfolioPageProps) {
                 primary={primary}
                 independent={independent}
               />
+            ) : null}
+            {config.sections.showSelectedSystems ? (
+              <SelectedSystemsSection />
             ) : null}
           </main>
           <LayoutDebugPanel />

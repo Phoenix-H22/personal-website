@@ -111,5 +111,9 @@ Do not begin S2-PRE until: **PORTFOLIO ROUTES CONSOLIDATED — READY FOR S2-PRE*
 
 Consolidation pass status: **complete**. See `ROUTE_CONSOLIDATION_REPORT.md`.
 
-S2-PRE status: **complete**. Canonical project docs: `docs/portfolio-v3/projects/`.  
-Awaiting: **S2 PROJECT FOUNDATION APPROVED — BUILD V2 SELECTED SYSTEMS**
+S2-PRE status: **complete**. Canonical project docs: `docs/portfolio-v3/projects/`.
+
+S2A status: **complete on `/v2`** — simplified Hero + Selected Systems.  
+Current `/` remains frozen. Report: `docs/portfolio-v3/qa/S2A_IMPLEMENTATION_REPORT.md`.
+
+Awaiting: **S2A V2 SELECTED SYSTEMS APPROVED**

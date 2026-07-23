@@ -1330,3 +1330,105 @@
     transform: none;
   }
 }
+
+/* ——— V2 simplified Hero composition ——— */
+.stage[data-hero-composition="simplified"] {
+  .atmosphereLocalEducation,
+  .atmosphereLocalProducts {
+    display: none;
+  }
+}
+
+@media (min-width: 1080px) and (min-height: 680px) {
+  .stage[data-hero-composition="simplified"] .composition {
+    grid-template-columns:
+      minmax(16rem, 20rem)
+      minmax(0, 1fr)
+      minmax(16rem, 20rem);
+    grid-template-rows: auto;
+    grid-template-areas: "upwork identity commerce";
+    column-gap: clamp(1.25rem, 2.4vw, 2.25rem);
+    width: min(92vw, 78rem);
+  }
+
+  .stage[data-hero-composition="simplified"] .slotUpwork,
+  .stage[data-hero-composition="simplified"] .slotCommerce {
+    align-self: center;
+  }
+}
+
+@media (min-width: 1400px) and (min-height: 760px) {
+  .stage[data-hero-composition="simplified"] .composition {
+    width: min(90vw, 82rem);
+    grid-template-columns:
+      minmax(17rem, 21rem)
+      minmax(0, 1fr)
+      minmax(17rem, 21rem);
+  }
+}
+
+@media (min-width: 1920px) and (min-height: 900px) {
+  .stage[data-hero-composition="simplified"] .composition {
+    width: min(88vw, 88rem);
+  }
+}
+
+@media (min-width: 1050px) and (max-height: 679px) {
+  .stage[data-hero-composition="simplified"] .composition {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "identity upwork"
+      "identity commerce";
+    column-gap: 1.25rem;
+    row-gap: 0.85rem;
+    width: min(94vw, 72rem);
+  }
+
+  .stage[data-hero-composition="simplified"] .identity {
+    justify-self: stretch;
+    text-align: left;
+    justify-items: start;
+    width: auto;
+    max-width: none;
+  }
+
+  .stage[data-hero-composition="simplified"] .eyebrow {
+    justify-content: flex-start;
+  }
+
+  .stage[data-hero-composition="simplified"] .eyebrow::before {
+    display: inline-block;
+  }
+
+  .stage[data-hero-composition="simplified"] .headline,
+  .stage[data-hero-composition="simplified"] .summary {
+    margin-inline: 0;
+  }
+
+  .stage[data-hero-composition="simplified"] .actions,
+  .stage[data-hero-composition="simplified"] .socials {
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1079px) {
+  .stage[data-hero-composition="simplified"] .composition {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "identity identity"
+      "upwork commerce";
+  }
+}
+
+@media (max-width: 767px) {
+  .stage[data-hero-composition="simplified"] .composition {
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+  }
+
+  .stage[data-hero-composition="simplified"] .slot {
+    width: 100%;
+  }
+}

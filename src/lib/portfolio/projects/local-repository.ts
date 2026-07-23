@@ -1,10 +1,10 @@
+import { featuredProjectFixtures } from "@/lib/portfolio/projects/fixtures";
 import {
   isPubliclyListable,
   toProjectSummary,
   toPublicCaseStudy,
 } from "@/lib/portfolio/projects/mappers";
 import { projectCaseStudyDtoSchema } from "@/lib/portfolio/projects/schemas";
-import { merchantOperationsFixture } from "@/lib/portfolio/projects/fixtures/merchant-operations";
 import type {
   ProjectCaseStudy,
   ProjectCollection,
@@ -67,12 +67,12 @@ function matchesFilters(
 
 /**
  * Local adapter backed by validated fixtures.
- * S2A may expand the fixture set; UI still must not import content arrays.
+ * UI must not import content arrays — use getProjectRepository().
  */
 export class LocalProjectRepository implements ProjectRepository {
   private readonly projects: ProjectCaseStudy[];
 
-  constructor(rawProjects = [merchantOperationsFixture]) {
+  constructor(rawProjects = featuredProjectFixtures) {
     this.projects = rawProjects.map((raw) => {
       const dto = projectCaseStudyDtoSchema.parse(raw);
       return toPublicCaseStudy(dto);
