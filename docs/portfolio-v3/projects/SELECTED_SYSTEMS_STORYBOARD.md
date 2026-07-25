@@ -1,134 +1,86 @@
-# Selected Systems Storyboard — S2-PRE / S2A
+# Selected Systems Storyboard — S2B
 
-Status: **S2A implemented on `/v2`**  
+Status: **S2B implemented on `/v2` — awaiting visual approval**  
 Chapter id / anchor: `#selected-systems`
 
-Working title: **Selected Systems**  
-Supporting line: **Products, platforms, and infrastructure built for real operations.**
+Visible heading: **Featured Systems**  
+Eyebrow: **SELECTED SYSTEMS**  
+Count: **4 projects**  
+Supporting line: **Production systems across commerce, messaging, IoT, and AI.**
 
-Implementation report: `docs/portfolio-v3/qa/S2A_IMPLEMENTATION_REPORT.md`
+Creative language: **Systems in Production** — original editorial stages, not a terminal/browser clone, not equal Bento tiles, not a three-card vertical list.
 
-Creative language: **Systems in Production** — not a terminal, OS clone, spaceship, SaaS dashboard, or repeated Bento grid.
-
----
-
-## V2 Hero transition contract (implement in S2A, not now)
-
-### Remove from V2 Hero
-- Full Education Journey artifact  
-- Full Product Deck artifact  
-
-### Keep
-- Identity, Upwork proof, Commerce Operations Scale, primary CTA, résumé CTA, socials  
-
-### Add
-1. Education credential: `B.Sc. Computer & AI · A-grade with Honors · Capstone A+`  
-   - One combined chip · graduation icon · cyan on Honors · amber on Capstone A+  
-   - Float 3–5px · pause on hover/focus · static under reduced motion  
-2. Section signal: `Explore selected systems` + `↓` → `#selected-systems`  
-   - Only when Selected Systems exists  
-   - Accessible link · no scroll hijack · restrained vertical motion · not a badge  
-
-### Preserve components/data
-Education Journey, Product Deck, education data, project deck data remain for Current `/`, Origin, QA, reuse.
+Implementation report: `docs/portfolio-v3/S2B_FEATURED_SYSTEMS_REDESIGN_REPORT.md`  
+QA captures: `docs/portfolio-v3/qa/s2b/` (local / gitignored)
 
 ---
 
-## Reading order
+## V2 Hero contract (S2B refinement)
 
-1. Chapter identity (title + supporting line)  
-2. Flagship system (Merchant Operations Platform)  
-3. Ownership + strongest safe proof  
-4. Three supporting systems  
-5. CTA: **Explore all systems** → `/work` (dev: `/v2/work` until promotion)  
+### Positioning
+- Eyebrow: `SOFTWARE ENGINEER · BACKEND SYSTEMS · PRODUCTS & INTEGRATIONS`
+- Statement (unchanged): `I engineer the systems businesses learn to depend on.`
+- Summary: backend-focused software engineer · systems · integrations · polished web products
+- Core technology line: `PHP · Laravel · Python · JavaScript · React · Next.js`
 
-Never hide: title, purpose, ownership, strongest result, navigation, case-study link.
+### Identity order
+Eyebrow → Name → Statement → Summary → Technology line → Education Credential → CTAs → Socials → Explore signal
 
----
+### Education Credential
+- One capsule attached to identity column (not mid-viewport float)
+- Degree neutral · Honors cyan · Capstone A+ amber
+- Ambient float 3–5px; pause hover/focus/off-screen/hidden; static under reduced motion
 
-## Structure (not four equal cards)
-
-### Flagship — Merchant Operations Platform
-Dominant feature (~60–65% desktop width / full first band).
-
-Contains:
-- Project identity + domain  
-- One strong problem statement  
-- Ownership  
-- Strongest verified proof (not a Hero KPI strip clone)  
-- Honest visual: lifecycle / webhook reconciliation schematic from verified nodes  
-- **Explore case study** action  
-
-### Supporting — three domain silhouettes
-| Project | Artifact direction | Signature color |
-| --- | --- | --- |
-| NABD | Channels + delivery states | cyan / blue |
-| Smart Vending | QR → payment → MQTT → release | cyan / controlled green |
-| Virtual Clinic | Patient flow · AI interaction abstract | violet / cyan |
-
-Titles must remain scannable without hover.
+### Still excluded from V2 Hero
+Full Education Journey · Product Deck
 
 ---
 
-## Hero → Selected Systems transition
+## Featured Systems composition
 
-- Normal document flow  
-- No sticky multi-screen lock, no giant empty spacer, no second Product Deck  
-- Shared restrained signal line / color continuity allowed  
-- Direct `#selected-systems` load must still make sense  
+### Default (All Systems)
+1. Header + category controls  
+2. **Flagship** — Merchant Operations Platform (wide editorial)  
+3. **Support row** — NABD (landscape) + Smart Vending (portrait/device)  
+4. **Clinic band** — Virtual Clinic / Dr. Robot (wide editorial)
 
----
+### Categories (homepage filter set)
+| Control | Maps to |
+| --- | --- |
+| All Systems | all four |
+| Commerce | Merchant Operations |
+| Messaging | NABD |
+| IoT | Smart Vending |
+| AI & Healthcare | Virtual Clinic |
 
-## Responsive storyboard
+Default browsing shows all four. Filters use `aria-pressed` buttons (not fake tabs).
 
-### Desktop (≥1400×900 class)
-- Flagship dominant left/top band  
-- Supporting trio in editorial stack or 1+2 composition — **not** one equal row of four  
-- Names readable without interaction  
+### Cover architecture
+Typed `visualTheme.coverType` → `<ProjectCover type={…} />`  
+No title-string switching. No JSX in content fixtures.
 
-### Laptop (1366×768)
-- Keep hierarchy; avoid compressed four-up  
-- Flagship may stack above supporting row of three with reduced media  
+| Project | coverType |
+| --- | --- |
+| Merchant Operations | `merchant-operations` |
+| NABD | `messaging-router` |
+| Smart Vending | `vending-device-flow` |
+| Virtual Clinic | `virtual-clinic-loop` |
 
-### Tablet
-- Intentional two-column or stacked editorial  
-- Do not shrink desktop mosaic geometry  
-
-### Mobile
-- Vertical reading: title → summary → proof → CTA → visual  
-- No horizontal-only discovery / drag required  
-- Stable media aspect boxes  
-
----
-
-## Motion plan
-
-| Beat | Motion | Reduced motion |
-| --- | --- | --- |
-| Flagship enter | Fade/rise establish | Final static layout |
-| Proof signal | Short data accent | Static metrics visible |
-| Supporting | Stagger resolve | All visible immediately |
-| CTA | Focus/hover only | Clear static affordance |
-
-Forbidden: autoplay project switching, content hidden behind animation, WebGL default, Product Deck interaction clone, cursor followers.
+### Link gating
+Case-study CTAs and “Explore all systems” remain hidden until real routes exist. No `href="#"`.
 
 ---
 
-## Accessibility (chapter)
+## Publication safety
 
-- Landmark region with accessible name  
-- Heading hierarchy H2 chapter → H3 projects  
-- Case-study links keyboard reachable · ≥24×24px targets  
-- Contrast AA · no hover-only titles  
-- Motion respects `prefers-reduced-motion`  
+- Smart Vending: no Wasfaty / Theqah / medicine brands / patient data  
+- Merchant Ops Flagship cover: operational route — not Hero KPI strip  
+- NABD / Clinic: no invented metrics or clinical claims  
 
 ---
 
-## Data wiring (S2A)
+## Next gate
 
-```ts
-const featured = await getProjectRepository().getFeaturedProjects();
-// homepageOrder 1..4 — Flagship is order 1
-```
+Wait for:
 
-Variant config on V2: `sections.showSelectedSystems: true` only when chapter ships.
+`S2B FEATURED SYSTEMS VISUALLY APPROVED — BEGIN SYSTEMS ATLAS`

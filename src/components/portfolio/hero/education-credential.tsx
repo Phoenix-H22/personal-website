@@ -7,7 +7,7 @@ import { useMotionPreference } from "@/lib/motion-preference-context";
 import styles from "@/styles/portfolio/education-credential.module.scss";
 
 /**
- * Compact V2 education credential — not the full Education Journey.
+ * Compact V2 education credential — attached to identity flow, not a free-floating badge.
  */
 export function EducationCredential() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -18,8 +18,9 @@ export function EducationCredential() {
     if (!el || effective === "reduced") return;
 
     const tween = gsap.to(el, {
-      y: -4,
-      duration: 2.8,
+      y: -3.5,
+      rotate: 0.35,
+      duration: 2.9,
       ease: "sine.inOut",
       yoyo: true,
       repeat: -1,
@@ -34,10 +35,12 @@ export function EducationCredential() {
     el.addEventListener("mouseleave", resume);
     el.addEventListener("focusin", pause);
     el.addEventListener("focusout", resume);
-    document.addEventListener("visibilitychange", () => {
+
+    const onVisibility = () => {
       if (document.visibilityState === "hidden") pause();
       else resume();
-    });
+    };
+    document.addEventListener("visibilitychange", onVisibility);
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -51,6 +54,7 @@ export function EducationCredential() {
     return () => {
       tween.kill();
       io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
       el.removeEventListener("mouseenter", pause);
       el.removeEventListener("mouseleave", resume);
       el.removeEventListener("focusin", pause);
@@ -73,20 +77,19 @@ export function EducationCredential() {
           />
         </svg>
       </span>
-      <p className={styles.text}>
-        <span className={styles.degree}>B.Sc. Computer &amp; AI</span>
-        <span className={styles.sep} aria-hidden="true">
-          ·
-        </span>
-        <span className={styles.honors}>A-grade with Honors</span>
-        <span className={styles.sep} aria-hidden="true">
-          ·
-        </span>
-        <span className={styles.capstone}>Capstone A+</span>
-      </p>
+      <div className={styles.body}>
+        <p className={styles.degree}>B.Sc. Computer &amp; AI</p>
+        <p className={styles.proofs}>
+          <span className={styles.honors}>A-grade with Honors</span>
+          <span className={styles.sep} aria-hidden="true">
+            ·
+          </span>
+          <span className={styles.capstone}>Capstone A+</span>
+        </p>
+      </div>
       <span className={styles.srOnly}>
-        Bachelor of Science in Computer and Artificial Intelligence — A-grade
-        with Honors; capstone graded A+
+        Bachelor’s degree in Computer and Artificial Intelligence, cumulative
+        A-grade with Honors, capstone graded A+.
       </span>
     </div>
   );

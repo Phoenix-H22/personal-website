@@ -44,6 +44,8 @@ export const nabdMessagingFixture: ProjectCaseStudyDto = {
     primary: "blue",
     secondary: "cyan",
     motif: "message-routing",
+    coverType: "messaging-router",
+    homepageCategory: "messaging",
   },
   caseStudyAvailable: false,
   problem:

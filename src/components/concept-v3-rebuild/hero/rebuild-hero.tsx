@@ -11,6 +11,7 @@ import { toProductDeckItems } from "@/components/concept-v3-rebuild/product-deck
 import { useLayoutMode } from "@/components/concept-v3-rebuild/shared/layout-mode-provider";
 import { EducationCredential } from "@/components/portfolio/hero/education-credential";
 import { ExploreSelectedSystemsSignal } from "@/components/portfolio/hero/explore-selected-systems-signal";
+import { HeroTechnologyLine } from "@/components/portfolio/hero/hero-technology-line";
 import type { PortfolioVariantConfig } from "@/lib/portfolio/portfolio-variant";
 import type { ProofEngineHeroContent } from "@/lib/proof-engine/types";
 import styles from "@/styles/concept-v3-rebuild/hero.module.scss";
@@ -44,6 +45,9 @@ export function RebuildHero({ content, heroConfig }: RebuildHeroProps) {
   const simplified = heroConfig.variant === "simplified";
   const showEducation = heroConfig.showEducationArtifact && !!education;
   const showProducts = heroConfig.showProductDeck && products.length > 0;
+  const eyebrow = heroConfig.copy?.eyebrow ?? content.eyebrow;
+  const summary = heroConfig.copy?.summary ?? content.summary;
+  const technologyLine = heroConfig.copy?.technologyLine ?? [];
 
   return (
     <HeroMotion layoutMode={mode} composition={heroConfig.variant}>
@@ -110,7 +114,7 @@ export function RebuildHero({ content, heroConfig }: RebuildHeroProps) {
         <div className={styles.composition}>
           <div className={styles.identity} data-slot="identity">
             <p className={styles.eyebrow} data-hero-eyebrow>
-              {content.eyebrow}
+              {eyebrow}
             </p>
             <h1 id="rebuild-hero-name" className={styles.name} data-hero-name>
               {content.name}
@@ -119,8 +123,11 @@ export function RebuildHero({ content, heroConfig }: RebuildHeroProps) {
               {emphasizeHeadline(content.headline, content.headlineEmphasis)}
             </p>
             <p className={styles.summary} data-hero-summary>
-              {content.summary}
+              {summary}
             </p>
+            {heroConfig.showTechnologyLine && technologyLine.length > 0 ? (
+              <HeroTechnologyLine technologies={technologyLine} />
+            ) : null}
             {heroConfig.showEducationCredential ? <EducationCredential /> : null}
             <div className={styles.actions} data-hero-actions>
               <a

@@ -89,6 +89,18 @@ export interface ProjectMedia {
   mobileCrop?: "center" | "top" | "focal";
 }
 
+export type ProjectCoverType =
+  | "merchant-operations"
+  | "messaging-router"
+  | "vending-device-flow"
+  | "virtual-clinic-loop";
+
+export type ProjectHomepageCategory =
+  | "commerce"
+  | "messaging"
+  | "iot"
+  | "ai-healthcare";
+
 export interface ProjectVisualTheme {
   id: string;
   primary: "cyan" | "blue" | "violet" | "green" | "amber";
@@ -101,6 +113,8 @@ export interface ProjectVisualTheme {
     | "clinic-flow"
     | "document-pipeline"
     | "neutral";
+  coverType: ProjectCoverType;
+  homepageCategory: ProjectHomepageCategory;
 }
 
 export interface ProjectSeo {

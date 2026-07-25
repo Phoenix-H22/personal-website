@@ -1,6 +1,6 @@
 import { getProjectRepository } from "@/lib/portfolio/projects";
-import { SelectedSystemsExperience } from "@/components/portfolio/selected-systems/selected-systems-experience";
-import { toSelectedSystemCard } from "@/components/portfolio/selected-systems/selected-system-types";
+import { FeaturedSystemsExperience } from "@/components/portfolio/selected-systems/selected-systems-experience";
+import { toFeaturedSystemCard } from "@/components/portfolio/selected-systems/selected-system-types";
 
 const FLAGSHIP_ID = "merchant-operations-salla-automation";
 const EXPECTED_ORDER = [
@@ -11,7 +11,7 @@ const EXPECTED_ORDER = [
 ] as const;
 
 /**
- * Server section — loads featured projects via repository only.
+ * Server section — Featured Systems via ProjectRepository only.
  */
 export async function SelectedSystemsSection() {
   const repo = getProjectRepository();
@@ -23,7 +23,7 @@ export async function SelectedSystemsSection() {
 
   if (ordered.length === 0) {
     if (process.env.NODE_ENV === "development") {
-      console.error("[SelectedSystems] No featured projects returned");
+      console.error("[FeaturedSystems] No featured projects returned");
     }
     return null;
   }
@@ -31,23 +31,24 @@ export async function SelectedSystemsSection() {
   const flagship = ordered.find((project) => project?.id === FLAGSHIP_ID);
   if (!flagship) {
     if (process.env.NODE_ENV === "development") {
-      console.error("[SelectedSystems] Flagship missing — not promoting another project");
+      console.error(
+        "[FeaturedSystems] Flagship missing — not promoting another project",
+      );
     }
     return null;
   }
 
   const cards = ordered
     .filter((project): project is NonNullable<typeof project> => !!project)
-    .map(toSelectedSystemCard);
+    .map(toFeaturedSystemCard);
 
-  // Safety: never ship Wasfaty / Theqah association strings
   const serialized = JSON.stringify(cards);
   if (/wasfaty|theqah/i.test(serialized)) {
     if (process.env.NODE_ENV === "development") {
-      console.error("[SelectedSystems] Blocked unsafe publication string");
+      console.error("[FeaturedSystems] Blocked unsafe publication string");
     }
     return null;
   }
 
-  return <SelectedSystemsExperience projects={cards} />;
+  return <FeaturedSystemsExperience projects={cards} />;
 }

@@ -1,7 +1,10 @@
-import type { ProjectSummary } from "@/lib/portfolio/projects/types";
+import type {
+  ProjectCoverType,
+  ProjectHomepageCategory,
+  ProjectSummary,
+} from "@/lib/portfolio/projects/types";
 
-/** Serializable public props for Selected Systems client islands. */
-export interface SelectedSystemCardProps {
+export interface FeaturedSystemCardProps {
   id: string;
   slug: string;
   title: string;
@@ -19,22 +22,32 @@ export interface SelectedSystemCardProps {
   } | null;
   logoSrc: string | null;
   logoAlt: string | null;
-  motif: ProjectSummary["visualTheme"]["motif"];
+  coverType: ProjectCoverType;
+  homepageCategory: ProjectHomepageCategory;
+  categoryLabel: string;
   primary: ProjectSummary["visualTheme"]["primary"];
   companyName: string | null;
   caseStudyHref: string | null;
+  isFlagship: boolean;
 }
 
-export function toSelectedSystemCard(
-  project: ProjectSummary,
-): SelectedSystemCardProps {
-  const logo =
-    project.cover?.type === "logo"
-      ? project.cover
-      : null;
+export const FEATURED_CATEGORY_LABELS: Record<
+  ProjectHomepageCategory | "all",
+  string
+> = {
+  all: "All Systems",
+  commerce: "Commerce",
+  messaging: "Messaging",
+  iot: "IoT",
+  "ai-healthcare": "AI & Healthcare",
+};
 
-  // Prefer gallery logo from summary path — cover is usually null; logo comes via
-  // a parallel field only on case studies. For summaries we use visualTheme + title.
+export function toFeaturedSystemCard(
+  project: ProjectSummary,
+): FeaturedSystemCardProps {
+  const logo = project.cover?.type === "logo" ? project.cover : null;
+  const homepageCategory = project.visualTheme.homepageCategory;
+
   return {
     id: project.id,
     slug: project.slug,
@@ -58,19 +71,12 @@ export function toSelectedSystemCard(
       : null,
     logoSrc: logo?.src ?? null,
     logoAlt: logo?.alt ?? null,
-    motif: project.visualTheme.motif,
+    coverType: project.visualTheme.coverType,
+    homepageCategory,
+    categoryLabel: FEATURED_CATEGORY_LABELS[homepageCategory],
     primary: project.visualTheme.primary,
-    companyName:
-      project.company?.publishName ? project.company.name : null,
+    companyName: project.company?.publishName ? project.company.name : null,
     caseStudyHref: null,
+    isFlagship: project.homepageOrder === 1,
   };
-}
-
-/** Attach logo from full case study when mapping featured summaries. */
-export function withLogo(
-  card: SelectedSystemCardProps,
-  src: string | null,
-  alt: string | null,
-): SelectedSystemCardProps {
-  return { ...card, logoSrc: src, logoAlt: alt };
 }

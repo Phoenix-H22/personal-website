@@ -28,6 +28,8 @@ export const smartVendingFixture: ProjectCaseStudyDto = {
     primary: "green",
     secondary: "cyan",
     motif: "scan-pay-release",
+    coverType: "vending-device-flow",
+    homepageCategory: "iot",
   },
   caseStudyAvailable: false,
   problem:

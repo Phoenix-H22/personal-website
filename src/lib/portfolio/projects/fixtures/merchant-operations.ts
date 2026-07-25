@@ -47,6 +47,8 @@ export const merchantOperationsFixture: ProjectCaseStudyDto = {
     primary: "cyan",
     secondary: "amber",
     motif: "order-lifecycle",
+    coverType: "merchant-operations",
+    homepageCategory: "commerce",
   },
   caseStudyAvailable: false,
   problem:

@@ -36,6 +36,8 @@ export const virtualClinicFixture: ProjectCaseStudyDto = {
     primary: "violet",
     secondary: "cyan",
     motif: "clinic-flow",
+    coverType: "virtual-clinic-loop",
+    homepageCategory: "ai-healthcare",
   },
   caseStudyAvailable: false,
   problem:

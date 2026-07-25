@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 
+import { toFeaturedSystemCard } from "@/components/portfolio/selected-systems/selected-system-types";
 import { featuredProjectFixtures } from "@/lib/portfolio/projects/fixtures";
 import { LocalProjectRepository } from "@/lib/portfolio/projects/local-repository";
 import { projectCaseStudyDtoSchema } from "@/lib/portfolio/projects/schemas";
-import { toSelectedSystemCard } from "@/components/portfolio/selected-systems/selected-system-types";
 import { toProjectSummary, toPublicCaseStudy } from "@/lib/portfolio/projects/mappers";
 
 describe("S2A featured project set", () => {
@@ -59,7 +59,7 @@ describe("S2A featured project set", () => {
   it("maps Selected Systems cards without confidential enums or case-study hrefs", () => {
     const cards = featuredProjectFixtures.map((fixture) => {
       const dto = projectCaseStudyDtoSchema.parse(fixture);
-      return toSelectedSystemCard(toProjectSummary(toPublicCaseStudy(dto)));
+      return toFeaturedSystemCard(toProjectSummary(toPublicCaseStudy(dto)));
     });
     for (const card of cards) {
       expect(card.caseStudyHref).toBeNull();

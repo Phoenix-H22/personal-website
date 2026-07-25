@@ -1,12 +1,8 @@
 /**
  * Typed portfolio version configuration.
  *
- * Both variants currently render the approved full-proof baseline.
- * Future S2+ stages update the `v2` config only — never fork the page tree.
- *
  * Technical debt: section implementations still live under
  * `components/concept-v3-rebuild` and `styles/concept-v3-rebuild`.
- * Do not duplicate them for V2; rename later when maintainability requires it.
  */
 
 export type PortfolioVariant = "current" | "v2";
@@ -15,15 +11,18 @@ export type HeroCompositionVariant =
   | "full-proof-constellation"
   | "simplified";
 
+export interface PortfolioHeroCopyOverride {
+  eyebrow: string;
+  summary: string;
+  /** Core technology line — V2 only. */
+  technologyLine: string[];
+}
+
 export interface PortfolioVariantConfig {
   id: PortfolioVariant;
-  /** Public route for this variant. */
   route: "/" | "/v2";
-  /** Document title segment (layout template appends the site name). */
   title: string;
-  /** Whether search engines may index this route. */
   indexable: boolean;
-  /** Canonical URL for SEO (V2 points at primary `/` while content is duplicated). */
   canonical: "/";
   hero: {
     variant: HeroCompositionVariant;
@@ -31,6 +30,9 @@ export interface PortfolioVariantConfig {
     showProductDeck: boolean;
     showEducationCredential: boolean;
     showSelectedSystemsSignal: boolean;
+    showTechnologyLine: boolean;
+    /** When set, replaces shared proof-engine eyebrow/summary on this variant only. */
+    copy?: PortfolioHeroCopyOverride;
   };
   sections: {
     showOrigin: boolean;
@@ -57,6 +59,7 @@ export const portfolioVariants: Record<
       showProductDeck: true,
       showEducationCredential: false,
       showSelectedSystemsSignal: false,
+      showTechnologyLine: false,
     },
     sections: {
       showOrigin: true,
@@ -78,6 +81,21 @@ export const portfolioVariants: Record<
       showProductDeck: false,
       showEducationCredential: true,
       showSelectedSystemsSignal: true,
+      showTechnologyLine: true,
+      copy: {
+        eyebrow:
+          "SOFTWARE ENGINEER · BACKEND SYSTEMS · PRODUCTS & INTEGRATIONS",
+        summary:
+          "Backend-focused software engineer who genuinely enjoys turning complex business problems into reliable systems — from APIs, queues, and integrations to polished web products.",
+        technologyLine: [
+          "PHP",
+          "Laravel",
+          "Python",
+          "JavaScript",
+          "React",
+          "Next.js",
+        ],
+      },
     },
     sections: {
       showOrigin: true,

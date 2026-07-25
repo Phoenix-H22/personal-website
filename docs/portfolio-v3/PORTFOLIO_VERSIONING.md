@@ -4,8 +4,8 @@
 
 | Version | Route | Role |
 | --- | --- | --- |
-| **Current (V1)** | `/` | Approved public baseline (former `/concept-v3-rebuild`) |
-| **V2** | `/v2` | Next iteration sandbox — same baseline until S2+ |
+| **Current (V1)** | `/` | Approved public baseline (former `/concept-v3-rebuild`) — **frozen** |
+| **V2** | `/v2` | Next iteration sandbox (S2A/S2B active) |
 
 `/concept-v3-rebuild` permanently redirects to `/` (bookmarks / old QA URLs).
 
@@ -25,33 +25,30 @@ Components receive deliberate typed configuration. Do **not** scatter
 
 ### Shared versus variant-specific
 
-**Shared today (do not duplicate for V2):**
+**Shared today:**
 
 - Hero / Origin / Career implementations under `components/concept-v3-rebuild/**`
 - Styles under `styles/concept-v3-rebuild/**`
 - Content + asset registries under `src/content/**`
 - Layout-mode + motion preference providers
 
-**Variant-specific today:**
+**Variant-specific today (V2 diverged in S2A/S2B):**
 
 - Route page metadata (`src/app/page.tsx` vs `src/app/v2/page.tsx`)
-- `PortfolioVariantConfig` flags (hero / sections) — currently identical baselines
+- `PortfolioVariantConfig` flags:
+  - Current: `full-proof-constellation` + Education Journey + Product Deck
+  - V2: `simplified` Hero + Education Credential + technology line + Featured Systems
+- V2-only copy overrides (`hero.copy`) — Software Engineer positioning
+- V2-only section: Featured / Selected Systems (`#selected-systems`)
 
 **Technical debt:** experimental folder names (`concept-v3-rebuild`) remain until a
-focused rename is justified. V2 must keep importing the same modules.
+focused rename is justified. V2 must keep importing the same modules where shared.
 
-## Expected future differences (not implemented in this pass)
+## V2 chapter order (locked)
 
-V2 only, in later stages:
+Simplified Hero → Origin → Career → Featured / Selected Systems
 
-- simplified Hero
-- Education credential chip
-- Explore Selected Systems signal
-- Selected Systems section
-- broader portfolio expansion
-
-Update `portfolioVariants.v2` when those land. Keep `/` on the approved baseline
-until V2 is promoted.
+Do not reorder. Do not restore Education Journey / Product Deck on V2 Hero.
 
 ## Version switch
 

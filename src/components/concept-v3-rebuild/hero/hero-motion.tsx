@@ -206,8 +206,14 @@ export function HeroMotion({
       const name = el.querySelector("[data-hero-name]");
       const headline = el.querySelector("[data-hero-headline]");
       const summary = el.querySelector("[data-hero-summary]");
+      const techLine = el.querySelector("[data-hero-tech-line]");
+      const techItems = el.querySelectorAll("[data-tech-item]");
+      const credential = el.querySelector("[data-education-credential]");
       const actions = el.querySelector("[data-hero-actions]");
       const socials = el.querySelector("[data-hero-socials]");
+      const exploreSignal = el.querySelector(
+        "[data-explore-selected-systems]",
+      );
       const upwork = el.querySelector<HTMLElement>("[data-artifact='upwork']");
       const upworkShell = el.querySelector<HTMLElement>("[data-upwork-shell]");
       const commerce = el.querySelector("[data-artifact='commerce']");
@@ -258,8 +264,12 @@ export function HeroMotion({
           name,
           headline,
           summary,
+          techLine,
+          ...techItems,
+          credential,
           actions,
           socials,
+          exploreSignal,
           upwork,
           commerce,
           education,
@@ -340,9 +350,22 @@ export function HeroMotion({
         writeDebug({ timelineState: "pending", timelineProgress: 0 });
 
         gsap.set(
-          [eyebrow, name, headline, summary, actions, socials].filter(Boolean),
+          [
+            eyebrow,
+            name,
+            headline,
+            summary,
+            techLine,
+            credential,
+            actions,
+            socials,
+            exploreSignal,
+          ].filter(Boolean),
           { autoAlpha: 0, y: 24 },
         );
+        if (techItems.length) {
+          gsap.set(techItems, { autoAlpha: 0, y: 8 });
+        }
         if (atmosphere.length) gsap.set(atmosphere, { autoAlpha: 0.1 });
         if (floor) gsap.set(floor, { autoAlpha: 0.15 });
         if (nav) gsap.set(nav, { autoAlpha: 0.15, y: -12 });
@@ -452,9 +475,28 @@ export function HeroMotion({
           .to(eyebrow, { autoAlpha: 1, y: 0, duration: 0.38 }, 0.2)
           .to(name, { autoAlpha: 1, y: 0, duration: 0.46 }, 0.32)
           .to(headline, { autoAlpha: 1, y: 0, duration: 0.4 }, 0.46)
-          .to(summary, { autoAlpha: 1, y: 0, duration: 0.38 }, 0.58)
-          .to(actions, { autoAlpha: 1, y: 0, duration: 0.36 }, 0.7)
-          .to(socials, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.82)
+          .to(summary, { autoAlpha: 1, y: 0, duration: 0.38 }, 0.58);
+        if (techLine) {
+          tl.to(techLine, { autoAlpha: 1, y: 0, duration: 0.32 }, 0.68);
+        }
+        if (techItems.length) {
+          tl.to(
+            techItems,
+            { autoAlpha: 1, y: 0, duration: 0.28, stagger: 0.05 },
+            0.7,
+          );
+        }
+        if (credential) {
+          tl.to(credential, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.82);
+        }
+        tl.to(actions, { autoAlpha: 1, y: 0, duration: 0.36 }, 0.92).to(
+          socials,
+          { autoAlpha: 1, y: 0, duration: 0.34 },
+          1.02,
+        );
+        if (exploreSignal) {
+          tl.to(exploreSignal, { autoAlpha: 1, y: 0, duration: 0.34 }, 1.12);
+        }
         if (upwork) {
           tl.to(
             upwork,

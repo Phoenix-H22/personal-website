@@ -1,0 +1,251 @@
+.cover {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid rgb(139 171 204 / 14%);
+  background: rgb(5 10 18 / 90%);
+}
+
+.coverEyebrow {
+  margin: 0 0 0.75rem;
+  color: #8babcc;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.merchant {
+  aspect-ratio: 16 / 7.4;
+}
+
+.merchantSurface {
+  height: 100%;
+  padding: 1.1rem 1.2rem;
+  background:
+    radial-gradient(circle at 18% 20%, rgb(49 230 208 / 14%), transparent 42%),
+    linear-gradient(145deg, rgb(10 18 30), rgb(4 8 14));
+}
+
+.merchantFlow {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.merchantFlow li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #e8eef6;
+  font-size: 0.88rem;
+}
+
+.flowDot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: #31e6d0;
+  box-shadow: 0 0 10px rgb(49 230 208 / 50%);
+}
+
+.merchantSplit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+  margin-top: 0.85rem;
+}
+
+.merchantSplit span {
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.55rem;
+  border: 1px solid rgb(242 184 79 / 22%);
+  background: rgb(242 184 79 / 6%);
+  color: #f2b84f;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.nabd {
+  aspect-ratio: 16 / 9;
+}
+
+.nabdSurface {
+  height: 100%;
+  padding: 1rem 1.1rem;
+  background:
+    radial-gradient(circle at 80% 20%, rgb(94 143 255 / 16%), transparent 40%),
+    linear-gradient(160deg, rgb(10 16 30), rgb(4 8 16));
+}
+
+.nabdLogo {
+  width: 2.6rem;
+  height: 2.6rem;
+  margin-bottom: 0.55rem;
+  object-fit: contain;
+  border-radius: 0.55rem;
+  background: rgb(255 255 255 / 4%);
+}
+
+.nabdEvent {
+  display: inline-flex;
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  background: rgb(49 230 208 / 10%);
+  color: #31e6d0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.nabdBranch {
+  width: 1px;
+  height: 0.7rem;
+  margin: 0.35rem 0 0.35rem 0.8rem;
+  background: rgb(94 143 255 / 55%);
+}
+
+.nabdChannels {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nabdChannels li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.55rem;
+  background: rgb(255 255 255 / 3%);
+  border: 1px solid rgb(94 143 255 / 16%);
+  color: #e8eef6;
+  font-size: 0.84rem;
+}
+
+.nabdState {
+  color: #8babcc;
+  font-size: 0.72rem;
+  text-transform: lowercase;
+}
+
+.vending {
+  aspect-ratio: 4 / 5;
+  min-height: 16rem;
+}
+
+.vendingSurface {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 0.75rem;
+  height: 100%;
+  padding: 0.9rem;
+  background:
+    radial-gradient(circle at 30% 20%, rgb(49 230 208 / 12%), transparent 40%),
+    linear-gradient(180deg, rgb(8 18 14), rgb(4 10 10));
+}
+
+.vendingMachine {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  padding: 0.7rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgb(49 230 208 / 22%);
+  background: rgb(6 14 12 / 80%);
+}
+
+.vendingScreen {
+  display: grid;
+  place-items: center;
+  min-height: 3.5rem;
+  border-radius: 0.45rem;
+  background: rgb(49 230 208 / 10%);
+  color: #31e6d0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+
+.vendingDoor {
+  height: 2.4rem;
+  border-radius: 0.35rem;
+  border: 1px dashed rgb(49 230 208 / 35%);
+  background: linear-gradient(180deg, rgb(49 230 208 / 8%), transparent);
+}
+
+.vendingStack {
+  display: grid;
+  gap: 0.35rem;
+  align-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vendingStack li {
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  border: 1px solid rgb(49 230 208 / 14%);
+  background: rgb(8 18 14 / 75%);
+  color: #d7e2ef;
+  font-size: 0.78rem;
+}
+
+.clinic {
+  aspect-ratio: 16 / 7.5;
+}
+
+.clinicSurface {
+  height: 100%;
+  padding: 1.1rem 1.2rem;
+  background:
+    radial-gradient(circle at 70% 30%, rgb(167 139 250 / 16%), transparent 42%),
+    linear-gradient(145deg, rgb(16 12 28), rgb(5 8 16));
+}
+
+.clinicLoop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.clinicLoop li {
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgb(167 139 250 / 24%);
+  background: rgb(24 16 40 / 55%);
+  color: #d7e2ef;
+  font-size: 0.8rem;
+}
+
+.clinicCapstone {
+  display: inline-flex;
+  margin: 0.9rem 0 0;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: rgb(242 184 79 / 12%);
+  color: #f2b84f;
+  font-size: 0.78rem;
+  font-weight: 560;
+}
+
+@media (max-width: 699px) {
+  .vendingSurface {
+    grid-template-columns: 1fr;
+  }
+
+  .vending {
+    aspect-ratio: 16 / 11;
+    min-height: 0;
+  }
+}

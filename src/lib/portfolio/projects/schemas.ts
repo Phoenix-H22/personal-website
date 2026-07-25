@@ -88,6 +88,18 @@ export const projectVisualThemeDtoSchema = z.object({
     "document-pipeline",
     "neutral",
   ]),
+  coverType: z.enum([
+    "merchant-operations",
+    "messaging-router",
+    "vending-device-flow",
+    "virtual-clinic-loop",
+  ]),
+  homepageCategory: z.enum([
+    "commerce",
+    "messaging",
+    "iot",
+    "ai-healthcare",
+  ]),
 });
 
 export const projectSeoDtoSchema = z.object({

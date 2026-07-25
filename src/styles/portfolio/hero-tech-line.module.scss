@@ -1,0 +1,45 @@
+.line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.15rem;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: #8babcc;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.sep {
+  color: #516274;
+  font-size: 0.75rem;
+}
+
+.tech,
+.techStrong {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.tech {
+  color: #9aadc0;
+  font-weight: 480;
+}
+
+.techStrong {
+  color: #31e6d0;
+  font-weight: 560;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

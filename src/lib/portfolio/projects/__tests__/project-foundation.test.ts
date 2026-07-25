@@ -107,6 +107,8 @@ describe("publication filtering", () => {
         id: "nabd",
         primary: "blue" as const,
         motif: "message-routing" as const,
+        coverType: "messaging-router" as const,
+        homepageCategory: "messaging" as const,
       },
     };
     const repo = new LocalProjectRepository([
