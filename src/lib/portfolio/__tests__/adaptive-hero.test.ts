@@ -2,8 +2,15 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
+import {
+  AdaptiveStackLens,
+  getProjectNavigationTarget,
+  reduceLensSelection,
+} from "@/components/portfolio/hero/adaptive-stack-lens";
 import { ADAPTIVE_HERO_CONTENT } from "@/lib/portfolio/adaptive-hero";
 import {
   ADAPTIVE_STACK_LENS_MODES,
@@ -205,6 +212,7 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
       "src/styles/portfolio/adaptive-engineer-hero.module.scss",
     );
     const v2Page = readSource("src/components/portfolio/portfolio-v2-page.tsx");
+    const v2Route = readSource("src/app/v2/page.tsx");
     expect(hero.match(/data-adaptive-engineer-hero/g)).toHaveLength(1);
     expect(hero).not.toMatch(/HOW I WORK|PRIMARY STACK/);
     expect(hero).not.toMatch(/upworkArtifact|productionArtifact|supportingProof/);
@@ -222,9 +230,11 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
       /<video|<canvas|WebGL|Three\.js|three\/|@notion|notion_notion/i,
     );
     expect(lens).not.toMatch(/setInterval|setTimeout|autoplay/i);
-    expect(lens).toContain("window.requestAnimationFrame(synchronizeMarkers)");
-    expect(lens).toContain("window.cancelAnimationFrame(scheduledFrame)");
     expect(lens).not.toMatch(/projects\/data|public-projects\.snapshot/);
+    expect(v2Route).toContain(
+      'import { PortfolioV2Page as PortfolioV2Experience } from "@/components/portfolio/portfolio-v2-page"',
+    );
+    expect(v2Route).toContain("return <PortfolioV2Experience />");
     expect(v2Page).toContain("<AdaptiveEngineerHero />");
     expect(v2Page).not.toContain("PortfolioVersionSwitch");
 
@@ -234,33 +244,123 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
     expect(motionSources).not.toMatch(
       /navigator\.(?:userAgent|vendor|brands)|\b(?:Chrome|Chromium|Brave|Edge)\b|Edg\//,
     );
-    expect(lens).toContain('data-route-fallback="false"');
-    expect(lens).toContain('window.CSS?.supports?.("stroke-dashoffset", "1")');
+    expect(lens.match(/<svg\s/g)).toHaveLength(1);
+    expect(lens.match(/<ol\s/g)).toHaveLength(1);
+    expect(lens.match(/<article\s/g)).toHaveLength(1);
+    expect(lens).toContain('aria-hidden="true"');
+    expect(lens).toContain('focusable="false"');
 
     const packageJson = readSource("package.json");
     expect(packageJson).not.toMatch(/typewriter|typed\.js|textplugin/i);
   });
 
-  it("supports selected state and complete keyboard context navigation", () => {
+  it("renders one selector, four buttons, and one card in source order", () => {
+    const markup = renderToStaticMarkup(
+      createElement(AdaptiveStackLens, {
+        modes: ADAPTIVE_STACK_LENS_MODES,
+        defaultSlug: DEFAULT_ADAPTIVE_STACK_LENS_SLUG,
+      }),
+    );
+
+    expect(markup.match(/<ol\b/g)).toHaveLength(1);
+    expect(markup.match(/<button\b/g)).toHaveLength(4);
+    expect(markup.match(/<article\b/g)).toHaveLength(1);
+    expect(markup.match(/data-project-beam="true"/g)).toHaveLength(4);
+    expect(markup.match(/data-active="true"/g)).toHaveLength(1);
+    expect(markup.match(/<path\b/g)).toHaveLength(2);
+    expect(markup.match(/aria-controls="adaptive-stack-lens-readout"/g)).toHaveLength(
+      4,
+    );
+    expect(markup.match(/aria-pressed="true"/g)).toHaveLength(1);
+    expect(markup.match(/aria-pressed="false"/g)).toHaveLength(3);
+    expect(markup.indexOf("</ol>")).toBeLessThan(markup.indexOf("<article"));
+    expect(markup).toContain('aria-live="polite"');
+    expect(markup).toContain('aria-atomic="true"');
+    expect(markup).toContain("01");
+    expect(markup).toContain("WARQAH STORE");
+    expect(markup).toContain("02");
+    expect(markup).toContain("SMART LOCKERS");
+    expect(markup).toContain("03");
+    expect(markup).toContain("YOUR OBOUR GUIDE");
+    expect(markup).toContain("04");
+    expect(markup).toContain("NABD");
+  });
+
+  it("keeps click selection and preview state deterministic", () => {
+    const initial = {
+      pinnedIndex: 1,
+      previewIndex: null,
+      hasInteracted: false,
+    };
+    const previewed = reduceLensSelection(initial, { type: "preview", index: 3 });
+    expect(previewed).toEqual({
+      pinnedIndex: 1,
+      previewIndex: 3,
+      hasInteracted: true,
+    });
+
+    const selected = reduceLensSelection(previewed, { type: "select", index: 2 });
+    expect(selected).toEqual({
+      pinnedIndex: 2,
+      previewIndex: 2,
+      hasInteracted: true,
+    });
+
+    expect(reduceLensSelection(selected, { type: "preview", index: null })).toEqual({
+      pinnedIndex: 2,
+      previewIndex: null,
+      hasInteracted: true,
+    });
+  });
+
+  it("supports complete wrapping keyboard project navigation", () => {
+    expect(getProjectNavigationTarget("ArrowRight", 3, 4)).toBe(0);
+    expect(getProjectNavigationTarget("ArrowDown", 1, 4)).toBe(2);
+    expect(getProjectNavigationTarget("ArrowLeft", 0, 4)).toBe(3);
+    expect(getProjectNavigationTarget("ArrowUp", 2, 4)).toBe(1);
+    expect(getProjectNavigationTarget("Home", 3, 4)).toBe(0);
+    expect(getProjectNavigationTarget("End", 0, 4)).toBe(3);
+    expect(getProjectNavigationTarget("Enter", 0, 4)).toBeNull();
+  });
+
+  it("uses CSS-only responsive layout and no projected marker architecture", () => {
     const lens = readSource(
       "src/components/portfolio/hero/adaptive-stack-lens.tsx",
     );
-    expect(lens).toContain('aria-label="Production system contexts"');
-    expect(lens).toContain('aria-controls="adaptive-stack-lens-readout"');
-    expect(lens).toContain(
-      'const TAB_LENS_QUERY = "(max-width: 68.6875rem)"',
+    const stylesheet = readSource(
+      "src/styles/portfolio/adaptive-engineer-hero.module.scss",
     );
+    expect(lens).toContain('aria-label="Production systems"');
+    expect(lens).toContain('aria-controls="adaptive-stack-lens-readout"');
     expect(lens.match(/data-lens-context=/g)).toHaveLength(1);
     expect(lens).toContain("aria-pressed={pinned}");
-    expect(lens).toContain('event.key === "ArrowRight"');
-    expect(lens).toContain('event.key === "ArrowDown"');
-    expect(lens).toContain('event.key === "ArrowLeft"');
-    expect(lens).toContain('event.key === "ArrowUp"');
-    expect(lens).toContain('event.key === "Home"');
-    expect(lens).toContain('event.key === "End"');
     expect(lens).toContain("onMouseEnter={() => previewMode(index)}");
     expect(lens).toContain("onFocus={() => previewMode(index)}");
     expect(lens).toContain("onClick={() => selectMode(index)}");
+    expect(lens).not.toMatch(
+      /matchMedia|ResizeObserver|getScreenCTM|DOMPoint|requestAnimationFrame|data-markers-ready/,
+    );
+    expect(stylesheet).not.toMatch(
+      /--marker-(?:top|left)|data-markers-ready|data-label-direction|lensGeometryStage|contextOrbitNode/,
+    );
+    expect(stylesheet).toContain("@media (min-width: 100rem)");
+    expect(stylesheet).toContain(
+      "@media (min-width: 73.75rem) and (max-width: 99.9375rem)",
+    );
+    expect(stylesheet).toContain(
+      "@media (min-width: 48rem) and (max-width: 73.6875rem)",
+    );
+    expect(stylesheet).toContain("@media (max-width: 47.99rem)");
+    expect(stylesheet).toContain("grid-template-columns: subgrid");
+    expect(stylesheet).toContain("grid-template-rows: subgrid");
+    expect(stylesheet).toMatch(
+      /\.projectControl\s*{[\s\S]*?border:\s*0;[\s\S]*?background:\s*transparent;[\s\S]*?box-shadow:\s*none;/,
+    );
+    expect(stylesheet).not.toMatch(/\.projectControlActive\s*{/);
+    expect(stylesheet).toContain(".projectBeam {");
+    expect(stylesheet).toContain('.projectControl[data-active="true"] .projectBeam');
+    expect(stylesheet).toContain("@media (prefers-reduced-motion: reduce)");
+    expect(stylesheet).toContain('html[data-effective-motion="reduced"]');
   });
 
   it("defines the ten-part engineering case-study foundation for all selected systems", () => {

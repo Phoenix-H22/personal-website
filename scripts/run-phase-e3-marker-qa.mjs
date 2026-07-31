@@ -1,39 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { chromium, firefox, webkit } from "playwright";
+import { chromium } from "playwright";
 
 const BASE_URL = "http://127.0.0.1:3010/v2";
 const OUTPUT_DIR = path.resolve(
-  "docs/portfolio-v3/qa/phase-d/phase-e3-markers",
+  "docs/portfolio-v3/qa/phase-d/phase-e3-responsive-rebuild",
 );
 const REPORT_PATH = path.join(OUTPUT_DIR, "results.json");
-
-const targets = [
-  {
-    name: "Chrome",
-    slug: "chrome",
-    browserType: chromium,
-    executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
-  },
-  {
-    name: "Edge",
-    slug: "edge",
-    browserType: chromium,
-    executablePath: "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
-  },
-  {
-    name: "Brave",
-    slug: "brave",
-    browserType: chromium,
-    executablePath: "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe",
-  },
-  { name: "Firefox", slug: "firefox", browserType: firefox },
-  { name: "WebKit", slug: "webkit", browserType: webkit },
-];
-const selectedTargets = process.env.MARKER_QA_BROWSER
-  ? targets.filter(({ name }) => name === process.env.MARKER_QA_BROWSER)
-  : targets;
+const CHROME_PATH = "C:/Program Files/Google/Chrome/Application/chrome.exe";
 
 const viewports = [
   { width: 1920, height: 1080 },
@@ -51,602 +26,595 @@ const viewports = [
   { width: 430, height: 932 },
   { width: 390, height: 844 },
   { width: 360, height: 800 },
+  { width: 1536, height: 720 },
+  { width: 1536, height: 680 },
+  { width: 1440, height: 700 },
+  { width: 1366, height: 650 },
+  { width: 1366, height: 625 },
+  { width: 1280, height: 650 },
+  { width: 1280, height: 600 },
 ];
 
-const zoomLevels = [1.25, 1.5, 2];
-const deviceScaleFactors = [1.25, 1.5, 2];
-const contextSlugs = [
-  "warqah-store",
-  "smart-lockers-platform",
-  "your-obour-guide",
-  "nabd",
-];
-const requiredScreenshotViewports = new Set([
+const screenshotViewports = new Set([
+  "1920x1080",
   "1792x828",
-  "1536x864",
-  "1366x768",
-  "1280x720",
+  "1536x720",
+  "1440x700",
+  "1366x650",
+  "1280x650",
   "1024x768",
   "390x844",
 ]);
 
-async function measureGeometry(page) {
+const keyboardViewports = new Set([
+  "1536x720",
+  "1366x650",
+  "1280x650",
+  "1024x768",
+  "390x844",
+]);
+
+const stateScreenshotViewports = new Set(["1536x720", "1366x650"]);
+
+const projects = [
+  { slug: "warqah-store", title: "Warqah Store" },
+  { slug: "smart-lockers-platform", title: "Smart Medication Lockers" },
+  { slug: "your-obour-guide", title: "Your Obour Guide" },
+  { slug: "nabd", title: "NABD Commerce Automation" },
+];
+
+function viewportLabel(viewport) {
+  return `${viewport.width}x${viewport.height}`;
+}
+
+function expectedMode(width) {
+  if (width >= 1600) return "wide-orbit";
+  if (width >= 1180) return "laptop-orbit";
+  if (width >= 768) return "tablet-tabs";
+  return "mobile-tabs";
+}
+
+function unique(items) {
+  return [...new Set(items)];
+}
+
+async function measureLayout(page) {
   return page.evaluate(() => {
-    const stage = document.querySelector("[data-lens-geometry-stage]");
-    const geometryId = stage.getAttribute("data-geometry");
-    const svg = stage.querySelector(
-      `[data-lens-geometry-svg="${geometryId}"]`,
-    );
-    const matrix = svg.getScreenCTM();
-    const stageRect = stage.getBoundingClientRect();
-    const coreRect = document
-      .querySelector("[data-adaptive-system-core]")
-      .getBoundingClientRect();
-    const sectionRect = document
-      .querySelector("[data-adaptive-stack-lens]")
-      .getBoundingClientRect();
-    const sideMidpoint = (side) => ({
-      x: (side.x1 + side.x2) / 2,
-      y: (side.y1 + side.y2) / 2,
-    });
-    const markerSides = [...svg.querySelectorAll("[data-marker-side-id]")];
-    const markers = markerSides.map((sideElement) => {
-      const id = sideElement.getAttribute("data-marker-side-id");
-      const side = {
-        side: sideElement.getAttribute("data-semantic-side"),
-        x1: Number(sideElement.getAttribute("x1")),
-        y1: Number(sideElement.getAttribute("y1")),
-        x2: Number(sideElement.getAttribute("x2")),
-        y2: Number(sideElement.getAttribute("y2")),
-      };
-      const midpoint = sideMidpoint(side);
-      const expected = new DOMPoint(midpoint.x, midpoint.y).matrixTransform(matrix);
-      const marker = stage.querySelector(`[data-lens-position="${id}"]`);
-      const anchor = marker.getBoundingClientRect();
-       const chip = marker
-         .querySelector("button > span:first-child")
-         .getBoundingClientRect();
-       const label = marker
-         .querySelector("button > span:last-child")
-         .getBoundingClientRect();
-      const actual = {
-        x: chip.left + chip.width / 2,
-        y: chip.top + chip.height / 2,
-      };
+    const requireElement = (selector) => {
+      const element = document.querySelector(selector);
+      if (!element) throw new Error(`Missing required element: ${selector}`);
+      return element;
+    };
+    const snapshot = (element) => {
+      const rect = element.getBoundingClientRect();
       return {
-        id,
-        side,
-        midpoint,
-        expectedX: expected.x,
-        expectedY: expected.y,
-        actualX: actual.x,
-        actualY: actual.y,
-        deltaX: actual.x - expected.x,
-        deltaY: actual.y - expected.y,
-        expectedLocalX: expected.x - stageRect.left,
-        expectedLocalY: expected.y - stageRect.top,
-        actualLocalX: actual.x - stageRect.left,
-        actualLocalY: actual.y - stageRect.top,
-        anchorWidth: anchor.width,
-        anchorHeight: anchor.height,
-        chip: chip.toJSON(),
-        label: label.toJSON(),
-        labelOverlapsCore:
-          label.left < coreRect.right - 0.5 &&
-          label.right > coreRect.left + 0.5 &&
-          label.top < coreRect.bottom - 0.5 &&
-          label.bottom > coreRect.top + 0.5,
-        labelInsideSection:
-          label.left >= sectionRect.left - 1 &&
-          label.right <= sectionRect.right + 1 &&
-          label.top >= sectionRect.top - 1 &&
-          label.bottom <= sectionRect.bottom + 1,
+        bottom: rect.bottom,
+        docBottom: rect.bottom + scrollY,
+        docLeft: rect.left + scrollX,
+        docTop: rect.top + scrollY,
+        height: rect.height,
+        left: rect.left,
+        right: rect.right,
+        top: rect.top,
+        width: rect.width,
       };
-    });
-    const labelOverlaps = [];
-    for (let first = 0; first < markers.length; first += 1) {
-      for (let second = first + 1; second < markers.length; second += 1) {
-        const a = markers[first].label;
-        const b = markers[second].label;
-        if (
-          a.left < b.right - 0.5 &&
-          a.right > b.left + 0.5 &&
-          a.top < b.bottom - 0.5 &&
-          a.bottom > b.top + 0.5
-        ) {
-          labelOverlaps.push(`${markers[first].id}/${markers[second].id}`);
-        }
-      }
-    }
+    };
+    const isVisible = (element) => {
+      const style = getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+      return (
+        style.display !== "none" &&
+        style.visibility !== "hidden" &&
+        Number(style.opacity) > 0 &&
+        rect.width > 0 &&
+        rect.height > 0
+      );
+    };
+    const intersects = (first, second) =>
+      first.left < second.right - 0.5 &&
+      first.right > second.left + 0.5 &&
+      first.top < second.bottom - 0.5 &&
+      first.bottom > second.top + 0.5;
+    const containedBy = (inner, outer) =>
+      inner.left >= outer.left - 1 &&
+      inner.right <= outer.right + 1 &&
+      inner.top >= outer.top - 1 &&
+      inner.bottom <= outer.bottom + 1;
+    const trackCount = (value) =>
+      value.trim() ? value.trim().split(/\s+/).length : 0;
+
+    const hero = requireElement("[data-adaptive-engineer-hero]");
+    const lens = requireElement("[data-adaptive-stack-lens]");
+    const orbit = requireElement("[data-stack-lens-orbit]");
+    const frame = requireElement("[data-orbit-frame]");
+    const selector = requireElement("[data-project-selector]");
+    const card = requireElement("[data-adaptive-system-core]");
+    const link = card.querySelector("a");
+    const controls = [...selector.querySelectorAll("button[data-lens-context]")];
+    const controlItems = controls.map((control) => control.closest("li"));
+    const markers = controls.map((control) => control.querySelector("span:first-child"));
+    const beams = controls.map((control) => control.querySelector("[data-project-beam]"));
+    const heroRect = snapshot(hero);
+    const orbitRect = snapshot(orbit);
+    const selectorRect = snapshot(selector);
+    const cardRect = snapshot(card);
+    const linkRect = snapshot(link);
+    const controlRects = controls.map(snapshot);
+    const markerRects = markers.map(snapshot);
+    const beamRects = beams.map(snapshot);
+    const orbitStyle = getComputedStyle(orbit);
+    const selectorStyle = getComputedStyle(selector);
+    const cardStyle = getComputedStyle(card);
+    const heroStyle = getComputedStyle(hero);
+    const activeControlIndex = controls.findIndex(
+      (control) => control.getAttribute("data-active") === "true",
+    );
+    const activeBeam = beams[activeControlIndex];
+    const activeBeamRect = beamRects[activeControlIndex];
+    const cardTextRects = [...card.querySelectorAll("p, h3, dt, dd, a")].map(
+      snapshot,
+    );
+    const markerWidths = markerRects.map(({ width }) => width);
+    const markerHeights = markerRects.map(({ height }) => height);
+    const activeBeamGap =
+      activeControlIndex === 0
+        ? cardRect.top - activeBeamRect.bottom
+        : activeControlIndex === 1
+          ? activeBeamRect.left - cardRect.right
+          : activeControlIndex === 2
+            ? activeBeamRect.top - cardRect.bottom
+            : cardRect.left - activeBeamRect.right;
+
     return {
-      activeMode: document
-        .querySelector("[data-adaptive-stack-lens]")
-        .getAttribute("data-active-mode"),
-      debugOverlayRendered: document.querySelector("[data-motion-debug]") !== null,
-      geometryId,
+      activeMode: lens.getAttribute("data-active-mode"),
+      activeBeamCount: controls.filter(
+        (control) => control.getAttribute("data-active") === "true",
+      ).length,
+      activeBeamGap,
+      activeBeamIntersectsCardText: cardTextRects.some((rect) =>
+        intersects(activeBeamRect, rect),
+      ),
+      activeBeamLength: Math.max(activeBeamRect.width, activeBeamRect.height),
+      activeBeamVisible: isVisible(activeBeam),
+      beamCount: beams.length,
+      cardAfterSelector:
+        Boolean(selector.compareDocumentPosition(card) & Node.DOCUMENT_POSITION_FOLLOWING),
+      cardColumn: cardStyle.gridColumnStart,
+      cardLinkVisible: isVisible(link) && containedBy(linkRect, cardRect),
+      cardRow: cardStyle.gridRowStart,
+      cardTextContained: [...card.querySelectorAll("p, h3, dt, dd, a")].every(
+        (element) => containedBy(snapshot(element), cardRect),
+      ),
+      cardTitle: card.querySelector("h3")?.textContent?.trim() ?? "",
+      card: cardRect,
+      controlCardIntersections: controlRects
+        .map((rect, index) => (intersects(rect, cardRect) ? index : null))
+        .filter((index) => index !== null),
+      controlItems: controlItems.map((item) => {
+        const style = getComputedStyle(item);
+        return {
+          column: style.gridColumnStart,
+          row: style.gridRowStart,
+        };
+      }),
+      controls: controlRects,
+      controlsContainedByOrbit: controlRects.every((rect) =>
+        containedBy(rect, orbitRect),
+      ),
+      controlsVisible: controls.every(isVisible),
+      controlSurfacesTransparent: controls.every((control) => {
+        const style = getComputedStyle(control);
+        return (
+          style.backgroundColor === "rgba(0, 0, 0, 0)" &&
+          style.borderTopWidth === "0px" &&
+          style.borderRightWidth === "0px" &&
+          style.borderBottomWidth === "0px" &&
+          style.borderLeftWidth === "0px" &&
+          style.boxShadow === "none"
+        );
+      }),
+      decorativeSvgCount: lens.querySelectorAll("svg[aria-hidden='true']").length,
+      documentScrollHeight: document.documentElement.scrollHeight,
+      frameVisible: isVisible(frame),
+      heroBottomReachable:
+        heroRect.docBottom <= document.documentElement.scrollHeight + 1,
+      heroOverflowX: heroStyle.overflowX,
+      heroOverflowY: heroStyle.overflowY,
       horizontalOverflow: Math.max(
         0,
         document.documentElement.scrollWidth - innerWidth,
       ),
-      labelOverlaps,
-      cardTextContained: [...document.querySelectorAll(
-        "[data-adaptive-system-core] p, [data-adaptive-system-core] h3, [data-adaptive-system-core] dt, [data-adaptive-system-core] dd, [data-adaptive-system-core] a",
-      )].every((element) => {
-        const rect = element.getBoundingClientRect();
-        return (
-          rect.left >= coreRect.left - 1 &&
-          rect.right <= coreRect.right + 1 &&
-          rect.top >= coreRect.top - 1 &&
-          rect.bottom <= coreRect.bottom + 1
-        );
-      }),
-      bottomBreathing: Math.min(
-        stageRect.bottom - markers.find(({ id }) => id === "product").chip.bottom,
-        stageRect.bottom - markers.find(({ id }) => id === "product").label.bottom,
+      linkHref: link?.getAttribute("href") ?? "",
+      markerHeightVariation:
+        Math.max(...markerHeights) - Math.min(...markerHeights),
+      markerWidthVariation: Math.max(...markerWidths) - Math.min(...markerWidths),
+      orbit: orbitRect,
+      orbitColumnCount: trackCount(orbitStyle.gridTemplateColumns),
+      orbitRowCount: trackCount(orbitStyle.gridTemplateRows),
+      pressedCount: controls.filter(
+        (control) => control.getAttribute("aria-pressed") === "true",
+      ).length,
+      pressedSlug:
+        controls.find((control) => control.getAttribute("aria-pressed") === "true")
+          ?.getAttribute("data-lens-context") ?? "",
+      projectCardCount: lens.querySelectorAll("[data-adaptive-system-core]").length,
+      selector: selectorRect,
+      selectorColumnCount: trackCount(selectorStyle.gridTemplateColumns),
+      selectorCount: lens.querySelectorAll("[data-project-selector]").length,
+      touchTargetsValid: controlRects.every(
+        (rect) => rect.width >= 44 && rect.height >= 44,
       ),
-      markers,
-      markersReady: stage.getAttribute("data-markers-ready"),
-      stage: stageRect.toJSON(),
+      viewportHeight: innerHeight,
+      viewportWidth: innerWidth,
     };
   });
 }
 
-function measurementFailures(measurement, tolerance) {
+function layoutFailures(measurement, mode) {
   const failures = [];
-  if (measurement.markersReady !== "true") failures.push("markers not ready");
-  if (measurement.markers.length !== 4) failures.push("marker edge count is not four");
-  if (measurement.debugOverlayRendered) failures.push("normal UI contains motion debug");
+  if (measurement.selectorCount !== 1) failures.push("selector count is not one");
+  if (measurement.controls.length !== 4) failures.push("control count is not four");
+  if (measurement.projectCardCount !== 1) failures.push("card count is not one");
+  if (measurement.decorativeSvgCount !== 1) {
+    failures.push("decorative SVG count is not one");
+  }
+  if (!measurement.cardAfterSelector) failures.push("card does not follow selector");
+  if (!measurement.controlsVisible) failures.push("one or more controls are hidden");
+  if (!measurement.controlSurfacesTransparent) {
+    failures.push("project control renders an outer surface");
+  }
+  if (measurement.markerWidthVariation > 0.5 || measurement.markerHeightVariation > 0.5) {
+    failures.push("number marker dimensions are inconsistent");
+  }
+  if (measurement.beamCount !== 4) failures.push("beam count is not four");
+  if (measurement.activeBeamCount !== 1) failures.push("active beam count is not one");
+  if (!measurement.cardTextContained) failures.push("card text leaves card bounds");
+  if (!measurement.cardLinkVisible) failures.push("case-study link is not visible");
+  if (measurement.pressedCount !== 1) failures.push("pressed control count is not one");
   if (measurement.horizontalOverflow > 1) {
     failures.push(`horizontal overflow ${measurement.horizontalOverflow}px`);
   }
-  if (measurement.labelOverlaps.length > 0) {
-    failures.push(`label overlaps ${measurement.labelOverlaps.join(", ")}`);
+  if (["hidden", "clip"].includes(measurement.heroOverflowX)) {
+    failures.push(`hero overflow-x is ${measurement.heroOverflowX}`);
   }
-  if (!measurement.cardTextContained) failures.push("card text leaves card bounds");
-  if (measurement.bottomBreathing < 24) {
-    failures.push(`bottom breathing ${measurement.bottomBreathing.toFixed(3)}px`);
+  if (["hidden", "clip"].includes(measurement.heroOverflowY)) {
+    failures.push(`hero overflow-y is ${measurement.heroOverflowY}`);
   }
-  for (const marker of measurement.markers) {
-    if (Math.abs(marker.deltaX) > tolerance || Math.abs(marker.deltaY) > tolerance) {
+  if (!measurement.heroBottomReachable) failures.push("hero bottom is not scroll-reachable");
+
+  if (mode.endsWith("orbit")) {
+    if (!measurement.frameVisible) failures.push("orbit frame is hidden");
+    if (measurement.orbitColumnCount !== 3) failures.push("orbit is not three columns");
+    if (measurement.orbitRowCount !== 3) failures.push("orbit is not three rows");
+    if (measurement.orbit.width / measurement.orbit.height < 1.15) {
+      failures.push("orbit is not landscape");
+    }
+    if (measurement.cardRow !== "2" || measurement.cardColumn !== "2") {
+      failures.push("card is not in center grid cell");
+    }
+    const expectedCells = [
+      { row: "1", column: "2" },
+      { row: "2", column: "3" },
+      { row: "3", column: "2" },
+      { row: "2", column: "1" },
+    ];
+    measurement.controlItems.forEach((item, index) => {
+      if (
+        item.row !== expectedCells[index].row ||
+        item.column !== expectedCells[index].column
+      ) {
+        failures.push(`control ${index + 1} occupies wrong grid cell`);
+      }
+    });
+    if (measurement.controlCardIntersections.length > 0) {
       failures.push(
-        `${marker.id} delta (${marker.deltaX.toFixed(3)}, ${marker.deltaY.toFixed(3)})`,
+        `controls intersect card: ${measurement.controlCardIntersections.join(", ")}`,
       );
     }
-    if (marker.anchorWidth !== 0 || marker.anchorHeight !== 0) {
-      failures.push(`${marker.id} anchor has intrinsic size`);
+    if (!measurement.controlsContainedByOrbit) {
+      failures.push("one or more controls leave orbit bounds");
     }
-    if (marker.labelOverlapsCore) failures.push(`${marker.id} label overlaps core`);
-    if (!marker.labelInsideSection) failures.push(`${marker.id} label leaves lens section`);
+    if (!measurement.activeBeamVisible) failures.push("active beam is not visible");
+    if (measurement.activeBeamLength < 24) failures.push("active beam is too short");
+    if (measurement.activeBeamGap > 2) failures.push("active beam does not reach card");
+    if (measurement.activeBeamIntersectsCardText) {
+      failures.push("active beam intersects card text");
+    }
+  } else {
+    if (measurement.frameVisible) failures.push("tab mode shows orbit frame");
+    const expectedColumns = mode === "tablet-tabs" ? 4 : 2;
+    if (measurement.selectorColumnCount !== expectedColumns) {
+      failures.push(`selector is not ${expectedColumns} columns`);
+    }
+    if (!measurement.touchTargetsValid) failures.push("tab touch target is below 44px");
+    if (measurement.card.top < measurement.selector.bottom - 1) {
+      failures.push("card does not follow tab selector visually");
+    }
   }
+
   return failures;
 }
 
-function movementFrom(initial, current) {
+function maximumControlMovement(initial, current) {
   return Math.max(
-    ...initial.markers.map((marker, index) =>
+    ...initial.controls.map((control, index) =>
       Math.hypot(
-        marker.actualLocalX - current.markers[index].actualLocalX,
-        marker.actualLocalY - current.markers[index].actualLocalY,
+        control.docLeft - current.controls[index].docLeft,
+        control.docTop - current.controls[index].docTop,
       ),
     ),
   );
 }
 
-async function installCrosshairs(page, measurement) {
-  await page.evaluate((markers) => {
-    const stage = document.querySelector("[data-lens-geometry-stage]");
-    stage.querySelector("[data-marker-crosshairs]")?.remove();
-    const overlay = document.createElement("div");
-    overlay.dataset.markerCrosshairs = "true";
-    Object.assign(overlay.style, {
-      position: "absolute",
-      inset: "0",
-      pointerEvents: "none",
-      zIndex: "20",
-    });
-    const addCrosshair = (x, y, color, size, label) => {
-      const crosshair = document.createElement("span");
-      Object.assign(crosshair.style, {
-        position: "absolute",
-        left: `${x}px`,
-        top: `${y}px`,
-        width: `${size}px`,
-        height: `${size}px`,
-        borderTop: `1px solid ${color}`,
-        borderLeft: `1px solid ${color}`,
-        transform: "translate(-50%, -50%) rotate(45deg)",
-      });
-      if (label) {
-        crosshair.textContent = label;
-        Object.assign(crosshair.style, {
-          color,
-          font: "8px/1 monospace",
-          whiteSpace: "nowrap",
-        });
-      }
-      overlay.append(crosshair);
-    };
-    for (const marker of markers) {
-      addCrosshair(
-        marker.expectedLocalX,
-        marker.expectedLocalY,
-        "#00ffff",
-        16,
-        `${marker.side.side.toUpperCase()} CENTER`,
-      );
-      addCrosshair(marker.actualLocalX, marker.actualLocalY, "#ff2bd6", 9, "");
-    }
-    stage.append(overlay);
-  }, measurement.markers);
-}
-
-async function captureLens(page, target, label) {
-  const lens = page.locator("[data-adaptive-stack-lens]");
-  await lens.screenshot({
-    path: path.join(OUTPUT_DIR, `${target.slug}-${label}.png`),
-  });
-}
-
-async function captureRequiredViewport(page, target, viewport) {
-  const label = `${viewport.width}x${viewport.height}`;
-  if (!requiredScreenshotViewports.has(label)) return;
-  await page.screenshot({
-    path: path.join(OUTPUT_DIR, `${target.slug}-hero-${label}.png`),
-    fullPage: false,
-  });
-}
-
-async function validateTransitions(page, viewport) {
-  const tolerance = viewport.width < 768 ? 1 : 0.75;
-  const initial = await measureGeometry(page);
-  const transitions = [{ context: initial.activeMode, measurement: initial }];
-  const failures = measurementFailures(initial, tolerance);
+async function validateProjectStates(page, initial, mode, label) {
+  const failures = [];
+  const states = [];
+  const screenshotPaths = [];
   let maximumMovement = 0;
-  for (const slug of contextSlugs) {
-    await page.evaluate((contextSlug) => {
-      document.querySelector(`[data-lens-context="${contextSlug}"]`).click();
-    }, slug);
-    await page.waitForTimeout(80);
-    const current = await measureGeometry(page);
-    transitions.push({ context: slug, measurement: current });
-    failures.push(...measurementFailures(current, tolerance));
-    maximumMovement = Math.max(maximumMovement, movementFrom(initial, current));
+  let maximumOrbitShift = 0;
+
+  for (const project of projects) {
+    await page.evaluate((slug) => {
+      document.querySelector(`[data-lens-context="${slug}"]`)?.click();
+    }, project.slug);
+    await page.waitForTimeout(360);
+    const current = await measureLayout(page);
+    failures.push(
+      ...layoutFailures(current, mode).map(
+        (failure) => `${project.slug}: ${failure}`,
+      ),
+    );
+    if (stateScreenshotViewports.has(label)) {
+      const screenshotPath = path.join(
+        OUTPUT_DIR,
+        `hero-${label}-${project.slug}.png`,
+      );
+      await page.screenshot({ path: screenshotPath, fullPage: false });
+      screenshotPaths.push(screenshotPath);
+    }
+    states.push({
+      activeMode: current.activeMode,
+      cardTitle: current.cardTitle,
+      linkHref: current.linkHref,
+      pressedSlug: current.pressedSlug,
+    });
+    if (current.activeMode !== project.slug) {
+      failures.push(`${project.slug} did not become active`);
+    }
+    if (current.pressedSlug !== project.slug) {
+      failures.push(`${project.slug} did not become pressed`);
+    }
+    if (current.cardTitle !== project.title) {
+      failures.push(`${project.slug} rendered wrong card title`);
+    }
+    if (!current.cardTextContained) {
+      failures.push(`${project.slug} card text leaves bounds`);
+    }
+    if (!current.cardLinkVisible) {
+      failures.push(`${project.slug} case-study link is not visible`);
+    }
+    maximumMovement = Math.max(
+      maximumMovement,
+      maximumControlMovement(initial, current),
+    );
+    maximumOrbitShift = Math.max(
+      maximumOrbitShift,
+      Math.abs(initial.orbit.docLeft - current.orbit.docLeft),
+      Math.abs(initial.orbit.docTop - current.orbit.docTop),
+      Math.abs(initial.orbit.width - current.orbit.width),
+      Math.abs(initial.orbit.height - current.orbit.height),
+    );
   }
-  if (maximumMovement > tolerance) {
-    failures.push(`context-switch movement ${maximumMovement.toFixed(3)}px`);
+
+  if (maximumMovement > 1) {
+    failures.push(`project switching moved controls ${maximumMovement.toFixed(3)}px`);
   }
+  if (maximumOrbitShift > 1) {
+    failures.push(`project switching shifted orbit ${maximumOrbitShift.toFixed(3)}px`);
+  }
+
   return {
-    failures: [...new Set(failures)],
+    failures,
     maximumMovement,
-    transitions,
+    maximumOrbitShift,
+    screenshotPaths,
+    states,
   };
 }
 
-async function measureTabLayout(page) {
-  return page.evaluate(() => {
-    const lens = document.querySelector("[data-adaptive-stack-lens]");
-    const core = lens.querySelector("[data-adaptive-system-core]");
-    const controls = [...lens.querySelectorAll("[data-lens-position]")];
-    const tabs = controls.map((node) => {
-      const button = node.querySelector("button");
-      const labelElement = button.querySelector("span:last-child");
-      const label = labelElement.getBoundingClientRect();
-      const buttonRect = button.getBoundingClientRect();
+async function validateKeyboard(page) {
+  const failures = [];
+  const sequence = [
+    { key: "End", slug: "nabd" },
+    { key: "Home", slug: "warqah-store" },
+    { key: "ArrowRight", slug: "smart-lockers-platform" },
+    { key: "ArrowDown", slug: "your-obour-guide" },
+    { key: "ArrowLeft", slug: "smart-lockers-platform" },
+    { key: "ArrowUp", slug: "warqah-store" },
+  ];
+
+  await page.evaluate(() => {
+    document
+      .querySelector("[data-project-selector] button")
+      ?.focus({ preventScroll: true });
+  });
+
+  for (const step of sequence) {
+    await page.keyboard.press(step.key);
+    await page.waitForTimeout(30);
+    const state = await page.evaluate(() => {
+      const lens = document.querySelector("[data-adaptive-stack-lens]");
+      const focused = document.activeElement;
+      const pressed = document.querySelector(
+        "[data-project-selector] button[aria-pressed='true']",
+      );
       return {
-        id: node.getAttribute("data-lens-position"),
-        button: buttonRect.toJSON(),
-        label: label.toJSON(),
-        labelText: labelElement.textContent.trim(),
+        active: lens?.getAttribute("data-active-mode"),
+        focused: focused?.getAttribute("data-lens-context"),
+        pressed: pressed?.getAttribute("data-lens-context"),
       };
     });
-    const coreRect = core.getBoundingClientRect();
-    return {
-      activeMode: lens.getAttribute("data-active-mode"),
-      coreTitle: core.querySelector("h3")?.textContent,
-      cardTextContained: [...core.querySelectorAll("p, h3, dt, dd, a")].every(
-        (element) => {
-          const rect = element.getBoundingClientRect();
-          return (
-            rect.left >= coreRect.left - 1 &&
-            rect.right <= coreRect.right + 1 &&
-            rect.top >= coreRect.top - 1 &&
-            rect.bottom <= coreRect.bottom + 1
-          );
-        },
-      ),
-      debugOverlayRendered: document.querySelector("[data-motion-debug]") !== null,
-      gridColumns: getComputedStyle(lens.querySelector("ol")).gridTemplateColumns,
-      horizontalOverflow: Math.max(
-        0,
-        document.documentElement.scrollWidth - innerWidth,
-      ),
-      tabs,
-    };
-  });
-}
-
-async function validateTabViewport(page, target, viewport) {
-  await page.setViewportSize(viewport);
-  await page.goto(BASE_URL, { waitUntil: "networkidle" });
-  await page.waitForFunction(
-    () =>
-      document
-        .querySelector("[data-lens-geometry-stage]")
-        ?.getAttribute("data-markers-ready") === "true",
-  );
-  const initial = await measureTabLayout(page);
-  const failures = [];
-  const expectedColumns = viewport.width < 768 ? 2 : 4;
-  if (initial.tabs.length !== 4) failures.push("tab grid does not contain four controls");
-  if (initial.debugOverlayRendered) failures.push("normal UI contains motion debug");
-  if (!initial.cardTextContained) failures.push("card text leaves card bounds");
-  if (initial.horizontalOverflow > 1) {
-    failures.push(`horizontal overflow ${initial.horizontalOverflow}px`);
-  }
-  if (initial.gridColumns.split(" ").filter(Boolean).length !== expectedColumns) {
-    failures.push(`selector is not ${expectedColumns} columns`);
-  }
-  for (const tab of initial.tabs) {
-    if (tab.button.width < 44 || tab.button.height < 44) {
-      failures.push(`${tab.id} touch target is too small`);
+    if (
+      state.active !== step.slug ||
+      state.focused !== step.slug ||
+      state.pressed !== step.slug
+    ) {
+      failures.push(`${step.key} navigation failed`);
     }
   }
-  const initialRects = initial.tabs.map(({ button }) => button);
-  let maximumMovement = 0;
-  for (const slug of contextSlugs) {
-    await page.evaluate((contextSlug) => {
-      document.querySelector(`[data-lens-context="${contextSlug}"]`).click();
-    }, slug);
-    await page.waitForTimeout(80);
-    const current = await measureTabLayout(page);
-    current.tabs.forEach(({ button }, index) => {
-      maximumMovement = Math.max(
-        maximumMovement,
-        Math.hypot(
-          button.left - initialRects[index].left,
-          button.top - initialRects[index].top,
-        ),
-      );
-    });
-  }
-  if (maximumMovement > 1) {
-    failures.push(`mobile nodes moved ${maximumMovement.toFixed(3)}px`);
-  }
-  const final = await measureTabLayout(page);
-  if (
-    final.activeMode !== "nabd" ||
-    final.coreTitle !== "NABD Commerce Automation"
-  ) {
-    failures.push("tab context switching did not update core card");
-  }
-  await captureLens(page, target, `${viewport.width}x${viewport.height}`);
-  await captureRequiredViewport(page, target, viewport);
-  return {
-    browser: target.name,
-    failures: [...new Set(failures)],
-    geometryId: "tabs",
-    markerMeasurements: [],
-    maximumDelta: 0,
-    maximumMovement,
-    viewport,
-  };
+
+  return failures;
 }
 
-async function validateViewport(page, target, viewport) {
-  if (viewport.width < 1100) {
-    return validateTabViewport(page, target, viewport);
-  }
+async function validateViewport(page, viewport) {
+  const label = viewportLabel(viewport);
+  const mode = expectedMode(viewport.width);
   await page.setViewportSize(viewport);
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
-  await page.waitForFunction(
-    () =>
-      document
-        .querySelector("[data-lens-geometry-stage]")
-        ?.getAttribute("data-markers-ready") === "true",
-  );
-  const validation = await validateTransitions(page, viewport);
-  const finalMeasurement = validation.transitions.at(-1).measurement;
-  await captureRequiredViewport(page, target, viewport);
-  await installCrosshairs(page, finalMeasurement);
-  await captureLens(page, target, `${viewport.width}x${viewport.height}`);
+  await page.evaluate(() => scrollTo(0, 0));
+
+  const initial = await measureLayout(page);
+  const failures = layoutFailures(initial, mode);
+  const projectValidation = await validateProjectStates(page, initial, mode, label);
+  failures.push(...projectValidation.failures);
+
+  if (keyboardViewports.has(label)) {
+    failures.push(...(await validateKeyboard(page)));
+  }
+
+  await page.evaluate(() => {
+    document
+      .querySelector('[data-lens-context="smart-lockers-platform"]')
+      ?.click();
+    scrollTo(0, 0);
+  });
+  await page.waitForTimeout(360);
+
+  let screenshotPath = null;
+  if (screenshotViewports.has(label)) {
+    screenshotPath = path.join(OUTPUT_DIR, `hero-${label}.png`);
+    await page.screenshot({ path: screenshotPath, fullPage: false });
+  }
+
   return {
-    browser: target.name,
-    failures: validation.failures,
-    geometryId: finalMeasurement.geometryId,
-    markerMeasurements: validation.transitions.map(({ context, measurement }) => ({
-      context,
-      markers: measurement.markers.map(
-        ({
-          id,
-          expectedX,
-          expectedY,
-          actualX,
-          actualY,
-          deltaX,
-          deltaY,
-        }) => ({
-          markerId: id,
-          expectedX,
-          expectedY,
-          actualX,
-          actualY,
-          deltaX,
-          deltaY,
-        }),
-      ),
-    })),
-    maximumDelta: Math.max(
-      ...validation.transitions.flatMap(({ measurement }) =>
-        measurement.markers.flatMap(({ deltaX, deltaY }) => [
-          Math.abs(deltaX),
-          Math.abs(deltaY),
-        ]),
-      ),
-    ),
-    maximumMovement: validation.maximumMovement,
+    failures: unique(failures),
+    maximumControlMovement: projectValidation.maximumMovement,
+    maximumOrbitShift: projectValidation.maximumOrbitShift,
+    mode,
+    screenshotPath,
+    stateScreenshotPaths: projectValidation.screenshotPaths,
+    states: projectValidation.states,
     viewport,
   };
 }
 
-async function validateNoJavaScriptFallback(browser) {
+async function validateReducedMotion(browser) {
   const context = await browser.newContext({
-    javaScriptEnabled: false,
-    viewport: { width: 1440, height: 900 },
+    reducedMotion: "reduce",
+    viewport: { width: 1440, height: 700 },
   });
   const page = await context.newPage();
+  const errors = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+  page.on("pageerror", (error) => errors.push(error.message));
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
-  const fallback = await page.evaluate(() => {
-    const stage = document.querySelector("[data-lens-geometry-stage]");
-    const marker = document.querySelector("[data-lens-position]");
+  await page.evaluate(() => {
+    document.querySelector('[data-lens-context="warqah-store"]')?.click();
+  });
+  const result = await page.evaluate(() => {
+    const boundary = document.querySelector("[data-orbit-frame] path");
+    const cardContent = document.querySelector("[data-adaptive-system-core] > div");
+    const caret = document.querySelector("[data-living-toolchain] i");
+    const activeBeam = document.querySelector(
+      '[data-project-selector] button[data-active="true"] [data-project-beam]',
+    );
+    const beamStyle = activeBeam ? getComputedStyle(activeBeam) : null;
     return {
-      controls: document.querySelectorAll("[data-lens-position]").length,
-      debugOverlayRendered: document.querySelector("[data-motion-debug]") !== null,
-      markerOpacity: getComputedStyle(marker).opacity,
-      markersReady: stage.getAttribute("data-markers-ready"),
+      boundaryAnimation: boundary ? getComputedStyle(boundary).animationName : null,
+      beamTransitionIsImmediate: beamStyle
+        ? beamStyle.transitionDuration
+            .split(",")
+            .every((duration) => Number.parseFloat(duration) <= 0.001)
+        : false,
+      cardAnimation: cardContent ? getComputedStyle(cardContent).animationName : null,
+      caretDisplay: caret ? getComputedStyle(caret).display : null,
     };
   });
   await context.close();
   return {
-    ...fallback,
+    ...result,
+    errors,
     passed:
-      fallback.controls === 4 &&
-      !fallback.debugOverlayRendered &&
-      fallback.markerOpacity === "0" &&
-      fallback.markersReady === "false",
+      result.boundaryAnimation === "none" &&
+      result.beamTransitionIsImmediate &&
+      result.cardAnimation === "none" &&
+      result.caretDisplay === "none" &&
+      errors.length === 0,
   };
 }
 
-async function validateZoom(page, level) {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto(BASE_URL, { waitUntil: "networkidle" });
-  await page.evaluate((zoom) => {
-    document.documentElement.style.zoom = String(zoom);
-  }, level);
-  await page.waitForTimeout(250);
-  const validation = await validateTransitions(page, { width: 1440, height: 900 });
-  return {
-    level,
-    failures: validation.failures,
-    maximumDelta: Math.max(
-      ...validation.transitions.flatMap(({ measurement }) =>
-        measurement.markers.flatMap(({ deltaX, deltaY }) => [
-          Math.abs(deltaX),
-          Math.abs(deltaY),
-        ]),
-      ),
-    ),
-  };
-}
-
-async function validateDeviceScaleFactor(browser, factor) {
-  const context = await browser.newContext({
-    deviceScaleFactor: factor,
-    viewport: { width: 1440, height: 900 },
-  });
-  const page = await context.newPage();
-  await page.goto(BASE_URL, { waitUntil: "networkidle" });
-  await page.waitForFunction(
-    () =>
-      document
-        .querySelector("[data-lens-geometry-stage]")
-        ?.getAttribute("data-markers-ready") === "true",
-  );
-  const validation = await validateTransitions(page, { width: 1440, height: 900 });
-  await context.close();
-  return {
-    factor,
-    failures: validation.failures,
-    maximumDelta: Math.max(
-      ...validation.transitions.flatMap(({ measurement }) =>
-        measurement.markers.flatMap(({ deltaX, deltaY }) => [
-          Math.abs(deltaX),
-          Math.abs(deltaY),
-        ]),
-      ),
-    ),
-  };
-}
-
-if (!fs.existsSync(path.dirname(OUTPUT_DIR))) {
-  throw new Error(`QA parent directory is missing: ${path.dirname(OUTPUT_DIR)}`);
-}
 fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-const report = { generatedAt: new Date().toISOString(), browsers: [] };
-for (const target of selectedTargets) {
-  if (target.executablePath && !fs.existsSync(target.executablePath)) {
-    throw new Error(`${target.name} executable is missing`);
+const browser = await chromium.launch(
+  fs.existsSync(CHROME_PATH) ? { executablePath: CHROME_PATH, headless: true } : { headless: true },
+);
+const context = await browser.newContext({ viewport: viewports[0] });
+const page = await context.newPage();
+const consoleErrors = [];
+const hydrationWarnings = [];
+let activeViewport = viewportLabel(viewports[0]);
+
+page.on("console", (message) => {
+  const text = message.text();
+  if (message.type() === "error") consoleErrors.push(`${activeViewport}: ${text}`);
+  if (/hydration|did not match|server rendered/i.test(text)) {
+    hydrationWarnings.push(`${activeViewport}: ${text}`);
   }
-  const browser = await target.browserType.launch({
-    executablePath: target.executablePath,
-    headless: true,
-  });
-  try {
-    const noJavaScript = await validateNoJavaScriptFallback(browser);
-    const context = await browser.newContext({ viewport: viewports[0] });
-    const page = await context.newPage();
-    const viewportResults = [];
-    for (const viewport of viewports) {
-      viewportResults.push(await validateViewport(page, target, viewport));
-    }
-    const zoomResults = [];
-    for (const level of zoomLevels) zoomResults.push(await validateZoom(page, level));
-    await context.close();
-    const deviceScaleResults = [];
-    for (const factor of deviceScaleFactors) {
-      deviceScaleResults.push(await validateDeviceScaleFactor(browser, factor));
-    }
-    report.browsers.push({
-      browser: target.name,
-      deviceScaleResults,
-      noJavaScript,
-      viewportResults,
-      zoomResults,
-    });
-  } finally {
-    await browser.close();
+});
+page.on("pageerror", (error) => {
+  consoleErrors.push(`${activeViewport}: ${error.message}`);
+});
+
+const viewportResults = [];
+try {
+  for (const viewport of viewports) {
+    activeViewport = viewportLabel(viewport);
+    viewportResults.push(await validateViewport(page, viewport));
   }
+} finally {
+  await context.close();
 }
 
-const allFailures = report.browsers.flatMap((browser) => [
-  ...(browser.noJavaScript.passed ? [] : ["no-JavaScript fallback"]),
-  ...browser.viewportResults.flatMap((result) => result.failures),
-  ...browser.zoomResults.flatMap((result) => result.failures),
-  ...browser.deviceScaleResults.flatMap((result) => result.failures),
+const reducedMotion = await validateReducedMotion(browser);
+await browser.close();
+
+const failures = unique([
+  ...viewportResults.flatMap((result) =>
+    result.failures.map(
+      (failure) => `${viewportLabel(result.viewport)} (${result.mode}): ${failure}`,
+    ),
+  ),
+  ...consoleErrors.map((error) => `console error: ${error}`),
+  ...hydrationWarnings.map((warning) => `hydration warning: ${warning}`),
+  ...(reducedMotion.passed ? [] : ["reduced-motion validation failed"]),
 ]);
-const summary = {
-  passed: allFailures.length === 0,
-  failures: [...new Set(allFailures)],
-  maximumDeltaByBrowser: Object.fromEntries(
-    report.browsers.map((browser) => [
-      browser.browser,
-      Math.max(
-        ...browser.viewportResults.map((result) => result.maximumDelta),
-        ...browser.zoomResults.map((result) => result.maximumDelta),
-        ...browser.deviceScaleResults.map((result) => result.maximumDelta),
-      ),
-    ]),
-  ),
-  maximumDeltaByViewport: Object.fromEntries(
-    viewports.map((viewport) => [
-      `${viewport.width}x${viewport.height}`,
-      Math.max(
-        ...report.browsers.flatMap((browser) =>
-          browser.viewportResults
-            .filter(
-              (result) =>
-                result.viewport.width === viewport.width &&
-                result.viewport.height === viewport.height,
-            )
-            .map((result) => result.maximumDelta),
-        ),
-      ),
-    ]),
-  ),
+
+const report = {
+  baseUrl: BASE_URL,
+  consoleErrors,
+  generatedAt: new Date().toISOString(),
+  hydrationWarnings,
+  reducedMotion,
+  summary: {
+    failures,
+    passed: failures.length === 0,
+    viewportCount: viewportResults.length,
+  },
+  viewportResults,
 };
-fs.writeFileSync(
-  REPORT_PATH,
-  `${JSON.stringify({ ...report, summary }, null, 2)}\n`,
-);
-console.log(JSON.stringify(summary, null, 2));
-if (!summary.passed) process.exitCode = 1;
+
+fs.writeFileSync(REPORT_PATH, `${JSON.stringify(report, null, 2)}\n`);
+console.log(JSON.stringify(report.summary, null, 2));
+if (!report.summary.passed) process.exitCode = 1;
