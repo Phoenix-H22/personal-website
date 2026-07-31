@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { PortfolioPage } from "@/components/portfolio/portfolio-page";
+import { PortfolioV2Page as PortfolioV2Experience } from "@/components/portfolio/portfolio-v2-page";
 import { getPortfolioVariant } from "@/lib/portfolio/portfolio-variant";
 
 const config = getPortfolioVariant("v2");
@@ -8,26 +8,31 @@ const config = getPortfolioVariant("v2");
 export const metadata: Metadata = {
   title: config.title,
   description:
-    "Private preview of the next portfolio iteration. Not for public indexing.",
+    "Backend-focused software engineer building reliable APIs, integrations, commerce platforms, connected hardware, and production web products.",
   alternates: {
     canonical: config.canonical,
   },
   robots: {
-    index: false,
-    follow: false,
-    nocache: true,
-    googleBot: {
-      index: false,
-      follow: false,
-      noimageindex: true,
-    },
+    index: config.indexable,
+    follow: config.indexable,
+  },
+  openGraph: {
+    type: "website",
+    title: config.title,
+    description:
+      "Backend systems, product engineering, integrations, commerce, and connected hardware with verified production evidence.",
+    url: config.canonical,
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: config.title,
+    description:
+      "Backend systems, product engineering, integrations, commerce, and connected hardware.",
+    images: ["/opengraph-image"],
   },
 };
 
-/**
- * V2 is architectural isolation for future S2+ changes.
- * It currently renders the same approved baseline as `/`.
- */
 export default function PortfolioV2Page() {
-  return <PortfolioPage config={config} />;
+  return <PortfolioV2Experience />;
 }
