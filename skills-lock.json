@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "skills": {
+    "conversion-accessibility-polish": {
+      "source": "divyanshu-iitian/agent-website-design-skills",
+      "sourceType": "github",
+      "skillPath": "conversion-accessibility-polish/SKILL.md",
+      "computedHash": "b22f0b8e0cb326df50189db032e889883aa3fc821263b44c57ff4d7bcba5c72c"
+    },
+    "frontend-ui-engineering": {
+      "source": "addyosmani/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-ui-engineering/SKILL.md",
+      "computedHash": "3a5d4a84e52710f2d724ff68813fba0d61db4f2a232a9d0b0050a8fec08b3e82"
+    },
+    "landing-page-craft": {
+      "source": "divyanshu-iitian/agent-website-design-skills",
+      "sourceType": "github",
+      "skillPath": "landing-page-craft/SKILL.md",
+      "computedHash": "3164bbf25e65b72d5557fdb850015769f6a1434aaa5ad5f9227fda95e5233dea"
+    },
+    "responsive-ui-qa": {
+      "source": "divyanshu-iitian/agent-website-design-skills",
+      "sourceType": "github",
+      "skillPath": "responsive-ui-qa/SKILL.md",
+      "computedHash": "24df0adc6bf15070ee07bb7eaea64879ef19dc59b1a9175778837684af526a75"
+    },
+    "web-design-system": {
+      "source": "divyanshu-iitian/agent-website-design-skills",
+      "sourceType": "github",
+      "skillPath": "web-design-system/SKILL.md",
+      "computedHash": "0c96da2bc407c45f0ec04269a6192573a7cd03f75386f1a181ee2327fbaac52e"
+    },
+    "web-visual-direction": {
+      "source": "divyanshu-iitian/agent-website-design-skills",
+      "sourceType": "github",
+      "skillPath": "web-visual-direction/SKILL.md",
+      "computedHash": "df376d8831598127890e418a013abf95964a0ee64bb041b61e143e3df4bd7eda"
+    }
+  }
+}
