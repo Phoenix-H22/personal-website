@@ -2,14 +2,17 @@
   "name": "abdalrhman-alkady",
   "version": "0.1.0",
   "private": true,
-  "description": "The personal site of backend-focused product engineer Abdalrhman Alkady.",
+  "description": "The personal site of backend-focused product engineer Abdalrhman M. Alkady.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "qa:lighthouse": "node scripts/run-phase-d-lighthouse.mjs",
+    "portfolio:sync": "node scripts/sync-portfolio-projects.mjs",
+    "portfolio:media": "node scripts/publish-portfolio-media.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -30,6 +33,7 @@
     "eslint-config-next": "^16.2.11",
     "playwright": "^1.55.0",
     "sass": "^1.101.3",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10"
