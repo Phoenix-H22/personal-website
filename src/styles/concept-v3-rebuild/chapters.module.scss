@@ -139,14 +139,6 @@
   line-height: 1.15;
 }
 
-.subheading {
-  margin: 0;
-  max-width: 48ch;
-  color: var(--chapter-text-muted);
-  font-size: clamp(0.9375rem, 2vw, 1.0625rem);
-  line-height: 1.55;
-}
-
 /* ——— Variant atmospheres ——— */
 .atmosphereOrigin .atmosphereGradient {
   background: radial-gradient(ellipse 70% 45% at 30% 10%, rgb(157 114 255 / 5%), transparent 60%),
@@ -179,6 +171,16 @@
   }
 }
 
+@media (max-width: 767px) {
+  .chapter {
+    padding-block: clamp(3.25rem, 12vw, 4rem);
+  }
+
+  .chapterCareer {
+    padding-block: clamp(2.75rem, 10vw, 3.25rem);
+  }
+}
+
 @media (min-width: 1024px) {
   .chapter {
     padding-block: clamp(5rem, 12vh, 8rem);
@@ -189,3 +191,12 @@
   }
 }
 
+@media (min-width: 768px) and (max-width: 1179px) {
+  .chapter {
+    padding-block: clamp(4rem, 6.5vw, 5rem);
+  }
+
+  .chapterCareer {
+    padding-block: clamp(3rem, 5vw, 4rem);
+  }
+}
