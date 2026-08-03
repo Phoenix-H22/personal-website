@@ -15,7 +15,7 @@ Complete experience audit: `docs/portfolio-v3/EXPERIENCE_SOURCE_AUDIT.md`.
 | Field | Value |
 |-------|--------|
 | Full name | Abdalrhman Mohamed Alkady |
-| Display name | Abdalrhman Alkady |
+| Display name | Abdalrhman M. Alkady |
 | Role | Backend-Focused Product Engineer |
 | Location | Egypt |
 | Email | alkady2019@gmail.com |

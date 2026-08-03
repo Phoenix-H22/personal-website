@@ -1,4 +1,4 @@
-# Visual Constitution — Abdalrhman Alkady Portfolio
+# Visual Constitution — Abdalrhman M. Alkady Portfolio
 
 ## 0. Status and authority
 

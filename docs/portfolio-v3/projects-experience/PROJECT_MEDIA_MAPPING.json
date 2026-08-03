@@ -1,0 +1,366 @@
+{
+  "$schema_note": "Local planning artifact only. Contains private source paths. Never import into client bundles or Next.js public data loaders.",
+  "inspectedAt": "2026-07-26",
+  "notionDatabaseId": "f7201955-a3c3-42b6-ae61-3367b642d192",
+  "notionDataSourceId": "562b69f1-da3d-4342-957a-2141b796fe33",
+  "eligibilityRule": "needsImages === false",
+  "canonicalProjectCount": 13,
+  "projects": [
+    {
+      "title": "Smart Lockers Platform",
+      "notionPageId": "3a633e24-aa62-810d-8d42-e0fd588e2190",
+      "slug": "smart-lockers-platform",
+      "needsImages": false,
+      "websiteEligible": true,
+      "tier": "Flagship Case Study",
+      "assets": [
+        {
+          "role": "cover",
+          "sourcePath": ".portfolio-private/smart-lockers/newdesign1.png",
+          "publicPath": "/portfolio/projects/smart-lockers-platform/cover.webp",
+          "width": 1672,
+          "height": 941,
+          "sha256": "ca1cd9ce95acc0cab8eb3eb10f2e9ce128e6ad9e99cb6f7c698b56372830cb82",
+          "caption": "Smart Lockers Platform — control-plane product cover",
+          "publicUse": "approved-pending-role-confirmation",
+          "notes": "Owner brief marks this as Cover. Notion Media currently lists newdesign2 as Diagram, not this file as cover."
+        },
+        {
+          "role": "machine",
+          "sourcePath": ".portfolio-private/smart-lockers/lockersmachineimage.png",
+          "publicPath": "/portfolio/projects/smart-lockers-platform/machine.webp",
+          "width": 1448,
+          "height": 1086,
+          "sha256": "ed1b3e902432e20c6023e54c1d51922e8c1b1b70c523a1abc5a650a6db4c5416",
+          "caption": "Real smart-locker machine installation",
+          "publicUse": "approved"
+        },
+        {
+          "role": "dashboard",
+          "sourcePath": ".portfolio-private/smart-lockers/dashboard_screenshot.png",
+          "publicPath": "/portfolio/projects/smart-lockers-platform/dashboard.webp",
+          "width": 1672,
+          "height": 941,
+          "sha256": "8516c1f3b1bdc15c2517ca6ddf3f53ef1a4f77e23c4815f02d9fe8e2b56d82a3",
+          "caption": "Sanitized Smart Lockers operations dashboard",
+          "publicUse": "approved"
+        },
+        {
+          "role": "architecture",
+          "sourcePath": ".portfolio-private/smart-lockers/newdesign2.png",
+          "publicPath": "/portfolio/projects/smart-lockers-platform/architecture.webp",
+          "width": 1672,
+          "height": 941,
+          "sha256": "b0eda9d8907fc4bb98dcd680f256d8d55095fb40052b7f3d987a58bc5cfc8352",
+          "caption": "Smart Lockers architecture diagram",
+          "publicUse": "approved"
+        }
+      ]
+    },
+    {
+      "title": "Riders Shopify & WordPress Integrations",
+      "notionPageId": "3a633e24-aa62-8173-8e2e-f65c1b724e28",
+      "slug": "riders-shopify-wordpress",
+      "needsImages": false,
+      "websiteEligible": true,
+      "tier": "Featured Project",
+      "assets": [
+        {
+          "role": "cover",
+          "sourcePath": ".portfolio-private/riders/cover/riders-cover-approved.png",
+          "publicPath": "/portfolio/projects/riders/cover/riders-cover.webp",
+          "width": 1672,
+          "height": 941,
+          "sha256": "84bc763249aa38673ca63aa5713af2fbecdc538d5472e1c4ef893d0c5705e55b",
+          "caption": "Riders Shopify and WooCommerce integrations cover",
+          "publicUse": "approved",
+          "notes": "Public WebP derivative already exists and matches notion-upload/01-riders-cover.webp sha256 f4d1ea47…"
+        },
+        {
+          "role": "website",
+          "sourcePath": ".portfolio-private/riders/notion-upload/02-riders-shopify-listing.webp",
+          "publicPath": "/portfolio/projects/riders/screenshots/01-riders-shopify-listing.webp",
+          "width": 1600,
+          "height": 3436,
+          "sha256": "87887f9dce3e8f1d6ddb0f316e127562c01a25a27544a59e3896470b40a28d6f",
+          "caption": "Official Shopify App Store listing for Riders Shipping",
+          "publicUse": "approved"
+        },
+        {
+          "role": "dashboard",
+          "sourcePath": ".portfolio-private/riders/notion-upload/03-riders-shopify-settings.webp",
+          "publicPath": "/portfolio/projects/riders/screenshots/02-riders-shopify-settings.webp",
+          "width": 1600,
+          "height": 900,
+          "sha256": "5b0d7cfc9c2543f606048a190fd9e2929952cb08d48ec03ac6563afb4deb25d8",
+          "caption": "Shopify application settings for Riders API connection",
+          "publicUse": "approved"
+        },
+        {
+          "role": "other",
+          "sourcePath": ".portfolio-private/riders/notion-upload/04-riders-shopify-sync.webp",
+          "publicPath": "/portfolio/projects/riders/screenshots/03-riders-shopify-sync.webp",
+          "width": 1600,
+          "height": 900,
+          "sha256": "607a481d95cc27117e7d393525967a4839a8217cb558fe86648c179a9deb6081",
+          "caption": "Shopify order synchronization workflow",
+          "publicUse": "approved"
+        },
+        {
+          "role": "website",
+          "sourcePath": ".portfolio-private/riders/notion-upload/05-riders-wordpress-listing.webp",
+          "publicPath": "/portfolio/projects/riders/screenshots/04-riders-wordpress-listing.webp",
+          "width": 1600,
+          "height": 5414,
+          "sha256": "4605d02ec3171fed9c60cfe0c66f7438e8adba008ee3140a0232a0abcb1e9542",
+          "caption": "WordPress.org listing for Riders Delivery for WooCommerce",
+          "publicUse": "approved"
+        },
+        {
+          "role": "product",
+          "sourcePath": ".portfolio-private/riders/notion-upload/06-riders-wordpress-checkout.webp",
+          "publicPath": "/portfolio/projects/riders/screenshots/05-riders-wordpress-checkout.webp",
+          "width": 600,
+          "height": 467,
+          "sha256": "31cfe34a81e4777a0710061ccd0157b655845c1e0b32db1738da4fc30f5f44c0",
+          "caption": "WooCommerce checkout with Riders shipping",
+          "publicUse": "approved"
+        },
+        {
+          "role": "dashboard",
+          "sourcePath": ".portfolio-private/riders/notion-upload/07-riders-wordpress-orders.webp",
+          "publicPath": "/portfolio/projects/riders/screenshots/06-riders-wordpress-orders.webp",
+          "width": 600,
+          "height": 298,
+          "sha256": "25e090bd0bd6a8cf0b3c884b02915723fc9dd3cd7563d23f2e5a806391dc82f7",
+          "caption": "WooCommerce admin Riders sync status",
+          "publicUse": "approved"
+        }
+      ],
+      "publicCleanupRequired": [
+        "public/portfolio/projects/riders/ChatGPT Image Jun 14, 2026, 10_29_23 PM.png",
+        "public/portfolio/projects/riders/imresizer-WhatsApp Image 2026-06-14 at 10.10.47 AM.jpg",
+        "public/portfolio/projects/riders/logo.png",
+        "public/portfolio/projects/riders/screenshots/cover-reference-generated-brand-hero.png",
+        "public/portfolio/projects/riders/screenshots/cover-reference-logo.png",
+        "public/portfolio/projects/riders/screenshots/cover-reference-official-website.png"
+      ]
+    },
+    {
+      "title": "Alzahaby Loyalty App",
+      "notionPageId": "3a633e24-aa62-817e-a3de-c9252e6b97e0",
+      "slug": "alzahaby-loyalty-app",
+      "needsImages": false,
+      "websiteEligible": true,
+      "tier": "Featured Project",
+      "assets": [
+        {
+          "role": "cover",
+          "sourcePath": ".portfolio-private/alzahaby-loyalty-app/approved-cover/cover-final.png",
+          "publicPath": "/portfolio/projects/alzahaby-loyalty-app/cover.webp",
+          "width": 1600,
+          "height": 900,
+          "sha256": "5b4e633a904faccbc7bb54ced2bb2d18a4296ad80b68051fac80eacb9b4b6306",
+          "caption": "Alzahaby Loyalty App — QR-powered loyalty and rewards platform",
+          "publicUse": "approved"
+        },
+        {
+          "role": "architecture",
+          "sourcePath": ".portfolio-private/alzahaby-loyalty-app/arch.png",
+          "publicPath": "/portfolio/projects/alzahaby-loyalty-app/architecture.webp",
+          "width": 1672,
+          "height": 941,
+          "sha256": "dc35c4fcea09ad7a0c67f2d7245da4e4df7120d9ecd0ab901dbd66f4da30d51f",
+          "caption": "Public-safe Alzahaby architecture overview",
+          "publicUse": "approved"
+        },
+        {
+          "role": "cover",
+          "sourcePath": ".portfolio-private/alzahaby-loyalty-app/approved-cover/cover-approved-original.png",
+          "publicPath": null,
+          "width": 1672,
+          "height": 941,
+          "sha256": "43bade3df0ecdbdf9e5f0a99f2d81b976775d6c709208ac5a9edfb959f505d83",
+          "caption": "Protected original cover with conceptual numeric values",
+          "publicUse": "forbidden"
+        }
+      ],
+      "unmappedNotionMedia": [
+        {
+          "role": "mobile",
+          "notionFilename": "image.png",
+          "status": "ambiguous",
+          "notes": "Notion PROJECT MEDIA includes mobile onboarding/home screens with generic filenames. Do not invent local paths."
+        }
+      ]
+    },
+    {
+      "title": "Autopay EG",
+      "notionPageId": "3a633e24-aa62-81e3-a434-f3efe0822a86",
+      "slug": "autopay-eg",
+      "needsImages": true,
+      "websiteEligible": false,
+      "tier": "Flagship Case Study",
+      "readiness": "local-media-approved-notion-gate-open",
+      "assets": [
+        {
+          "role": "cover",
+          "sourcePath": ".portfolio-private/autopay-eg/media-batch/final/cover-final.png",
+          "publicPath": "/portfolio/projects/autopay-eg/cover/autopay-eg-cover.webp",
+          "width": 1672,
+          "height": 941,
+          "sha256": "2ea8278465bdaefafe7b243c447026b9bbd00d1a9e9570fab73bd5b203ae8cc9",
+          "caption": "Autopay EG — automotive payments and operations platform",
+          "publicUse": "approved-local-awaiting-notion-clearance"
+        },
+        {
+          "role": "product",
+          "sourcePath": ".portfolio-private/autopay-eg/media-batch/final/product-final.png",
+          "publicPath": "/portfolio/projects/autopay-eg/screenshots/autopay-eg-landing.webp",
+          "width": 1917,
+          "height": 912,
+          "sha256": "c4910d2fab3ed19e5c8d4c75fafa32a14acafb281f930a37176865046fecb28c",
+          "caption": "Sanitized product landing experience",
+          "publicUse": "approved-local-awaiting-notion-clearance"
+        },
+        {
+          "role": "integration-flow",
+          "sourcePath": ".portfolio-private/autopay-eg/media-batch/final/integration-flow-final.png",
+          "publicPath": "/portfolio/projects/autopay-eg/screenshots/autopay-eg-payment-flow-step1.webp",
+          "width": 1082,
+          "height": 812,
+          "sha256": "9aa14704e7430af6873849e45afc3d1f3a0440925a2256347423678dabfe8fad",
+          "caption": "Sanitized payment workflow",
+          "publicUse": "approved-local-awaiting-notion-clearance",
+          "notes": "Public folder also contains step2 + admin dashboard derivatives."
+        }
+      ]
+    },
+    {
+      "title": "Warqah Store",
+      "notionPageId": "3a633e24-aa62-8165-ab48-edac9c672f48",
+      "slug": "warqah-store",
+      "needsImages": true,
+      "websiteEligible": false,
+      "tier": "Flagship Case Study",
+      "readiness": "local-media-approved-notion-gate-open",
+      "assets": [
+        {
+          "role": "cover",
+          "sourcePath": ".portfolio-private/warqah-store/media-batch/final/cover-final.png",
+          "publicPath": "/portfolio/projects/warqah-store/cover/warqah-store-cover.webp",
+          "width": 1600,
+          "height": 900,
+          "sha256": "3460fb90bc5322a9ac300055f8fd213567d82075a47c5e1f07c2e813dabb106d",
+          "caption": "Warqah Store production commerce platform cover",
+          "publicUse": "approved-local-awaiting-notion-clearance"
+        },
+        {
+          "role": "product",
+          "sourcePath": ".portfolio-private/warqah-store/media-batch/final/product-final.png",
+          "publicPath": "/portfolio/projects/warqah-store/screenshots/warqah-store-storefront.webp",
+          "width": 1905,
+          "height": 922,
+          "sha256": "fdce37e36ec54fb3adb76066a0d19c887451cfe43e013d2be6cea90b85f3b848",
+          "caption": "Warqah storefront product experience",
+          "publicUse": "approved-local-awaiting-notion-clearance"
+        },
+        {
+          "role": "dashboard",
+          "sourcePath": ".portfolio-private/warqah-store/media-batch/final/dashboard-final.png",
+          "publicPath": "/portfolio/projects/warqah-store/screenshots/warqah-store-operations-dashboard.webp",
+          "width": 1916,
+          "height": 707,
+          "sha256": "6eacc90032a24782e72347ff676d8b50301a963c3071e01f4045fe435b71f91d",
+          "caption": "Warqah operations dashboard",
+          "publicUse": "approved-local-awaiting-notion-clearance"
+        }
+      ]
+    },
+    {
+      "title": "Your Obour Guide",
+      "notionPageId": "3a633e24-aa62-8117-a6c5-ebf3344889b7",
+      "slug": "your-obour-guide",
+      "needsImages": true,
+      "websiteEligible": false,
+      "tier": "Flagship Case Study",
+      "readiness": "local-media-approved-notion-gate-open",
+      "assets": [
+        {
+          "role": "cover",
+          "sourcePath": ".portfolio-private/your-obour-guide/media-batch/final/cover-final.png",
+          "publicPath": "/portfolio/projects/your-obour-guide/cover/your-obour-guide-cover.webp",
+          "width": 1672,
+          "height": 941,
+          "sha256": "250e487e2180a518b812f50c2914b72b02d49d4d16705d1dba607d5941f65e16",
+          "caption": "Your Obour Guide — mobile, website, and admin case-study cover",
+          "publicUse": "approved-local-awaiting-notion-clearance"
+        },
+        {
+          "role": "mobile",
+          "sourcePath": ".portfolio-private/your-obour-guide/media-batch/final/mobile-final.jpg",
+          "publicPath": "/portfolio/projects/your-obour-guide/screenshots/your-obour-guide-mobile-home.webp",
+          "width": 573,
+          "height": 1280,
+          "sha256": "2fa13fae2a457d926f7cae32f187c677c22c2fb67dbb945b2dc8002196da623f",
+          "caption": "Your Obour Guide mobile home experience",
+          "publicUse": "approved-local-awaiting-notion-clearance"
+        },
+        {
+          "role": "dashboard",
+          "sourcePath": ".portfolio-private/your-obour-guide/media-batch/final/dashboard-final.png",
+          "publicPath": "/portfolio/projects/your-obour-guide/screenshots/your-obour-guide-admin-dashboard.webp",
+          "width": 1920,
+          "height": 1342,
+          "sha256": "49842d98891ebf04ed433c7d5dfcfaf8c659525a17b4171e44e0b7ec9dedf562",
+          "caption": "Your Obour Guide admin dashboard",
+          "publicUse": "approved-local-awaiting-notion-clearance"
+        }
+      ]
+    }
+  ],
+  "incompleteProjectsNeedsImagesTrue": [
+    {
+      "title": "Wasfaty Smart Vending",
+      "notionPageId": "3a633e24-aa62-8166-9b90-fef5a43e9b55",
+      "slug": "wasfaty-smart-vending",
+      "privateDir": ".portfolio-private/wasfaty-smart-vending"
+    },
+    {
+      "title": "NABD",
+      "notionPageId": "3a633e24-aa62-8167-b86e-dea3ffdb0671",
+      "slug": "nabd",
+      "privateDir": ".portfolio-private/nabd"
+    },
+    {
+      "title": "SIM Express",
+      "notionPageId": "3a633e24-aa62-8177-b560-ea6fe8a9f114",
+      "slug": "sim-express",
+      "privateDir": ".portfolio-private/sim-express"
+    },
+    {
+      "title": "Tawfir",
+      "notionPageId": "3a633e24-aa62-8104-8aca-e79d886a71ac",
+      "slug": "tawfir",
+      "privateDir": ".portfolio-private/tawfir"
+    },
+    {
+      "title": "PDF Extractor",
+      "notionPageId": "3a633e24-aa62-81fd-bbad-e78f69534646",
+      "slug": "pdf-extractor",
+      "privateDir": ".portfolio-private/pdf-extractor"
+    },
+    {
+      "title": "PinoyAid",
+      "notionPageId": "3a633e24-aa62-81d1-8f7d-d75a412eb72c",
+      "slug": "pinoyaid",
+      "privateDir": ".portfolio-private/pinoyaid"
+    },
+    {
+      "title": "Chocolate Smart Vending",
+      "notionPageId": "3a633e24-aa62-8101-9f53-ee4fb7605a44",
+      "slug": "chocolate-smart-vending",
+      "privateDir": ".portfolio-private/chocolate-smart-vending"
+    }
+  ]
+}

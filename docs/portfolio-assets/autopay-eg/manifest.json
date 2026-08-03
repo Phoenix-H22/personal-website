@@ -1,0 +1,292 @@
+{
+  "project": "Autopay EG",
+  "git_status_before": "M .gitignore; M docs/portfolio-v3/S2B_FEATURED_SYSTEMS_REDESIGN_REPORT.md; M scripts/capture-s2b-qa.mjs; M scripts/record-s2b-qa.mjs; M src/components/portfolio/hero/education-credential.tsx; M src/components/portfolio/hero/hero-technology-line.tsx; M src/components/portfolio/selected-systems/covers/merchant-operations-cover.tsx; M src/components/portfolio/selected-systems/covers/nabd-messaging-cover.tsx; M src/components/portfolio/selected-systems/covers/smart-vending-cover.tsx; M src/components/portfolio/selected-systems/covers/virtual-clinic-cover.tsx; M src/components/portfolio/selected-systems/project-cover.tsx; M src/components/portfolio/selected-systems/project-stage.tsx; M src/components/portfolio/selected-systems/use-cover-ambient.ts; M src/lib/portfolio/portfolio-variant.ts; M src/lib/portfolio/projects/__tests__/s2b-featured.test.ts; M src/lib/portfolio/projects/fixtures/merchant-operations.ts; M src/lib/portfolio/projects/fixtures/nabd-messaging.ts; M src/lib/portfolio/projects/fixtures/smart-vending.ts; M src/lib/portfolio/projects/fixtures/virtual-clinic.ts; M src/styles/portfolio/education-credential.module.scss; M src/styles/portfolio/hero-tech-line.module.scss; M src/styles/portfolio/project-covers.module.scss; ?? docs/portfolio-assets/; ?? public/portfolio/",
+  "processing_method": "Pillow WebP conversion and exact byte-for-byte copying; no AI regeneration",
+  "privacy_validation_result": "PASS",
+  "files_created": [
+    "D:/GitHub/personal-website/.portfolio-private/autopay-eg/cover-original/cover.png",
+    "D:/GitHub/personal-website/public/portfolio/projects/autopay-eg/cover/autopay-eg-cover.webp",
+    "D:/GitHub/personal-website/public/portfolio/projects/autopay-eg/thumbnails/autopay-eg-thumbnail.webp",
+    "D:/GitHub/personal-website/public/portfolio/projects/autopay-eg/screenshots/autopay-eg-landing.webp",
+    "D:/GitHub/personal-website/public/portfolio/projects/autopay-eg/screenshots/autopay-eg-admin-dashboard.webp",
+    "D:/GitHub/personal-website/public/portfolio/projects/autopay-eg/screenshots/autopay-eg-payment-flow-step1.webp",
+    "D:/GitHub/personal-website/public/portfolio/projects/autopay-eg/screenshots/autopay-eg-payment-flow-step2.webp",
+    "D:/GitHub/personal-website/.portfolio-private/autopay-eg/notion-upload/01-autopay-eg-cover.webp",
+    "D:/GitHub/personal-website/.portfolio-private/autopay-eg/notion-upload/02-autopay-eg-landing.webp",
+    "D:/GitHub/personal-website/.portfolio-private/autopay-eg/notion-upload/03-autopay-eg-admin-dashboard.webp",
+    "D:/GitHub/personal-website/.portfolio-private/autopay-eg/notion-upload/04-autopay-eg-payment-flow-step1.webp",
+    "D:/GitHub/personal-website/.portfolio-private/autopay-eg/notion-upload/05-autopay-eg-payment-flow-step2.webp",
+    "D:/GitHub/personal-website/docs/portfolio-assets/autopay-eg/manifest.json",
+    "D:/GitHub/personal-website/docs/portfolio-assets/autopay-eg/manifest.md"
+  ],
+  "files_modified": [],
+  "files_deleted": [],
+  "entries": [
+    {
+      "relative_path": ".portfolio-private/autopay-eg/cover.png",
+      "filename": "cover.png",
+      "classification": "approved_private_source",
+      "public_private": "private",
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "aspect_ratio": 1.776833,
+      "format": "PNG",
+      "file_size_bytes": 1365508,
+      "sha256": "2ea8278465bdaefafe7b243c447026b9bbd00d1a9e9570fab73bd5b203ae8cc9",
+      "intended_use": "private preservation source",
+      "source_file": "image_gen output / approved cover reference",
+      "sanitization_notes": "n/a",
+      "notion_upload_position": null,
+      "exclusion_reason": null
+    },
+    {
+      "relative_path": ".portfolio-private/autopay-eg/cover-original/cover.png",
+      "filename": "cover.png",
+      "classification": "preserved_private_copy",
+      "public_private": "private",
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "aspect_ratio": 1.776833,
+      "format": "PNG",
+      "file_size_bytes": 1365508,
+      "sha256": "2ea8278465bdaefafe7b243c447026b9bbd00d1a9e9570fab73bd5b203ae8cc9",
+      "intended_use": "private backup preservation",
+      "source_file": ".portfolio-private/autopay-eg/cover.png",
+      "sanitization_notes": "byte-for-byte copy of approved cover",
+      "notion_upload_position": null,
+      "exclusion_reason": null
+    },
+    {
+      "relative_path": "public/portfolio/projects/autopay-eg/cover/autopay-eg-cover.webp",
+      "filename": "autopay-eg-cover.webp",
+      "classification": "generated_public",
+      "public_private": "public",
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "aspect_ratio": 1.777778,
+      "format": "WEBP",
+      "file_size_bytes": 89190,
+      "sha256": "ed568a50da5c59fca9b3891c089ade7674eb6058ca8622ca717603644d58896f",
+      "intended_use": "public portfolio cover",
+      "source_file": ".portfolio-private/autopay-eg/cover.png",
+      "sanitization_notes": "center-cropped 1px to exact 16:9 and converted to WebP; no text changes",
+      "notion_upload_position": null,
+      "exclusion_reason": null
+    },
+    {
+      "relative_path": "public/portfolio/projects/autopay-eg/thumbnails/autopay-eg-thumbnail.webp",
+      "filename": "autopay-eg-thumbnail.webp",
+      "classification": "generated_public",
+      "public_private": "public",
+      "dimensions": {
+        "width": 800,
+        "height": 450
+      },
+      "aspect_ratio": 1.777778,
+      "format": "WEBP",
+      "file_size_bytes": 30406,
+      "sha256": "4de32cad24526d3a871772153bae64a266f71b3de21c08d3fcf8c2cbd80bcb9f",
+      "intended_use": "project thumbnail",
+      "source_file": "public/portfolio/projects/autopay-eg/cover/autopay-eg-cover.webp",
+      "sanitization_notes": "resized from final public cover to 800x450 WebP",
+      "notion_upload_position": null,
+      "exclusion_reason": null
+    },
+    {
+      "relative_path": "public/portfolio/projects/autopay-eg/screenshots/autopay-eg-landing.webp",
+      "filename": "autopay-eg-landing.webp",
+      "classification": "sanitized_public",
+      "public_private": "public",
+      "dimensions": {
+        "width": 1917,
+        "height": 912
+      },
+      "aspect_ratio": 2.101974,
+      "format": "WEBP",
+      "file_size_bytes": 52172,
+      "sha256": "9aef2728f6635786f687883addfae7f0b3d1f53de8492e5a86252f15df615f64",
+      "intended_use": "public screenshot",
+      "source_file": ".portfolio-private/autopay-eg/review/01-autopay-landing-review.png",
+      "sanitization_notes": "converted to WebP; unsupported uptime claim already removed in review source",
+      "notion_upload_position": null,
+      "exclusion_reason": null
+    },
+    {
+      "relative_path": "public/portfolio/projects/autopay-eg/screenshots/autopay-eg-admin-dashboard.webp",
+      "filename": "autopay-eg-admin-dashboard.webp",
+      "classification": "sanitized_public",
+      "public_private": "public",
+      "dimensions": {
+        "width": 1901,
+        "height": 602
+      },
+      "aspect_ratio": 3.157807,
+      "format": "WEBP",
+      "file_size_bytes": 33550,
+      "sha256": "18a8aee30166b3860f6e5b031b7485911e00febb419e10948b48db5ddcf0dfc5",
+      "intended_use": "public screenshot",
+      "source_file": ".portfolio-private/autopay-eg/review/02-autopay-admin-dashboard-review.png",
+      "sanitization_notes": "converted to WebP; aggregate metrics preserved",
+      "notion_upload_position": null,
+      "exclusion_reason": null
+    },
+    {
+      "relative_path": "public/portfolio/projects/autopay-eg/screenshots/autopay-eg-payment-flow-step1.webp",
+      "filename": "autopay-eg-payment-flow-step1.webp",
+      "classification": "sanitized_public",
+      "public_private": "public",
+      "dimensions": {
+        "width": 1082,
+        "height": 812
+      },
+      "aspect_ratio": 1.332512,
+      "format": "WEBP",
+      "file_size_bytes": 23036,
+      "sha256": "7d767cd7993b3a5e657319b2b549a1ffc1875bb9fd2a1533893e31b471470e0e",
+      "intended_use": "public screenshot",
+      "source_file": ".portfolio-private/autopay-eg/review/03-autopay-payment-flow-step1-review.png",
+      "sanitization_notes": "converted to WebP; invoice and transaction references masked in review source",
+      "notion_upload_position": null,
+      "exclusion_reason": null
+    },
+    {
+      "relative_path": "public/portfolio/projects/autopay-eg/screenshots/autopay-eg-payment-flow-step2.webp",
+      "filename": "autopay-eg-payment-flow-step2.webp",
+      "classification": "sanitized_public",
+      "public_private": "public",
+      "dimensions": {
+        "width": 958,
+        "height": 870
+      },
+      "aspect_ratio": 1.101149,
+      "format": "WEBP",
+      "file_size_bytes": 25814,
+      "sha256": "00cdf06b32d312d92ec03557f75f0b25133cd63ef20cff9dba8b5983e1f3d350",
+      "intended_use": "public screenshot",
+      "source_file": ".portfolio-private/autopay-eg/review/04-autopay-payment-flow-step2-review.png",
+      "sanitization_notes": "converted to WebP; invoice and transaction references masked in review source",
+      "notion_upload_position": null,
+      "exclusion_reason": null
+    },
+    {
+      "relative_path": ".portfolio-private/autopay-eg/originals/03-autopay-device-management-original.png",
+      "filename": "03-autopay-device-management-original.png",
+      "classification": "internal_only",
+      "public_private": "private",
+      "dimensions": {
+        "width": 1915,
+        "height": 917
+      },
+      "aspect_ratio": 2.088332,
+      "format": "PNG",
+      "file_size_bytes": 132415,
+      "sha256": "e150c3e0a368c43ec8b136f7d270d6b5668fb9a718d1da9d569e83f3d0053323",
+      "intended_use": "internal-only evidence",
+      "source_file": "Notion original block 3a633e24-aa62-8026-8a0e-e9feaeb5289a",
+      "sanitization_notes": "excluded from public package",
+      "notion_upload_position": null,
+      "exclusion_reason": "Contains device/identifier-like values; not prepared for public or Notion upload."
+    },
+    {
+      "relative_path": ".portfolio-private/autopay-eg/notion-upload/01-autopay-eg-cover.webp",
+      "filename": "01-autopay-eg-cover.webp",
+      "classification": "notion_ready",
+      "public_private": "private",
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "aspect_ratio": 1.777778,
+      "format": "WEBP",
+      "file_size_bytes": 89190,
+      "sha256": "ed568a50da5c59fca9b3891c089ade7674eb6058ca8622ca717603644d58896f",
+      "intended_use": "Notion upload package",
+      "source_file": "public/portfolio/projects/autopay-eg/cover/autopay-eg-cover.webp",
+      "sanitization_notes": "byte-for-byte copy of public asset",
+      "notion_upload_position": 1,
+      "exclusion_reason": null
+    },
+    {
+      "relative_path": ".portfolio-private/autopay-eg/notion-upload/02-autopay-eg-landing.webp",
+      "filename": "02-autopay-eg-landing.webp",
+      "classification": "notion_ready",
+      "public_private": "private",
+      "dimensions": {
+        "width": 1917,
+        "height": 912
+      },
+      "aspect_ratio": 2.101974,
+      "format": "WEBP",
+      "file_size_bytes": 52172,
+      "sha256": "9aef2728f6635786f687883addfae7f0b3d1f53de8492e5a86252f15df615f64",
+      "intended_use": "Notion upload package",
+      "source_file": "public/portfolio/projects/autopay-eg/screenshots/autopay-eg-landing.webp",
+      "sanitization_notes": "byte-for-byte copy of public asset",
+      "notion_upload_position": 2,
+      "exclusion_reason": null
+    },
+    {
+      "relative_path": ".portfolio-private/autopay-eg/notion-upload/03-autopay-eg-admin-dashboard.webp",
+      "filename": "03-autopay-eg-admin-dashboard.webp",
+      "classification": "notion_ready",
+      "public_private": "private",
+      "dimensions": {
+        "width": 1901,
+        "height": 602
+      },
+      "aspect_ratio": 3.157807,
+      "format": "WEBP",
+      "file_size_bytes": 33550,
+      "sha256": "18a8aee30166b3860f6e5b031b7485911e00febb419e10948b48db5ddcf0dfc5",
+      "intended_use": "Notion upload package",
+      "source_file": "public/portfolio/projects/autopay-eg/screenshots/autopay-eg-admin-dashboard.webp",
+      "sanitization_notes": "byte-for-byte copy of public asset",
+      "notion_upload_position": 3,
+      "exclusion_reason": null
+    },
+    {
+      "relative_path": ".portfolio-private/autopay-eg/notion-upload/04-autopay-eg-payment-flow-step1.webp",
+      "filename": "04-autopay-eg-payment-flow-step1.webp",
+      "classification": "notion_ready",
+      "public_private": "private",
+      "dimensions": {
+        "width": 1082,
+        "height": 812
+      },
+      "aspect_ratio": 1.332512,
+      "format": "WEBP",
+      "file_size_bytes": 23036,
+      "sha256": "7d767cd7993b3a5e657319b2b549a1ffc1875bb9fd2a1533893e31b471470e0e",
+      "intended_use": "Notion upload package",
+      "source_file": "public/portfolio/projects/autopay-eg/screenshots/autopay-eg-payment-flow-step1.webp",
+      "sanitization_notes": "byte-for-byte copy of public asset",
+      "notion_upload_position": 4,
+      "exclusion_reason": null
+    },
+    {
+      "relative_path": ".portfolio-private/autopay-eg/notion-upload/05-autopay-eg-payment-flow-step2.webp",
+      "filename": "05-autopay-eg-payment-flow-step2.webp",
+      "classification": "notion_ready",
+      "public_private": "private",
+      "dimensions": {
+        "width": 958,
+        "height": 870
+      },
+      "aspect_ratio": 1.101149,
+      "format": "WEBP",
+      "file_size_bytes": 25814,
+      "sha256": "00cdf06b32d312d92ec03557f75f0b25133cd63ef20cff9dba8b5983e1f3d350",
+      "intended_use": "Notion upload package",
+      "source_file": "public/portfolio/projects/autopay-eg/screenshots/autopay-eg-payment-flow-step2.webp",
+      "sanitization_notes": "byte-for-byte copy of public asset",
+      "notion_upload_position": 5,
+      "exclusion_reason": null
+    }
+  ]
+}

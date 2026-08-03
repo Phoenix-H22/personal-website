@@ -29,7 +29,7 @@ Validated at 1440×900 and 390×844:
 | Field | Value |
 | --- | --- |
 | Eyebrow | `SOFTWARE ENGINEER · BACKEND SYSTEMS · PRODUCTS & INTEGRATIONS` |
-| Name | Abdalrhman Alkady |
+| Name | Abdalrhman M. Alkady |
 | Statement | I engineer the systems businesses learn to depend on. |
 | Supporting copy | Backend-focused software engineer who genuinely enjoys turning complex business problems into reliable systems — from APIs, queues, and integrations to polished web products. |
 | Technology line | PHP · Laravel · Python · JavaScript · React · Next.js (PHP/Laravel emphasized) |

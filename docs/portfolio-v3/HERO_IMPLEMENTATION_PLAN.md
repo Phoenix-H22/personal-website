@@ -302,7 +302,7 @@ Screenshot rules:
 
 Within five seconds, a viewer sees:
 
-- Abdalrhman Alkady
+- Abdalrhman M. Alkady
 - backend/product engineering position
 - primary proposition
 - at least one unmistakable proof artifact
