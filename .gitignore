@@ -15,4 +15,16 @@ archive1fwYU.tar.gz
 # Operating-system and editor artifacts
 .DS_Store
 Thumbs.db
+/.cursor/
 /docs/portfolio-v3/qa
+.portfolio-private/
+/.portfolio-sync/
+
+# Local QA output. Scripts write reports under /docs/portfolio-v3/qa (above);
+# these cover ad-hoc browser-tool captures that land at the repository root.
+/.playwright-mcp/
+/playwright-report/
+/test-results/
+/coverage/
+/*.png
+*.log
