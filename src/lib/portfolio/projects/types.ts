@@ -320,3 +320,144 @@ export interface ProjectRepository {
   getPublishedSlugs(): Promise<string[]>;
   getProjectFilterOptions(): Promise<ProjectFilterOptions>;
 }
+
+export type PublicOwnershipType =
+  | "founder-built"
+  | "built-entirely"
+  | "backend-devops-owner"
+  | "technical-owner"
+  | "lead-developer"
+  | "major-contributor";
+
+export type PublicProjectStatus =
+  | "live"
+  | "active-development"
+  | "completed"
+  | "completed-before-launch"
+  | "archived";
+
+export type PublicProjectCategory =
+  | "platforms-saas"
+  | "commerce"
+  | "mobile-products"
+  | "fintech-payments"
+  | "connected-devices"
+  | "integrations"
+  | "ai-data"
+  | "healthcare";
+
+export type PublicCapability =
+  | "Backend Architecture"
+  | "DevOps"
+  | "High Scale"
+  | "Multi-Tenancy"
+  | "MQTT"
+  | "Raspberry Pi"
+  | "Payments"
+  | "External APIs"
+  | "Mobile Apps"
+  | "Shopify"
+  | "WordPress"
+  | "AI / OCR"
+  | "Queues / Horizon"
+  | "Security"
+  | "Real-Time Updates";
+
+export interface PublicVerifiedMetric {
+  value: string;
+  label: string;
+  context: string | null;
+  evidence: "verified" | "owner-confirmed" | "source-supported";
+}
+
+export interface PublicProjectLinks {
+  website: string | null;
+  publicGitHub: string | null;
+  appStore: string | null;
+  googlePlay: string | null;
+}
+
+export interface PublicCaseStudyData {
+  heroStatement: string;
+  problem: string;
+  ownership: string;
+  sections: Array<{
+    id: string;
+    heading: string;
+    body: string;
+  }>;
+}
+
+export interface PublicProjectContent {
+  id: string;
+  slug: import("@/lib/portfolio/projects/canonical-projects").CanonicalProjectSlug;
+  title: import("@/lib/portfolio/projects/canonical-projects").CanonicalProjectTitle;
+  shortTagline: string;
+  publicSummary: string;
+  role: string;
+  ownershipType: PublicOwnershipType;
+  status: PublicProjectStatus;
+  primaryCategory: PublicProjectCategory;
+  secondaryCategory: PublicProjectCategory | null;
+  systemType: string;
+  strongestCapability: string;
+  technologies: string[];
+  capabilities: PublicCapability[];
+  verifiedMetrics: PublicVerifiedMetric[];
+  links: PublicProjectLinks;
+  featured: boolean;
+  featuredOrder: number | null;
+  listingOrder: number;
+  lastReviewed: string;
+  confidentiality: "public" | "public-limited";
+  caseStudyAvailability: "hidden" | "planned" | "published";
+  caseStudy: PublicCaseStudyData | null;
+}
+
+export interface PublicProject extends PublicProjectContent {
+  cover: import("@/lib/portfolio/projects/media-schema").PublicMediaAsset;
+  coverCard: import("@/lib/portfolio/projects/media-schema").PublicMediaAsset;
+  architectureDiagram: import("@/lib/portfolio/projects/media-schema").PublicMediaAsset | null;
+  gallery: import("@/lib/portfolio/projects/media-schema").PublicMediaAsset[];
+}
+
+export interface PublicProjectsSnapshot {
+  schemaVersion: 1;
+  projects: PublicProjectContent[];
+}
+
+export interface FeaturedProjectDto {
+  id: string;
+  slug: string;
+  title: string;
+  shortTagline: string;
+  role: string;
+  ownershipType: PublicOwnershipType;
+  status: PublicProjectStatus;
+  primaryCategory: PublicProjectCategory;
+  systemType: string;
+  strongestCapability: string;
+  technologies: string[];
+  strongestMetric: PublicVerifiedMetric | null;
+  website: string | null;
+  cover: import("@/lib/portfolio/projects/media-schema").PublicMediaAsset;
+  coverCard: import("@/lib/portfolio/projects/media-schema").PublicMediaAsset;
+  caseStudyAvailable: boolean;
+}
+
+export interface WorkIndexProjectDto extends FeaturedProjectDto {
+  publicSummary: string;
+  secondaryCategory: PublicProjectCategory | null;
+  listingOrder: number;
+  links: PublicProjectLinks;
+}
+
+export interface ProjectDetailDto extends WorkIndexProjectDto {
+  capabilities: PublicCapability[];
+  verifiedMetrics: PublicVerifiedMetric[];
+  architectureDiagram: import("@/lib/portfolio/projects/media-schema").PublicMediaAsset | null;
+  gallery: import("@/lib/portfolio/projects/media-schema").PublicMediaAsset[];
+  lastReviewed: string;
+  confidentiality: "public" | "public-limited";
+  caseStudy: PublicCaseStudyData | null;
+}

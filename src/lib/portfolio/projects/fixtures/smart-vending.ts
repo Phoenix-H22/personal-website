@@ -63,7 +63,7 @@ export const smartVendingFixture: ProjectCaseStudyDto = {
     },
   ],
   seo: {
-    title: "Smart Vending Infrastructure — Abdalrhman Alkady",
+    title: "Smart Vending Infrastructure — Abdalrhman M. Alkady",
     description:
       "API-driven dispensing infrastructure connecting QR flows, payments, MQTT control, and physical release.",
     canonicalPath: "/work/smart-vending-medication-dispensing",

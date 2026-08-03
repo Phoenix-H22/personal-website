@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 1,
+  "projects": [
+    {
+      "slug": "smart-lockers-platform",
+      "secondaryCategory": "platforms-saas",
+      "systemType": "Multi-tenant IoT control plane",
+      "strongestCapability": "Reusable device orchestration and command lifecycle",
+      "technologies": ["Laravel 11", "PHP 8.2", "Python", "MQTT", "Redis", "Raspberry Pi", "Filament", "Supervisor"],
+      "verifiedMetrics": [
+        {
+          "value": "Production",
+          "label": "Reusable platform",
+          "context": "Designed for multiple business applications and machine deployments.",
+          "evidence": "owner-confirmed"
+        }
+      ],
+      "featured": true,
+      "featuredOrder": 1,
+      "listingOrder": 1,
+      "caseStudyAvailability": "planned",
+      "ownershipTypeOverride": null
+    },
+    {
+      "slug": "warqah-store",
+      "secondaryCategory": "integrations",
+      "systemType": "Production commerce operations platform",
+      "strongestCapability": "Queue-backed payment, inventory, and fulfillment consistency",
+      "technologies": ["Laravel 12", "Laravel Sanctum", "Redis", "Bosta API", "Fawaterk", "Telescope"],
+      "verifiedMetrics": [
+        { "value": "EGP 21M+", "label": "Sales", "context": null, "evidence": "verified" },
+        { "value": "100K+", "label": "Orders", "context": null, "evidence": "verified" },
+        { "value": "90K+", "label": "Customers", "context": null, "evidence": "verified" }
+      ],
+      "featured": true,
+      "featuredOrder": 2,
+      "listingOrder": 2,
+      "caseStudyAvailability": "planned",
+      "ownershipTypeOverride": null
+    },
+    {
+      "slug": "your-obour-guide",
+      "secondaryCategory": "platforms-saas",
+      "systemType": "Multi-surface city-discovery ecosystem",
+      "strongestCapability": "End-to-end product, data, mobile, web, and release ownership",
+      "technologies": ["Laravel 10", "Flutter", "Next.js", "MySQL", "Redis", "Bunny CDN", "Sentry"],
+      "verifiedMetrics": [
+        { "value": "397", "label": "Laravel tests passed", "context": null, "evidence": "verified" },
+        { "value": "143", "label": "Flutter tests passed", "context": "Flutter analyze clean.", "evidence": "verified" }
+      ],
+      "featured": true,
+      "featuredOrder": 3,
+      "listingOrder": 3,
+      "caseStudyAvailability": "planned",
+      "ownershipTypeOverride": "founder-built"
+    },
+    {
+      "slug": "autopay-eg",
+      "secondaryCategory": "platforms-saas",
+      "systemType": "Payment-confirmation automation SaaS",
+      "strongestCapability": "Concurrency-safe payment-event matching and idempotent notification",
+      "technologies": ["Laravel 11", "Vue 3", "Inertia.js", "PostgreSQL", "Redis", "Kotlin", "WooCommerce", "Shopify", "Docker"],
+      "verifiedMetrics": [
+        {
+          "value": "Production",
+          "label": "Payment automation platform",
+          "context": "Supports Vodafone Cash and InstaPay detection, matching, webhooks, and commerce integrations.",
+          "evidence": "owner-confirmed"
+        }
+      ],
+      "featured": true,
+      "featuredOrder": 4,
+      "listingOrder": 4,
+      "caseStudyAvailability": "planned",
+      "ownershipTypeOverride": "founder-built"
+    },
+    {
+      "slug": "nabd",
+      "secondaryCategory": "integrations",
+      "systemType": "Multi-service messaging SaaS",
+      "strongestCapability": "Queue-driven channel services and tenant-scoped orchestration",
+      "technologies": ["Laravel 10", "Node.js", "Express.js", "Redis", "Baileys", "MadelineProto", "Supervisor"],
+      "verifiedMetrics": [
+        {
+          "value": "5,000+",
+          "label": "Messages processed weekly",
+          "context": "Real production messaging workflows.",
+          "evidence": "owner-confirmed"
+        }
+      ],
+      "featured": true,
+      "featuredOrder": 5,
+      "listingOrder": 5,
+      "caseStudyAvailability": "planned",
+      "ownershipTypeOverride": "founder-built"
+    },
+    {
+      "slug": "wasfaty-smart-vending",
+      "secondaryCategory": "healthcare",
+      "systemType": "Prescription-dispensing orchestration platform",
+      "strongestCapability": "Reliable reconciliation across healthcare APIs and physical dispensing",
+      "technologies": ["Laravel 9", "PHP 8", "Filament", "Guzzle", "OAuth 2.0", "HMAC-SHA256", "Horizon", "Telescope"],
+      "verifiedMetrics": [
+        {
+          "value": "Hajj season",
+          "label": "Production use",
+          "context": "Real prescription-to-dispensing transactions under production conditions.",
+          "evidence": "owner-confirmed"
+        }
+      ],
+      "featured": true,
+      "featuredOrder": 6,
+      "listingOrder": 6,
+      "caseStudyAvailability": "planned",
+      "ownershipTypeOverride": null,
+      "roleOverride": "Backend, Integration & DevOps Owner"
+    },
+    {
+      "slug": "alzahaby-loyalty-app",
+      "secondaryCategory": "platforms-saas",
+      "systemType": "Cross-platform loyalty and rewards product",
+      "strongestCapability": "Race-safe QR validation and points-ledger workflows",
+      "technologies": ["Laravel 13", "PHP 8.3", "Flutter", "Blade", "Vite", "Sanctum", "Dio", "Provider"],
+      "verifiedMetrics": [
+        {
+          "value": "iOS + Android",
+          "label": "Store distribution",
+          "context": "Verified App Store and Google Play listings.",
+          "evidence": "source-supported"
+        }
+      ],
+      "featured": true,
+      "featuredOrder": 7,
+      "listingOrder": 7,
+      "caseStudyAvailability": "planned",
+      "ownershipTypeOverride": null
+    },
+    {
+      "slug": "riders-shopify-wordpress",
+      "secondaryCategory": "commerce",
+      "systemType": "Shopify application and WooCommerce plugin",
+      "strongestCapability": "Platform-native shipment synchronization and failure recovery",
+      "technologies": ["Laravel 12", "PHP 8.2", "Shopify GraphQL Admin API", "Shopify Webhooks", "WordPress", "WooCommerce", "Action Scheduler"],
+      "verifiedMetrics": [
+        {
+          "value": "2",
+          "label": "Production commerce integrations",
+          "context": "Shopify and WooCommerce.",
+          "evidence": "source-supported"
+        }
+      ],
+      "featured": false,
+      "featuredOrder": null,
+      "listingOrder": 8,
+      "caseStudyAvailability": "planned",
+      "ownershipTypeOverride": null
+    },
+    {
+      "slug": "sim-express",
+      "secondaryCategory": "integrations",
+      "systemType": "Telecom kiosk operations platform",
+      "strongestCapability": "Recoverable activation and multi-peripheral hardware workflows",
+      "technologies": ["Laravel 11", "PHP 8.2", "Filament 5", "Redis", "Horizon", "Sanctum", "Docker", "Nginx", "Supervisor"],
+      "verifiedMetrics": [
+        {
+          "value": "7",
+          "label": "Kiosk hardware categories",
+          "context": "SIM dispenser, fingerprint scanner, identity reader, payment terminal, printer, camera, and touchscreen.",
+          "evidence": "source-supported"
+        }
+      ],
+      "featured": false,
+      "featuredOrder": null,
+      "listingOrder": 9,
+      "caseStudyAvailability": "planned",
+      "ownershipTypeOverride": null
+    },
+    {
+      "slug": "tawfir",
+      "secondaryCategory": "commerce",
+      "systemType": "Multi-role surplus-food marketplace",
+      "strongestCapability": "Modular marketplace workflows across restaurants, orders, and payouts",
+      "technologies": ["Laravel 10", "PHP 8.1", "Filament 3", "Sanctum", "Laratrust", "Laravel Modules", "Stripe Connect", "OneSignal"],
+      "verifiedMetrics": [
+        {
+          "value": "Completed",
+          "label": "Private client delivery",
+          "context": "Backend and web platform delivered; public launch is not claimed.",
+          "evidence": "owner-confirmed"
+        }
+      ],
+      "featured": false,
+      "featuredOrder": null,
+      "listingOrder": 10,
+      "caseStudyAvailability": "planned",
+      "ownershipTypeOverride": null
+    },
+    {
+      "slug": "pdf-extractor",
+      "secondaryCategory": "platforms-saas",
+      "systemType": "Asynchronous document-processing platform",
+      "strongestCapability": "One observable pipeline for native extraction, OCR, and AI cleanup",
+      "technologies": ["Laravel 10", "Vue 3", "Tesseract OCR", "LibreOffice", "Server-Sent Events", "OpenAI", "MySQL"],
+      "verifiedMetrics": [
+        {
+          "value": "PDF + Word",
+          "label": "Document ingestion",
+          "context": "Native parsing with OCR fallback for scanned pages.",
+          "evidence": "source-supported"
+        }
+      ],
+      "featured": false,
+      "featuredOrder": null,
+      "listingOrder": 11,
+      "caseStudyAvailability": "planned",
+      "ownershipTypeOverride": null
+    },
+    {
+      "slug": "pinoyaid",
+      "secondaryCategory": "commerce",
+      "systemType": "Crowdfunding platform rebuild",
+      "strongestCapability": "Multi-gateway payment-state and ledger consistency",
+      "technologies": ["Laravel 11", "PHP 8.3", "Blade", "MySQL", "Vite", "Stripe", "PayPal"],
+      "verifiedMetrics": [
+        {
+          "value": "Multi-gateway",
+          "label": "Payment architecture",
+          "context": "Provider-specific redirect, capture, callback, and webhook flows.",
+          "evidence": "source-supported"
+        }
+      ],
+      "featured": false,
+      "featuredOrder": null,
+      "listingOrder": 12,
+      "caseStudyAvailability": "planned",
+      "ownershipTypeOverride": null
+    },
+    {
+      "slug": "chocolate-smart-vending",
+      "secondaryCategory": "commerce",
+      "systemType": "QR-powered smart retail system",
+      "strongestCapability": "Payment-to-unlock orchestration across commerce and hardware services",
+      "technologies": ["Laravel 10", "Filament 3", "Sanctum", "MySQL", "Redis", "Moyasar", "MQTT", "Raspberry Pi"],
+      "verifiedMetrics": [
+        {
+          "value": "Production",
+          "label": "Smart-locker retail system",
+          "context": "Used by real customers with real Moyasar payments.",
+          "evidence": "owner-confirmed"
+        }
+      ],
+      "featured": false,
+      "featuredOrder": null,
+      "listingOrder": 13,
+      "caseStudyAvailability": "planned",
+      "ownershipTypeOverride": null
+    }
+  ]
+}

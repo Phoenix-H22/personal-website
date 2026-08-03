@@ -80,7 +80,7 @@ export const virtualClinicFixture: ProjectCaseStudyDto = {
     },
   ],
   seo: {
-    title: "Virtual Clinic / Dr. Robot — Abdalrhman Alkady",
+    title: "Virtual Clinic / Dr. Robot — Abdalrhman M. Alkady",
     description:
       "Graduation capstone: AI-assisted virtual clinic across web, mobile, backend, and hardware.",
     canonicalPath: "/work/virtual-clinic-dr-robot",

@@ -1,0 +1,713 @@
+{
+  "schemaVersion": 1,
+  "projects": [
+    {
+      "id": "smart-lockers-platform",
+      "slug": "smart-lockers-platform",
+      "title": "Smart Lockers Platform",
+      "shortTagline": "An independent control plane that separates business systems from locker and device orchestration.",
+      "publicSummary": "A platform-first Smart Lockers architecture that connects business systems to hardware through a reusable Laravel boundary, queued command processing, MQTT, and webhook callbacks.",
+      "role": "Platform Architect & Full-Stack Engineer",
+      "ownershipType": "built-entirely",
+      "status": "live",
+      "primaryCategory": "connected-devices",
+      "secondaryCategory": "platforms-saas",
+      "systemType": "Multi-tenant IoT control plane",
+      "strongestCapability": "Reusable device orchestration and command lifecycle",
+      "technologies": [
+        "Laravel 11",
+        "PHP 8.2",
+        "Python",
+        "MQTT",
+        "Redis",
+        "Raspberry Pi",
+        "Filament",
+        "Supervisor"
+      ],
+      "capabilities": [
+        "Backend Architecture",
+        "DevOps",
+        "Multi-Tenancy",
+        "MQTT",
+        "Raspberry Pi",
+        "External APIs",
+        "Queues / Horizon",
+        "Security",
+        "Real-Time Updates"
+      ],
+      "verifiedMetrics": [
+        {
+          "value": "Production",
+          "label": "Reusable platform",
+          "context": "Designed for multiple business applications and machine deployments.",
+          "evidence": "owner-confirmed"
+        }
+      ],
+      "links": {
+        "website": "https://smartlockers.tech/",
+        "publicGitHub": null,
+        "appStore": null,
+        "googlePlay": null
+      },
+      "featured": true,
+      "featuredOrder": 1,
+      "listingOrder": 1,
+      "lastReviewed": "2026-07-26",
+      "confidentiality": "public-limited",
+      "caseStudyAvailability": "planned",
+      "caseStudy": null
+    },
+    {
+      "id": "warqah-store",
+      "slug": "warqah-store",
+      "title": "Warqah Store",
+      "shortTagline": "A production commerce platform engineered to keep orders, inventory, payments, and shipping dependable through high-activity sales operations.",
+      "publicSummary": "Warqah Store is a live commerce platform where backend reliability directly affects revenue, order integrity, stock accuracy, payment confirmation, shipping execution, and campaign operations. I joined the project before its public launch and took ownership of preparing the backend and infrastructure for production. This included reworking key queue-processing flows using Redis, configuring the production server, managing deployments and DevOps operations, and implementing the Bosta shipping and Fawaterk payment integrations. I continued owning the backend as the platform launched and grew through real commercial operations.",
+      "role": "Backend & DevOps Owner",
+      "ownershipType": "backend-devops-owner",
+      "status": "live",
+      "primaryCategory": "commerce",
+      "secondaryCategory": "integrations",
+      "systemType": "Production commerce operations platform",
+      "strongestCapability": "Queue-backed payment, inventory, and fulfillment consistency",
+      "technologies": [
+        "Laravel 12",
+        "Laravel Sanctum",
+        "Redis",
+        "Bosta API",
+        "Fawaterk",
+        "Telescope"
+      ],
+      "capabilities": [
+        "Backend Architecture",
+        "DevOps",
+        "High Scale",
+        "Queues / Horizon",
+        "Security",
+        "External APIs"
+      ],
+      "verifiedMetrics": [
+        {
+          "value": "EGP 21M+",
+          "label": "Sales",
+          "context": null,
+          "evidence": "verified"
+        },
+        {
+          "value": "100K+",
+          "label": "Orders",
+          "context": null,
+          "evidence": "verified"
+        },
+        {
+          "value": "90K+",
+          "label": "Customers",
+          "context": null,
+          "evidence": "verified"
+        }
+      ],
+      "links": {
+        "website": "https://www.waraqah-store.com/",
+        "publicGitHub": null,
+        "appStore": null,
+        "googlePlay": null
+      },
+      "featured": true,
+      "featuredOrder": 2,
+      "listingOrder": 2,
+      "lastReviewed": "2026-07-24",
+      "confidentiality": "public-limited",
+      "caseStudyAvailability": "planned",
+      "caseStudy": null
+    },
+    {
+      "id": "your-obour-guide",
+      "slug": "your-obour-guide",
+      "title": "Your Obour Guide",
+      "shortTagline": "A founder-built Obour city guide spanning Laravel, Flutter, Next.js, geospatial discovery, media delivery, and release operations.",
+      "publicSummary": "Your Obour Guide is a founder-built city-discovery ecosystem created specifically for Obour and New Obour. I owned the product concept and strategy, logo and brand identity, user-experience direction, Laravel backend and admin platform, Flutter mobile application, Next.js public website, geospatial place-data pipeline, media infrastructure, production deployment, and store-release operations. This is not a client project.",
+      "role": "Founder, Product Designer & Full-Stack Engineer",
+      "ownershipType": "founder-built",
+      "status": "active-development",
+      "primaryCategory": "mobile-products",
+      "secondaryCategory": "platforms-saas",
+      "systemType": "Multi-surface city-discovery ecosystem",
+      "strongestCapability": "End-to-end product, data, mobile, web, and release ownership",
+      "technologies": [
+        "Laravel 10",
+        "Flutter",
+        "Next.js",
+        "MySQL",
+        "Redis",
+        "Bunny CDN",
+        "Sentry"
+      ],
+      "capabilities": [
+        "Backend Architecture",
+        "DevOps",
+        "Mobile Apps",
+        "External APIs",
+        "Security"
+      ],
+      "verifiedMetrics": [
+        {
+          "value": "397",
+          "label": "Laravel tests passed",
+          "context": null,
+          "evidence": "verified"
+        },
+        {
+          "value": "143",
+          "label": "Flutter tests passed",
+          "context": "Flutter analyze clean.",
+          "evidence": "verified"
+        }
+      ],
+      "links": {
+        "website": "https://yourobour.guide",
+        "publicGitHub": null,
+        "appStore": null,
+        "googlePlay": null
+      },
+      "featured": true,
+      "featuredOrder": 3,
+      "listingOrder": 3,
+      "lastReviewed": "2026-07-24",
+      "confidentiality": "public",
+      "caseStudyAvailability": "planned",
+      "caseStudy": null
+    },
+    {
+      "id": "autopay-eg",
+      "slug": "autopay-eg",
+      "title": "Autopay EG",
+      "shortTagline": "A founder-built Egyptian payment automation platform that detects and matches Vodafone Cash and InstaPay transfers to merchant invoices.",
+      "publicSummary": "Autopay EG is a founder-built Egyptian payment-automation SaaS that automates transfer detection, invoice matching, confirmation, and merchant notification. It supports Vodafone Cash and InstaPay through a combination of hosted invoices, Android payment-event ingestion, merchant APIs, webhooks, dashboards, and commerce integrations.\n\nBuyers complete the payment in the external wallet application, while Autopay automates the merchant-side confirmation workflow. The product is best described as a merchant payment-detection and confirmation automation SaaS.",
+      "role": "Founder & Full-Stack Product Engineer",
+      "ownershipType": "founder-built",
+      "status": "live",
+      "primaryCategory": "fintech-payments",
+      "secondaryCategory": "platforms-saas",
+      "systemType": "Payment-confirmation automation SaaS",
+      "strongestCapability": "Concurrency-safe payment-event matching and idempotent notification",
+      "technologies": [
+        "Laravel 11",
+        "Vue 3",
+        "Inertia.js",
+        "PostgreSQL",
+        "Redis",
+        "Kotlin",
+        "WooCommerce",
+        "Shopify",
+        "Docker"
+      ],
+      "capabilities": [
+        "Backend Architecture",
+        "DevOps",
+        "Payments",
+        "External APIs",
+        "Security"
+      ],
+      "verifiedMetrics": [
+        {
+          "value": "Production",
+          "label": "Payment automation platform",
+          "context": "Supports Vodafone Cash and InstaPay detection, matching, webhooks, and commerce integrations.",
+          "evidence": "owner-confirmed"
+        }
+      ],
+      "links": {
+        "website": "https://autopayeg.com/",
+        "publicGitHub": null,
+        "appStore": null,
+        "googlePlay": null
+      },
+      "featured": true,
+      "featuredOrder": 4,
+      "listingOrder": 4,
+      "lastReviewed": "2026-07-24",
+      "confidentiality": "public-limited",
+      "caseStudyAvailability": "planned",
+      "caseStudy": null
+    },
+    {
+      "id": "nabd",
+      "slug": "nabd",
+      "title": "NABD",
+      "shortTagline": "A founder-built messaging SaaS that evolved from a public API into a multi-service platform with native commerce integrations.",
+      "publicSummary": "NABD is a founder-built, production messaging SaaS that connects a Laravel business and orchestration platform with independent WhatsApp and Telegram execution services.\n\nIt began as a reusable messaging API for external websites, then evolved into a multi-channel SaaS and later into native commerce integrations for Salla and Zid.\n\nThe system processes more than 5,000 real messages every week.",
+      "role": "Founder & Full-Stack SaaS Engineer",
+      "ownershipType": "founder-built",
+      "status": "live",
+      "primaryCategory": "platforms-saas",
+      "secondaryCategory": "integrations",
+      "systemType": "Multi-service messaging SaaS",
+      "strongestCapability": "Queue-driven channel services and tenant-scoped orchestration",
+      "technologies": [
+        "Laravel 10",
+        "Node.js",
+        "Express.js",
+        "Redis",
+        "Baileys",
+        "MadelineProto",
+        "Supervisor"
+      ],
+      "capabilities": [
+        "Backend Architecture",
+        "DevOps",
+        "High Scale",
+        "Multi-Tenancy",
+        "External APIs",
+        "Queues / Horizon",
+        "Security",
+        "Real-Time Updates"
+      ],
+      "verifiedMetrics": [
+        {
+          "value": "5,000+",
+          "label": "Messages processed weekly",
+          "context": "Real production messaging workflows.",
+          "evidence": "owner-confirmed"
+        }
+      ],
+      "links": {
+        "website": null,
+        "publicGitHub": null,
+        "appStore": null,
+        "googlePlay": null
+      },
+      "featured": true,
+      "featuredOrder": 5,
+      "listingOrder": 5,
+      "lastReviewed": "2026-07-24",
+      "confidentiality": "public-limited",
+      "caseStudyAvailability": "planned",
+      "caseStudy": null
+    },
+    {
+      "id": "wasfaty-smart-vending",
+      "slug": "wasfaty-smart-vending",
+      "title": "Wasfaty Smart Vending",
+      "shortTagline": "A production smart-vending platform that validates Wasfaty prescriptions and coordinates controlled medicine dispensing through connected machines.",
+      "publicSummary": "Wasfaty Smart Vending is an end-to-end healthcare smart-vending system. It validates Wasfaty prescriptions, applies eligibility and medicine rules, resolves machine and stock availability, authorizes controlled dispensing, and reconciles physical outcomes through machine callbacks. The healthcare application uses the separate Smart Lockers platform for hardware execution, so the medical workflow and the machine-control layer stay cleanly separated.",
+      "role": "Backend, Integration & DevOps Owner",
+      "ownershipType": "built-entirely",
+      "status": "live",
+      "primaryCategory": "connected-devices",
+      "secondaryCategory": "healthcare",
+      "systemType": "Prescription-dispensing orchestration platform",
+      "strongestCapability": "Reliable reconciliation across healthcare APIs and physical dispensing",
+      "technologies": [
+        "Laravel 9",
+        "PHP 8",
+        "Filament",
+        "Guzzle",
+        "OAuth 2.0",
+        "HMAC-SHA256",
+        "Horizon",
+        "Telescope"
+      ],
+      "capabilities": [
+        "Backend Architecture",
+        "DevOps",
+        "MQTT",
+        "Raspberry Pi",
+        "External APIs",
+        "Queues / Horizon",
+        "Security"
+      ],
+      "verifiedMetrics": [
+        {
+          "value": "Hajj season",
+          "label": "Production use",
+          "context": "Real prescription-to-dispensing transactions under production conditions.",
+          "evidence": "owner-confirmed"
+        }
+      ],
+      "links": {
+        "website": null,
+        "publicGitHub": null,
+        "appStore": null,
+        "googlePlay": null
+      },
+      "featured": true,
+      "featuredOrder": 6,
+      "listingOrder": 6,
+      "lastReviewed": "2026-07-24",
+      "confidentiality": "public-limited",
+      "caseStudyAvailability": "planned",
+      "caseStudy": null
+    },
+    {
+      "id": "alzahaby-loyalty-app",
+      "slug": "alzahaby-loyalty-app",
+      "title": "Alzahaby Loyalty App",
+      "shortTagline": "A QR-powered loyalty and rewards platform connecting Alzahaby customers with product points and redeemable rewards.",
+      "publicSummary": "Alzahaby Loyalty & Rewards App is a production customer loyalty and rewards platform built for an electrical-cable manufacturer. The system combines a Flutter customer app, a Laravel backend, and an administration dashboard to turn product interaction into a structured customer experience. Customers can scan supported QR or product codes, earn points through server-side validation, browse rewards, and submit redemption requests. The platform is distributed for iOS and Android and is designed to support ongoing product engagement rather than a one-time checkout flow.",
+      "role": "Full-Stack Product Engineer",
+      "ownershipType": "built-entirely",
+      "status": "live",
+      "primaryCategory": "mobile-products",
+      "secondaryCategory": "platforms-saas",
+      "systemType": "Cross-platform loyalty and rewards product",
+      "strongestCapability": "Race-safe QR validation and points-ledger workflows",
+      "technologies": [
+        "Laravel 13",
+        "PHP 8.3",
+        "Flutter",
+        "Blade",
+        "Vite",
+        "Sanctum",
+        "Dio",
+        "Provider"
+      ],
+      "capabilities": [
+        "Backend Architecture",
+        "DevOps",
+        "Mobile Apps",
+        "External APIs",
+        "Security"
+      ],
+      "verifiedMetrics": [
+        {
+          "value": "iOS + Android",
+          "label": "Store distribution",
+          "context": "Verified App Store and Google Play listings.",
+          "evidence": "source-supported"
+        }
+      ],
+      "links": {
+        "website": null,
+        "publicGitHub": null,
+        "appStore": "https://apps.apple.com/co/app/%D9%87%D8%AF%D8%A7%D9%8A%D8%A7-%D8%A7%D9%84%D8%B0%D9%87%D8%A8%D9%8A-%D9%84%D9%84%D9%83%D8%A7%D8%A8%D9%84%D8%A7%D8%AA/id6773412098",
+        "googlePlay": "https://play.google.com/store/apps/details?id=com.elzahaby.elzahaby_rewards"
+      },
+      "featured": true,
+      "featuredOrder": 7,
+      "listingOrder": 7,
+      "lastReviewed": "2026-07-24",
+      "confidentiality": "public-limited",
+      "caseStudyAvailability": "planned",
+      "caseStudy": null
+    },
+    {
+      "id": "riders-shopify-wordpress",
+      "slug": "riders-shopify-wordpress",
+      "title": "Riders Shopify & WordPress Integrations",
+      "shortTagline": "Production Shopify and WooCommerce integrations connecting merchants to Riders shipping operations in Kuwait.",
+      "publicSummary": "This project consists of two separate production integrations built for Riders, a shipping company in Kuwait: a Laravel-based embedded Shopify application and a standalone WooCommerce shipping plugin. Both connect merchant storefronts with Riders shipping operations while respecting the different lifecycle, authentication, webhook, checkout, and background-processing models of each commerce platform.",
+      "role": "Full-Stack Integration Engineer",
+      "ownershipType": "built-entirely",
+      "status": "live",
+      "primaryCategory": "integrations",
+      "secondaryCategory": "commerce",
+      "systemType": "Shopify application and WooCommerce plugin",
+      "strongestCapability": "Platform-native shipment synchronization and failure recovery",
+      "technologies": [
+        "Laravel 12",
+        "PHP 8.2",
+        "Shopify GraphQL Admin API",
+        "Shopify Webhooks",
+        "WordPress",
+        "WooCommerce",
+        "Action Scheduler"
+      ],
+      "capabilities": [
+        "Backend Architecture",
+        "DevOps",
+        "External APIs",
+        "Shopify",
+        "WordPress",
+        "Security"
+      ],
+      "verifiedMetrics": [
+        {
+          "value": "2",
+          "label": "Production commerce integrations",
+          "context": "Shopify and WooCommerce.",
+          "evidence": "source-supported"
+        }
+      ],
+      "links": {
+        "website": "https://tryriders.com",
+        "publicGitHub": null,
+        "appStore": null,
+        "googlePlay": null
+      },
+      "featured": false,
+      "featuredOrder": null,
+      "listingOrder": 8,
+      "lastReviewed": "2026-07-26",
+      "confidentiality": "public",
+      "caseStudyAvailability": "planned",
+      "caseStudy": null
+    },
+    {
+      "id": "sim-express",
+      "slug": "sim-express",
+      "title": "SIM Express",
+      "shortTagline": "A self-service telecom kiosk platform built to sell and activate stc SIM and eSIM services for Hajj-oriented customer journeys.",
+      "publicSummary": "SIM Express is a self-service telecom kiosk and operations platform built for SIM and eSIM sales and activation scenarios. I owned the backend architecture, the kiosk-facing REST API, the Filament operations dashboard, the stc integration layer, queue-based processing, and the deployment and DevOps work needed to prepare the system for handover. The platform coordinates inventory, activation, and operational monitoring across a multi-tenant backend while supporting seven kiosk hardware categories and recovery-oriented background processing. The product was designed around Hajj-oriented customer journeys and other high-demand telecom-service environments, but I do not claim a confirmed production launch or current live operation.",
+      "role": "Backend & Platform Technical Owner",
+      "ownershipType": "technical-owner",
+      "status": "completed-before-launch",
+      "primaryCategory": "connected-devices",
+      "secondaryCategory": "integrations",
+      "systemType": "Telecom kiosk operations platform",
+      "strongestCapability": "Recoverable activation and multi-peripheral hardware workflows",
+      "technologies": [
+        "Laravel 11",
+        "PHP 8.2",
+        "Filament 5",
+        "Redis",
+        "Horizon",
+        "Sanctum",
+        "Docker",
+        "Nginx",
+        "Supervisor"
+      ],
+      "capabilities": [
+        "Backend Architecture",
+        "DevOps",
+        "External APIs",
+        "MQTT",
+        "Raspberry Pi",
+        "Security"
+      ],
+      "verifiedMetrics": [
+        {
+          "value": "7",
+          "label": "Kiosk hardware categories",
+          "context": "SIM dispenser, fingerprint scanner, identity reader, payment terminal, printer, camera, and touchscreen.",
+          "evidence": "source-supported"
+        }
+      ],
+      "links": {
+        "website": "https://simexpress.sa/",
+        "publicGitHub": null,
+        "appStore": null,
+        "googlePlay": null
+      },
+      "featured": false,
+      "featuredOrder": null,
+      "listingOrder": 9,
+      "lastReviewed": "2026-07-24",
+      "confidentiality": "public-limited",
+      "caseStudyAvailability": "planned",
+      "caseStudy": null
+    },
+    {
+      "id": "tawfir",
+      "slug": "tawfir",
+      "title": "Tawfir",
+      "shortTagline": "A surplus-food marketplace enabling UAE restaurants to sell discounted dishes for scheduled customer pickup.",
+      "publicSummary": "Tawfir is a multi-role food marketplace designed for the UAE market. It lets restaurants list surplus dishes at discounted prices, while customers browse, order, and collect them during scheduled pickup windows. I designed and built the complete Laravel backend and web operations platform, including its modular architecture, REST APIs, administration and restaurant dashboards, marketplace workflows, payments, notifications, and access-control systems. The Flutter customer application was built by another developer and consumed the APIs I built. The project was completed and delivered to a private client, but it was not publicly launched.",
+      "role": "Backend & Web Platform Technical Owner",
+      "ownershipType": "technical-owner",
+      "status": "completed",
+      "primaryCategory": "mobile-products",
+      "secondaryCategory": "commerce",
+      "systemType": "Multi-role surplus-food marketplace",
+      "strongestCapability": "Modular marketplace workflows across restaurants, orders, and payouts",
+      "technologies": [
+        "Laravel 10",
+        "PHP 8.1",
+        "Filament 3",
+        "Sanctum",
+        "Laratrust",
+        "Laravel Modules",
+        "Stripe Connect",
+        "OneSignal"
+      ],
+      "capabilities": [
+        "Backend Architecture",
+        "DevOps",
+        "Multi-Tenancy",
+        "Payments",
+        "External APIs",
+        "Mobile Apps",
+        "Queues / Horizon",
+        "Security"
+      ],
+      "verifiedMetrics": [
+        {
+          "value": "Completed",
+          "label": "Private client delivery",
+          "context": "Backend and web platform delivered; public launch is not claimed.",
+          "evidence": "owner-confirmed"
+        }
+      ],
+      "links": {
+        "website": null,
+        "publicGitHub": null,
+        "appStore": null,
+        "googlePlay": null
+      },
+      "featured": false,
+      "featuredOrder": null,
+      "listingOrder": 10,
+      "lastReviewed": "2026-07-24",
+      "confidentiality": "public-limited",
+      "caseStudyAvailability": "planned",
+      "caseStudy": null
+    },
+    {
+      "id": "pdf-extractor",
+      "slug": "pdf-extractor",
+      "title": "PDF Extractor",
+      "shortTagline": "A document extraction platform combining native PDF parsing, OCR fallback, queue processing, live SSE progress, and optional AI text cleanup.",
+      "publicSummary": "PDF Extractor is a private document-processing platform built for a client company. It accepts PDF and Word documents, extracts native text where possible, falls back to OCR for scanned pages, and optionally applies AI-assisted cleanup before presenting the final result in a Vue interface. I designed and built the complete product end to end, including the Laravel backend, the Vue frontend, the upload experience, asynchronous processing, live progress updates, and result delivery. It was deployed for internal use and was not released as a public SaaS product.",
+      "role": "Full-Stack & AI Document Processing Engineer",
+      "ownershipType": "built-entirely",
+      "status": "completed",
+      "primaryCategory": "ai-data",
+      "secondaryCategory": "platforms-saas",
+      "systemType": "Asynchronous document-processing platform",
+      "strongestCapability": "One observable pipeline for native extraction, OCR, and AI cleanup",
+      "technologies": [
+        "Laravel 10",
+        "Vue 3",
+        "Tesseract OCR",
+        "LibreOffice",
+        "Server-Sent Events",
+        "OpenAI",
+        "MySQL"
+      ],
+      "capabilities": [
+        "Backend Architecture",
+        "AI / OCR",
+        "Queues / Horizon",
+        "Real-Time Updates",
+        "External APIs",
+        "DevOps"
+      ],
+      "verifiedMetrics": [
+        {
+          "value": "PDF + Word",
+          "label": "Document ingestion",
+          "context": "Native parsing with OCR fallback for scanned pages.",
+          "evidence": "source-supported"
+        }
+      ],
+      "links": {
+        "website": null,
+        "publicGitHub": null,
+        "appStore": null,
+        "googlePlay": null
+      },
+      "featured": false,
+      "featuredOrder": null,
+      "listingOrder": 11,
+      "lastReviewed": "2026-07-25",
+      "confidentiality": "public-limited",
+      "caseStudyAvailability": "planned",
+      "caseStudy": null
+    },
+    {
+      "id": "pinoyaid",
+      "slug": "pinoyaid",
+      "title": "PinoyAid",
+      "shortTagline": "A substantially rebuilt crowdfunding platform with campaign moderation, donation operations, withdrawals, administration, and multi-gateway payment integrations.",
+      "publicSummary": "PinoyAid was a private client crowdfunding platform that I substantially rebuilt and customized on top of an existing base. The work covered campaign creation and moderation, donation operations, gateway-driven payment flows, raised-amount and balance updates, withdrawals, administration, and client-specific customization. I added most of the payment integrations during the rebuild and delivered the platform as a completed client project. The source contains runtime implementations for multiple payment providers, but production activation and real transaction usage are not being claimed.",
+      "role": "Lead Full-Stack Developer - Platform Rebuild & Payment Integrations",
+      "ownershipType": "technical-owner",
+      "status": "completed",
+      "primaryCategory": "fintech-payments",
+      "secondaryCategory": "commerce",
+      "systemType": "Crowdfunding platform rebuild",
+      "strongestCapability": "Multi-gateway payment-state and ledger consistency",
+      "technologies": [
+        "Laravel 11",
+        "PHP 8.3",
+        "Blade",
+        "MySQL",
+        "Vite",
+        "Stripe",
+        "PayPal"
+      ],
+      "capabilities": [
+        "Backend Architecture",
+        "DevOps",
+        "Payments",
+        "External APIs",
+        "Security"
+      ],
+      "verifiedMetrics": [
+        {
+          "value": "Multi-gateway",
+          "label": "Payment architecture",
+          "context": "Provider-specific redirect, capture, callback, and webhook flows.",
+          "evidence": "source-supported"
+        }
+      ],
+      "links": {
+        "website": null,
+        "publicGitHub": null,
+        "appStore": null,
+        "googlePlay": null
+      },
+      "featured": false,
+      "featuredOrder": null,
+      "listingOrder": 12,
+      "lastReviewed": "2026-07-25",
+      "confidentiality": "public-limited",
+      "caseStudyAvailability": "planned",
+      "caseStudy": null
+    },
+    {
+      "id": "chocolate-smart-vending",
+      "slug": "chocolate-smart-vending",
+      "title": "Chocolate Smart Vending",
+      "shortTagline": "A QR-powered chocolate retail platform integrating Moyasar payments with automated smart-locker collection.",
+      "publicSummary": "A production retail platform that lets customers scan a QR code on a chocolate compartment, view the product, pay securely through Moyasar, and automatically unlock the correct smart-locker door.",
+      "role": "Technical Owner - Sales Platform, Payments & Smart Locker Integration",
+      "ownershipType": "technical-owner",
+      "status": "completed",
+      "primaryCategory": "connected-devices",
+      "secondaryCategory": "commerce",
+      "systemType": "QR-powered smart retail system",
+      "strongestCapability": "Payment-to-unlock orchestration across commerce and hardware services",
+      "technologies": [
+        "Laravel 10",
+        "Filament 3",
+        "Sanctum",
+        "MySQL",
+        "Redis",
+        "Moyasar",
+        "MQTT",
+        "Raspberry Pi"
+      ],
+      "capabilities": [
+        "Backend Architecture",
+        "DevOps",
+        "Multi-Tenancy",
+        "MQTT",
+        "Raspberry Pi",
+        "Payments",
+        "External APIs",
+        "Security"
+      ],
+      "verifiedMetrics": [
+        {
+          "value": "Production",
+          "label": "Smart-locker retail system",
+          "context": "Used by real customers with real Moyasar payments.",
+          "evidence": "owner-confirmed"
+        }
+      ],
+      "links": {
+        "website": null,
+        "publicGitHub": null,
+        "appStore": null,
+        "googlePlay": null
+      },
+      "featured": false,
+      "featuredOrder": null,
+      "listingOrder": 13,
+      "lastReviewed": "2026-07-25",
+      "confidentiality": "public-limited",
+      "caseStudyAvailability": "planned",
+      "caseStudy": null
+    }
+  ]
+}

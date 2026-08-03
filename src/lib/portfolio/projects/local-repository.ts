@@ -66,8 +66,8 @@ function matchesFilters(
 }
 
 /**
- * Local adapter backed by validated fixtures.
- * UI must not import content arrays — use getProjectRepository().
+ * Legacy adapter backed by the four approved pre-Phase-C fixtures.
+ * Only getLegacyFeaturedProjectRepository() may expose it to current V2.
  */
 export class LocalProjectRepository implements ProjectRepository {
   private readonly projects: ProjectCaseStudy[];

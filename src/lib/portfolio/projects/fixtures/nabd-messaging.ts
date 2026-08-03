@@ -71,7 +71,7 @@ export const nabdMessagingFixture: ProjectCaseStudyDto = {
     },
   ],
   seo: {
-    title: "NABD Messaging Platform — Abdalrhman Alkady",
+    title: "NABD Messaging Platform — Abdalrhman M. Alkady",
     description:
       "Multi-tenant messaging automation across WhatsApp, Telegram, email, and webhook-triggered campaigns.",
     canonicalPath: "/work/nabd-messaging-platform",

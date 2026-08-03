@@ -1,0 +1,642 @@
+{
+  "schemaVersion": 1,
+  "projects": [
+    {
+      "slug": "smart-lockers-platform",
+      "assets": [
+        {
+          "role": "cover-card",
+          "src": "/portfolio/projects/smart-lockers-platform/cover-card.webp",
+          "width": 1200,
+          "height": 675,
+          "aspectRatio": 1.7778,
+          "alt": "Smart Lockers Platform card cover",
+          "caption": null,
+          "order": 0,
+          "sha256": "2b4b2cd32c392ef152fb9a44622ffe01bce75f713050bd234e227ac2508834a4"
+        },
+        {
+          "role": "cover",
+          "src": "/portfolio/projects/smart-lockers-platform/cover.webp",
+          "width": 1672,
+          "height": 941,
+          "aspectRatio": 1.7768,
+          "alt": "Smart Lockers Platform product cover",
+          "caption": null,
+          "order": 1,
+          "sha256": "5fd06b9324dd83d0914b4aca14096d8928d1a610be42d9b4e6d6fb74c31bd911"
+        },
+        {
+          "role": "architecture",
+          "src": "/portfolio/projects/smart-lockers-platform/architecture.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "Smart Lockers architecture diagram",
+          "caption": null,
+          "order": 2,
+          "sha256": "41f4156d285dfe1addb41e924ff5979e092506776b0021374786ce21eb2ca5d0"
+        },
+        {
+          "role": "machine-photo",
+          "src": "/portfolio/projects/smart-lockers-platform/screenshot-01.webp",
+          "width": 1448,
+          "height": 1086,
+          "aspectRatio": 1.3333,
+          "alt": "Real smart-locker machine installation",
+          "caption": null,
+          "order": 3,
+          "sha256": "a62e4dde70d22a9dea3a8c59b03542575352b4f44ce7a45f653328656a2bb18e"
+        },
+        {
+          "role": "dashboard",
+          "src": "/portfolio/projects/smart-lockers-platform/screenshot-02.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "Smart Lockers operations dashboard",
+          "caption": null,
+          "order": 4,
+          "sha256": "536d89b973ca210ef2d3ebbfdd1cf8a463c3d9f7e012571c617b41ff40ecbd62"
+        }
+      ]
+    },
+    {
+      "slug": "warqah-store",
+      "assets": [
+        {
+          "role": "cover-card",
+          "src": "/portfolio/projects/warqah-store/cover-card.webp",
+          "width": 1200,
+          "height": 675,
+          "aspectRatio": 1.7778,
+          "alt": "Warqah Store card cover",
+          "caption": null,
+          "order": 0,
+          "sha256": "8b46d6b0aa186316cb356e50c666ef62ea66d75ea3666498280183ac41fef13b"
+        },
+        {
+          "role": "cover",
+          "src": "/portfolio/projects/warqah-store/cover.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "Warqah Store production commerce platform cover",
+          "caption": null,
+          "order": 1,
+          "sha256": "6cb9ef5dd8a8c212502d661f9feb6cf566a2b70d06a2b7282252a42143dca694"
+        },
+        {
+          "role": "architecture",
+          "src": "/portfolio/projects/warqah-store/architecture.webp",
+          "width": 1536,
+          "height": 1024,
+          "aspectRatio": 1.5,
+          "alt": "Warqah Store architecture overview",
+          "caption": null,
+          "order": 2,
+          "sha256": "cff0fdb41cee26f5823f2de08d585c071445177caee1502527376757fc8df88a"
+        },
+        {
+          "role": "product-screenshot",
+          "src": "/portfolio/projects/warqah-store/screenshot-01.webp",
+          "width": 1600,
+          "height": 774,
+          "aspectRatio": 2.0672,
+          "alt": "Warqah storefront experience",
+          "caption": null,
+          "order": 3,
+          "sha256": "710af1d26917be1ff6e9f169e727c904ad38e242dd2a6ae773bc13048f22819f"
+        },
+        {
+          "role": "dashboard",
+          "src": "/portfolio/projects/warqah-store/screenshot-02.webp",
+          "width": 1600,
+          "height": 590,
+          "aspectRatio": 2.7119,
+          "alt": "Warqah operations dashboard",
+          "caption": null,
+          "order": 4,
+          "sha256": "8e42e05dac7b584f8e76eaaf8ebb0369a0a377f245babd42630f3e30ed37a147"
+        },
+        {
+          "role": "dashboard",
+          "src": "/portfolio/projects/warqah-store/screenshot-03.webp",
+          "width": 873,
+          "height": 731,
+          "aspectRatio": 1.1943,
+          "alt": "Warqah infrastructure dashboard",
+          "caption": null,
+          "order": 5,
+          "sha256": "d2412433ebc9f9083a660296dfd6bea91629e60730d842a6f595a376fa945ee1"
+        }
+      ]
+    },
+    {
+      "slug": "your-obour-guide",
+      "assets": [
+        {
+          "role": "cover-card",
+          "src": "/portfolio/projects/your-obour-guide/cover-card.webp",
+          "width": 1200,
+          "height": 675,
+          "aspectRatio": 1.7778,
+          "alt": "Your Obour Guide card cover",
+          "caption": null,
+          "order": 0,
+          "sha256": "27d14565b871b7a3fad9640ed03a98e50e35b0cfcb2165e51947a83ef45a267d"
+        },
+        {
+          "role": "cover",
+          "src": "/portfolio/projects/your-obour-guide/cover.webp",
+          "width": 1672,
+          "height": 941,
+          "aspectRatio": 1.7768,
+          "alt": "Your Obour Guide case-study cover",
+          "caption": null,
+          "order": 1,
+          "sha256": "f8f557c2868793fe9ba728a4bed856aa7278a3c71f77f677c3681ea9b659f80c"
+        },
+        {
+          "role": "architecture",
+          "src": "/portfolio/projects/your-obour-guide/architecture.webp",
+          "width": 1536,
+          "height": 1024,
+          "aspectRatio": 1.5,
+          "alt": "Your Obour Guide architecture overview",
+          "caption": null,
+          "order": 2,
+          "sha256": "25f08b8599355aeb16a3576d8e253191d0564dd58428e425c82b405eec7f31c8"
+        },
+        {
+          "role": "mobile-screenshot",
+          "src": "/portfolio/projects/your-obour-guide/screenshot-01.webp",
+          "width": 573,
+          "height": 1280,
+          "aspectRatio": 0.4477,
+          "alt": "Your Obour Guide mobile home",
+          "caption": null,
+          "order": 3,
+          "sha256": "9839b59c4e658b0c4b161dc053cd54768717b25d6207481ae100bab51bfddab2"
+        },
+        {
+          "role": "dashboard",
+          "src": "/portfolio/projects/your-obour-guide/screenshot-02.webp",
+          "width": 1600,
+          "height": 1118,
+          "aspectRatio": 1.4311,
+          "alt": "Your Obour Guide admin dashboard",
+          "caption": null,
+          "order": 4,
+          "sha256": "112b654ca4172501ae055ca7ce8109c36d3556ae2f10e4fe6bccc70527df0bd1"
+        },
+        {
+          "role": "product-screenshot",
+          "src": "/portfolio/projects/your-obour-guide/screenshot-03.webp",
+          "width": 1600,
+          "height": 644,
+          "aspectRatio": 2.4845,
+          "alt": "Your Obour Guide public website",
+          "caption": null,
+          "order": 5,
+          "sha256": "d54c4706eaf9c4f659c77ab65a98e75bbc90d797f1b7d8c7146cab394d583118"
+        }
+      ]
+    },
+    {
+      "slug": "autopay-eg",
+      "assets": [
+        {
+          "role": "cover-card",
+          "src": "/portfolio/projects/autopay-eg/cover-card.webp",
+          "width": 1200,
+          "height": 675,
+          "aspectRatio": 1.7778,
+          "alt": "Autopay EG card cover",
+          "caption": null,
+          "order": 0,
+          "sha256": "f42ab4ff67ced807d9e51a4803abc46229164f9e0c6aa345e174c92685533297"
+        },
+        {
+          "role": "cover",
+          "src": "/portfolio/projects/autopay-eg/cover.webp",
+          "width": 1672,
+          "height": 941,
+          "aspectRatio": 1.7768,
+          "alt": "Autopay EG payment automation platform cover",
+          "caption": null,
+          "order": 1,
+          "sha256": "8e0ac37b7bdacd1bc99b9771873b46df90773bb9e0b3c02e5d378f155e5f1faf"
+        },
+        {
+          "role": "architecture",
+          "src": "/portfolio/projects/autopay-eg/architecture.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "Autopay EG architecture overview",
+          "caption": null,
+          "order": 2,
+          "sha256": "90dc6130d9969d4674b9189a41b7505acf8e5e22461ca0a409c4a0687b75f464"
+        },
+        {
+          "role": "product-screenshot",
+          "src": "/portfolio/projects/autopay-eg/screenshot-01.webp",
+          "width": 1600,
+          "height": 761,
+          "aspectRatio": 2.1025,
+          "alt": "Autopay EG landing experience",
+          "caption": null,
+          "order": 3,
+          "sha256": "bd866a0207a9686e3fa2e3d6c28ddb0fd395699db76d3ba6e81f2c30989d1d9a"
+        },
+        {
+          "role": "dashboard",
+          "src": "/portfolio/projects/autopay-eg/screenshot-02.webp",
+          "width": 1600,
+          "height": 507,
+          "aspectRatio": 3.1558,
+          "alt": "Autopay EG administration dashboard",
+          "caption": null,
+          "order": 4,
+          "sha256": "185d1a9ce906c2bda617d15b5a9e63185d4e688620890bba54ffa4d17438b8db"
+        },
+        {
+          "role": "integration-flow",
+          "src": "/portfolio/projects/autopay-eg/screenshot-03.webp",
+          "width": 1082,
+          "height": 812,
+          "aspectRatio": 1.3325,
+          "alt": "Autopay EG payment workflow",
+          "caption": null,
+          "order": 5,
+          "sha256": "d5e614034cbe911809097769c3a454ebe33a3235d1e3a3dbc51f141ca8b65bd5"
+        }
+      ]
+    },
+    {
+      "slug": "nabd",
+      "assets": [
+        {
+          "role": "cover-card",
+          "src": "/portfolio/projects/nabd/cover-card.webp",
+          "width": 1200,
+          "height": 675,
+          "aspectRatio": 1.7778,
+          "alt": "NABD card cover",
+          "caption": null,
+          "order": 0,
+          "sha256": "a23d00b1c6dc45cab122b65d463190f39ca3f7b3258498bd1bf2a40d1e44b23a"
+        },
+        {
+          "role": "cover",
+          "src": "/portfolio/projects/nabd/cover.webp",
+          "width": 1672,
+          "height": 941,
+          "aspectRatio": 1.7768,
+          "alt": "NABD messaging platform cover",
+          "caption": null,
+          "order": 1,
+          "sha256": "396ecf260e4f8b1c91cb6684f086cbc854a76f01ad0788497beedec1f1c515e8"
+        },
+        {
+          "role": "architecture",
+          "src": "/portfolio/projects/nabd/architecture.webp",
+          "width": 1536,
+          "height": 1024,
+          "aspectRatio": 1.5,
+          "alt": "NABD architecture overview",
+          "caption": null,
+          "order": 2,
+          "sha256": "ba12d1e106b312e63cec99cb08745610623971a2da1a6a56b27f609e936ba511"
+        }
+      ]
+    },
+    {
+      "slug": "wasfaty-smart-vending",
+      "assets": [
+        {
+          "role": "cover-card",
+          "src": "/portfolio/projects/wasfaty-smart-vending/cover-card.webp",
+          "width": 1200,
+          "height": 675,
+          "aspectRatio": 1.7778,
+          "alt": "Wasfaty Smart Vending card cover",
+          "caption": null,
+          "order": 0,
+          "sha256": "7fa119997d1610312be2263fa7f245445956c225f19584cf23b8bc7a16fb5e31"
+        },
+        {
+          "role": "cover",
+          "src": "/portfolio/projects/wasfaty-smart-vending/cover.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "Wasfaty Smart Vending platform cover",
+          "caption": null,
+          "order": 1,
+          "sha256": "31e10abe423333ed4d88cf7a014eb85a67693da9400e577baddf6ed0c143bada"
+        },
+        {
+          "role": "architecture",
+          "src": "/portfolio/projects/wasfaty-smart-vending/architecture.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "Wasfaty Smart Vending architecture overview",
+          "caption": null,
+          "order": 2,
+          "sha256": "e1e350782d3b3ef020ee11f0e1d846244aa423baa46c75946c728442b0e0c27a"
+        }
+      ]
+    },
+    {
+      "slug": "alzahaby-loyalty-app",
+      "assets": [
+        {
+          "role": "cover-card",
+          "src": "/portfolio/projects/alzahaby-loyalty-app/cover-card.webp",
+          "width": 1200,
+          "height": 675,
+          "aspectRatio": 1.7778,
+          "alt": "Alzahaby Loyalty App card cover",
+          "caption": null,
+          "order": 0,
+          "sha256": "5e9aee881ff12a8518c496077563248a4fcbae088163f4715770cf54f46b58fd"
+        },
+        {
+          "role": "cover",
+          "src": "/portfolio/projects/alzahaby-loyalty-app/cover.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "Alzahaby Loyalty App cover",
+          "caption": null,
+          "order": 1,
+          "sha256": "3bda4f43feaa05fdf511777b91610bf75942f8ad594389b8a36f6387de485da8"
+        },
+        {
+          "role": "architecture",
+          "src": "/portfolio/projects/alzahaby-loyalty-app/architecture.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "Alzahaby Loyalty App architecture overview",
+          "caption": null,
+          "order": 2,
+          "sha256": "514a4a89a3ec258c245a4cb62269aa40eaca4bc473825201737397adc4d500cc"
+        }
+      ]
+    },
+    {
+      "slug": "riders-shopify-wordpress",
+      "assets": [
+        {
+          "role": "cover-card",
+          "src": "/portfolio/projects/riders-shopify-wordpress/cover-card.webp",
+          "width": 1200,
+          "height": 675,
+          "aspectRatio": 1.7778,
+          "alt": "Riders Shopify & WordPress Integrations card cover",
+          "caption": null,
+          "order": 0,
+          "sha256": "bd7e5e9659648aa68c0aa589f63db6fbb5bb3ce497947bab341aadba14d36f3e"
+        },
+        {
+          "role": "cover",
+          "src": "/portfolio/projects/riders-shopify-wordpress/cover.webp",
+          "width": 1672,
+          "height": 941,
+          "aspectRatio": 1.7768,
+          "alt": "Riders Shopify and WooCommerce integrations cover",
+          "caption": null,
+          "order": 1,
+          "sha256": "55e2c4fc5b70c5900d37002ced543c0568583c07fe5486ccba6a50bc5c629f04"
+        },
+        {
+          "role": "product-screenshot",
+          "src": "/portfolio/projects/riders-shopify-wordpress/screenshot-01.webp",
+          "width": 745,
+          "height": 1600,
+          "aspectRatio": 0.4656,
+          "alt": "Riders Shipping Shopify App Store listing",
+          "caption": null,
+          "order": 2,
+          "sha256": "a23ca4d37719f2c491488849316674f72d638a432c3b8173317c91a92ab8ed6c"
+        },
+        {
+          "role": "dashboard",
+          "src": "/portfolio/projects/riders-shopify-wordpress/screenshot-02.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "Riders Shopify application settings",
+          "caption": null,
+          "order": 3,
+          "sha256": "78919b410d4d0f6769a98b290e7c976deeedfbbefe36cf0910708e76b7f797b9"
+        },
+        {
+          "role": "product-screenshot",
+          "src": "/portfolio/projects/riders-shopify-wordpress/screenshot-03.webp",
+          "width": 473,
+          "height": 1600,
+          "aspectRatio": 0.2956,
+          "alt": "Riders Delivery WooCommerce WordPress.org listing",
+          "caption": null,
+          "order": 4,
+          "sha256": "57ec22c0eb23169ff6e372bc93a32ce10d377e6d351385bf2860f4adb53baa93"
+        }
+      ]
+    },
+    {
+      "slug": "chocolate-smart-vending",
+      "assets": [
+        {
+          "role": "cover-card",
+          "src": "/portfolio/projects/chocolate-smart-vending/cover-card.webp",
+          "width": 1200,
+          "height": 675,
+          "aspectRatio": 1.7778,
+          "alt": "Chocolate Smart Vending card cover",
+          "caption": null,
+          "order": 0,
+          "sha256": "f6f6a38ea09341de4c3a7a535a21aa9ec6a680fe37f6ffc5563c5e54997ea31a"
+        },
+        {
+          "role": "cover",
+          "src": "/portfolio/projects/chocolate-smart-vending/cover.webp",
+          "width": 1672,
+          "height": 941,
+          "aspectRatio": 1.7768,
+          "alt": "Chocolate Smart Vending platform cover",
+          "caption": null,
+          "order": 1,
+          "sha256": "72bc45f4c2b6483bd923885301d38af9cf46c513d3cb1e062ef692aaa6509cc2"
+        },
+        {
+          "role": "architecture",
+          "src": "/portfolio/projects/chocolate-smart-vending/architecture.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "Chocolate Smart Vending architecture overview",
+          "caption": null,
+          "order": 2,
+          "sha256": "7b49e51a71c73c489ad8f445f59f309020e4e30d9836ba6babb064fe37f11c49"
+        }
+      ]
+    },
+    {
+      "slug": "sim-express",
+      "assets": [
+        {
+          "role": "cover-card",
+          "src": "/portfolio/projects/sim-express/cover-card.webp",
+          "width": 1200,
+          "height": 675,
+          "aspectRatio": 1.7778,
+          "alt": "SIM Express card cover",
+          "caption": null,
+          "order": 0,
+          "sha256": "f01336f580ce9b0a5e9c21d9e3a6755529f41f0b58ebdeee417344bee76f107c"
+        },
+        {
+          "role": "cover",
+          "src": "/portfolio/projects/sim-express/cover.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "SIM Express telecom kiosk platform cover",
+          "caption": null,
+          "order": 1,
+          "sha256": "ec4b51b4237a9f251c8be6f8dca0c199c9379fa08d9c404886144c53b4457cec"
+        },
+        {
+          "role": "architecture",
+          "src": "/portfolio/projects/sim-express/architecture.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "SIM Express architecture overview",
+          "caption": null,
+          "order": 2,
+          "sha256": "cf3c33d0dc4556eeaceddd395ce4f0187951d75ffa21d599323bac2a91ae9e87"
+        }
+      ]
+    },
+    {
+      "slug": "tawfir",
+      "assets": [
+        {
+          "role": "cover-card",
+          "src": "/portfolio/projects/tawfir/cover-card.webp",
+          "width": 1200,
+          "height": 675,
+          "aspectRatio": 1.7778,
+          "alt": "Tawfir card cover",
+          "caption": null,
+          "order": 0,
+          "sha256": "2da2cc0075e48c3cd731f32177ea17e2a46928882dbfce12f039afbc40d27338"
+        },
+        {
+          "role": "cover",
+          "src": "/portfolio/projects/tawfir/cover.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "Tawfir surplus-food marketplace cover",
+          "caption": null,
+          "order": 1,
+          "sha256": "5012ed61135ee0377cfa091c7e90d675af71453275da729c8178383925a41b04"
+        },
+        {
+          "role": "architecture",
+          "src": "/portfolio/projects/tawfir/architecture.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "Tawfir architecture overview",
+          "caption": null,
+          "order": 2,
+          "sha256": "6fdc2a8c1d39e8a49a0f7cfaeecb50ed7c7e7953aa943ccf0463ace8827692ea"
+        }
+      ]
+    },
+    {
+      "slug": "pdf-extractor",
+      "assets": [
+        {
+          "role": "cover-card",
+          "src": "/portfolio/projects/pdf-extractor/cover-card.webp",
+          "width": 1200,
+          "height": 675,
+          "aspectRatio": 1.7778,
+          "alt": "PDF Extractor card cover",
+          "caption": null,
+          "order": 0,
+          "sha256": "8cce9186f2d3848fa5481576ee14e98b6d7df9f9199b280e24ca0d0a48d4c941"
+        },
+        {
+          "role": "cover",
+          "src": "/portfolio/projects/pdf-extractor/cover.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "PDF Extractor document platform cover",
+          "caption": null,
+          "order": 1,
+          "sha256": "c097906402955e58c730c925b448978aca08329e45563625f0df01fcf0bd9508"
+        },
+        {
+          "role": "architecture",
+          "src": "/portfolio/projects/pdf-extractor/architecture.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "PDF Extractor architecture overview",
+          "caption": null,
+          "order": 2,
+          "sha256": "54fcb62794cd7e1040d775df11dd5e0fb8c03ec626e099e7ad476a0c9ad2dfbd"
+        }
+      ]
+    },
+    {
+      "slug": "pinoyaid",
+      "assets": [
+        {
+          "role": "cover-card",
+          "src": "/portfolio/projects/pinoyaid/cover-card.webp",
+          "width": 1200,
+          "height": 675,
+          "aspectRatio": 1.7778,
+          "alt": "PinoyAid card cover",
+          "caption": null,
+          "order": 0,
+          "sha256": "8336494515401bfccce2389266454a3e2cdb8cc831f527663bfe9ae79abdccb6"
+        },
+        {
+          "role": "cover",
+          "src": "/portfolio/projects/pinoyaid/cover.webp",
+          "width": 1672,
+          "height": 941,
+          "aspectRatio": 1.7768,
+          "alt": "PinoyAid crowdfunding platform cover",
+          "caption": null,
+          "order": 1,
+          "sha256": "bfe771b6989d37a693768815b0d1cb39f65a4492722785d0629b9f5bcc34a2fd"
+        },
+        {
+          "role": "architecture",
+          "src": "/portfolio/projects/pinoyaid/architecture.webp",
+          "width": 1600,
+          "height": 900,
+          "aspectRatio": 1.7778,
+          "alt": "PinoyAid architecture overview",
+          "caption": null,
+          "order": 2,
+          "sha256": "0ba3d4fef50ddded70d80095b23408a97a8b518da45eaaa8a5e5506273174972"
+        }
+      ]
+    }
+  ]
+}

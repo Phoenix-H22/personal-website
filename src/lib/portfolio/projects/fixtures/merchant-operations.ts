@@ -138,7 +138,7 @@ export const merchantOperationsFixture: ProjectCaseStudyDto = {
     },
   ],
   seo: {
-    title: "Merchant Operations Platform — Abdalrhman Alkady",
+    title: "Merchant Operations Platform — Abdalrhman M. Alkady",
     description:
       "Backend integrations, queues, and reconciliation for multi-merchant commerce operations.",
     canonicalPath: "/work/merchant-operations-salla-automation",
