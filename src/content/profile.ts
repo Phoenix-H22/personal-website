@@ -20,11 +20,11 @@ export type Profile = {
 
 export const profile: Profile = {
   fullName: "Abdalrhman Mohamed Alkady",
-  shortName: "Abdalrhman Alkady",
+  shortName: "Abdalrhman M. Alkady",
   role: "Backend-Focused Product Engineer",
   headline: "Most people see the product. I build what makes it work.",
   summary:
-    "I’m Abdalrhman Alkady, a backend-focused product engineer building reliable SaaS platforms, integrations, automation systems, and mobile-backed products with Laravel, Node.js, and modern frontend technologies.",
+    "I’m Abdalrhman M. Alkady, a backend-focused product engineer building reliable SaaS platforms, integrations, automation systems, and mobile-backed products with Laravel, Node.js, and modern frontend technologies.",
   location: "Egypt",
   mobility: "Open to remote roles and relocation opportunities",
   availability: {

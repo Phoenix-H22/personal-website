@@ -1,4 +1,4 @@
-import { getProjectRepository } from "@/lib/portfolio/projects";
+import { getLegacyFeaturedProjectRepository } from "@/lib/portfolio/projects/legacy-featured-repository";
 import { FeaturedSystemsExperience } from "@/components/portfolio/selected-systems/selected-systems-experience";
 import { toFeaturedSystemCard } from "@/components/portfolio/selected-systems/selected-system-types";
 
@@ -14,7 +14,7 @@ const EXPECTED_ORDER = [
  * Server section — Featured Systems via ProjectRepository only.
  */
 export async function SelectedSystemsSection() {
-  const repo = getProjectRepository();
+  const repo = getLegacyFeaturedProjectRepository();
   const featured = await repo.getFeaturedProjects();
 
   const ordered = EXPECTED_ORDER.map((id) =>

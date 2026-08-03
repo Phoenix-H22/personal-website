@@ -4,7 +4,7 @@ import { validateProofEngineHero } from "@/lib/proof-engine/validation";
 
 export const proofEngineHero: ProofEngineHeroContent = {
   eyebrow: "Software Engineer · Backend, Products & Integrations",
-  name: "Abdalrhman Alkady",
+  name: "Abdalrhman M. Alkady",
   headline: "I engineer the systems businesses learn to depend on.",
   headlineEmphasis: "depend on.",
   summary:
@@ -65,9 +65,9 @@ export const proofEngineHero: ProofEngineHeroContent = {
       },
       status: "verified",
       profileLink: {
-        label: "View Abdalrhman Alkady’s Upwork profile",
+        label: "View Abdalrhman M. Alkady’s Upwork profile",
         href: "https://www.upwork.com/freelancers/alkady22h/",
-        ariaLabel: "View Abdalrhman Alkady’s Upwork profile",
+        ariaLabel: "View Abdalrhman M. Alkady’s Upwork profile",
         isExternal: true,
       },
       sortOrder: 1,

@@ -5,19 +5,28 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 import styles from "@/styles/concept-v3-rebuild/hero.module.scss";
 
-const links = [
+const defaultLinks = [
   { href: "#work", label: "Work" },
   { href: "#experience", label: "Experience" },
   { href: "#education", label: "Education" },
   { href: "#contact", label: "Contact" },
 ] as const;
 
-interface RebuildNavProps {
-  /** Primary brand home. Defaults to the approved root portfolio. */
-  homeHref?: "/";
+export interface RebuildNavLink {
+  href: string;
+  label: string;
 }
 
-export function RebuildNav({ homeHref = "/" }: RebuildNavProps) {
+interface RebuildNavProps {
+  /** Primary brand home. Defaults to the approved root portfolio. */
+  homeHref?: "/" | "/v2";
+  links?: readonly RebuildNavLink[];
+}
+
+export function RebuildNav({
+  homeHref = "/",
+  links = defaultLinks,
+}: RebuildNavProps) {
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -50,11 +59,15 @@ export function RebuildNav({ homeHref = "/" }: RebuildNavProps) {
   return (
     <header className={styles.nav} data-rebuild-nav>
       <div className={`${styles.shell} ${styles.navInner}`}>
-        <Link href={homeHref} className={styles.brand}>
+        <Link
+          href={homeHref}
+          className={styles.brand}
+          aria-label="AK, Abdalrhman M. Alkady home"
+        >
           <span className={styles.brandMark} aria-hidden="true">
             AK
           </span>
-          <span className={styles.brandText}>Abdalrhman Alkady</span>
+          <span className={styles.brandText}>Abdalrhman M. Alkady</span>
         </Link>
 
         <nav aria-label="Primary" className={styles.navLinks}>

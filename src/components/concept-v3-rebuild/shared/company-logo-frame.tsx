@@ -19,6 +19,7 @@ interface CompanyLogoFrameProps {
   /** Prefer eager — filmstrip logos live in a horizontal scroller where
    *  native lazy-loading often never resolves `src`. */
   loading?: "eager" | "lazy";
+  decorative?: boolean;
 }
 
 function getInitials(company: string, shortName?: string | null): string {
@@ -55,6 +56,7 @@ export function CompanyLogoFrame({
   size = "md",
   className,
   loading = "eager",
+  decorative = false,
 }: CompanyLogoFrameProps) {
   const { width, height } = sizeMap[size];
   const initials = getInitials(company, companyShortName);
@@ -85,7 +87,7 @@ export function CompanyLogoFrame({
     >
       <Image
         src={logo.src}
-        alt={logo.alt}
+        alt={decorative ? "" : logo.alt}
         width={width}
         height={height}
         priority={forcePriority}

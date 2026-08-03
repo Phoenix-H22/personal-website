@@ -766,14 +766,18 @@ export function HeroMotion({
           duration: 0.55,
           ease: "power3.out",
         });
-        const qxFar = gsap.quickTo(far, "x", {
-          duration: 0.65,
-          ease: "power3.out",
-        });
-        const qyFar = gsap.quickTo(far, "y", {
-          duration: 0.65,
-          ease: "power3.out",
-        });
+        const qxFar = far.length
+          ? gsap.quickTo(far, "x", {
+              duration: 0.65,
+              ease: "power3.out",
+            })
+          : () => undefined;
+        const qyFar = far.length
+          ? gsap.quickTo(far, "y", {
+              duration: 0.65,
+              ease: "power3.out",
+            })
+          : () => undefined;
         // Tilt the INNER surface only — never the outer layout shell — so the
         // grid box stays stable, edges stay complete, and neighbours stay
         // aligned during pointer parallax.

@@ -33,7 +33,6 @@ export function CareerCompanyNode({
       id={`career-node-${entry.id}`}
       aria-selected={selected}
       aria-controls="career-story-panel"
-      aria-label={`${entry.companyShortName ?? entry.company}, ${entry.role}, ${period}`}
       className={[
         styles.milestone,
         selected && variant === "main" ? styles.milestoneActive : "",
@@ -51,6 +50,7 @@ export function CareerCompanyNode({
           company={entry.company}
           companyShortName={entry.companyShortName}
           size="pedestal"
+          decorative
         />
       </span>
       <span className={styles.milestoneName}>
@@ -65,6 +65,7 @@ export function CareerCompanyNode({
           Current
         </span>
       ) : null}
+      <span className={styles.srOnly}>{entry.role}, {period}</span>
     </button>
   );
 }

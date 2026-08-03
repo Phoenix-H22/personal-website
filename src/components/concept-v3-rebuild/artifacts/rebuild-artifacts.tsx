@@ -20,9 +20,6 @@ export function UpworkCredential({
 }: { artifact: CredentialArtifact } & ModeProps) {
   const scoreText = `${artifact.score.value}${artifact.score.unit} ${artifact.score.label}`;
   const href = artifact.profileLink?.href ?? artifact.href;
-  const label =
-    artifact.profileLink?.ariaLabel ??
-    "View Abdalrhman Alkady’s Upwork profile";
 
   const body = (
     <>
@@ -119,7 +116,6 @@ export function UpworkCredential({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={label}
         data-artifact="upwork"
         data-depth="near"
         data-parallax-target

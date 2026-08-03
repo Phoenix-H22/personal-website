@@ -48,7 +48,6 @@ export function CareerIndependentTrack({
               id={`career-node-${entry.id}`}
               aria-selected={selected}
               aria-controls="career-story-panel"
-              aria-label={`${entry.companyShortName ?? entry.company}, ${entry.role}, ${period}`}
               className={[
                 styles.indieChip,
                 selected ? styles.indieChipActive : "",
@@ -64,10 +63,12 @@ export function CareerIndependentTrack({
                 company={entry.company}
                 companyShortName={entry.companyShortName}
                 size="sm"
+                decorative
               />
               <span className={styles.indieChipName}>
                 {entry.companyShortName ?? entry.company}
               </span>
+              <span className={styles.srOnly}>{entry.role}, {period}</span>
             </button>
           );
         })}
