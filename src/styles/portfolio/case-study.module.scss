@@ -1,0 +1,563 @@
+.page {
+  --case-accent: #31e6d0;
+  --case-accent-rgb: 49 230 208;
+  min-height: 100vh;
+  overflow-x: clip;
+  background:
+    radial-gradient(circle at 78% 10%, rgb(var(--case-accent-rgb) / 10%), transparent 30rem),
+    #03080e;
+  color: #edf3f8;
+}
+
+.page[data-accent="amber"] {
+  --case-accent: #f0b84b;
+  --case-accent-rgb: 240 184 75;
+}
+
+.page[data-accent="blue"] {
+  --case-accent: #78aefb;
+  --case-accent-rgb: 120 174 251;
+}
+
+.topNav {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  display: flex;
+  gap: 1rem 2rem;
+  align-items: center;
+  min-height: 4rem;
+  padding-inline: clamp(1rem, 5vw, 5rem);
+  border-bottom: 1px solid rgb(139 171 204 / 16%);
+  background: rgb(3 8 14 / 88%);
+  backdrop-filter: blur(14px);
+}
+
+.topNav a,
+.breadcrumbs a {
+  color: #90a3b6;
+  font-size: 0.7rem;
+  text-decoration: none;
+}
+
+.topNav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+.topNav a:first-child {
+  margin-right: auto;
+  color: #edf3f8;
+  font-weight: 650;
+}
+
+.topNav a:focus-visible,
+.breadcrumbs a:focus-visible,
+.expandArchitecture:focus-visible,
+.architectureDialog button:focus-visible,
+.projectNavigation a:focus-visible {
+  outline: 2px solid var(--case-accent);
+  outline-offset: 3px;
+}
+
+.breadcrumbs,
+.hero,
+.narrativeSection,
+.decisions,
+.failurePaths,
+.architecture,
+.evidence,
+.outcome,
+.stack,
+.projectNavigation {
+  width: min(100%, 100rem);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 5rem);
+}
+
+.breadcrumbs {
+  padding-top: 1.2rem;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumbs li {
+  color: #5f7489;
+  font-size: 0.65rem;
+}
+
+.breadcrumbs li:not(:last-child)::after {
+  margin-left: 0.4rem;
+  content: "/";
+  color: #42566a;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(25rem, 1.12fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+  padding-block: clamp(4rem, 9vw, 8rem);
+}
+
+.heroCopy > p:first-child,
+.decisions header p,
+.architecture header p,
+.evidence header p,
+.stack header p {
+  margin: 0;
+  color: var(--case-accent);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+}
+
+.hero h1 {
+  margin: 1rem 0 0;
+  font-size: clamp(3.4rem, 8vw, 8rem);
+  letter-spacing: -0.075em;
+  line-height: 0.86;
+  text-wrap: balance;
+}
+
+.heroSummary {
+  margin: 1.5rem 0 0;
+  color: var(--case-accent);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 620;
+  line-height: 1.5;
+}
+
+.recruiterSummary {
+  display: grid;
+  gap: 0;
+  margin: 2rem 0 0;
+}
+
+.recruiterSummary div,
+.ownershipGrid div {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgb(139 171 204 / 14%);
+}
+
+.recruiterSummary dt,
+.ownershipGrid dt,
+.decisions dt {
+  color: #526a82;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.recruiterSummary dd,
+.ownershipGrid dd,
+.decisions dd {
+  margin: 0;
+  color: #acbbc9;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.heroMedia {
+  margin: 0;
+}
+
+.heroMedia img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid rgb(var(--case-accent-rgb) / 28%);
+  background: #07101a;
+}
+
+.heroMedia figcaption,
+.architecture figcaption,
+.gallery figcaption {
+  margin-top: 0.65rem;
+  color: #6f8499;
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
+.narrativeSection,
+.failurePaths,
+.outcome {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.45fr) minmax(0, 1.55fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  padding-block: clamp(3.5rem, 7vw, 7rem);
+  border-top: 1px solid rgb(139 171 204 / 14%);
+}
+
+.sectionLabel {
+  color: var(--case-accent);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+}
+
+.narrativeSection h2,
+.failurePaths h2,
+.outcome h2,
+.decisions h2,
+.architecture h2,
+.evidence h2,
+.stack h2 {
+  max-width: 16ch;
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 5rem);
+  letter-spacing: -0.06em;
+  line-height: 0.96;
+  text-wrap: balance;
+}
+
+.narrativeSection p,
+.outcome p {
+  max-width: 60rem;
+  color: #95a7b8;
+  font-size: clamp(0.92rem, 1.3vw, 1.08rem);
+  line-height: 1.72;
+}
+
+.ownershipGrid {
+  margin: 2rem 0 0;
+}
+
+.constraintList,
+.failurePaths ol {
+  display: grid;
+  gap: 0;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: constraints;
+}
+
+.constraintList li,
+.failurePaths li {
+  position: relative;
+  padding: 1rem 0 1rem 2.5rem;
+  border-top: 1px solid rgb(139 171 204 / 14%);
+  color: #a8b7c5;
+  line-height: 1.6;
+  counter-increment: constraints;
+}
+
+.constraintList li::before,
+.failurePaths li::before {
+  position: absolute;
+  left: 0;
+  content: counter(constraints, decimal-leading-zero);
+  color: var(--case-accent);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.58rem;
+}
+
+.decisions,
+.architecture,
+.evidence,
+.stack {
+  padding-block: clamp(4rem, 8vw, 8rem);
+  border-top: 1px solid rgb(139 171 204 / 14%);
+}
+
+.decisions > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 3rem;
+  border-top: 1px solid rgb(139 171 204 / 18%);
+}
+
+.decisions article {
+  padding: 1.25rem;
+  border-right: 1px solid rgb(139 171 204 / 14%);
+  border-bottom: 1px solid rgb(139 171 204 / 14%);
+}
+
+.decisions article > span {
+  color: var(--case-accent);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6rem;
+}
+
+.decisions h3 {
+  min-height: 3.4rem;
+  margin: 1.4rem 0;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+}
+
+.decisions dl {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+}
+
+.decisions dl div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.architecture figure {
+  margin: 3rem 0 0;
+}
+
+.architecture figure img,
+.gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid rgb(139 171 204 / 18%);
+  background: #07101a;
+}
+
+.expandArchitecture {
+  min-height: 2.75rem;
+  margin-top: 1rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgb(var(--case-accent-rgb) / 42%);
+  background: rgb(var(--case-accent-rgb) / 6%);
+  color: var(--case-accent);
+  cursor: pointer;
+}
+
+.architectureDialog {
+  width: min(96vw, 100rem);
+  max-width: none;
+  max-height: 94dvh;
+  padding: 0;
+  border: 1px solid rgb(var(--case-accent-rgb) / 42%);
+  background: #03080e;
+  color: #edf3f8;
+}
+
+.architectureDialog::backdrop {
+  background: rgb(0 3 7 / 88%);
+}
+
+.architectureDialog > div {
+  max-height: 94dvh;
+  overflow: auto;
+  padding: 1rem;
+}
+
+.architectureDialog header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.architectureDialog header p {
+  margin: 0;
+  color: var(--case-accent);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6rem;
+}
+
+.architectureDialog button {
+  min-height: 2.75rem;
+  padding-inline: 0.8rem;
+  border: 1px solid rgb(139 171 204 / 24%);
+  background: transparent;
+  color: #dce6ef;
+  cursor: pointer;
+}
+
+.architectureDialog img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 3rem 0 0;
+}
+
+.metrics div {
+  padding: 1rem;
+  border-top: 1px solid rgb(var(--case-accent-rgb) / 38%);
+  border-right: 1px solid rgb(139 171 204 / 14%);
+}
+
+.metrics dt {
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 620;
+  letter-spacing: -0.06em;
+}
+
+.metrics dd {
+  margin: 0.35rem 0 0;
+  color: #879aab;
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.gallery figure {
+  margin: 0;
+}
+
+.gallery img {
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}
+
+.stack dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 3rem 0 0;
+}
+
+.stack dl div {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.5fr) minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgb(139 171 204 / 14%);
+}
+
+.stack dt {
+  color: #e8eef3;
+  font-weight: 650;
+}
+
+.stack dd {
+  margin: 0;
+  color: #8295a8;
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+
+.projectNavigation {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  padding-block: 2rem max(5rem, calc(3rem + env(safe-area-inset-bottom)));
+  border-top: 1px solid rgb(139 171 204 / 16%);
+}
+
+.projectNavigation a {
+  display: grid;
+  gap: 0.4rem;
+  min-height: 4rem;
+  padding: 1rem;
+  border: 1px solid rgb(139 171 204 / 14%);
+  color: #dbe5ed;
+  text-decoration: none;
+}
+
+.projectNavigation a:nth-child(2) {
+  place-items: center;
+}
+
+.projectNavigation a:last-child {
+  text-align: right;
+}
+
+.projectNavigation span {
+  color: #677c91;
+  font-size: 0.62rem;
+}
+
+@media (max-width: 64rem) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .heroMedia {
+    grid-row: 1;
+  }
+
+  .decisions > div {
+    grid-template-columns: 1fr;
+  }
+
+  .decisions h3 {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 48rem) {
+  .topNav {
+    overflow-x: auto;
+  }
+
+  .topNav a {
+    flex: 0 0 auto;
+  }
+
+  .narrativeSection,
+  .failurePaths,
+  .outcome {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .recruiterSummary div,
+  .ownershipGrid div,
+  .stack dl div {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+
+  .metrics,
+  .gallery,
+  .stack dl,
+  .projectNavigation {
+    grid-template-columns: 1fr;
+  }
+
+  .projectNavigation a:last-child {
+    text-align: left;
+  }
+
+  .architectureDialog {
+    width: 100vw;
+    max-height: 100dvh;
+  }
+}
+
+@media (max-width: 22rem) {
+  .hero h1 {
+    font-size: 2.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .architectureDialog,
+  .topNav {
+    scroll-behavior: auto;
+  }
+}
+
+@media (forced-colors: active) {
+  .heroMedia img,
+  .architecture figure img,
+  .gallery img,
+  .expandArchitecture,
+  .projectNavigation a {
+    border: 1px solid CanvasText;
+  }
+}
