@@ -1,3 +1,9 @@
+@property --signal-progress {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
 .page {
   --hero-accent: #31e6d0;
   --header-height: 4.5rem;
@@ -175,7 +181,6 @@
   align-items: center;
   min-height: 2.75rem;
   padding-inline: 0.2rem;
-  border: 0;
   border: 0;
   background: transparent;
   color: #c3d8da;
@@ -715,7 +720,21 @@
 // Selected-work header
 .stackLens {
   --lens-local: #31e6d0;
+  --orbit-frame-draw-duration: 1100ms;
+  --signal-line-width: 1px;
+  --signal-node-size: 2rem;
+  --signal-node-radius: calc(var(--signal-node-size) / 2);
+  --signal-marker-floating-gap: 0.375rem;
+  --signal-marker-count: 4;
+  --signal-marker-interval-count: 3;
+  --signal-route-corridor-size: 0.75rem;
+  --signal-progress-thickness: 2px;
+  --signal-head-thickness: 4px;
+  --navigator-gap: 1rem;
+  --orbit-header-gap: clamp(1.25rem, 1.4vw, 1.5rem);
+  --project-card-inline-size: 21rem;
   --project-card-padding: 1.25rem;
+  --project-control-padding: 0.35rem;
 
   position: relative;
   width: 100%;
@@ -736,16 +755,17 @@
 }
 
 .lensHeader {
+  position: relative;
   display: grid;
   align-items: start;
-  padding: 0 0.25rem 0.875rem;
-  border-bottom: 1px solid rgb(116 158 174 / 20%);
+  padding: 0 0.25rem;
   font-family: var(--font-mono), ui-monospace, monospace;
 }
 
 .lensIntroduction {
   display: grid;
   gap: 0.35rem;
+  padding-inline-end: 8rem;
 }
 
 .lensEyebrow {
@@ -776,15 +796,70 @@
   line-height: 1.45;
 }
 
-.lensThesis {
-  margin-top: 0.7rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid rgb(116 158 174 / 12%);
-  color: #91acb8;
-  font-size: clamp(0.66rem, 0.68vw, 0.73rem);
-  font-weight: 580;
-  letter-spacing: 0.08em;
+.rotationToggle {
+  position: absolute;
+  top: 0;
+  right: 0.25rem;
+  display: inline-grid;
+  grid-template-columns: minmax(0, 1fr) 1rem;
+  width: 7.25rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  gap: 0.55rem;
+  align-items: center;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid rgb(104 158 169 / 22%);
+  border-radius: 2px;
+  background: rgb(5 16 23 / 62%);
+  color: #8ba2ad;
+  cursor: pointer;
+}
+
+.rotationToggle:hover,
+.rotationToggle:focus-visible {
+  border-color: color-mix(in srgb, var(--lens-local) 56%, transparent);
+  color: #dff8f4;
+}
+
+.rotationToggle:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--lens-local) 72%, transparent);
+  outline-offset: 2px;
+}
+
+.rotationToggle:disabled {
+  cursor: default;
+  opacity: 0.62;
+}
+
+.rotationToggleText {
+  display: grid;
+  gap: 0.1rem;
   text-align: left;
+}
+
+.rotationToggleText span {
+  color: #607886;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+}
+
+.rotationToggleText strong {
+  color: currentColor;
+  font-size: 0.58rem;
+  font-weight: 620;
+  letter-spacing: 0.08em;
+}
+
+.rotationToggle svg {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+.activeProjectSignal,
+.projectTechnologySignal {
+  display: none;
 }
 
 .orbit {
@@ -792,6 +867,8 @@
   isolation: isolate;
   display: grid;
   min-width: 0;
+  min-block-size: 0;
+  container-type: inline-size;
   background:
     linear-gradient(rgb(93 151 164 / 4%) 1px, transparent 1px),
     linear-gradient(90deg, rgb(93 151 164 / 4%) 1px, transparent 1px);
@@ -815,14 +892,118 @@
   stroke-dashoffset: 1;
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
-  animation: lens-boundary-draw 850ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
+  animation: lens-boundary-draw var(--orbit-frame-draw-duration) cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
 }
 
-.orbitDepthPlane {
+.orbitFrameSegments {
   fill: none;
-  stroke: rgb(79 137 148 / 10%);
+}
+
+.signalRoute {
+  --signal-progress: 0;
+
+  z-index: 0;
+  grid-area: 1 / 1 / -1 / -1;
+  min-width: 0;
+  pointer-events: none;
+  animation: lens-signal-travel var(--signal-route-duration) linear 1 both paused;
+}
+
+.signalRouteOrbit {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.signalRouteOrbitTrack {
+  pointer-events: none;
+  stroke: rgb(99 166 176 / 24%);
   stroke-width: 1;
-  vector-effect: non-scaling-stroke;
+}
+
+.signalRouteOrbitProgress,
+.signalRouteOrbitHead {
+  opacity: 1;
+  pointer-events: none;
+}
+
+.signalRouteOrbitProgress {
+  stroke: var(--lens-local);
+  stroke-dasharray: 100;
+  stroke-dashoffset: calc(100 - (var(--signal-progress) * 100));
+  stroke-width: 2;
+  filter: drop-shadow(0 0 0.14rem color-mix(in srgb, var(--lens-local) 52%, transparent));
+}
+
+.signalRouteOrbitHead {
+  stroke: #efffff;
+  stroke-dasharray: 1 100;
+  stroke-dashoffset: calc(0.5 - (var(--signal-progress) * 100));
+  stroke-width: 3.5;
+  filter:
+    drop-shadow(0 0 0.16rem color-mix(in srgb, var(--lens-local) 92%, transparent))
+    drop-shadow(0 0 0.46rem color-mix(in srgb, var(--lens-local) 58%, transparent));
+}
+
+.signalRouteLinear {
+  display: none;
+}
+
+.signalRouteLinearTrack,
+.signalRouteLinearSegment {
+  position: absolute;
+  pointer-events: none;
+}
+
+.signalRouteLinearSegment {
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.signalRouteLinearSegment::after {
+  position: absolute;
+  z-index: 0;
+  background: rgb(99 166 176 / 34%);
+  content: "";
+}
+
+.signalRouteLinearProgress,
+.signalRouteLinearHead {
+  position: absolute;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.signalRouteLinearProgress {
+  z-index: 1;
+  background: var(--lens-local);
+  box-shadow: 0 0 0.14rem color-mix(in srgb, var(--lens-local) 52%, transparent);
+}
+
+.signalRouteLinearHead {
+  z-index: 2;
+  border-radius: 999px;
+  box-shadow:
+    0 0 0.16rem color-mix(in srgb, var(--lens-local) 92%, transparent),
+    0 0 0.46rem color-mix(in srgb, var(--lens-local) 58%, transparent);
+}
+
+.stackLens[data-auto-rotation="running"] .signalRoute,
+.stackLens[data-auto-rotation="running"] .projectControlNumber[data-signal-route-target="true"]::after {
+  animation-play-state: running;
+}
+
+.stackLens[data-auto-rotation="reduced"] .signalRoute {
+  animation: none;
+}
+
+.stackLens[data-auto-rotation="reduced"] .signalRouteOrbitProgress,
+.stackLens[data-auto-rotation="reduced"] .signalRouteOrbitHead,
+.stackLens[data-auto-rotation="reduced"] .signalRouteLinearProgress,
+.stackLens[data-auto-rotation="reduced"] .signalRouteLinearHead,
+.stackLens[data-auto-rotation="reduced"] .projectControlNumber[data-signal-route-target="true"]::after {
+  display: none;
 }
 
 // Shared project card
@@ -830,9 +1011,10 @@
   position: relative;
   z-index: 2;
   box-sizing: border-box;
-  inline-size: min(100%, 21rem);
+  inline-size: min(100%, var(--project-card-inline-size));
   min-inline-size: 0;
   block-size: auto;
+  min-block-size: 0;
   overflow: visible;
   border: 1px solid rgb(104 158 169 / 22%);
   border-radius: 0.2rem;
@@ -843,6 +1025,7 @@
   position: absolute;
   z-index: 0;
   inset: 0;
+  overflow: hidden;
   border-left: 1px solid color-mix(in srgb, var(--lens-local) 52%, transparent);
   background:
     radial-gradient(circle at 20% 12%, color-mix(in srgb, var(--lens-local) 10%, transparent), transparent 48%),
@@ -862,7 +1045,7 @@
 }
 
 [data-interacted="true"] .projectCardContent {
-  animation: lens-card-change 300ms cubic-bezier(0.22, 1, 0.36, 1) 40ms both;
+  animation: lens-card-change 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .activeContext,
@@ -969,26 +1152,6 @@
   place-items: center;
 }
 
-.projectNodeTop {
-  grid-row: 1;
-  grid-column: 2;
-}
-
-.projectNodeRight {
-  grid-row: 2;
-  grid-column: 3;
-}
-
-.projectNodeBottom {
-  grid-row: 3;
-  grid-column: 2;
-}
-
-.projectNodeLeft {
-  grid-row: 2;
-  grid-column: 1;
-}
-
 .projectControl {
   position: relative;
   display: flex;
@@ -1000,7 +1163,7 @@
   gap: 0.55rem;
   align-items: center;
   justify-content: center;
-  padding: 0.35rem;
+  padding: var(--project-control-padding);
   border: 0;
   background: transparent;
   box-shadow: none;
@@ -1020,11 +1183,12 @@
 }
 
 .projectControlNumber {
+  position: relative;
   display: grid;
   box-sizing: border-box;
   flex: 0 0 auto;
-  inline-size: 2rem;
-  block-size: 2rem;
+  inline-size: var(--signal-node-size);
+  block-size: var(--signal-node-size);
   place-items: center;
   border: 1px solid rgb(106 151 162 / 30%);
   border-radius: 2px;
@@ -1035,6 +1199,19 @@
     border-color 180ms ease,
     background-color 180ms ease,
     color 180ms ease;
+}
+
+.projectControlNumber[data-signal-route-target="true"]::after {
+  position: absolute;
+  inset: -0.25rem;
+  border: 1px solid var(--lens-local);
+  border-radius: 3px;
+  opacity: 0;
+  box-shadow: 0 0 0.38rem color-mix(in srgb, var(--lens-local) 42%, transparent);
+  transform: scale(1);
+  content: "";
+  pointer-events: none;
+  animation: lens-route-destination-pulse var(--signal-route-duration) linear 1 both paused;
 }
 
 .projectControlLabel {
@@ -1069,18 +1246,62 @@
   font-weight: 650;
 }
 
-.projectBeam {
-  position: absolute;
-  display: none;
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    opacity 240ms ease-out,
-    transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
-}
+// Desktop Orbit Geometry
+@media (min-width: 73.75rem) {
+  .orbit {
+    --signal-node-size: var(--desktop-signal-node-size);
+    --orbit-label-gap: 0.3rem;
 
-.projectControl[data-active="true"] .projectBeam {
-  opacity: 0.9;
+    aspect-ratio: var(--orbit-aspect-ratio);
+  }
+
+  .signalRoute,
+  .orbitFrame,
+  .projectSelector {
+    grid-area: 1 / 1 / -1 / -1;
+  }
+
+  .projectSelector {
+    position: relative;
+    display: block;
+    pointer-events: none;
+  }
+
+  .projectSelector > li {
+    position: absolute;
+    inline-size: var(--signal-node-size);
+    block-size: var(--signal-node-size);
+    pointer-events: auto;
+    transform: translate(-50%, -50%);
+  }
+
+  .projectControl {
+    inline-size: var(--signal-node-size);
+    min-block-size: 0;
+    block-size: var(--signal-node-size);
+    gap: 0;
+    padding: 0;
+  }
+
+  .projectControlLabel {
+    position: absolute;
+    top: calc(50% + var(--signal-node-radius) + var(--orbit-label-gap));
+    left: 50%;
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+
+  .projectNodeTop .projectControlLabel {
+    top: auto;
+    bottom: calc(50% + var(--signal-node-radius) + var(--orbit-label-gap));
+  }
+
+  .projectCard {
+    grid-row: 2;
+    grid-column: 2;
+    align-self: center;
+    justify-self: center;
+  }
 }
 
 // Wide Desktop Orbit
@@ -1091,7 +1312,8 @@
   }
 
   .stackLens {
-    --project-card-padding: clamp(1.5rem, 1.7vw, 1.9rem);
+    --project-card-inline-size: 24rem;
+    --project-card-padding: 1.5rem;
 
     max-width: 46rem;
   }
@@ -1101,7 +1323,6 @@
     --orbit-side-track: clamp(6.5rem, 6.6vw, 7.5rem);
     --orbit-top-track: clamp(4.5rem, 4.5vw, 5.25rem);
     --orbit-bottom-track: clamp(4.5rem, 4.5vw, 5.25rem);
-    --project-beam-length: clamp(2.75rem, 3.6vw, 4rem);
 
     grid-template-columns:
       var(--orbit-side-track)
@@ -1112,132 +1333,12 @@
       minmax(0, auto)
       var(--orbit-bottom-track);
     inline-size: var(--orbit-inline-size);
-    aspect-ratio: 1.22 / 1;
+    margin-block-start: var(--orbit-header-gap);
     margin-left: auto;
   }
 
-  .orbitFrame {
-    grid-row: 1 / -1;
-    grid-column: 1 / -1;
-  }
-
-  .projectSelector {
-    grid-row: 1 / -1;
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-template-rows: subgrid;
-    pointer-events: none;
-  }
-
-  .projectSelector > li {
-    pointer-events: auto;
-  }
-
-  .projectNodeTop {
-    align-items: end;
-  }
-
-  .projectNodeRight {
-    justify-items: start;
-  }
-
-  .projectNodeBottom {
-    align-items: start;
-  }
-
-  .projectNodeLeft {
-    justify-items: end;
-  }
-
-  .projectNodeTop .projectControl,
-  .projectNodeBottom .projectControl {
-    flex-direction: column;
-  }
-
-  .projectNodeTop .projectControlLabel {
-    order: -1;
-  }
-
-  .projectNodeRight .projectControl {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .projectNodeLeft .projectControl {
-    width: 100%;
-    flex-direction: row-reverse;
-    justify-content: flex-start;
-  }
-
-  .projectBeam {
-    display: block;
-  }
-
-  .projectNodeTop .projectBeam,
-  .projectNodeBottom .projectBeam {
-    left: 50%;
-    width: 1px;
-    height: var(--project-beam-length);
-    background: linear-gradient(var(--beam-direction), var(--hero-accent), rgb(49 230 208 / 12%));
-  }
-
-  .projectNodeTop .projectBeam {
-    --beam-direction: to bottom;
-
-    top: calc(100% - 0.35rem);
-    transform: translateX(-50%) scaleY(0);
-    transform-origin: top;
-  }
-
-  .projectNodeBottom .projectBeam {
-    --beam-direction: to top;
-
-    bottom: calc(100% - 0.35rem);
-    transform: translateX(-50%) scaleY(0);
-    transform-origin: bottom;
-  }
-
-  .projectNodeRight .projectBeam,
-  .projectNodeLeft .projectBeam {
-    top: 50%;
-    width: var(--project-beam-length);
-    height: 1px;
-    background: linear-gradient(var(--beam-direction), var(--hero-accent), rgb(49 230 208 / 12%));
-  }
-
-  .projectNodeRight .projectBeam {
-    --beam-direction: to left;
-
-    right: calc(100% - 0.35rem);
-    transform: translateY(-50%) scaleX(0);
-    transform-origin: right;
-  }
-
-  .projectNodeLeft .projectBeam {
-    --beam-direction: to right;
-
-    left: calc(100% - 0.35rem);
-    transform: translateY(-50%) scaleX(0);
-    transform-origin: left;
-  }
-
-  .projectNodeTop .projectControl[data-active="true"] .projectBeam,
-  .projectNodeBottom .projectControl[data-active="true"] .projectBeam {
-    transform: translateX(-50%) scaleY(1);
-  }
-
-  .projectNodeRight .projectControl[data-active="true"] .projectBeam,
-  .projectNodeLeft .projectControl[data-active="true"] .projectBeam {
-    transform: translateY(-50%) scaleX(1);
-  }
-
   .projectCard {
-    grid-row: 2;
-    grid-column: 2;
     inline-size: min(100%, 24rem);
-    align-self: center;
-    justify-self: center;
   }
 
   .projectCard h3 {
@@ -1290,7 +1391,7 @@
   }
 
   .stackLens {
-    --project-card-padding: clamp(1.1rem, 1.25vw, 1.35rem);
+    --project-card-padding: clamp(1.25rem, 1.25vw, 1.35rem);
 
     width: min(100%, 36rem);
     max-width: none;
@@ -1301,7 +1402,6 @@
     --orbit-side-track: clamp(5rem, 5.8vw, 6.25rem);
     --orbit-top-track: clamp(3rem, 3.4vw, 4rem);
     --orbit-bottom-track: clamp(3rem, 3.4vw, 4rem);
-    --project-beam-length: clamp(2.25rem, 3.4vw, 3.5rem);
 
     grid-template-columns:
       var(--orbit-side-track)
@@ -1312,150 +1412,107 @@
       minmax(0, auto)
       var(--orbit-bottom-track);
     inline-size: var(--orbit-inline-size);
-    aspect-ratio: 1.25 / 1;
+    margin-block-start: var(--orbit-header-gap);
     margin-left: auto;
   }
 
-  .orbitFrame {
-    grid-row: 1 / -1;
-    grid-column: 1 / -1;
+  .projectCardContent {
+    padding-block-start: max(var(--project-card-padding), 1.5rem);
   }
 
-  .projectSelector {
-    grid-row: 1 / -1;
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-template-rows: subgrid;
-    pointer-events: none;
-  }
-
-  .projectSelector > li {
-    pointer-events: auto;
-  }
-
-  .projectNodeTop {
-    align-items: end;
-  }
-
-  .projectNodeRight {
-    justify-items: start;
-  }
-
-  .projectNodeBottom {
-    align-items: start;
-  }
-
-  .projectNodeLeft {
-    justify-items: end;
-  }
-
-  .projectNodeTop .projectControl,
-  .projectNodeBottom .projectControl {
-    flex-direction: column;
-  }
-
-  .projectNodeTop .projectControlLabel {
-    order: -1;
-  }
-
-  .projectNodeRight .projectControl {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .projectNodeLeft .projectControl {
-    width: 100%;
-    flex-direction: row-reverse;
-    justify-content: flex-start;
-  }
-
-  .projectBeam {
-    display: block;
-  }
-
-  .projectNodeTop .projectBeam,
-  .projectNodeBottom .projectBeam {
-    left: 50%;
-    width: 1px;
-    height: var(--project-beam-length);
-    background: linear-gradient(var(--beam-direction), var(--hero-accent), rgb(49 230 208 / 12%));
-  }
-
-  .projectNodeTop .projectBeam {
-    --beam-direction: to bottom;
-
-    top: calc(100% - 0.35rem);
-    transform: translateX(-50%) scaleY(0);
-    transform-origin: top;
-  }
-
-  .projectNodeBottom .projectBeam {
-    --beam-direction: to top;
-
-    bottom: calc(100% - 0.35rem);
-    transform: translateX(-50%) scaleY(0);
-    transform-origin: bottom;
-  }
-
-  .projectNodeRight .projectBeam,
-  .projectNodeLeft .projectBeam {
-    top: 50%;
-    width: var(--project-beam-length);
-    height: 1px;
-    background: linear-gradient(var(--beam-direction), var(--hero-accent), rgb(49 230 208 / 12%));
-  }
-
-  .projectNodeRight .projectBeam {
-    --beam-direction: to left;
-
-    right: calc(100% - 0.35rem);
-    transform: translateY(-50%) scaleX(0);
-    transform-origin: right;
-  }
-
-  .projectNodeLeft .projectBeam {
-    --beam-direction: to right;
-
-    left: calc(100% - 0.35rem);
-    transform: translateY(-50%) scaleX(0);
-    transform-origin: left;
-  }
-
-  .projectNodeTop .projectControl[data-active="true"] .projectBeam,
-  .projectNodeBottom .projectControl[data-active="true"] .projectBeam {
-    transform: translateX(-50%) scaleY(1);
-  }
-
-  .projectNodeRight .projectControl[data-active="true"] .projectBeam,
-  .projectNodeLeft .projectControl[data-active="true"] .projectBeam {
-    transform: translateY(-50%) scaleX(1);
+  .projectStatement,
+  .projectCardMetadata {
+    margin-top: 0.75rem;
   }
 
   .projectCard {
-    grid-row: 2;
-    grid-column: 2;
     inline-size: min(100%, 21rem);
-    align-self: center;
-    justify-self: center;
   }
 }
 
-// Tablet Tabs
+@media (max-width: 73.6875rem) {
+  .signalRouteOrbit {
+    display: none;
+  }
+
+  .signalRouteLinear {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .projectCard {
+    align-self: start;
+    border-color: rgb(104 158 169 / 24%);
+    background: rgb(4 13 20 / 94%);
+  }
+
+  .projectCardDecoration {
+    border-left-color: color-mix(in srgb, var(--lens-local) 62%, transparent);
+    background: linear-gradient(100deg, color-mix(in srgb, var(--lens-local) 5%, transparent), transparent 34%);
+  }
+
+  .projectCardDecoration::before,
+  .projectCardDecoration::after {
+    position: absolute;
+    right: -1px;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-right: 1px solid color-mix(in srgb, var(--lens-local) 48%, transparent);
+    content: "";
+  }
+
+  .projectCardDecoration::before {
+    top: -1px;
+    border-top: 1px solid color-mix(in srgb, var(--lens-local) 48%, transparent);
+  }
+
+  .projectCardDecoration::after {
+    bottom: -1px;
+    border-bottom: 1px solid color-mix(in srgb, var(--lens-local) 48%, transparent);
+  }
+
+  .projectTechnologySignal {
+    display: grid;
+    gap: 0.3rem;
+    margin: 0.9rem 0 0;
+    padding-top: 0.7rem;
+    border-top: 1px solid rgb(104 158 169 / 14%);
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+
+  .projectTechnologySignal span:first-child {
+    color: #536b77;
+    font-size: 0.55rem;
+    font-weight: 580;
+    letter-spacing: 0.1em;
+  }
+
+  .projectTechnologySignal span:last-child {
+    color: #a9bdc5;
+    font-size: 0.68rem;
+    line-height: 1.45;
+  }
+}
+
+// Tablet Signal Rail
 @media (min-width: 48rem) and (max-width: 73.6875rem) {
   .hero {
     --header-height: 4.25rem;
     --hero-inline-padding: clamp(1.5rem, 3.2vw, 2.5rem);
     --hero-block-padding: clamp(2.5rem, 4vw, 3.5rem);
+
+    min-height: 0;
   }
 
   .composition {
     grid-template-columns: minmax(0, 1fr);
-    gap: clamp(3.5rem, 7vw, 5.5rem);
+    gap: clamp(2.5rem, 4vw, 3rem);
   }
 
   .narrative {
-    max-width: 48rem;
+    max-width: none;
   }
 
   .name {
@@ -1471,17 +1528,42 @@
   }
 
   .stackLens {
+    --navigator-gap: clamp(1.25rem, 2.2vw, 1.75rem);
+    --tablet-label-node-gap: 0.75rem;
+
     width: 100%;
-    max-width: 48rem;
-    justify-self: center;
+    max-width: none;
+    justify-self: stretch;
+  }
+
+  .lensHeader {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgb(104 158 169 / 16%);
+  }
+
+  .lensIntroduction {
+    padding-inline-end: 0;
+  }
+
+  .rotationToggle {
+    position: static;
+    justify-self: end;
   }
 
   .orbit {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1rem;
+    grid-template-columns:
+      max-content
+      var(--tablet-label-node-gap)
+      var(--signal-node-size)
+      var(--navigator-gap)
+      minmax(0, 1fr);
+    gap: 0;
+    align-items: stretch;
     inline-size: 100%;
     aspect-ratio: auto;
-    padding-top: 1rem;
+    padding-top: 1.25rem;
     background-size: 3rem 3rem;
   }
 
@@ -1490,29 +1572,147 @@
   }
 
   .projectSelector {
+    position: relative;
+    grid-row: 1;
+    grid-column: 1 / 4;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.5rem;
+    grid-template-rows: repeat(4, auto);
+    min-block-size: 0;
+    block-size: auto;
+    align-self: stretch;
+    align-content: space-between;
+  }
+
+  .signalRoute {
+    --signal-marker-step: calc(
+      (100% - var(--signal-node-size)) /
+      var(--signal-marker-interval-count)
+    );
+
+    position: relative;
+    grid-row: 1;
+    grid-column: 3;
+    align-self: stretch;
+  }
+
+  .signalRouteLinearTrack {
+    top: var(--signal-node-radius);
+    right: calc(var(--signal-node-radius) - (var(--signal-line-width) / 2));
+    bottom: var(--signal-node-radius);
+    width: var(--signal-line-width);
+    background: linear-gradient(transparent, rgb(104 158 169 / 28%) 8% 92%, transparent);
+  }
+
+  .signalRouteLinearSegment {
+    top: calc(
+      var(--signal-node-size) +
+      var(--signal-marker-floating-gap) +
+      (var(--signal-marker-step) * var(--signal-route-from))
+    );
+    right: calc(var(--signal-node-radius) - (var(--signal-route-corridor-size) / 2));
+    width: var(--signal-route-corridor-size);
+    height: calc(
+      var(--signal-marker-step) -
+      var(--signal-node-size) -
+      (2 * var(--signal-marker-floating-gap))
+    );
+  }
+
+  .signalRoute[data-route-wrap="true"] .signalRouteLinearSegment {
+    top: calc(var(--signal-node-size) + var(--signal-marker-floating-gap));
+    height: calc(
+      100% -
+      (2 * var(--signal-node-size)) -
+      (2 * var(--signal-marker-floating-gap))
+    );
+  }
+
+  .signalRouteLinearSegment::after {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: var(--signal-line-width);
+    transform: translateX(-50%);
+  }
+
+  .signalRouteLinearProgress {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: var(--signal-progress-thickness);
+    transform: scaleY(var(--signal-progress));
+    transform-origin: center top;
+    translate: -50% 0;
+  }
+
+  .signalRoute[data-route-wrap="true"] .signalRouteLinearProgress {
+    transform-origin: center bottom;
+  }
+
+  .signalRouteLinearHead {
+    top: calc(var(--signal-progress) * 100%);
+    left: 50%;
+    width: var(--signal-head-thickness);
+    height: var(--signal-route-corridor-size);
+    background: linear-gradient(to bottom, transparent, var(--lens-local) 44%, #efffff 90%);
+    transform: translate(-50%, -100%);
+  }
+
+  .signalRoute[data-route-wrap="true"] .signalRouteLinearHead {
+    top: calc((1 - var(--signal-progress)) * 100%);
+    background: linear-gradient(to top, transparent, var(--lens-local) 44%, #efffff 90%);
+    transform: translate(-50%, 0);
   }
 
   .projectSelector > li {
-    grid-area: auto;
+    display: grid;
+    grid-template-columns:
+      minmax(0, 1fr)
+      var(--tablet-label-node-gap)
+      var(--signal-node-size);
+    min-block-size: 0;
+    block-size: var(--signal-node-size);
+    place-items: stretch;
   }
 
   .projectControl {
+    z-index: 1;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns:
+      minmax(0, 1fr)
+      var(--tablet-label-node-gap)
+      var(--signal-node-size);
     width: 100%;
-    min-height: 3.25rem;
-    justify-content: flex-start;
-    padding: 0.6rem 0.65rem;
-    text-align: left;
+    block-size: var(--signal-node-size);
+    min-height: var(--signal-node-size);
+    gap: 0;
+    justify-content: stretch;
+    padding: 0;
+    text-align: right;
   }
 
   .projectControlLabel {
-    text-align: left;
+    z-index: 3;
+    grid-row: 1;
+    grid-column: 1;
+    align-self: center;
+    justify-self: end;
+    text-align: right;
+  }
+
+  .projectControlNumber {
+    z-index: 3;
+    grid-row: 1;
+    grid-column: 3;
   }
 
   .projectCard {
+    grid-row: 1;
+    grid-column: 5;
     inline-size: 100%;
+    align-self: stretch;
+    border-left-color: rgb(104 158 169 / 12%);
     justify-self: stretch;
   }
 
@@ -1521,17 +1721,19 @@
   }
 }
 
-// Mobile Tabs
+// Mobile Signal Track
 @media (max-width: 47.99rem) {
   .hero {
     --header-height: 4.25rem;
     --hero-inline-padding: 1rem;
-    --hero-block-padding: clamp(2.5rem, 8vw, 3.5rem);
+    --hero-block-padding: clamp(2rem, 7vw, 2.5rem);
+
+    min-height: 0;
   }
 
   .composition {
     grid-template-columns: minmax(0, 1fr);
-    gap: 4rem;
+    gap: 2.5rem;
   }
 
   .eyebrow {
@@ -1557,7 +1759,7 @@
   }
 
   .summary {
-    margin-top: 1.25rem;
+    margin-top: 1rem;
     font-size: 0.9rem;
     line-height: 1.55;
   }
@@ -1566,7 +1768,7 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 0.3rem;
     min-height: 3.65rem;
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
     padding: 0.5rem 0;
     background: transparent;
   }
@@ -1577,7 +1779,7 @@
   }
 
   .fundamentals {
-    margin-top: 1.25rem;
+    margin-top: 1rem;
     font-size: 0.85rem;
     line-height: 1.5;
   }
@@ -1586,7 +1788,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 0.35rem;
-    margin-top: 1.25rem;
+    margin-top: 1rem;
     font-size: 0.7rem;
   }
 
@@ -1597,7 +1799,7 @@
   .actions {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
   }
 
   .actions > a,
@@ -1612,21 +1814,47 @@
   }
 
   .stackLens {
+    --navigator-gap: 1.25rem;
+    --project-card-padding: 1.25rem;
+
     width: 100%;
-    max-width: 46rem;
-    justify-self: center;
+    max-width: none;
+    justify-self: stretch;
   }
 
   .lensHeader {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.75rem;
     padding-inline: 0;
+  }
+
+  .lensIntroduction {
+    padding-inline-end: 0;
+  }
+
+  .rotationToggle {
+    position: static;
+    grid-template-columns: minmax(0, 1fr) 1rem;
+    width: 4.75rem;
+    gap: 0.35rem;
+    justify-self: end;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .rotationToggleText {
+    display: grid;
+  }
+
+  .rotationToggleText span {
+    display: none;
   }
 
   .orbit {
     grid-template-columns: minmax(0, 1fr);
-    gap: 0.75rem;
+    gap: 0;
     inline-size: 100%;
     aspect-ratio: auto;
-    padding-top: 1rem;
+    padding-top: 0.75rem;
     background-size: 3rem 3rem;
   }
 
@@ -1634,31 +1862,156 @@
     display: none;
   }
 
-  .projectSelector {
+  .activeProjectSignal {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.5rem;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.45rem 0.9rem;
+    align-items: center;
+    min-height: 4rem;
+    padding: 0.65rem 0.75rem;
+    border-block: 1px solid rgb(104 158 169 / 16%);
+    background: linear-gradient(90deg, color-mix(in srgb, var(--lens-local) 6%, transparent), transparent 72%);
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+
+  .activeProjectSignal span {
+    color: var(--lens-local);
+    font-size: 0.55rem;
+    letter-spacing: 0.11em;
+  }
+
+  .activeProjectSignal strong {
+    min-width: 0;
+    color: #eef5f6;
+    font-size: clamp(0.82rem, 3.6vw, 0.95rem);
+    font-weight: 620;
+    line-height: 1.25;
+    text-align: right;
+  }
+
+  .projectSelector {
+    position: relative;
+    grid-row: 2;
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    min-height: 3.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .signalRoute {
+    --signal-marker-step: calc(100% / var(--signal-marker-count));
+    --signal-rail-edge: calc(var(--signal-marker-step) / 2);
+
+    position: relative;
+    grid-row: 2;
+    grid-column: 1;
+    min-height: 3.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .signalRouteLinearTrack {
+    top: 50%;
+    right: var(--signal-rail-edge);
+    left: var(--signal-rail-edge);
+    height: var(--signal-line-width);
+    background: linear-gradient(90deg, transparent, rgb(104 158 169 / 28%) 6% 94%, transparent);
+  }
+
+  .signalRouteLinearSegment {
+    top: calc(50% - (var(--signal-route-corridor-size) / 2));
+    left: calc(
+      var(--signal-rail-edge) +
+      (var(--signal-marker-step) * var(--signal-route-from)) +
+      var(--signal-node-radius) +
+      var(--signal-marker-floating-gap)
+    );
+    width: calc(
+      var(--signal-marker-step) -
+      var(--signal-node-size) -
+      (2 * var(--signal-marker-floating-gap))
+    );
+    height: var(--signal-route-corridor-size);
+  }
+
+  .signalRoute[data-route-wrap="true"] .signalRouteLinearSegment {
+    left: calc(
+      var(--signal-rail-edge) +
+      var(--signal-node-radius) +
+      var(--signal-marker-floating-gap)
+    );
+    width: calc(
+      (var(--signal-marker-step) * var(--signal-marker-interval-count)) -
+      var(--signal-node-size) -
+      (2 * var(--signal-marker-floating-gap))
+    );
+  }
+
+  .signalRouteLinearSegment::after {
+    top: 50%;
+    right: 0;
+    left: 0;
+    height: var(--signal-line-width);
+    transform: translateY(-50%);
+  }
+
+  .signalRouteLinearProgress {
+    top: 50%;
+    right: 0;
+    left: 0;
+    height: var(--signal-progress-thickness);
+    transform: scaleX(var(--signal-progress));
+    transform-origin: left center;
+    translate: 0 -50%;
+  }
+
+  .signalRoute[data-route-wrap="true"] .signalRouteLinearProgress {
+    transform-origin: right center;
+  }
+
+  .signalRouteLinearHead {
+    top: 50%;
+    left: calc(var(--signal-progress) * 100%);
+    width: var(--signal-route-corridor-size);
+    height: var(--signal-head-thickness);
+    background: linear-gradient(to right, transparent, var(--lens-local) 44%, #efffff 90%);
+    transform: translate(-100%, -50%);
+  }
+
+  .signalRoute[data-route-wrap="true"] .signalRouteLinearHead {
+    left: calc((1 - var(--signal-progress)) * 100%);
+    background: linear-gradient(to left, transparent, var(--lens-local) 44%, #efffff 90%);
+    transform: translate(0, -50%);
   }
 
   .projectSelector > li {
     grid-area: auto;
+    place-items: stretch;
   }
 
   .projectControl {
+    z-index: 2;
     width: 100%;
-    min-height: 3.5rem;
-    justify-content: flex-start;
-    padding: 0.65rem;
-    text-align: left;
+    min-height: 3.75rem;
+    justify-content: center;
+    padding: 0;
+    text-align: center;
   }
 
   .projectControlLabel {
-    font-size: clamp(0.66rem, 2.8vw, 0.74rem);
-    text-align: left;
+    display: none;
+  }
+
+  .projectControlNumber {
+    z-index: 3;
   }
 
   .projectCard {
+    grid-row: 3;
+    grid-column: 1;
     inline-size: 100%;
+    margin-top: var(--navigator-gap);
     justify-self: stretch;
   }
 
@@ -1668,6 +2021,12 @@
 
   .projectCardMetadata {
     grid-template-columns: minmax(0, 1fr);
+    gap: 0.65rem;
+  }
+
+  .projectTechnologySignal {
+    margin-top: 0.75rem;
+    padding-top: 0.6rem;
   }
 }
 
@@ -1709,9 +2068,8 @@
     padding-bottom: 0.65rem;
   }
 
-  .lensThesis {
-    margin-top: 0.5rem;
-    padding-top: 0.4rem;
+  .stackLens {
+    --project-card-padding: 1.25rem;
   }
 }
 
@@ -1723,13 +2081,42 @@
 
 @keyframes lens-card-change {
   from {
-    opacity: 0.45;
-    transform: translateY(0.12rem);
+    opacity: 0.86;
+    transform: translateY(0.25rem);
   }
 
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes lens-signal-travel {
+  0% {
+    --signal-progress: 0;
+  }
+
+  94%,
+  100% {
+    --signal-progress: 1;
+  }
+}
+
+@keyframes lens-route-destination-pulse {
+  0%,
+  94% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  97% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1);
   }
 }
 
@@ -1806,14 +2193,14 @@
   .actions > section > button,
   .livingToolchain,
   .projectCard,
-  .projectControl {
+  .projectControl,
+  .rotationToggle {
     border: 1px solid CanvasText;
   }
 
   .eyebrow,
   .proofRibbon strong,
   .statement strong,
-  .lensThesis,
   .projectControlActive .projectControlLabel,
   .activeContext {
     color: CanvasText;
@@ -1824,8 +2211,28 @@
     color: HighlightText;
   }
 
-  .orbitBoundary,
-  .orbitDepthPlane {
+  .orbitBoundary {
     stroke: CanvasText;
+  }
+
+  .signalRouteOrbitTrack,
+  .signalRouteOrbitProgress,
+  .signalRouteOrbitHead {
+    stroke: CanvasText;
+    filter: none;
+  }
+
+  .signalRouteLinearTrack,
+  .signalRouteLinearSegment::after,
+  .signalRouteLinearProgress,
+  .signalRouteLinearHead,
+  .projectControlNumber[data-signal-route-target="true"]::after {
+    background: CanvasText;
+    box-shadow: none;
+  }
+
+  .activeProjectSignal,
+  .projectTechnologySignal {
+    border-color: CanvasText;
   }
 }

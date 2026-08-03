@@ -21,12 +21,12 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: getSiteUrl(),
   title: {
-    default: "Abdalrhman Alkady — Backend-Focused Product Engineer",
-    template: "%s — Abdalrhman Alkady",
+    default: "Abdalrhman M. Alkady — Backend-Focused Product Engineer",
+    template: "%s — Abdalrhman M. Alkady",
   },
   description:
     "Backend-focused product engineer building reliable SaaS platforms, Laravel and Node.js systems, integrations, automation, and mobile-backed products.",
-  applicationName: "Abdalrhman Alkady",
+  applicationName: "Abdalrhman M. Alkady",
   authors: [{ name: "Abdalrhman Mohamed Alkady" }],
   creator: "Abdalrhman Mohamed Alkady",
   alternates: {
@@ -42,14 +42,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Abdalrhman Alkady — Backend-Focused Product Engineer",
+    title: "Abdalrhman M. Alkady — Backend-Focused Product Engineer",
     description:
       "I build the systems products depend on: SaaS platforms, integrations, automation, and mobile-backed products.",
-    siteName: "Abdalrhman Alkady",
+    siteName: "Abdalrhman M. Alkady",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Abdalrhman Alkady — Backend-Focused Product Engineer",
+    title: "Abdalrhman M. Alkady — Backend-Focused Product Engineer",
     description:
       "Reliable SaaS platforms, integrations, automation, and mobile-backed products.",
   },

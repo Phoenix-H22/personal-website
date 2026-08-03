@@ -840,20 +840,20 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
+  html:not([data-effective-motion="full"]) {
     scroll-behavior: auto;
   }
 
-  *,
-  *::before,
-  *::after {
+  html:not([data-effective-motion="full"]) *,
+  html:not([data-effective-motion="full"]) *::before,
+  html:not([data-effective-motion="full"]) *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
 
-  .system-map__pulse {
+  html:not([data-effective-motion="full"]) .system-map__pulse {
     display: none;
   }
 }

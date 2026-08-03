@@ -3,10 +3,24 @@
 import {
   useReducer,
   useRef,
+  type CSSProperties,
   type FocusEvent,
   type KeyboardEvent,
 } from "react";
 
+import {
+  getNodePositionStyle,
+  ORBIT_FRAME_SEGMENTS,
+  ORBIT_GEOMETRY_STYLE,
+  ORBIT_VIEW_BOX,
+} from "@/components/portfolio/hero/adaptive-orbit-geometry";
+import { AdaptiveSignalRoute } from "@/components/portfolio/hero/adaptive-signal-route";
+import {
+  getNextProjectIndex,
+  PROJECT_ROTATION_INTERVAL_MS,
+  PROJECT_SELECTION_COOLDOWN_MS,
+  useProjectAutoRotation,
+} from "@/components/portfolio/hero/use-project-auto-rotation";
 import type { AdaptiveStackLensDto } from "@/lib/portfolio/adaptive-stack-lens";
 import { LIVING_TOOLCHAIN_PAUSE_EVENT } from "@/lib/portfolio/living-toolchain";
 import styles from "@/styles/portfolio/adaptive-engineer-hero.module.scss";
@@ -20,6 +34,7 @@ interface LensSelectionState {
   pinnedIndex: number;
   previewIndex: number | null;
   hasInteracted: boolean;
+  revision: number;
 }
 
 type LensSelectionAction =
@@ -33,6 +48,8 @@ const PROJECT_NODE_CLASSES = [
   styles.projectNodeLeft,
 ] as const;
 
+const PROJECT_ORBIT_SIDES = ["top", "right", "bottom", "left"] as const;
+
 export function reduceLensSelection(
   state: LensSelectionState,
   action: LensSelectionAction,
@@ -42,6 +59,7 @@ export function reduceLensSelection(
       pinnedIndex: action.index,
       previewIndex: action.index,
       hasInteracted: true,
+      revision: state.revision + 1,
     };
   }
 
@@ -77,10 +95,36 @@ export function AdaptiveStackLens({ modes, defaultSlug }: AdaptiveStackLensProps
     pinnedIndex: initialIndex,
     previewIndex: null,
     hasInteracted: false,
+    revision: 0,
   });
   const controls = useRef<Array<HTMLButtonElement | null>>([]);
   const activeIndex = selection.previewIndex ?? selection.pinnedIndex;
   const activeMode = modes[activeIndex];
+  const routeDestinationIndex = getNextProjectIndex(activeIndex, modes.length);
+  const {
+    isCooldownActive,
+    isDocumentVisible,
+    isInViewport,
+    isUserPaused,
+    pauseAfterManualSelection,
+    pauseForFocus,
+    pauseForPointer,
+    pauseForPress,
+    reducedMotion,
+    resumeAfterFocus,
+    resumeAfterPointer,
+    rootRef: autoRotationRootRef,
+    shouldRotate,
+    toggleUserPause,
+  } = useProjectAutoRotation({
+    projectCount: modes.length,
+    onRotate: () => {
+      dispatch({
+        type: "select",
+        index: getNextProjectIndex(selection.pinnedIndex, modes.length),
+      });
+    },
+  });
 
   const previewMode = (index: number) => {
     dispatch({ type: "preview", index });
@@ -88,6 +132,7 @@ export function AdaptiveStackLens({ modes, defaultSlug }: AdaptiveStackLensProps
 
   const selectMode = (index: number) => {
     dispatch({ type: "select", index });
+    pauseAfterManualSelection();
     window.dispatchEvent(new Event(LIVING_TOOLCHAIN_PAUSE_EVENT));
   };
 
@@ -120,15 +165,45 @@ export function AdaptiveStackLens({ modes, defaultSlug }: AdaptiveStackLensProps
     dispatch({ type: "preview", index: focusedIndex >= 0 ? focusedIndex : null });
   };
 
+  const rotationStatus = reducedMotion
+    ? "STATIC"
+    : isUserPaused
+      ? "PAUSED"
+      : shouldRotate
+        ? "AUTO"
+        : "HOLD";
+
   return (
     <section
+      ref={autoRotationRootRef}
       className={styles.stackLens}
+      style={
+        {
+          "--signal-route-duration": `${PROJECT_ROTATION_INTERVAL_MS}ms`,
+        } as CSSProperties
+      }
       aria-labelledby="adaptive-stack-lens-title"
-      aria-describedby="adaptive-stack-lens-thesis"
       data-adaptive-stack-lens
+      data-active-index={activeIndex}
       data-active-mode={activeMode.slug}
       data-accent={activeMode.accent}
+      data-auto-rotation={
+        reducedMotion
+          ? "reduced"
+          : shouldRotate
+            ? "running"
+            : "paused"
+      }
+      data-document-visible={isDocumentVisible}
       data-interacted={selection.hasInteracted}
+      data-in-viewport={isInViewport}
+      data-rotation-cooldown={isCooldownActive}
+      data-rotation-interval-ms={PROJECT_ROTATION_INTERVAL_MS}
+      data-selection-cooldown-ms={PROJECT_SELECTION_COOLDOWN_MS}
+      onBlurCapture={resumeAfterFocus}
+      onFocusCapture={pauseForFocus}
+      onPointerEnter={pauseForPointer}
+      onPointerLeave={resumeAfterPointer}
     >
       <header className={styles.lensHeader}>
         <div className={styles.lensIntroduction}>
@@ -140,30 +215,83 @@ export function AdaptiveStackLens({ modes, defaultSlug }: AdaptiveStackLensProps
             Commerce, connected devices, local discovery, and automation.
           </p>
         </div>
-        <strong id="adaptive-stack-lens-thesis" className={styles.lensThesis}>
-          ARCHITECTURE FOLLOWS THE CONSTRAINT
-        </strong>
+        <button
+          type="button"
+          aria-controls="adaptive-stack-lens-readout"
+          aria-label={
+            reducedMotion
+              ? "Project rotation disabled by reduced motion"
+              : isUserPaused
+                ? "Resume project rotation"
+                : "Pause project rotation"
+          }
+          aria-pressed={isUserPaused || reducedMotion}
+          className={styles.rotationToggle}
+          data-rotation-toggle
+          disabled={reducedMotion}
+          onClick={toggleUserPause}
+        >
+          <span className={styles.rotationToggleText} aria-hidden="true">
+            <span>SIGNAL TRANSFER</span>
+            <strong>{rotationStatus}</strong>
+          </span>
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path
+              d={
+                isUserPaused || reducedMotion
+                  ? "M5 3.5 12 8l-7 4.5Z"
+                  : "M4.5 3.5h2.5v9H4.5Zm4.5 0h2.5v9H9Z"
+              }
+            />
+          </svg>
+        </button>
       </header>
 
-      <div className={styles.orbit} data-stack-lens-orbit>
+      <div
+        className={styles.orbit}
+        style={ORBIT_GEOMETRY_STYLE}
+        data-stack-lens-orbit
+        onPointerDownCapture={pauseForPress}
+      >
+        <div
+          className={styles.activeProjectSignal}
+          aria-hidden="true"
+          data-active-project-signal
+        >
+          <span>ACTIVE SYSTEM</span>
+          <strong>{activeMode.title}</strong>
+        </div>
+
         <svg
           className={styles.orbitFrame}
-          viewBox="0 0 640 512"
+          viewBox={ORBIT_VIEW_BOX}
           preserveAspectRatio="xMidYMid meet"
           aria-hidden="true"
           focusable="false"
           data-orbit-frame
         >
-          <path
-            className={styles.orbitBoundary}
-            pathLength="1"
-            d="M72 136 V84 L142 26 H492 L590 107 V395 L518 474 H150 L52 393 V332"
-          />
-          <path
-            className={styles.orbitDepthPlane}
-            d="M132 157 L168 127 H470 L508 157 V355 L472 385 H168 L130 354 Z"
-          />
+          <g
+            className={styles.orbitFrameSegments}
+            data-orbit-frame-segments
+          >
+            {ORBIT_FRAME_SEGMENTS.map((segment) => (
+              <path
+                key={segment.id}
+                className={styles.orbitBoundary}
+                pathLength="1"
+                d={segment.path}
+                data-orbit-frame-segment
+                data-frame-segment={segment.id}
+              />
+            ))}
+          </g>
         </svg>
+
+        <AdaptiveSignalRoute
+          activeIndex={activeIndex}
+          projectCount={modes.length}
+          revision={selection.revision}
+        />
 
         <ol
           className={styles.projectSelector}
@@ -177,12 +305,18 @@ export function AdaptiveStackLens({ modes, defaultSlug }: AdaptiveStackLensProps
             const active = index === activeIndex;
             const pinned = index === selection.pinnedIndex;
             return (
-              <li className={PROJECT_NODE_CLASSES[index]} key={mode.slug}>
+              <li
+                className={PROJECT_NODE_CLASSES[index]}
+                data-orbit-side={PROJECT_ORBIT_SIDES[index]}
+                key={mode.slug}
+                style={getNodePositionStyle(index)}
+              >
                 <button
                   ref={(node) => {
                     controls.current[index] = node;
                   }}
                   type="button"
+                  aria-label={`Select project ${mode.index}: ${mode.title}`}
                   aria-controls="adaptive-stack-lens-readout"
                   aria-pressed={pinned}
                   className={`${styles.projectControl} ${active ? styles.projectControlActive : ""}`}
@@ -193,13 +327,16 @@ export function AdaptiveStackLens({ modes, defaultSlug }: AdaptiveStackLensProps
                   onKeyDown={(event) => navigateWithKeyboard(event, index)}
                   onMouseEnter={() => previewMode(index)}
                 >
-                  <span className={styles.projectControlNumber}>{mode.index}</span>
-                  <span className={styles.projectControlLabel}>{mode.label}</span>
                   <span
-                    className={styles.projectBeam}
-                    aria-hidden="true"
-                    data-project-beam
-                  />
+                    className={styles.projectControlNumber}
+                    data-project-marker
+                    data-signal-route-target={index === routeDestinationIndex}
+                  >
+                    {mode.index}
+                  </span>
+                  <span className={styles.projectControlLabel} data-project-label>
+                    {mode.label}
+                  </span>
                 </button>
               </li>
             );
@@ -209,11 +346,14 @@ export function AdaptiveStackLens({ modes, defaultSlug }: AdaptiveStackLensProps
         <article
           id="adaptive-stack-lens-readout"
           className={styles.projectCard}
-          aria-live="polite"
+          aria-live={shouldRotate ? "off" : "polite"}
           aria-atomic="true"
           data-adaptive-system-core
         >
-          <span className={styles.projectCardDecoration} aria-hidden="true" />
+          <span
+            className={styles.projectCardDecoration}
+            aria-hidden="true"
+          />
           <div key={activeMode.slug} className={styles.projectCardContent}>
             <p className={styles.activeSystemIndex}>
               {activeMode.index} / {String(modes.length).padStart(2, "0")}
@@ -229,6 +369,10 @@ export function AdaptiveStackLens({ modes, defaultSlug }: AdaptiveStackLensProps
                 </div>
               ))}
             </dl>
+            <p className={styles.projectTechnologySignal} data-project-technology-signal>
+              <span>STACK</span>
+              <span>{activeMode.technologies.join(" · ")}</span>
+            </p>
             <a className={styles.projectCaseStudyLink} href={activeMode.caseStudyHref}>
               VIEW CASE STUDY <span aria-hidden="true">↗</span>
             </a>

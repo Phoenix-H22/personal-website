@@ -4,15 +4,19 @@
  * Priority (highest first):
  * 1. Development query override: `?motionOverride=full` (NODE_ENV=development only)
  * 2. Explicit stored user preference (`localStorage` key below)
- * 3. Operating-system `prefers-reduced-motion`
- * 4. Full Motion as the normal public fallback
+ * 3. Full Motion as the normal public fallback
  *
  * Production never reads query overrides.
+ * Operating-system reduced motion is reported for diagnostics but does not
+ * override the site's full-motion default.
  * Public UI does not expose a Motion control; storage remains ready for a
  * later footer / accessibility preference surface.
  */
 
-export const MOTION_PREFERENCE_KEY = "portfolio-motion-preference-v3";
+export const MOTION_PREFERENCE_KEY = "portfolio-motion-preference-v4";
+export const LEGACY_MOTION_PREFERENCE_KEYS = [
+  "portfolio-motion-preference-v3",
+] as const;
 
 /** Explicit stored choice, or `null` when none is stored (follow OS → Full). */
 export type MotionPreference = "full" | "reduced" | null;
@@ -27,9 +31,18 @@ export function parseMotionPreference(value: unknown): MotionPreference {
   return null;
 }
 
+function migrateStoredMotionPreference(storage: Storage) {
+  for (const key of LEGACY_MOTION_PREFERENCE_KEYS) storage.removeItem(key);
+  const rawPreference = storage.getItem(MOTION_PREFERENCE_KEY);
+  if (rawPreference !== null && parseMotionPreference(rawPreference) === null) {
+    storage.removeItem(MOTION_PREFERENCE_KEY);
+  }
+}
+
 export function readStoredMotionPreference(): MotionPreference {
   if (typeof window === "undefined") return null;
   try {
+    migrateStoredMotionPreference(window.localStorage);
     return parseMotionPreference(window.localStorage.getItem(MOTION_PREFERENCE_KEY));
   } catch {
     return null;
@@ -39,6 +52,7 @@ export function readStoredMotionPreference(): MotionPreference {
 export function writeStoredMotionPreference(preference: MotionPreference) {
   if (typeof window === "undefined") return;
   try {
+    migrateStoredMotionPreference(window.localStorage);
     if (preference === null) {
       window.localStorage.removeItem(MOTION_PREFERENCE_KEY);
     } else {
@@ -70,13 +84,13 @@ export function readDevOverrideFull(): boolean {
 
 export function resolveEffectiveMotion(
   storedPreference: MotionPreference,
-  systemRequestsReducedMotion: boolean,
+  _systemRequestsReducedMotion: boolean,
   overrideFull = false,
 ): EffectiveMotion {
   if (overrideFull) return "full";
   if (storedPreference === "full") return "full";
   if (storedPreference === "reduced") return "reduced";
-  return systemRequestsReducedMotion ? "reduced" : "full";
+  return "full";
 }
 
 export function applyMotionAttributes(
@@ -98,5 +112,5 @@ export function applyMotionAttributes(
 /** Inline script for root layout — runs before hydration paint. */
 export function getMotionBootstrapScript() {
   const allowDevOverride = process.env.NODE_ENV === "development";
-  return `(function(){try{var k=${JSON.stringify(MOTION_PREFERENCE_KEY)};var raw=localStorage.getItem(k);var pref=(raw==="full"||raw==="reduced")?raw:null;var systemReduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;var params=new URLSearchParams(location.search);var override=${allowDevOverride}&&params.get("motionOverride")==="full";var effective=override?"full":pref==="full"?"full":pref==="reduced"?"reduced":systemReduced?"reduced":"full";if(pref){document.documentElement.setAttribute("data-motion-preference",pref);}else{document.documentElement.removeAttribute("data-motion-preference");}document.documentElement.setAttribute("data-effective-motion",effective);}catch(err){document.documentElement.removeAttribute("data-motion-preference");document.documentElement.setAttribute("data-effective-motion","full");}})();`;
+  return `(function(){var k=${JSON.stringify(MOTION_PREFERENCE_KEY)};var legacy=${JSON.stringify(LEGACY_MOTION_PREFERENCE_KEYS)};var pref=null;try{for(var i=0;i<legacy.length;i++)localStorage.removeItem(legacy[i]);var raw=localStorage.getItem(k);pref=(raw==="full"||raw==="reduced")?raw:null;if(raw!==null&&pref===null)localStorage.removeItem(k);}catch(err){}var params=new URLSearchParams(location.search);var override=${allowDevOverride}&&params.get("motionOverride")==="full";var effective=override?"full":pref==="reduced"?"reduced":"full";if(pref){document.documentElement.setAttribute("data-motion-preference",pref);}else{document.documentElement.removeAttribute("data-motion-preference");}document.documentElement.setAttribute("data-effective-motion",effective);})();`;
 }

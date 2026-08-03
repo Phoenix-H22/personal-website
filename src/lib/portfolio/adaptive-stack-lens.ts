@@ -16,7 +16,9 @@ export interface AdaptiveStackLensMode {
   ];
 }
 
-export type AdaptiveStackLensDto = AdaptiveStackLensMode;
+export interface AdaptiveStackLensDto extends AdaptiveStackLensMode {
+  technologies: readonly string[];
+}
 
 export const ADAPTIVE_STACK_LENS_MODES = [
   {

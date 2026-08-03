@@ -23,7 +23,7 @@ export interface PortfolioVariantConfig {
   route: "/" | "/v2";
   title: string;
   indexable: boolean;
-  canonical: "/";
+  canonical: "/" | "/v2";
   hero: {
     variant: HeroCompositionVariant;
     showEducationArtifact: boolean;
@@ -38,6 +38,7 @@ export interface PortfolioVariantConfig {
     showOrigin: boolean;
     showCareer: boolean;
     showSelectedSystems: boolean;
+    showSystemsExhibition: boolean;
     showOwnership: boolean;
     showContact: boolean;
   };
@@ -50,7 +51,7 @@ export const portfolioVariants: Record<
   current: {
     id: "current",
     route: "/",
-    title: "Abdalrhman Alkady — Backend-Focused Product Engineer",
+    title: "Abdalrhman M. Alkady — Backend-Focused Product Engineer",
     indexable: true,
     canonical: "/",
     hero: {
@@ -65,6 +66,7 @@ export const portfolioVariants: Record<
       showOrigin: true,
       showCareer: true,
       showSelectedSystems: false,
+      showSystemsExhibition: false,
       showOwnership: false,
       showContact: false,
     },
@@ -72,9 +74,9 @@ export const portfolioVariants: Record<
   v2: {
     id: "v2",
     route: "/v2",
-    title: "Portfolio V2 (preview)",
-    indexable: false,
-    canonical: "/",
+    title: "Abdalrhman M. Alkady — Backend Systems & Product Engineering",
+    indexable: true,
+    canonical: "/v2",
     hero: {
       variant: "simplified",
       showEducationArtifact: false,
@@ -100,9 +102,10 @@ export const portfolioVariants: Record<
     sections: {
       showOrigin: true,
       showCareer: true,
-      showSelectedSystems: true,
-      showOwnership: false,
-      showContact: false,
+      showSelectedSystems: false,
+      showSystemsExhibition: true,
+      showOwnership: true,
+      showContact: true,
     },
   },
 };
