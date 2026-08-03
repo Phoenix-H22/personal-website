@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Abdalrhman Alkady, backend-focused product engineer — Systems Under the Surface";
+  "Abdalrhman M. Alkady, backend-focused product engineer — Systems Under the Surface";
 export const size = {
   height: 630,
   width: 1200,
