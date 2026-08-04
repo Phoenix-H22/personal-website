@@ -16,6 +16,8 @@ export interface SignalRouteDefinition {
 }
 
 interface OrbitGeometryStyle extends CSSProperties {
+  "--desktop-orbit-label-font-size": string;
+  "--desktop-orbit-label-gap": string;
   "--desktop-signal-node-size": string;
   "--orbit-aspect-ratio": string;
 }
@@ -36,6 +38,9 @@ export const ORBIT_GEOMETRY = {
     size: 36,
     connectorGap: 6,
     sideLabelClearance: 12,
+    // Preserve approved label proportions when the wide orbit scales.
+    labelGapRatio: 0.18,
+    labelFontSizeRatio: 0.345,
   },
 } as const satisfies {
   readonly viewBox: { readonly width: number; readonly height: number };
@@ -45,13 +50,25 @@ export const ORBIT_GEOMETRY = {
     readonly size: number;
     readonly connectorGap: number;
     readonly sideLabelClearance: number;
+    readonly labelGapRatio: number;
+    readonly labelFontSizeRatio: number;
   };
 };
 
 export const ORBIT_VIEW_BOX = `0 0 ${ORBIT_GEOMETRY.viewBox.width} ${ORBIT_GEOMETRY.viewBox.height}`;
 
+function toOrbitCqi(length: number) {
+  return `${(length / ORBIT_GEOMETRY.viewBox.width) * 100}cqi`;
+}
+
 export const ORBIT_GEOMETRY_STYLE: OrbitGeometryStyle = {
-  "--desktop-signal-node-size": `${(ORBIT_GEOMETRY.marker.size / ORBIT_GEOMETRY.viewBox.width) * 100}cqi`,
+  "--desktop-orbit-label-font-size": toOrbitCqi(
+    ORBIT_GEOMETRY.marker.size * ORBIT_GEOMETRY.marker.labelFontSizeRatio,
+  ),
+  "--desktop-orbit-label-gap": toOrbitCqi(
+    ORBIT_GEOMETRY.marker.size * ORBIT_GEOMETRY.marker.labelGapRatio,
+  ),
+  "--desktop-signal-node-size": toOrbitCqi(ORBIT_GEOMETRY.marker.size),
   "--orbit-aspect-ratio": `${ORBIT_GEOMETRY.viewBox.width} / ${ORBIT_GEOMETRY.viewBox.height}`,
 };
 

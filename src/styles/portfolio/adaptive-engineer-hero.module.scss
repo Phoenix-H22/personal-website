@@ -396,6 +396,8 @@
   --hero-shell-max: 108rem;
   --hero-inline-padding: clamp(1rem, 4vw, 4.5rem);
   --hero-block-padding: clamp(2.75rem, 3.4vw, 5rem);
+  --hero-shell-padding-block-start: var(--hero-block-padding);
+  --hero-shell-padding-block-end: clamp(2rem, 3vw, 3rem);
 
   position: relative;
   isolation: isolate;
@@ -434,7 +436,7 @@
   min-height: 0;
   align-items: start;
   margin: var(--header-height) auto 0;
-  padding: var(--hero-block-padding) var(--hero-inline-padding) clamp(2rem, 3vw, 3rem);
+  padding: var(--hero-shell-padding-block-start) var(--hero-inline-padding) var(--hero-shell-padding-block-end);
 }
 
 .composition {
@@ -721,15 +723,17 @@
 .stackLens {
   --lens-local: #31e6d0;
   --orbit-frame-draw-duration: 1100ms;
-  --signal-line-width: 1px;
+  --signal-route-core-thickness: 1px;
+  --signal-route-head-thickness: 1.5px;
+  --signal-route-glow-radius: 0.1rem;
+  --signal-route-head-inner-glow-radius: 0.12rem;
+  --signal-route-head-outer-glow-radius: 0.3rem;
   --signal-node-size: 2rem;
   --signal-node-radius: calc(var(--signal-node-size) / 2);
   --signal-marker-floating-gap: 0.375rem;
   --signal-marker-count: 4;
   --signal-marker-interval-count: 3;
   --signal-route-corridor-size: 0.75rem;
-  --signal-progress-thickness: 2px;
-  --signal-head-thickness: 4px;
   --navigator-gap: 1rem;
   --orbit-header-gap: clamp(1.25rem, 1.4vw, 1.5rem);
   --project-card-inline-size: 21rem;
@@ -919,7 +923,7 @@
 .signalRouteOrbitTrack {
   pointer-events: none;
   stroke: rgb(99 166 176 / 24%);
-  stroke-width: 1;
+  stroke-width: var(--signal-route-core-thickness);
 }
 
 .signalRouteOrbitProgress,
@@ -930,20 +934,26 @@
 
 .signalRouteOrbitProgress {
   stroke: var(--lens-local);
-  stroke-dasharray: 100;
+  // Gap must exceed the path length. A single `100` means `100 100`, so the
+  // next dash in the repeat began exactly at unit 100 — the path end — and the
+  // round linecap painted it as a dot there for the frame before travel starts.
+  stroke-dasharray: 100 200;
   stroke-dashoffset: calc(100 - (var(--signal-progress) * 100));
-  stroke-width: 2;
-  filter: drop-shadow(0 0 0.14rem color-mix(in srgb, var(--lens-local) 52%, transparent));
+  stroke-width: var(--signal-route-core-thickness);
+  filter: drop-shadow(0 0 var(--signal-route-glow-radius) color-mix(in srgb, var(--lens-local) 42%, transparent));
 }
 
 .signalRouteOrbitHead {
   stroke: #efffff;
-  stroke-dasharray: 1 100;
+  // Gap wider than the path, for the same reason as the progress stroke above:
+  // at a gap of exactly 100 the repeat landed on the path end and the round cap
+  // showed the head there before it had left the start.
+  stroke-dasharray: 1 200;
   stroke-dashoffset: calc(0.5 - (var(--signal-progress) * 100));
-  stroke-width: 3.5;
+  stroke-width: var(--signal-route-head-thickness);
   filter:
-    drop-shadow(0 0 0.16rem color-mix(in srgb, var(--lens-local) 92%, transparent))
-    drop-shadow(0 0 0.46rem color-mix(in srgb, var(--lens-local) 58%, transparent));
+    drop-shadow(0 0 var(--signal-route-head-inner-glow-radius) color-mix(in srgb, var(--lens-local) 78%, transparent))
+    drop-shadow(0 0 var(--signal-route-head-outer-glow-radius) color-mix(in srgb, var(--lens-local) 42%, transparent));
 }
 
 .signalRouteLinear {
@@ -978,15 +988,15 @@
 .signalRouteLinearProgress {
   z-index: 1;
   background: var(--lens-local);
-  box-shadow: 0 0 0.14rem color-mix(in srgb, var(--lens-local) 52%, transparent);
+  box-shadow: 0 0 var(--signal-route-glow-radius) color-mix(in srgb, var(--lens-local) 42%, transparent);
 }
 
 .signalRouteLinearHead {
   z-index: 2;
   border-radius: 999px;
   box-shadow:
-    0 0 0.16rem color-mix(in srgb, var(--lens-local) 92%, transparent),
-    0 0 0.46rem color-mix(in srgb, var(--lens-local) 58%, transparent);
+    0 0 var(--signal-route-head-inner-glow-radius) color-mix(in srgb, var(--lens-local) 78%, transparent),
+    0 0 var(--signal-route-head-outer-glow-radius) color-mix(in srgb, var(--lens-local) 42%, transparent);
 }
 
 .stackLens[data-auto-rotation="running"] .signalRoute,
@@ -1248,11 +1258,59 @@
 
 // Desktop Orbit Geometry
 @media (min-width: 73.75rem) {
-  .orbit {
-    --signal-node-size: var(--desktop-signal-node-size);
-    --orbit-label-gap: 0.3rem;
+  .composition {
+    grid-template-columns: minmax(0, 1fr) minmax(32rem, 0.9fr);
+    gap: clamp(2rem, 2.8vw, 3.25rem);
+  }
 
+  .stackLens {
+    // Enforce this row so the orbit block budget subtracts rendered layout tokens.
+    --lens-header-block-size: clamp(3.875rem, 4vw, 4.1875rem);
+    --desktop-orbit-available-block-size: calc(
+      100svh -
+      var(--header-height) -
+      var(--hero-shell-padding-block-start) -
+      var(--hero-shell-padding-block-end) -
+      var(--lens-header-block-size) -
+      var(--orbit-header-gap)
+    );
+    --project-card-padding: clamp(1.25rem, 1.25vw, 1.5rem);
+
+    width: min(100%, clamp(36rem, 36vw, 42rem));
+    max-width: none;
+  }
+
+  .lensHeader {
+    block-size: var(--lens-header-block-size);
+  }
+
+  .orbit {
+    --orbit-inline-size: min(
+      100%,
+      clamp(34rem, 34vw, 40rem),
+      calc(var(--desktop-orbit-available-block-size) * var(--orbit-aspect-ratio))
+    );
+    --orbit-side-track: clamp(5rem, 5.8vw, 7rem);
+    --orbit-top-track: clamp(3rem, 3.4vw, 4.25rem);
+    --orbit-bottom-track: var(--orbit-top-track);
+    // Preserve the established 34rem orbit/card density as both scale.
+    --project-card-inline-size: clamp(21rem, 61.75cqi, 24.75rem);
+    --signal-node-size: var(--desktop-signal-node-size);
+    --signal-node-radius: calc(var(--signal-node-size) / 2);
+    --orbit-label-gap: var(--desktop-orbit-label-gap);
+
+    grid-template-columns:
+      var(--orbit-side-track)
+      minmax(0, 1fr)
+      var(--orbit-side-track);
+    grid-template-rows:
+      var(--orbit-top-track)
+      minmax(0, auto)
+      var(--orbit-bottom-track);
+    inline-size: var(--orbit-inline-size);
     aspect-ratio: var(--orbit-aspect-ratio);
+    margin-block-start: var(--orbit-header-gap);
+    margin-left: auto;
   }
 
   .signalRoute,
@@ -1287,6 +1345,7 @@
     position: absolute;
     top: calc(50% + var(--signal-node-radius) + var(--orbit-label-gap));
     left: 50%;
+    font-size: var(--desktop-orbit-label-font-size);
     white-space: nowrap;
     transform: translateX(-50%);
   }
@@ -1299,48 +1358,23 @@
   .projectCard {
     grid-row: 2;
     grid-column: 2;
+    inline-size: min(100%, var(--project-card-inline-size));
     align-self: center;
     justify-self: center;
   }
+
+  .projectCardContent {
+    padding-block-start: max(var(--project-card-padding), 1.5rem);
+  }
+
+  .projectStatement,
+  .projectCardMetadata {
+    margin-top: 0.75rem;
+  }
 }
 
-// Wide Desktop Orbit
+// Wide desktop card type
 @media (min-width: 100rem) {
-  .composition {
-    grid-template-columns: minmax(0, 1.2fr) minmax(40rem, 0.95fr);
-    gap: clamp(3rem, 4vw, 5rem);
-  }
-
-  .stackLens {
-    --project-card-inline-size: 24rem;
-    --project-card-padding: 1.5rem;
-
-    max-width: 46rem;
-  }
-
-  .orbit {
-    --orbit-inline-size: min(100%, 44rem);
-    --orbit-side-track: clamp(6.5rem, 6.6vw, 7.5rem);
-    --orbit-top-track: clamp(4.5rem, 4.5vw, 5.25rem);
-    --orbit-bottom-track: clamp(4.5rem, 4.5vw, 5.25rem);
-
-    grid-template-columns:
-      var(--orbit-side-track)
-      minmax(0, 1fr)
-      var(--orbit-side-track);
-    grid-template-rows:
-      var(--orbit-top-track)
-      minmax(0, auto)
-      var(--orbit-bottom-track);
-    inline-size: var(--orbit-inline-size);
-    margin-block-start: var(--orbit-header-gap);
-    margin-left: auto;
-  }
-
-  .projectCard {
-    inline-size: min(100%, 24rem);
-  }
-
   .projectCard h3 {
     font-size: clamp(1.6rem, 1.7vw, 2rem);
   }
@@ -1350,11 +1384,6 @@
 @media (min-width: 73.75rem) and (max-width: 99.9375rem) {
   .hero {
     --hero-block-padding: clamp(2.5rem, 3vw, 3.5rem);
-  }
-
-  .composition {
-    grid-template-columns: minmax(0, 1fr) minmax(32rem, 0.9fr);
-    gap: clamp(2rem, 2.8vw, 3.25rem);
   }
 
   .name {
@@ -1390,44 +1419,6 @@
     margin-top: clamp(1.1rem, 1.35vw, 1.35rem);
   }
 
-  .stackLens {
-    --project-card-padding: clamp(1.25rem, 1.25vw, 1.35rem);
-
-    width: min(100%, 36rem);
-    max-width: none;
-  }
-
-  .orbit {
-    --orbit-inline-size: min(100%, 34rem);
-    --orbit-side-track: clamp(5rem, 5.8vw, 6.25rem);
-    --orbit-top-track: clamp(3rem, 3.4vw, 4rem);
-    --orbit-bottom-track: clamp(3rem, 3.4vw, 4rem);
-
-    grid-template-columns:
-      var(--orbit-side-track)
-      minmax(0, 1fr)
-      var(--orbit-side-track);
-    grid-template-rows:
-      var(--orbit-top-track)
-      minmax(0, auto)
-      var(--orbit-bottom-track);
-    inline-size: var(--orbit-inline-size);
-    margin-block-start: var(--orbit-header-gap);
-    margin-left: auto;
-  }
-
-  .projectCardContent {
-    padding-block-start: max(var(--project-card-padding), 1.5rem);
-  }
-
-  .projectStatement,
-  .projectCardMetadata {
-    margin-top: 0.75rem;
-  }
-
-  .projectCard {
-    inline-size: min(100%, 21rem);
-  }
 }
 
 @media (max-width: 73.6875rem) {
@@ -1597,9 +1588,9 @@
 
   .signalRouteLinearTrack {
     top: var(--signal-node-radius);
-    right: calc(var(--signal-node-radius) - (var(--signal-line-width) / 2));
+    right: calc(var(--signal-node-radius) - (var(--signal-route-core-thickness) / 2));
     bottom: var(--signal-node-radius);
-    width: var(--signal-line-width);
+    width: var(--signal-route-core-thickness);
     background: linear-gradient(transparent, rgb(104 158 169 / 28%) 8% 92%, transparent);
   }
 
@@ -1631,7 +1622,7 @@
     top: 0;
     bottom: 0;
     left: 50%;
-    width: var(--signal-line-width);
+    width: var(--signal-route-core-thickness);
     transform: translateX(-50%);
   }
 
@@ -1639,7 +1630,7 @@
     top: 0;
     bottom: 0;
     left: 50%;
-    width: var(--signal-progress-thickness);
+    width: var(--signal-route-core-thickness);
     transform: scaleY(var(--signal-progress));
     transform-origin: center top;
     translate: -50% 0;
@@ -1652,7 +1643,7 @@
   .signalRouteLinearHead {
     top: calc(var(--signal-progress) * 100%);
     left: 50%;
-    width: var(--signal-head-thickness);
+    width: var(--signal-route-head-thickness);
     height: var(--signal-route-corridor-size);
     background: linear-gradient(to bottom, transparent, var(--lens-local) 44%, #efffff 90%);
     transform: translate(-50%, -100%);
@@ -1915,7 +1906,7 @@
     top: 50%;
     right: var(--signal-rail-edge);
     left: var(--signal-rail-edge);
-    height: var(--signal-line-width);
+    height: var(--signal-route-core-thickness);
     background: linear-gradient(90deg, transparent, rgb(104 158 169 / 28%) 6% 94%, transparent);
   }
 
@@ -1952,7 +1943,7 @@
     top: 50%;
     right: 0;
     left: 0;
-    height: var(--signal-line-width);
+    height: var(--signal-route-core-thickness);
     transform: translateY(-50%);
   }
 
@@ -1960,7 +1951,7 @@
     top: 50%;
     right: 0;
     left: 0;
-    height: var(--signal-progress-thickness);
+    height: var(--signal-route-core-thickness);
     transform: scaleX(var(--signal-progress));
     transform-origin: left center;
     translate: 0 -50%;
@@ -1974,7 +1965,7 @@
     top: 50%;
     left: calc(var(--signal-progress) * 100%);
     width: var(--signal-route-corridor-size);
-    height: var(--signal-head-thickness);
+    height: var(--signal-route-head-thickness);
     background: linear-gradient(to right, transparent, var(--lens-local) 44%, #efffff 90%);
     transform: translate(-100%, -50%);
   }
@@ -2032,9 +2023,9 @@
 
 // Short-height spacing adjustment
 @media (min-width: 73.75rem) and (max-height: 50rem) {
-  .heroShell {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+  .hero {
+    --hero-shell-padding-block-start: 1.5rem;
+    --hero-shell-padding-block-end: 1.5rem;
   }
 
   .name {
@@ -2069,6 +2060,7 @@
   }
 
   .stackLens {
+    --lens-header-block-size: calc(clamp(3.875rem, 4vw, 4.1875rem) + 0.65rem);
     --project-card-padding: 1.25rem;
   }
 }
