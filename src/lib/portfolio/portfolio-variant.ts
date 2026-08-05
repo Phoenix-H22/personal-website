@@ -74,7 +74,7 @@ export const portfolioVariants: Record<
   v2: {
     id: "v2",
     route: "/v2",
-    title: "Abdalrhman M. Alkady — Backend Systems & Product Engineering",
+    title: "Abdalrhman M. Alkady | Software Engineer",
     indexable: true,
     canonical: "/v2",
     hero: {
