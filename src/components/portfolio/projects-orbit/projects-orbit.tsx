@@ -25,7 +25,7 @@ const GLOBAL_INDEX = new Map<string, number>(
 );
 
 /**
- * Projects Orbit — the sonar systems map rendered at `/v2/work`. Interaction
+ * Projects Orbit — the sonar systems map rendered at `/projects`. Interaction
  * state lives in `useProjectsOrbit`; this component derives the map/readout
  * view models and composes the presentational pieces.
  */

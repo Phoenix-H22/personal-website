@@ -17,7 +17,7 @@ beforeAll(async () => {
 
 describe("Phase D public work routes", () => {
   it("publishes exactly the three approved case-study routes", () => {
-    const workDirectory = path.join(process.cwd(), "src", "app", "v2", "work");
+    const workDirectory = path.join(process.cwd(), "src", "app", "projects");
     const routeDirectories = fs
       .readdirSync(workDirectory, { withFileTypes: true })
       .filter((entry) => entry.isDirectory())
@@ -57,8 +57,8 @@ describe("Phase D public work routes", () => {
     expect(paths).toEqual([
       "/",
       "/v2",
-      "/v2/work",
-      ...CASE_STUDY_SLUGS.map((slug) => `/v2/work/${slug}`),
+      "/projects",
+      ...CASE_STUDY_SLUGS.map((slug) => `/projects/${slug}`),
     ]);
     expect(robots().rules).toEqual({
       allow: "/",

@@ -27,6 +27,18 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
+      // Projects moved from /v2/work to /projects — keep old links (and any
+      // indexed case-study URLs) resolving to the new route.
+      {
+        source: "/v2/work",
+        destination: "/projects",
+        permanent: true,
+      },
+      {
+        source: "/v2/work/:slug",
+        destination: "/projects/:slug",
+        permanent: true,
+      },
     ];
   },
 };

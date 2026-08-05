@@ -7,10 +7,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     { path: "/", priority: 1 },
     { path: "/v2", priority: 1 },
-    { path: "/v2/work", priority: 0.9 },
-    { path: "/v2/work/smart-lockers-platform", priority: 0.8 },
-    { path: "/v2/work/warqah-store", priority: 0.8 },
-    { path: "/v2/work/autopay-eg", priority: 0.8 },
+    { path: "/projects", priority: 0.9 },
+    { path: "/projects/smart-lockers-platform", priority: 0.8 },
+    { path: "/projects/warqah-store", priority: 0.8 },
+    { path: "/projects/autopay-eg", priority: 0.8 },
   ] as const;
 
   return routes.map(({ path, priority }) => ({

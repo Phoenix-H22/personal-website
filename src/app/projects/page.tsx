@@ -12,13 +12,13 @@ const description =
 export const metadata: Metadata = {
   title: "Projects Orbit | Backend Systems and Product Engineering",
   description,
-  alternates: { canonical: "/v2/work" },
+  alternates: { canonical: "/projects" },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     title: "Projects Orbit — Abdalrhman M. Alkady",
     description,
-    url: "/v2/work",
+    url: "/projects",
     images: [{ url: "/opengraph-image", alt: "Abdalrhman M. Alkady Projects Orbit" }],
   },
   twitter: {
@@ -43,14 +43,14 @@ export default function ProjectsReelPage() {
           "@type": "CollectionPage",
           name: "Projects Orbit",
           description,
-          url: new URL("/v2/work", siteUrl).toString(),
+          url: new URL("/projects", siteUrl).toString(),
           author: { "@type": "Person", name: "Abdalrhman M. Alkady" },
           hasPart: ORBIT_SYSTEMS.map((system) => ({
             "@type": "CreativeWork",
             name: system.name,
             url: caseStudySlugs.has(system.slug)
-              ? new URL(`/v2/work/${system.slug}`, siteUrl).toString()
-              : new URL(`/v2/work#${system.slug}`, siteUrl).toString(),
+              ? new URL(`/projects/${system.slug}`, siteUrl).toString()
+              : new URL(`/projects#${system.slug}`, siteUrl).toString(),
           })),
         }}
       />
@@ -69,7 +69,7 @@ export default function ProjectsReelPage() {
               "@type": "ListItem",
               position: 2,
               name: "Projects Orbit",
-              item: new URL("/v2/work", siteUrl).toString(),
+              item: new URL("/projects", siteUrl).toString(),
             },
           ],
         }}

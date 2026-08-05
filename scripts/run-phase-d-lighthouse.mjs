@@ -14,10 +14,10 @@ const NPX_ARGUMENT_PREFIX = process.platform === "win32"
 const ROUTES = [
   { name: "root", path: "/" },
   { name: "v2", path: "/v2" },
-  { name: "work", path: "/v2/work" },
-  { name: "smart-lockers", path: "/v2/work/smart-lockers-platform" },
-  { name: "warqah", path: "/v2/work/warqah-store" },
-  { name: "autopay", path: "/v2/work/autopay-eg" },
+  { name: "work", path: "/projects" },
+  { name: "smart-lockers", path: "/projects/smart-lockers-platform" },
+  { name: "warqah", path: "/projects/warqah-store" },
+  { name: "autopay", path: "/projects/autopay-eg" },
 ];
 const FORM_FACTORS = [
   { name: "mobile", flags: [] },

@@ -2,7 +2,7 @@ import type { CanonicalProjectSlug } from "@/lib/portfolio/projects/canonical-pr
 
 /**
  * Presentation data for Projects Orbit — the sonar systems map rendered at
- * `/v2/work`. Each system is a node placed by its primary domain (its sector)
+ * `/projects`. Each system is a node placed by its primary domain (its sector)
  * and its ownership/status tier (its ring). Copy is richer than the recruiter
  * ledger: a one-line framing, a headline metric, domains, and stack.
  *

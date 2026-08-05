@@ -30,7 +30,7 @@ interface PortfolioPageProps {
 
 const v2NavigationLinks = [
   { href: "#recruiter-brief", label: "Recruiter Brief" },
-  { href: "/v2/work", label: "Systems Ledger" },
+  { href: "/projects", label: "Systems Ledger" },
   { href: "#experience", label: "Experience" },
   { href: "#contact", label: "Contact" },
 ] as const;

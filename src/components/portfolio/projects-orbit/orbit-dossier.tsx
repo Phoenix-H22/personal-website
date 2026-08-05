@@ -35,7 +35,7 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
   const globalIndex = ORBIT_SYSTEMS.findIndex((item) => item.slug === system.slug);
   const nextSystem = ORBIT_SYSTEMS[(globalIndex + 1) % ORBIT_SYSTEMS.length];
   const tone = statusTone(system.status);
-  const caseStudyHref = hasCaseStudy(system.slug) ? `/v2/work/${system.slug}` : null;
+  const caseStudyHref = hasCaseStudy(system.slug) ? `/projects/${system.slug}` : null;
 
   // Lock body scroll and move focus into the dialog while it is open.
   useEffect(() => {

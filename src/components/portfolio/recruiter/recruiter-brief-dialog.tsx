@@ -167,7 +167,7 @@ export function RecruiterBriefDialog({
               Upwork
             </a>
             <a href={`mailto:${RECRUITER_PROFILE.email}`}>Contact Me</a>
-            <a href="/v2/work">Explore Systems</a>
+            <a href="/projects">Explore Systems</a>
           </footer>
         </div>
       </dialog>

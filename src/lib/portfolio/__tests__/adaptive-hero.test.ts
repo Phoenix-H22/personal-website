@@ -663,7 +663,7 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
       completion: gitBlobSha1(
         "src/components/portfolio/recruiter/recruiter-completion-sections.tsx",
       ),
-      work: gitBlobSha1("src/app/v2/work/page.tsx"),
+      work: gitBlobSha1("src/app/projects/page.tsx"),
       caseStudy: gitBlobSha1(
         "src/components/portfolio/case-study/case-study-page.tsx",
       ),
@@ -677,11 +677,11 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
       root: "691cc0a294c59313b5f9c84f2febaac9bae14292",
       origin: "62d72f5f489e0aecef05d603e5c09e5fe7f8c9ff",
       career: "655a864979b633df4359d090a00e22aaa73c6caa",
-      observatorySection: "b7ffe233ab27b861f0d358531fabb869423ff452",
+      observatorySection: "ef27634a65c06701752adaae41915a4362b1815f",
       observatoryConfig: "88c79804f2bdcbf70f37f28a125c9638a52adc76",
       completion: "89cdece16e8aa3fa879fb247c09cedbdd6c52e65",
-      work: "c9fa9b91f0afdaf6ec3fc3f98064ab966e298449",
-      caseStudy: "e6dc0528417b6f7461ecff5853f9d1213fb1ea22",
+      work: "f010c1313a746e947e25a5e459c25f58bab405e6",
+      caseStudy: "e624198d18ca58e9306c31e3c10961663ae2da30",
       canonical: "e45a32f64ed28a35e9694ca0c7359d91a0a1e628",
       media: "3b64be01228ceb8690e255023945c8bcf2878290",
     });

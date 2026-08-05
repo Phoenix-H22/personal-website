@@ -17,7 +17,7 @@ export async function SystemsObservatorySection() {
           <p>SYSTEMS LEDGER / 13 PRODUCTION BUILDS</p>
           <span>Continue from the selected evidence into the complete engineering record.</span>
         </div>
-        <Link href="/v2/work" prefetch={false}>
+        <Link href="/projects" prefetch={false}>
           Open Systems Ledger <span aria-hidden="true">-&gt;</span>
         </Link>
       </aside>

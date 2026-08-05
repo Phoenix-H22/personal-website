@@ -21,7 +21,7 @@ interface SystemsIndexExperienceProps {
 }
 
 /**
- * Filterable systems index. Not mounted on a route today — `/v2/work` ships
+ * Filterable systems index. Not mounted on a route today — `/projects` ships
  * its own listing; this stays as the filtered-index surface it was built for.
  */
 export function SystemsIndexExperience({
@@ -175,7 +175,7 @@ export function SystemsIndexExperience({
                     </a>
                   ) : null}
                   <span className={styles.reserved}>
-                    Detail route reserved · /v2/work/{project.slug}
+                    Detail route reserved · /projects/{project.slug}
                   </span>
                 </div>
               </div>

@@ -101,7 +101,7 @@ export function SystemsExhibitionExperience({
             ) : null}
             <p className={styles.tech}>{flagship.technologies.join(" · ")}</p>
             <div className={styles.actions}>
-              <Link className={styles.primaryLink} href="/v2/work">
+              <Link className={styles.primaryLink} href="/projects">
                 Browse all systems
               </Link>
               <span className={styles.reserved}>Case study route reserved</span>
@@ -144,7 +144,7 @@ export function SystemsExhibitionExperience({
       </div>
 
       <div className={styles.footer} data-exhibit-item>
-        <Link className={styles.primaryLink} href="/v2/work">
+        <Link className={styles.primaryLink} href="/projects">
           View the complete systems index
         </Link>
       </div>

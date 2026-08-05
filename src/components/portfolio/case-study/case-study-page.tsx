@@ -25,13 +25,13 @@ export async function getCaseStudyMetadata(slug: CaseStudySlug): Promise<Metadat
   return {
     title: `${project.title} Case Study | ${project.systemType}`,
     description,
-    alternates: { canonical: `/v2/work/${slug}` },
+    alternates: { canonical: `/projects/${slug}` },
     robots: { index: true, follow: true },
     openGraph: {
       type: "article",
       title: `${project.title} — Engineering Case Study`,
       description,
-      url: `/v2/work/${slug}`,
+      url: `/projects/${slug}`,
       images: [
         {
           url: project.cover.src,
@@ -78,7 +78,7 @@ export async function CaseStudyPage({ slug }: { slug: CaseStudySlug }) {
     >
       <nav className={styles.topNav} aria-label="Case study navigation">
         <Link href="/v2" prefetch={false}>AK / Portfolio V2</Link>
-        <Link href="/v2/work" prefetch={false}>Systems Ledger</Link>
+        <Link href="/projects" prefetch={false}>Systems Ledger</Link>
         <a href="#architecture">Architecture</a>
         <a href="#evidence">Evidence</a>
       </nav>
@@ -86,7 +86,7 @@ export async function CaseStudyPage({ slug }: { slug: CaseStudySlug }) {
       <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
         <ol>
           <li><Link href="/v2" prefetch={false}>Portfolio V2</Link></li>
-          <li><Link href="/v2/work" prefetch={false}>Systems Ledger</Link></li>
+          <li><Link href="/projects" prefetch={false}>Systems Ledger</Link></li>
           <li aria-current="page">{project.title}</li>
         </ol>
       </nav>
@@ -277,12 +277,12 @@ export async function CaseStudyPage({ slug }: { slug: CaseStudySlug }) {
       </section>
 
       <nav className={styles.projectNavigation} aria-label="Case study sequence">
-        <Link href={`/v2/work/${previousSlug}`} prefetch={false}>
+        <Link href={`/projects/${previousSlug}`} prefetch={false}>
           <span>Previous case study</span>
           <strong>{previousProject.title}</strong>
         </Link>
-        <Link href="/v2/work" prefetch={false}>Back to Systems Ledger</Link>
-        <Link href={`/v2/work/${nextSlug}`} prefetch={false}>
+        <Link href="/projects" prefetch={false}>Back to Systems Ledger</Link>
+        <Link href={`/projects/${nextSlug}`} prefetch={false}>
           <span>Next case study</span>
           <strong>{nextProject.title}</strong>
         </Link>
@@ -294,7 +294,7 @@ export async function CaseStudyPage({ slug }: { slug: CaseStudySlug }) {
           "@type": "CreativeWork",
           name: project.title,
           description: project.publicSummary.split("\n")[0],
-          url: new URL(`/v2/work/${slug}`, siteUrl).toString(),
+          url: new URL(`/projects/${slug}`, siteUrl).toString(),
           image: new URL(project.cover.src, siteUrl).toString(),
           author: { "@type": "Person", name: "Abdalrhman M. Alkady" },
           keywords: project.technologies.join(", "),
@@ -306,8 +306,8 @@ export async function CaseStudyPage({ slug }: { slug: CaseStudySlug }) {
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Portfolio V2", item: new URL("/v2", siteUrl).toString() },
-            { "@type": "ListItem", position: 2, name: "Systems Ledger", item: new URL("/v2/work", siteUrl).toString() },
-            { "@type": "ListItem", position: 3, name: project.title, item: new URL(`/v2/work/${slug}`, siteUrl).toString() },
+            { "@type": "ListItem", position: 2, name: "Systems Ledger", item: new URL("/projects", siteUrl).toString() },
+            { "@type": "ListItem", position: 3, name: project.title, item: new URL(`/projects/${slug}`, siteUrl).toString() },
           ],
         }}
       />
