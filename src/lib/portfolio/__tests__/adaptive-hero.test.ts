@@ -675,14 +675,14 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
         "src/lib/portfolio/projects/data/public-media-manifest.json",
       ),
     }).toEqual({
-      root: "1b9695b4a2057ea69678faf3764596cd3295891c",
+      root: "1745c5783ab2f5c48c620fe0401e4e6bc4c1bc81",
       origin: "c05bf82f375229f7fb7bedef734142008efcdf32",
       career: "cab919b02bb8eeeff886c1c3d656fb27b4d259de",
       observatorySection: "dcb6697c8f96f81e62061d438b9fc47fba4a1d2b",
       observatoryConfig: "b241613684c8be598d727cf6de5d9969028baee2",
       completion: "570b84e3767628678e65c101f5456fb78c12f56f",
-      work: "896f10aa5a3c712df76f68b82d61ab3901041268",
-      caseStudy: "b79b87cbd285ac9d47ad54244fa4d3f545c0141b",
+      work: "51c3bbdce219db098839d4af3560155571adc733",
+      caseStudy: "d21e6f0aa9c1edb668fc7c013bc170429c91f8dd",
       canonical: "9f93f6c2d834d15b5ed47ec49a15a8ccb2e66225",
       media: "75369ab03fe2a588beb84c68b871930c00a8d6da",
     });
