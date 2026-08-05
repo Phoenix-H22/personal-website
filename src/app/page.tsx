@@ -27,14 +27,21 @@ export const metadata: Metadata = {
     description:
       "Backend systems, product engineering, integrations, commerce, and connected hardware with verified production evidence.",
     url: config.canonical,
-    images: ["/opengraph-image"],
+    images: [
+      {
+        url: "/opengraph-image?v=20260805",
+        width: 1200,
+        height: 630,
+        alt: "Abdalrhman M. Alkady — Software Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: config.title,
     description:
       "Backend systems, product engineering, integrations, commerce, and connected hardware.",
-    images: ["/opengraph-image"],
+    images: ["/opengraph-image?v=20260805"],
   },
 };
 

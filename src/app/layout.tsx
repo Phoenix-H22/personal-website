@@ -21,11 +21,11 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: getSiteUrl(),
   title: {
-    default: "Abdalrhman M. Alkady — Backend-Focused Product Engineer",
+    default: "Abdalrhman M. Alkady | Software Engineer",
     template: "%s — Abdalrhman M. Alkady",
   },
   description:
-    "Backend-focused product engineer building reliable SaaS platforms, Laravel and Node.js systems, integrations, automation, and mobile-backed products.",
+    "Backend-focused software engineer building reliable APIs, integrations, commerce platforms, connected hardware, and production web products.",
   applicationName: "Abdalrhman M. Alkady",
   authors: [{ name: "Abdalrhman Mohamed Alkady" }],
   creator: "Abdalrhman Mohamed Alkady",
@@ -33,7 +33,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   keywords: [
-    "backend product engineer",
+    "software engineer",
+    "backend engineer",
     "Laravel engineer",
     "Node.js engineer",
     "SaaS development",
@@ -42,16 +43,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Abdalrhman M. Alkady — Backend-Focused Product Engineer",
+    title: "Abdalrhman M. Alkady | Software Engineer",
     description:
-      "I build the systems products depend on: SaaS platforms, integrations, automation, and mobile-backed products.",
+      "Backend systems, product engineering, integrations, commerce, and connected hardware with verified production evidence.",
     siteName: "Abdalrhman M. Alkady",
+    images: [
+      {
+        url: "/opengraph-image?v=20260805",
+        width: 1200,
+        height: 630,
+        alt: "Abdalrhman M. Alkady — Software Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Abdalrhman M. Alkady — Backend-Focused Product Engineer",
+    title: "Abdalrhman M. Alkady | Software Engineer",
     description:
-      "Reliable SaaS platforms, integrations, automation, and mobile-backed products.",
+      "Backend systems, product engineering, integrations, commerce, and connected hardware.",
+    images: ["/opengraph-image?v=20260805"],
   },
 };
 
