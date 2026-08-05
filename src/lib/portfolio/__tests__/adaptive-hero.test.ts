@@ -674,16 +674,16 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
         "src/lib/portfolio/projects/data/public-media-manifest.json",
       ),
     }).toEqual({
-      root: "1745c5783ab2f5c48c620fe0401e4e6bc4c1bc81",
-      origin: "c05bf82f375229f7fb7bedef734142008efcdf32",
-      career: "cab919b02bb8eeeff886c1c3d656fb27b4d259de",
-      observatorySection: "dcb6697c8f96f81e62061d438b9fc47fba4a1d2b",
-      observatoryConfig: "b241613684c8be598d727cf6de5d9969028baee2",
-      completion: "570b84e3767628678e65c101f5456fb78c12f56f",
-      work: "51c3bbdce219db098839d4af3560155571adc733",
-      caseStudy: "d21e6f0aa9c1edb668fc7c013bc170429c91f8dd",
-      canonical: "9f93f6c2d834d15b5ed47ec49a15a8ccb2e66225",
-      media: "75369ab03fe2a588beb84c68b871930c00a8d6da",
+      root: "691cc0a294c59313b5f9c84f2febaac9bae14292",
+      origin: "62d72f5f489e0aecef05d603e5c09e5fe7f8c9ff",
+      career: "655a864979b633df4359d090a00e22aaa73c6caa",
+      observatorySection: "b7ffe233ab27b861f0d358531fabb869423ff452",
+      observatoryConfig: "88c79804f2bdcbf70f37f28a125c9638a52adc76",
+      completion: "89cdece16e8aa3fa879fb247c09cedbdd6c52e65",
+      work: "d58f190dd0b1b3d2ac216cc8b0ac9e8a7360df0b",
+      caseStudy: "e6dc0528417b6f7461ecff5853f9d1213fb1ea22",
+      canonical: "e45a32f64ed28a35e9694ca0c7359d91a0a1e628",
+      media: "3b64be01228ceb8690e255023945c8bcf2878290",
     });
   });
 });

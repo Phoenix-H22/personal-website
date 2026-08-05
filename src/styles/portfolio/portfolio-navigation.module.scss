@@ -112,9 +112,10 @@ $bp-desktop-min: 73.75rem; // 1180px -> side rail eligible
   }
 }
 
-// The Education anchor is not covered by the Hero module's shared scroll-margin
-// rule; add the same 5rem offset (scoped to the /v2 page, outside protected CSS)
-// so clicking Education lands the section below the floating deck.
+// Post-hero chapter anchors are not covered by the Hero module's shared
+// scroll-margin rule; keep the same 5rem offset (scoped to the /v2 page)
+// so clicking Experience / Education lands below the floating deck.
+:global([data-portfolio-variant="v2"] #experience),
 :global([data-portfolio-variant="v2"] #education) {
   scroll-margin-top: 5rem;
 }

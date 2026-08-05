@@ -39,12 +39,12 @@ export function PortfolioV2Page() {
           <PortfolioNavigation />
           <main id="main-content" className={navigationStyles.pageMain}>
             <AdaptiveEngineerHero />
-            <OriginChapter education={education} />
             <CareerChapter
               eras={eras}
               primary={primary}
               independent={independent}
             />
+            <OriginChapter education={education} />
             <SystemsObservatorySection />
             <RecruiterCompletionSections />
             <ContactSignalHub />

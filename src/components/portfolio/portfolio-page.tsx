@@ -71,15 +71,15 @@ export function PortfolioPage({ config }: PortfolioPageProps) {
           <main id="main-content" className={styles.main}>
             <RebuildHero content={content} heroConfig={config.hero} />
             {config.sections.showOwnership ? <RecruiterBriefSection /> : null}
-            {config.sections.showOrigin ? (
-              <OriginChapter education={education} />
-            ) : null}
             {config.sections.showCareer ? (
               <CareerChapter
                 eras={eras}
                 primary={primary}
                 independent={independent}
               />
+            ) : null}
+            {config.sections.showOrigin ? (
+              <OriginChapter education={education} />
             ) : null}
             {config.sections.showSelectedSystems ? (
               <SelectedSystemsSection />

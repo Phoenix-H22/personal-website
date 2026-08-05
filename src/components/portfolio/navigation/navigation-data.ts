@@ -12,8 +12,8 @@ import type { NavIconName } from "./navigation-icons";
  *
  * Anchors are verified against production source on `/v2`:
  *  - `#proof-stage`  the Hero section          (adaptive-engineer-hero.tsx)
- *  - `#education`    Origin / education chapter (origin-chapter.tsx)
  *  - `#experience`   Career chapter            (career-chapter.tsx)
+ *  - `#education`    Origin / education chapter (origin-chapter.tsx)
  *  - `#work`         Systems Observatory        (systems-observatory-experience.tsx)
  *  - `#contact`      Recruiter contact section  (recruiter-completion-sections.tsx)
  *  - `#main-content` the <main> landmark / page top (portfolio-v2-page.tsx)
@@ -49,20 +49,20 @@ export const PORTFOLIO_SECTIONS: readonly PortfolioSection[] = [
     observeId: "proof-stage",
   },
   {
-    id: "education",
-    label: "Education",
-    shortLabel: "Education",
-    href: "#education",
-    observeId: "education",
-    icon: "education",
-  },
-  {
     id: "experience",
     label: "Experience",
     shortLabel: "Experience",
     href: "#experience",
     observeId: "experience",
     icon: "experience",
+  },
+  {
+    id: "education",
+    label: "Education",
+    shortLabel: "Education",
+    href: "#education",
+    observeId: "education",
+    icon: "education",
   },
   {
     id: "systems",
@@ -87,18 +87,18 @@ export const OBSERVED_SECTION_IDS: readonly PortfolioSectionId[] =
   PORTFOLIO_SECTIONS.map((section) => section.id);
 
 /** Control Deck middle links: the three content sections. */
-export const DECK_LINK_IDS = ["education", "experience", "systems"] as const;
+export const DECK_LINK_IDS = ["experience", "education", "systems"] as const;
 
 /** Side-rail nodes: real post-Hero scroll destinations, in document order. */
 export const RAIL_SECTION_IDS = [
-  "education",
   "experience",
+  "education",
   "systems",
   "contact",
 ] as const;
 
 /** Mobile dock section items. Home stays the top identity chip; Contact is the CTA. */
-export const DOCK_SECTION_IDS = ["education", "experience", "systems"] as const;
+export const DOCK_SECTION_IDS = ["experience", "education", "systems"] as const;
 
 /** Primary call to action. Sourced from the profile token for consistency. */
 export const CONTACT_ACTION = {

@@ -15,11 +15,10 @@ export function OriginChapter({ education }: OriginChapterProps) {
       id="education"
       variant="origin"
       aria-labelledby="origin-heading"
-      transitionFromHero
     >
       <div className={styles.originContent}>
         <div className={styles.originIntro}>
-          <ChapterMarker index="02" label="Origin" />
+          <ChapterMarker index="03" label="Origin" />
           <p className={chapStyles.eyebrow}>Education</p>
           <h2 id="origin-heading" className={chapStyles.heading}>
             Where the engineering mindset started.
