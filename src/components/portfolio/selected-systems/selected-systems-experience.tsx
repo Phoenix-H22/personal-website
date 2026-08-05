@@ -145,7 +145,7 @@ export function FeaturedSystemsExperience({
       data-featured-systems
     >
       <header className={styles.header}>
-        <p className={styles.eyebrow}>Selected Systems</p>
+        <p className={styles.eyebrow}>Projects</p>
         <div className={styles.titleRow}>
           <h2 id={headingId} className={styles.title}>
             Featured Systems

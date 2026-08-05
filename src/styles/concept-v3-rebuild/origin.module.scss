@@ -133,10 +133,22 @@
 }
 
 .milestoneDegree {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.65rem;
+  align-items: start;
   margin: 0;
   color: var(--chapter-text-muted);
   font-size: 0.9375rem;
   line-height: 1.45;
+}
+
+.milestoneDegreeMark {
+  margin-top: 0.05em;
+  color: color-mix(in srgb, var(--chapter-cyan) 72%, #9bb0c2);
+  font-size: 1.15em;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 .milestoneLocation {
@@ -193,12 +205,45 @@
   font-weight: 700;
 }
 
-.milestoneNarrative {
+.milestoneNarrativeList {
   margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.milestoneNarrative {
+  position: relative;
   max-width: 52ch;
+  margin: 0;
+  padding-left: 1.15rem;
   color: var(--chapter-text-muted);
   font-size: 0.9375rem;
   line-height: 1.55;
+}
+
+.milestoneNarrative::before {
+  content: "";
+  position: absolute;
+  top: 0.55em;
+  left: 0;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: var(--chapter-violet);
+  box-shadow:
+    0 0 0 3px rgb(157 114 255 / 16%),
+    0 0 10px rgb(157 114 255 / 45%);
+}
+
+.milestoneUniversity .milestoneNarrative::before {
+  background: var(--chapter-cyan);
+  box-shadow:
+    0 0 0 3px rgb(49 230 208 / 16%),
+    0 0 10px rgb(49 230 208 / 45%);
+}
+
+.milestoneUniversity .milestoneDegreeMark {
+  color: color-mix(in srgb, var(--chapter-cyan) 82%, #ffffff);
 }
 
 .milestoneDegreeSep {
@@ -231,27 +276,6 @@
   box-shadow: 0 18px 40px rgb(0 0 0 / 22%);
 }
 
-.originHonors {
-  color: #7ef5e6;
-  font-weight: 560;
-}
-
-.originCapstone {
-  color: #f6d089;
-  font-weight: 560;
-}
-
-.originSummarySep {
-  margin-inline: 0.45rem;
-  color: rgb(168 182 200 / 45%);
-}
-
-.originCapstoneDetail {
-  margin: 0.45rem 0 0;
-  color: var(--chapter-text-muted);
-  font-size: 0.875rem;
-}
-
 /* ——— Desktop layout ——— */
 @media (min-width: 768px) {
   .milestoneHeader {
@@ -280,7 +304,7 @@
   /* Collapse the section metadata into one intentional row on mobile:
      ● 02 ORIGIN / EDUCATION — instead of a faint, detached "Education" line.
      The marker (● 02 ORIGIN) and the eyebrow (EDUCATION) sit inline; the
-     heading, subheading, and summary wrap to their own full-width lines. */
+     heading and subheading wrap to their own full-width lines. */
   .originIntro {
     display: flex;
     flex-wrap: wrap;
@@ -308,8 +332,7 @@
 
   /* Everything after the metadata row takes its own full-width line. */
   .originIntro > h2,
-  .originIntro > p:nth-of-type(2),
-  .originIntro > .originSummary {
+  .originIntro > p:nth-of-type(2) {
     flex-basis: 100%;
     min-width: 0;
   }
@@ -378,17 +401,3 @@
   }
 }
 
-/* ——— Summary section for cumulative honors ——— */
-.originSummary {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--chapter-border);
-}
-
-.originSummaryText {
-  margin: 0;
-  color: var(--chapter-text-muted);
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  max-width: 52ch;
-}

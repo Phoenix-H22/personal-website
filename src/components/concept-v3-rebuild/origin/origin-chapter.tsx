@@ -28,23 +28,6 @@ export function OriginChapter({ education }: OriginChapterProps) {
             From STEM scientific thinking and problem-solving into a computer
             and AI foundation built for shipping real systems.
           </p>
-
-          <div className={styles.originSummary} aria-label="University results">
-            <p className={styles.originSummaryText}>
-              <span className={styles.originHonors}>
-                Cumulative A-grade with Honors
-              </span>
-              <span className={styles.originSummarySep} aria-hidden="true">
-                ·
-              </span>
-              <span className={styles.originCapstone}>
-                Capstone graded A+
-              </span>
-            </p>
-            <p className={styles.originCapstoneDetail}>
-              Graduation project: Virtual Clinic / Dr. Robot
-            </p>
-          </div>
         </div>
 
         <div className={styles.origin}>

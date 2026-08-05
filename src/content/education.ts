@@ -10,7 +10,8 @@ export type EducationEntry = {
   institution: string;
   institutionShortName: string;
   logo: ContentAsset;
-  degree: string;
+  /** Credential line under the school name. Null when the card should omit it. */
+  degree: string | null;
   fieldOfStudy: string | null;
   startDate: string;
   endDate: string;
@@ -33,7 +34,7 @@ export const education: EducationEntry[] = [
       src: portfolioAssets.education.obourStem,
       alt: "Obour STEM School",
     },
-    degree: "STEM secondary education",
+    degree: null,
     fieldOfStudy: null,
     startDate: "2018-09",
     endDate: "2021-06",

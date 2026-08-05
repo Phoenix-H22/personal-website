@@ -80,12 +80,16 @@ function sequenceNumber(index: number): string {
 export function ObservatoryHeader() {
   return (
     <header className={styles.header} data-observatory-entrance>
-      <p className={styles.eyebrow}>SELECTED SYSTEMS / 07 PRODUCTION BUILDS</p>
-      <div className={styles.headingGrid}>
-        <h2 id="systems-observatory-heading" className={styles.heading}>
+      <p className={styles.eyebrow}>PROJECTS / 07 PRODUCTION BUILDS</p>
+      <h2 id="systems-observatory-heading" className={styles.headingLabel}>
+        Projects
+      </h2>
+      {/* Kept in the tree for future reuse; visually hidden on every breakpoint. */}
+      <div className={styles.headingGrid} hidden aria-hidden="true">
+        <p className={styles.heading}>
           <span>I don&apos;t just build products.</span>
           <span>I own the systems behind them.</span>
-        </h2>
+        </p>
         <p className={styles.introduction}>
           From founder-built products to high-pressure production platforms and
           connected machines, these systems show how I think, build, ship, and operate
@@ -136,7 +140,13 @@ export function ObservatoryLensControls({
   };
 
   return (
-    <div className={styles.lensRegion} data-observatory-entrance>
+    // Kept in the tree for future reuse; visually hidden on every breakpoint.
+    <div
+      className={styles.lensRegion}
+      data-observatory-entrance
+      hidden
+      aria-hidden="true"
+    >
       <div className={styles.lensDeckHeading} aria-hidden="true">
         <span>{formatObservatoryPosition(activeIndex, lenses.length)}</span>
       </div>

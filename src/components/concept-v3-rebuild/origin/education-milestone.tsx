@@ -45,19 +45,28 @@ export function EducationMilestone({ entry, variant }: EducationMilestoneProps) 
         </div>
       </div>
 
-      <p className={styles.milestoneDegree}>
-        {entry.degree}
-        {entry.fieldOfStudy ? (
-          <>
-            <span className={styles.milestoneDegreeSep} aria-hidden="true">
-              ·
-            </span>
-            {entry.fieldOfStudy}
-          </>
-        ) : null}
-      </p>
+      {entry.degree ? (
+        <p className={styles.milestoneDegree}>
+          <span className={styles.milestoneDegreeMark} aria-hidden="true">
+            —
+          </span>
+          <span>
+            {entry.degree}
+            {entry.fieldOfStudy ? (
+              <>
+                <span className={styles.milestoneDegreeSep} aria-hidden="true">
+                  ·
+                </span>
+                {entry.fieldOfStudy}
+              </>
+            ) : null}
+          </span>
+        </p>
+      ) : null}
 
-      <p className={styles.milestoneNarrative}>{entry.summary}</p>
+      <ul className={styles.milestoneNarrativeList}>
+        <li className={styles.milestoneNarrative}>{entry.summary}</li>
+      </ul>
 
       {entry.highlights.length > 0 ? (
         <ul className={styles.milestoneHighlights}>

@@ -39,13 +39,28 @@ export async function AdaptiveEngineerHero() {
             <h1 id="adaptive-hero-name" className={styles.name}>
               {ADAPTIVE_HERO_CONTENT.name}
             </h1>
-            {/* Single unified manifesto paragraph — identical copy on desktop
-                and mobile: belief, scope, and AI approach as one flowing thought. */}
-            <p className={styles.manifesto}>
-              {ADAPTIVE_HERO_CONTENT.manifesto.lead}
-              <strong>{ADAPTIVE_HERO_CONTENT.manifesto.accent}</strong>
-              {ADAPTIVE_HERO_CONTENT.manifesto.tail}
-            </p>
+            {/* Desktop/tablet: belief stack + support linked by a left rail.
+                Mobile: one compact manifesto paragraph (CSS swaps visibility). */}
+            <div className={styles.beliefRail}>
+              <div className={styles.beliefRailTrack} aria-hidden="true">
+                <span className={styles.beliefRailNode} data-node="start" />
+                <span className={styles.beliefRailStem} />
+                <span className={styles.beliefRailNode} data-node="join" />
+                <span className={styles.beliefRailStem} data-fade="true" />
+                <span className={styles.beliefRailNode} data-node="end" />
+              </div>
+              <div className={styles.beliefRailCopy}>
+                <p className={styles.statement}>
+                  <span>{ADAPTIVE_HERO_CONTENT.statement[0]}</span>
+                  <span>{ADAPTIVE_HERO_CONTENT.statement[1]}</span>
+                  <span>
+                    and ship what <strong>survives production.</strong>
+                  </span>
+                </p>
+                <p className={styles.support}>{ADAPTIVE_HERO_CONTENT.support}</p>
+              </div>
+            </div>
+            <p className={styles.manifesto}>{ADAPTIVE_HERO_CONTENT.manifesto}</p>
             <LivingToolchain />
 
             <p className={styles.proofRibbon} data-proof-ribbon>

@@ -29,6 +29,8 @@
 }
 
 .chapterInner {
+  position: relative;
+  z-index: 1;
   width: min(100%, var(--v3-chapter-max, var(--chapter-max)));
   margin-inline: auto;
   padding-inline: var(--chapter-gutter);
@@ -42,13 +44,16 @@
   margin-top: -1px;
 }
 
+/* Seam fade only — must stay behind chapter copy. On mobile the old tall
+   overlay sat above the Origin heading and read as a dark wash over the title. */
 .transitionFromHero::before {
   content: "";
   position: absolute;
+  z-index: 0;
   inset-inline: 0;
   top: 0;
-  height: clamp(4rem, 12vh, 8rem);
-  background: linear-gradient(180deg, rgb(3 6 11 / 0%) 0%, var(--chapter-surface) 100%);
+  height: clamp(2rem, 6vh, 4rem);
+  background: linear-gradient(180deg, rgb(3 6 11 / 35%) 0%, transparent 100%);
   pointer-events: none;
 }
 
@@ -178,6 +183,10 @@
 
   .chapterCareer {
     padding-block: clamp(2.75rem, 10vw, 3.25rem);
+  }
+
+  .transitionFromHero::before {
+    height: 1.25rem;
   }
 }
 
