@@ -680,7 +680,7 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
       career: "cab919b02bb8eeeff886c1c3d656fb27b4d259de",
       observatorySection: "dcb6697c8f96f81e62061d438b9fc47fba4a1d2b",
       observatoryConfig: "b241613684c8be598d727cf6de5d9969028baee2",
-      completion: "ffe5346bdd4d2ec6b2f95a58f557f6a020a0e0a4",
+      completion: "570b84e3767628678e65c101f5456fb78c12f56f",
       work: "896f10aa5a3c712df76f68b82d61ab3901041268",
       caseStudy: "b79b87cbd285ac9d47ad54244fa4d3f545c0141b",
       canonical: "9f93f6c2d834d15b5ed47ec49a15a8ccb2e66225",

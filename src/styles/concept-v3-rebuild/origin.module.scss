@@ -276,6 +276,48 @@
   .routeTrack {
     gap: 1.5rem;
   }
+
+  /* Collapse the section metadata into one intentional row on mobile:
+     ● 02 ORIGIN / EDUCATION — instead of a faint, detached "Education" line.
+     The marker (● 02 ORIGIN) and the eyebrow (EDUCATION) sit inline; the
+     heading, subheading, and summary wrap to their own full-width lines. */
+  .originIntro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 0.5rem;
+  }
+
+  /* ChapterMarker (first child): drop its stacked bottom margin. */
+  .originIntro > div:first-child {
+    margin-bottom: 0;
+  }
+
+  /* Eyebrow "Education": readable secondary (not near-invisible) + separator. */
+  .originIntro > p:first-of-type {
+    margin: 0;
+    color: var(--chapter-text-muted);
+    white-space: nowrap;
+  }
+
+  .originIntro > p:first-of-type::before {
+    content: "/";
+    margin-inline-end: 0.5rem;
+    color: rgb(168 182 200 / 45%);
+  }
+
+  /* Everything after the metadata row takes its own full-width line. */
+  .originIntro > h2,
+  .originIntro > p:nth-of-type(2),
+  .originIntro > .originSummary {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+
+  /* Clear separation between the metadata row and the heading. */
+  .originIntro > h2 {
+    margin-top: 0.6rem;
+  }
 }
 
 @media (min-width: 1024px) {

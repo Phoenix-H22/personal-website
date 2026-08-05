@@ -1,7 +1,5 @@
 .briefRail,
-.principles,
-.socialProof,
-.contact {
+.socialProof {
   --phase-d-accent: #31e6d0;
   position: relative;
   width: min(100%, 96rem);
@@ -25,9 +23,7 @@
 }
 
 .briefRail p,
-.principles header > p,
-.socialProof > div > p:first-child,
-.contact > div:first-child > p:first-child {
+.socialProof > div > p:first-child {
   margin: 0;
   color: var(--phase-d-accent);
   font-family: var(--font-mono), ui-monospace, monospace;
@@ -69,9 +65,7 @@
 .briefTrigger:focus-visible,
 .briefClose:focus-visible,
 .briefActions a:focus-visible,
-.principles a:focus-visible,
-.socialProof a:focus-visible,
-.contactActions a:focus-visible {
+.socialProof a:focus-visible {
   outline: 2px solid var(--phase-d-accent);
   outline-offset: 3px;
 }
@@ -222,8 +216,7 @@
   padding-top: 1.25rem;
 }
 
-.briefActions a,
-.contactActions a {
+.briefActions a {
   min-height: 2.75rem;
   padding: 0.72rem 0.9rem;
   border: 1px solid rgb(139 171 204 / 22%);
@@ -232,23 +225,12 @@
   text-decoration: none;
 }
 
-.principles,
-.socialProof,
-.contact {
+.socialProof {
   padding: clamp(4rem, 9vw, 8rem) clamp(1rem, 5vw, 5rem);
   border-top: 1px solid rgb(139 171 204 / 14%);
 }
 
-.principles header {
-  display: grid;
-  grid-template-columns: minmax(12rem, 0.7fr) minmax(0, 1.3fr);
-  gap: 2rem;
-  align-items: end;
-}
-
-.principles h2,
-.socialProof h2,
-.contact h2 {
+.socialProof h2 {
   margin: 0.8rem 0 0;
   color: #f5f8fb;
   font-size: clamp(2.25rem, 5.5vw, 5.6rem);
@@ -257,47 +239,12 @@
   text-wrap: balance;
 }
 
-.principleList {
-  margin-top: clamp(2.5rem, 5vw, 5rem);
-  border-top: 1px solid rgb(139 171 204 / 18%);
-}
-
-.principleList article {
-  display: grid;
-  grid-template-columns: 4rem minmax(0, 1fr);
-  gap: 1rem;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid rgb(139 171 204 / 14%);
-}
-
-.principleList article > span {
-  color: var(--phase-d-accent);
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.65rem;
-}
-
-.principleList h3 {
-  margin: 0;
-  color: #eaf1f7;
-  font-size: clamp(1.35rem, 2.4vw, 2.2rem);
-  text-transform: uppercase;
-}
-
-.principleList p,
-.socialProof > div > p,
-.contact > div:first-child > p:last-child {
+.socialProof > div > p {
   max-width: 58rem;
   color: #92a4b7;
   line-height: 1.65;
 }
 
-.principleList nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-}
-
-.principleList a,
 .socialProof a {
   color: var(--phase-d-accent);
   font-size: 0.72rem;
@@ -333,40 +280,6 @@
   font-size: 0.72rem;
 }
 
-.contact {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(14rem, 0.6fr);
-  gap: 2rem 5rem;
-  padding-bottom: max(7rem, calc(4rem + env(safe-area-inset-bottom)));
-  background: linear-gradient(145deg, rgb(49 230 208 / 5%), transparent 42%);
-}
-
-.contactMeta {
-  align-self: end;
-  padding-left: 1rem;
-  border-left: 1px solid rgb(49 230 208 / 38%);
-}
-
-.contactMeta p {
-  margin: 0.35rem 0;
-  color: #a0b0c0;
-  font-size: 0.78rem;
-}
-
-.contactActions {
-  display: flex;
-  grid-column: 1 / -1;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-}
-
-.contactActions .contactPrimary {
-  border-color: var(--phase-d-accent);
-  background: var(--phase-d-accent);
-  color: #03100f;
-  font-weight: 700;
-}
-
 @media (max-width: 48rem) {
   .briefRail {
     align-items: stretch;
@@ -393,29 +306,12 @@
   }
 
   .briefGrid,
-  .principles header,
-  .socialProof,
-  .contact {
+  .socialProof {
     grid-template-columns: 1fr;
   }
 
-  .principles,
-  .socialProof,
-  .contact {
+  .socialProof {
     padding-block: clamp(3.25rem, 12vw, 4rem);
-  }
-
-  .principleList {
-    margin-top: 2rem;
-  }
-
-  .principleList article {
-    grid-template-columns: 2.5rem minmax(0, 1fr);
-    padding-block: 1.25rem;
-  }
-
-  .contact {
-    padding-bottom: max(5rem, calc(3rem + env(safe-area-inset-bottom)));
   }
 
   .briefProof {
@@ -424,10 +320,6 @@
 
   .briefProof dl {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .contactActions {
-    grid-column: auto;
   }
 }
 
@@ -447,17 +339,12 @@
   .briefProof dl {
     grid-template-columns: 1fr;
   }
-
-  .principleList article {
-    grid-template-columns: 2rem minmax(0, 1fr);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .briefDialog,
   .briefTrigger,
-  .briefActions a,
-  .contactActions a {
+  .briefActions a {
     scroll-behavior: auto;
     transition: none;
   }
@@ -467,8 +354,7 @@
   .briefTrigger,
   .briefDialog,
   .briefGrid section,
-  .briefActions a,
-  .contactActions a {
+  .briefActions a {
     border: 1px solid CanvasText;
   }
 }

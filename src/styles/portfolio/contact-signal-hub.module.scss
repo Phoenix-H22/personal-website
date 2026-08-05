@@ -1,0 +1,602 @@
+// Contact Signal Hub — the final homepage section ("OPEN CHANNEL").
+//
+// Visual language reuses the portfolio signal tokens (theme.css @theme) so the
+// section belongs to the same page: canvas-void base, cyan signal accents,
+// sharp technical borders, mono readouts. No new palette, no heavy glass blur,
+// no pasted-on background rectangle — the surface fades out of the preceding
+// section through a soft top gradient + hairline border.
+//
+// Motion is gated exclusively on the site's authoritative effective-motion
+// attribute (html[data-effective-motion="full"|"reduced"]), never on raw OS
+// prefers-reduced-motion, matching the rest of the portfolio.
+
+$mono: var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
+
+.hub {
+  // Section's own block-end padding, reused by the mobile dock-clearance calc.
+  --hub-pad-block-end: clamp(3rem, 6vw, 4.5rem);
+  // Space that keeps the final content above the floating mobile dock. Owned by
+  // this final section (not the page <main>) so the section's own background —
+  // not the flat page background — continues behind the dock and safe-area.
+  --mobile-dock-clearance: 5.5rem;
+  position: relative;
+  scroll-margin-top: calc(var(--header-height, 4.5rem) + 1rem);
+  padding: clamp(4rem, 8vw, 7rem) var(--page-gutter-v3, clamp(1.25rem, 4vw, 4.5rem))
+    var(--hub-pad-block-end);
+  overflow: clip;
+  border-top: 1px solid var(--color-border-subtle, rgb(139 171 204 / 12%));
+  // Soft cyan rise from the lower-left dissolves the seam with the section above.
+  background:
+    radial-gradient(
+      120% 90% at 12% 118%,
+      rgb(49 230 208 / 8%),
+      transparent 58%
+    ),
+    linear-gradient(180deg, rgb(139 171 204 / 4%), transparent 22%),
+    var(--color-canvas-void, #03060b);
+  color: var(--color-text-primary, #f3f7fb);
+}
+
+.inner {
+  width: min(100%, 90rem);
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(2.25rem, 5vw, 5rem);
+  align-items: start;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Editorial message area                                                     */
+/* -------------------------------------------------------------------------- */
+
+.editorial {
+  display: grid;
+  gap: 1.15rem;
+  align-content: start;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--color-signal-cyan, #31e6d0);
+  font-family: $mono;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+}
+
+.headline {
+  margin: 0;
+  max-width: 18ch;
+  color: var(--color-text-primary, #f3f7fb);
+  font-size: clamp(2.1rem, 4.4vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.headlineAccent {
+  color: var(--color-signal-cyan, #31e6d0);
+}
+
+.lede {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--color-text-secondary, #a8b6c8);
+  font-size: clamp(1rem, 1.15vw, 1.12rem);
+  line-height: 1.62;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Channel panel: connection core + routed endpoints                          */
+/* -------------------------------------------------------------------------- */
+
+.channel {
+  display: grid;
+  gap: clamp(1rem, 1.6vw, 1.5rem);
+  padding: clamp(1.1rem, 1.9vw, 1.75rem);
+  border: 1px solid var(--color-border-subtle, rgb(139 171 204 / 12%));
+  background:
+    linear-gradient(180deg, rgb(20 34 53 / 34%), rgb(10 18 28 / 16%));
+}
+
+.core {
+  display: grid;
+  gap: 0.9rem;
+  padding-bottom: clamp(0.9rem, 1.4vw, 1.15rem);
+  border-bottom: 1px solid var(--color-border-subtle, rgb(139 171 204 / 12%));
+}
+
+.coreTitle {
+  margin: 0;
+  color: var(--color-text-muted, #6f7f92);
+  font-family: $mono;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+}
+
+.coreMark {
+  color: var(--color-signal-cyan, #31e6d0);
+}
+
+.coreSlash {
+  color: var(--color-border-medium, rgb(139 171 204 / 22%));
+}
+
+.coreReadout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem 1.5rem;
+  margin: 0;
+
+  div {
+    display: grid;
+    grid-template-columns: 4.75rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  dt {
+    color: var(--color-text-muted, #6f7f92);
+    font-family: $mono;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  dd {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+    color: var(--color-text-primary, #f3f7fb);
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+}
+
+.statusDot {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-signal-green, #27c76f);
+  box-shadow: 0 0 0 3px rgb(39 199 111 / 18%);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Endpoints                                                                  */
+/* -------------------------------------------------------------------------- */
+
+.endpoints {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.endpointItem {
+  min-width: 0;
+}
+
+.endpoint {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.85rem;
+  min-block-size: 3.5rem;
+  block-size: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--color-border-subtle, rgb(139 171 204 / 12%));
+  background: rgb(139 171 204 / 3%);
+  color: var(--color-text-primary, #f3f7fb);
+  text-decoration: none;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.port {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  padding-left: 0.85rem;
+}
+
+// Thin "patch cable" route feeding the port node from the panel bus.
+.portRoute {
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 50%;
+  inline-size: 0.75rem;
+  block-size: 1px;
+  transform: translateY(-50%);
+  transform-origin: left center;
+  background: var(--color-border-medium, rgb(139 171 204 / 22%));
+  transition: background-color 180ms ease;
+}
+
+.portNode {
+  display: grid;
+  place-items: center;
+  inline-size: 2.65rem;
+  block-size: 2.65rem;
+  border: 1px solid var(--color-border-medium, rgb(139 171 204 / 22%));
+  background: var(--color-surface-low, #0a121c);
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.icon {
+  inline-size: 1.35rem;
+  block-size: 1.35rem;
+  color: var(--color-text-secondary, #a8b6c8);
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.endpointBody {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.endpointName {
+  color: var(--color-text-primary, #f3f7fb);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.endpointHandle {
+  overflow: hidden;
+  color: var(--color-text-muted, #6f7f92);
+  font-family: $mono;
+  font-size: 0.66rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: color 180ms ease;
+}
+
+.endpointMeta {
+  display: grid;
+  justify-items: end;
+  gap: 0.3rem;
+  align-self: stretch;
+  padding-block: 0.1rem;
+}
+
+.channelTag {
+  color: var(--color-text-muted, #6f7f92);
+  font-family: $mono;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+}
+
+.endpointGlyph {
+  color: var(--color-border-active, rgb(49 230 208 / 52%));
+  font-size: 0.82rem;
+  line-height: 1;
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+// Hover + keyboard focus: illuminate the route, emphasise the icon, brighten
+// the handle. Other endpoints stay fully readable; no layout shift (transform
+// + colour only).
+.endpoint:hover,
+.endpoint:focus-visible {
+  border-color: var(--color-border-active, rgb(49 230 208 / 52%));
+  background: rgb(49 230 208 / 7%);
+  transform: translateY(-1px);
+
+  .portRoute {
+    background: var(--color-signal-cyan, #31e6d0);
+  }
+
+  .portNode {
+    border-color: var(--color-border-active, rgb(49 230 208 / 52%));
+    background: rgb(49 230 208 / 10%);
+    box-shadow: 0 0 0 1px rgb(49 230 208 / 22%), 0 6px 18px rgb(3 6 11 / 45%);
+  }
+
+  .icon {
+    color: var(--color-signal-cyan, #31e6d0);
+    transform: scale(1.06);
+  }
+
+  .endpointHandle {
+    color: var(--color-text-secondary, #a8b6c8);
+  }
+
+  .endpointGlyph {
+    color: var(--color-signal-cyan, #31e6d0);
+    transform: translate(2px, -2px);
+  }
+}
+
+.endpoint:focus-visible {
+  outline: 2px solid var(--color-signal-cyan, #31e6d0);
+  outline-offset: 2px;
+}
+
+// Brief "channel open" acknowledgement on press.
+.endpoint:active {
+  transform: translateY(0);
+
+  .portNode {
+    background: rgb(49 230 208 / 16%);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Final signature                                                            */
+/* -------------------------------------------------------------------------- */
+
+.signature {
+  width: min(100%, 90rem);
+  margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border-subtle, rgb(139 171 204 / 12%));
+  color: var(--color-text-muted, #6f7f92);
+  font-family: $mono;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+}
+
+.signatureName {
+  color: var(--color-text-secondary, #a8b6c8);
+}
+
+.signatureYear {
+  color: var(--color-text-muted, #6f7f92);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Responsive composition                                                     */
+/* -------------------------------------------------------------------------- */
+
+// Wide + standard desktop: asymmetric two-column editorial | channel.
+@media (min-width: 68rem) {
+  .inner {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    align-items: stretch;
+  }
+
+  .channel {
+    align-content: start;
+  }
+}
+
+// Extra breathing room on spacious desktops without going multi-viewport tall.
+@media (min-width: 100rem) {
+  .inner {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.05fr);
+    gap: 6rem;
+  }
+
+  .headline {
+    font-size: clamp(3rem, 3.6vw, 4rem);
+  }
+}
+
+// Tablet (portrait + landscape): single column, endpoints become a 3-wide
+// distribution board so the panel stays wide but not tall.
+@media (min-width: 48rem) and (max-width: 67.99rem) {
+  .endpoints {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .endpoint {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .endpointMeta {
+    display: none;
+  }
+}
+
+// Mobile: deliberate compact 2x3 grid — stacked icon + short label, routes and
+// secondary meta removed for a touch-first composition.
+@media (max-width: 47.99rem) {
+  // The final section carries the dock + safe-area clearance so its atmospheric
+  // background continues behind the floating dock — no flat page-background seam.
+  .hub {
+    padding-bottom: calc(
+      var(--hub-pad-block-end) + var(--mobile-dock-clearance) +
+        env(safe-area-inset-bottom, 0px)
+    );
+  }
+
+  .channel {
+    padding: 1rem;
+  }
+
+  .coreReadout {
+    gap: 0.6rem 1rem;
+
+    div {
+      grid-template-columns: 4.25rem minmax(0, 1fr);
+    }
+  }
+
+  .endpoints {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .endpoint {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 0.5rem;
+    min-block-size: 5rem;
+    padding: 0.85rem 0.6rem;
+    text-align: center;
+  }
+
+  .port {
+    padding-left: 0;
+  }
+
+  .portRoute {
+    display: none;
+  }
+
+  .portNode {
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+  }
+
+  .endpointBody {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .endpointHandle {
+    display: none;
+  }
+
+  .endpointMeta {
+    display: none;
+  }
+}
+
+// Narrow phones: keep the 2x3 grid, tighten the readout to a single column.
+@media (max-width: 22.5rem) {
+  .hub {
+    padding-inline: 1rem;
+  }
+
+  .coreReadout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .endpoint {
+    padding-inline: 0.4rem;
+  }
+
+  .endpointName {
+    font-size: 0.82rem;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Motion — entrance reveal (finite), gated on effective-motion = full        */
+/* -------------------------------------------------------------------------- */
+
+@keyframes hub-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hub-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes route-draw {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) scaleX(1);
+  }
+}
+
+// Pre-reveal: hide only once JS has armed the section, so no-JS renders fully.
+html[data-effective-motion="full"] .hub[data-armed="true"]:not([data-revealed="true"]) {
+  .editorial,
+  .core,
+  .endpointItem,
+  .signature {
+    opacity: 0;
+  }
+
+  .editorial,
+  .core,
+  .endpointItem {
+    transform: translateY(14px);
+  }
+}
+
+html[data-effective-motion="full"] .hub[data-revealed="true"] {
+  .editorial {
+    animation: hub-rise 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .core {
+    animation: hub-rise 560ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+  }
+
+  .endpointItem {
+    animation: hub-rise 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(160ms + var(--endpoint-index, 0) * 60ms);
+  }
+
+  .portRoute {
+    animation: route-draw 720ms ease both;
+    animation-delay: calc(240ms + var(--endpoint-index, 0) * 60ms);
+  }
+
+  .signature {
+    animation: hub-fade 520ms ease 560ms both;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Explicit Reduced motion — everything static and immediately visible        */
+/* -------------------------------------------------------------------------- */
+
+html[data-effective-motion="reduced"] .hub {
+  .editorial,
+  .core,
+  .endpointItem,
+  .signature {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .endpoint,
+  .portRoute,
+  .portNode,
+  .icon,
+  .endpointHandle,
+  .endpointGlyph {
+    transition: none;
+  }
+
+  .portRoute {
+    // Static route stays visible; no draw animation.
+    transform: translateY(-50%) scaleX(1);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Windows High Contrast                                                      */
+/* -------------------------------------------------------------------------- */
+
+@media (forced-colors: active) {
+  .channel,
+  .endpoint,
+  .portNode {
+    border: 1px solid CanvasText;
+  }
+}

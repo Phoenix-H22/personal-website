@@ -897,9 +897,12 @@ $bp-desktop-min: 73.75rem; // 1180px -> side rail eligible
   }
 }
 
-// Bottom content clearance so the fixed dock never covers final content.
+// Bottom dock clearance is owned by the final section itself (the Contact Signal
+// Hub, `#contact`), so the Contact background continues behind the floating dock
+// instead of exposing a flat page-background band here. Keeping this at 0 avoids
+// a doubled tail after the final section.
 .pageMain {
   @media (max-width: 47.99rem) {
-    padding-block-end: calc(env(safe-area-inset-bottom, 0px) + 5.5rem);
+    padding-block-end: 0;
   }
 }

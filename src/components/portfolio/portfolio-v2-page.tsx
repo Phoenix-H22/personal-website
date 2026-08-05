@@ -1,6 +1,7 @@
 import { CareerChapter } from "@/components/concept-v3-rebuild/career/career-chapter";
 import { OriginChapter } from "@/components/concept-v3-rebuild/origin/origin-chapter";
 import { LayoutModeProvider } from "@/components/concept-v3-rebuild/shared/layout-mode-provider";
+import { ContactSignalHub } from "@/components/portfolio/contact/contact-signal-hub";
 import { AdaptiveEngineerHero } from "@/components/portfolio/hero/adaptive-engineer-hero";
 import { PortfolioNavigation } from "@/components/portfolio/navigation/portfolio-navigation";
 import { RecruiterCompletionSections } from "@/components/portfolio/recruiter/recruiter-completion-sections";
@@ -46,6 +47,7 @@ export function PortfolioV2Page() {
             />
             <SystemsObservatorySection />
             <RecruiterCompletionSections />
+            <ContactSignalHub />
           </main>
           <JsonLd
             data={{

@@ -4,7 +4,7 @@ Source priority: (1) explicit owner corrections, (2) `docs/source/Abdalrhman_M_A
 
 Site positioning remains **Backend-Focused Product Engineer** (not the résumé’s “Software Engineer” heading, not older LinkedIn summary language).
 
-Phone numbers from LinkedIn or résumé must **not** be published. Public contact: Email, LinkedIn, GitHub.
+Public contact channels (owner correction, 2026-08-05): Email, LinkedIn, GitHub, Upwork, WhatsApp, and a direct phone line. The phone / WhatsApp number is `+201069683986` (E.164). This supersedes the earlier "do not publish phone" rule and applies to the `/v2` Contact Signal Hub.
 
 Complete experience audit: `docs/portfolio-v3/EXPERIENCE_SOURCE_AUDIT.md`.
 
@@ -21,7 +21,7 @@ Complete experience audit: `docs/portfolio-v3/EXPERIENCE_SOURCE_AUDIT.md`.
 | Email | alkady2019@gmail.com |
 | LinkedIn | https://www.linkedin.com/in/alkady22/ |
 | GitHub | https://github.com/Phoenix-H22/ |
-| Phone | Do not publish on the website |
+| Phone / WhatsApp | +201069683986 (E.164) — published on `/v2` Contact Signal Hub (owner correction 2026-08-05) |
 | Availability | Configurable content object |
 | Mobility | Configurable (remote / relocation) |
 
@@ -127,8 +127,8 @@ Do not dump certificates into the homepage.
 
 ## 7. Contact publication rules
 
-Publish: Email, LinkedIn, GitHub.  
-Do not publish: phone number.  
+Publish channels: Email, LinkedIn, GitHub, Upwork, WhatsApp, and direct phone (`+201069683986`, E.164) — owner correction 2026-08-05. The WhatsApp deep link uses `https://wa.me/201069683986` (leading `+` dropped); the phone uses `tel:+201069683986`.
+
 Résumé PDF: `public/documents/Abdalrhman_Alkady_Resume.pdf` — confirm approved public version.  
 Availability and mobility: content-driven, not hardcoded in components.
 
