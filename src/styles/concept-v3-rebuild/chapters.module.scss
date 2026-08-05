@@ -144,6 +144,18 @@
   line-height: 1.15;
 }
 
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ——— Variant atmospheres ——— */
 .atmosphereOrigin .atmosphereGradient {
   background: radial-gradient(ellipse 70% 45% at 30% 10%, rgb(157 114 255 / 5%), transparent 60%),

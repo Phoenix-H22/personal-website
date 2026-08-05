@@ -27,13 +27,9 @@ export function CareerChapter({
       </p>
       <ChapterMarker index="03" label="Career" />
       <p className={chapStyles.eyebrow}>Professional experience</p>
-      <h2 id="career-heading" className={chapStyles.heading}>
-        Ownership grew with every system.
+      <h2 id="career-heading" className={chapStyles.visuallyHidden}>
+        Career
       </h2>
-      <p className={chapStyles.subheading}>
-        Select a company. Read what was owned there — from early delivery into
-        systems that stay in production.
-      </p>
 
       <CareerReel
         eras={eras}
