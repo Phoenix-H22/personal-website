@@ -105,7 +105,6 @@ export function AdaptiveStackLens({ modes, defaultSlug }: AdaptiveStackLensProps
     isCooldownActive,
     isDocumentVisible,
     isInViewport,
-    isUserPaused,
     pauseAfterManualSelection,
     pauseForFocus,
     pauseForPointer,
@@ -115,7 +114,6 @@ export function AdaptiveStackLens({ modes, defaultSlug }: AdaptiveStackLensProps
     resumeAfterPointer,
     rootRef: autoRotationRootRef,
     shouldRotate,
-    toggleUserPause,
   } = useProjectAutoRotation({
     projectCount: modes.length,
     onRotate: () => {
@@ -165,14 +163,6 @@ export function AdaptiveStackLens({ modes, defaultSlug }: AdaptiveStackLensProps
     dispatch({ type: "preview", index: focusedIndex >= 0 ? focusedIndex : null });
   };
 
-  const rotationStatus = reducedMotion
-    ? "STATIC"
-    : isUserPaused
-      ? "PAUSED"
-      : shouldRotate
-        ? "AUTO"
-        : "HOLD";
-
   return (
     <section
       ref={autoRotationRootRef}
@@ -215,36 +205,6 @@ export function AdaptiveStackLens({ modes, defaultSlug }: AdaptiveStackLensProps
             Commerce, connected devices, local discovery, and automation.
           </p>
         </div>
-        <button
-          type="button"
-          aria-controls="adaptive-stack-lens-readout"
-          aria-label={
-            reducedMotion
-              ? "Project rotation disabled by reduced motion"
-              : isUserPaused
-                ? "Resume project rotation"
-                : "Pause project rotation"
-          }
-          aria-pressed={isUserPaused || reducedMotion}
-          className={styles.rotationToggle}
-          data-rotation-toggle
-          disabled={reducedMotion}
-          onClick={toggleUserPause}
-        >
-          <span className={styles.rotationToggleText} aria-hidden="true">
-            <span>SIGNAL TRANSFER</span>
-            <strong>{rotationStatus}</strong>
-          </span>
-          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-            <path
-              d={
-                isUserPaused || reducedMotion
-                  ? "M5 3.5 12 8l-7 4.5Z"
-                  : "M4.5 3.5h2.5v9H4.5Zm4.5 0h2.5v9H9Z"
-              }
-            />
-          </svg>
-        </button>
       </header>
 
       <div

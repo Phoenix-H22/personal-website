@@ -73,8 +73,9 @@ export function RecruiterBriefDialog({
               type="button"
               className={styles.briefClose}
               onClick={close}
+              aria-label="Close brief"
             >
-              Close brief
+              <span aria-hidden="true">×</span>
             </button>
           </header>
 
@@ -141,12 +142,17 @@ export function RecruiterBriefDialog({
               </ul>
             </section>
 
-            <section aria-labelledby="brief-availability">
+            <section
+              className={styles.briefAvailability}
+              aria-labelledby="brief-availability"
+            >
               <p className={styles.briefIndex}>06 / AVAILABILITY</p>
               <h3 id="brief-availability">Where I can work</h3>
-              <p>{RECRUITER_PROFILE.location}</p>
-              <p>{RECRUITER_PROFILE.availability}</p>
-              <p>{RECRUITER_PROFILE.relocation}</p>
+              <div className={styles.briefAvailabilityMeta}>
+                <p>{RECRUITER_PROFILE.location}</p>
+                <p>{RECRUITER_PROFILE.availability}</p>
+                <p>{RECRUITER_PROFILE.relocation}</p>
+              </div>
             </section>
           </div>
 

@@ -81,7 +81,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: getMotionBootstrapScript() }}
         />
       </head>
-      <body>
+      {/* Browser extensions (e.g. Grammarly) inject attributes onto <body>
+          before hydration; suppress the resulting attribute-mismatch warning. */}
+      <body suppressHydrationWarning>
         <a className="skip-link" href="#main-content">
           Skip to main content
         </a>

@@ -266,7 +266,7 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
     expect(motionSources).not.toMatch(
       /navigator\.(?:userAgent|vendor|brands)|\b(?:Chrome|Chromium|Brave|Edge)\b|Edg\//,
     );
-    expect(lens.match(/<svg\s/g)).toHaveLength(2);
+    expect(lens.match(/<svg\s/g)).toHaveLength(1);
     expect(route.match(/<svg\s/g)).toHaveLength(1);
     expect(lens.match(/<ol\s/g)).toHaveLength(1);
     expect(lens.match(/<article\s/g)).toHaveLength(1);
@@ -277,7 +277,7 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
     expect(packageJson).not.toMatch(/typewriter|typed\.js|textplugin/i);
   });
 
-  it("renders four project controls, one rotation toggle, and one card", async () => {
+  it("renders four project controls and one card", async () => {
     const modes = await selectors.getAdaptiveStackLensProjects();
     const markup = renderToStaticMarkup(
       createElement(
@@ -302,10 +302,8 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
     );
 
     expect(markup.match(/<ol\b/g)).toHaveLength(1);
-    expect(markup.match(/<button\b/g)).toHaveLength(5);
+    expect(markup.match(/<button\b/g)).toHaveLength(4);
     expect(markup.match(/data-lens-context=/g)).toHaveLength(4);
-    expect(markup.match(/data-rotation-toggle="true"/g)).toHaveLength(1);
-    expect(markup).toContain('aria-label="Pause project rotation"');
     expect(markup).toContain('data-auto-rotation="paused"');
     expect(markup).not.toContain("data-rotation-progress");
     expect(markup.match(/data-signal-route="true"/g)).toHaveLength(1);
@@ -511,7 +509,6 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
     expect(lens).toContain("onFocus={() => previewMode(index)}");
     expect(lens).toContain("onClick={() => selectMode(index)}");
     expect(lens).toContain("pauseAfterManualSelection()");
-    expect(lens).toContain("data-rotation-toggle");
     expect(autoRotation).toContain("new IntersectionObserver");
     expect(autoRotation).toContain('document.addEventListener("visibilitychange"');
     expect(autoRotation).toContain("clock.dispose()");
@@ -638,8 +635,10 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
     );
     expect(deck).toContain("href={link.href}");
 
-    // Contact remains the primary CTA, sourced from the profile token.
-    expect(deck).toContain("CONTACT_ACTION.href");
+    // Contact scrolls to the contact section (the last section), wired through
+    // the shared navigate handler like the other section links.
+    expect(deck).toContain('sectionById("contact").href');
+    expect(deck).toContain('onNavigate?.("contact")');
     expect(data).toContain("mailto:");
     expect(data).toContain("RECRUITER_PROFILE.email");
 

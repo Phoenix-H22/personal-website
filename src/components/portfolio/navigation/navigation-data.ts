@@ -66,8 +66,8 @@ export const PORTFOLIO_SECTIONS: readonly PortfolioSection[] = [
   },
   {
     id: "systems",
-    label: "Systems",
-    shortLabel: "Systems",
+    label: "Projects",
+    shortLabel: "Projects",
     href: "#work",
     observeId: "work",
     icon: "systems",

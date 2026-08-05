@@ -51,8 +51,10 @@ export function MobileNavigationDock({
         <li className={styles.dockItem}>
           <a
             className={`${styles.dockLink} ${styles.dockContact}`}
-            href={CONTACT_ACTION.href}
+            href={sectionById("contact").href}
+            aria-current={activeId === "contact" ? "location" : undefined}
             data-active={activeId === "contact" || undefined}
+            onClick={() => onNavigate?.("contact")}
           >
             <NavIcon name={CONTACT_ACTION.icon} className={styles.dockIcon} />
             <span className={styles.dockLabel}>{CONTACT_ACTION.label}</span>

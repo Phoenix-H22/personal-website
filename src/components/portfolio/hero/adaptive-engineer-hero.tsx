@@ -35,24 +35,18 @@ export async function AdaptiveEngineerHero() {
           <div className={styles.narrative} data-hero-narrative>
             <p className={styles.eyebrow}>
               <strong>{ADAPTIVE_HERO_CONTENT.identity}</strong>
-              <span aria-hidden="true">/</span>
-              <span>{ADAPTIVE_HERO_CONTENT.eyebrow}</span>
             </p>
             <h1 id="adaptive-hero-name" className={styles.name}>
               {ADAPTIVE_HERO_CONTENT.name}
             </h1>
-            <p className={styles.statement}>
-              <span>{ADAPTIVE_HERO_CONTENT.statement[0]}</span>
-              <span>{ADAPTIVE_HERO_CONTENT.statement[1]}</span>
-              <span>
-                and ship what <strong>survives production.</strong>
-              </span>
+            {/* Single unified manifesto paragraph — identical copy on desktop
+                and mobile: belief, scope, and AI approach as one flowing thought. */}
+            <p className={styles.manifesto}>
+              {ADAPTIVE_HERO_CONTENT.manifesto.lead}
+              <strong>{ADAPTIVE_HERO_CONTENT.manifesto.accent}</strong>
+              {ADAPTIVE_HERO_CONTENT.manifesto.tail}
             </p>
-            <p className={styles.summary}>{ADAPTIVE_HERO_CONTENT.summary}</p>
             <LivingToolchain />
-            <p className={styles.fundamentals}>
-              {ADAPTIVE_HERO_CONTENT.fundamentals}
-            </p>
 
             <p className={styles.proofRibbon} data-proof-ribbon>
               <strong>{projects.length} PRODUCTION SYSTEMS</strong>
