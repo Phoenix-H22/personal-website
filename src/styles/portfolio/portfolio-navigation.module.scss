@@ -1,0 +1,905 @@
+// Portfolio navigation — Control Deck, section-progress rail, mobile dock.
+// Isolated module: does NOT import or modify the protected Hero stylesheet.
+// Reuses global brand tokens (theme.css @theme) and Hero's shared --header-height
+// envelope (read-only; never redefined here).
+
+// ---- Layer scale (local; the project has no z-index token system) --------------
+// Sits above Hero interactive layers (0–3) and page content, below the global
+// skip link (globals.css .skip-link = 100).
+$z-bridge: 52; // decorative top-atmosphere, behind the deck
+$z-rail: 55;
+$z-deck: 60;
+$z-dock: 60;
+$z-expanded: 70;
+
+// ---- Breakpoints (aligned to the Hero's own rem thresholds) --------------------
+$bp-mobile-max: 47.99rem; // < 768px  -> bottom dock
+$bp-tablet-min: 48rem; //     768px  -> Control Deck (identity collapses)
+$bp-name-min: 75rem; //     1200px -> identity name may appear
+$bp-desktop-min: 73.75rem; // 1180px -> side rail eligible
+
+// Honour the site's effective-motion contract. Reduced behaviour is driven by the
+// authoritative <html data-effective-motion="reduced"> attribute, NOT the raw OS
+// media query (the site intentionally keeps full motion under OS-reduced unless
+// the user explicitly stored "reduced"). This avoids a second motion policy.
+@mixin reduced-motion {
+  :global(html[data-effective-motion="reduced"]) & {
+    @content;
+  }
+}
+
+// =================================================================================
+// Root banner — no box of its own; every surface below is fixed/out of flow.
+// =================================================================================
+.root {
+  display: contents;
+}
+
+// =================================================================================
+// Hero-top atmosphere bridge — decorative continuity so the deck reads as floating
+// over the Hero's world instead of a flat near-black strip. Non-interactive; fully
+// transparent before the Hero content begins (no seam, nothing obscured); fades out
+// once the Hero is left (never a permanent bar over later sections).
+// =================================================================================
+.heroBridge {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  // Exactly the reserved band — no overlap into the Hero, so this layer can never
+  // double the Hero's own glow/grid into a bump at the boundary.
+  block-size: var(--header-height);
+  z-index: $z-bridge; // 52 — below the deck (60)
+  pointer-events: none;
+  // No base fill: the page + Hero backgrounds stay the base. This layer only
+  // continues the Hero's glow + grid up into the band so the band matches the
+  // Hero it floats over.
+  background: transparent;
+  opacity: 0;
+  transition: opacity 260ms ease;
+
+  // The Hero's right side is lit by its own teal radial, so the flat band beside
+  // and behind the deck looks darker — the real cause of the "different
+  // background". Continue that same glow up into the band: same colour, strongest
+  // at the boundary, fading upward, clipped to the band.
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      60% 175% at 82% 118%,
+      rgb(24 91 99 / 13%),
+      transparent 74%
+    );
+    -webkit-mask-image: linear-gradient(to bottom, transparent 8%, #000 52%, #000 100%);
+    mask-image: linear-gradient(to bottom, transparent 8%, #000 52%, #000 100%);
+  }
+
+  // Continue the Hero's grid, skewed around the SAME pivot (its vertical centre)
+  // so the slanted lines land on identical positions and read as one continuous
+  // grid — not a second one. 36px + 50svh == header 72px + half of (100svh - 72).
+  // Meets the Hero grid at the 72px boundary.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 42%; // same right-side region as the Hero grid
+    background-image:
+      linear-gradient(rgb(98 165 176 / 4%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(98 165 176 / 4%) 1px, transparent 1px);
+    background-size: 56px 56px;
+    background-position: 0 16px; // horizontal lines land on the Hero's 72px phase
+    transform: skewX(-7deg) translateX(4%);
+    transform-origin: 50% calc(36px + 50svh);
+    // Hero's own horizontal edge fade, intersected with a band vertical fade-in.
+    -webkit-mask-image:
+      linear-gradient(90deg, transparent, #000 20%, #000 86%, transparent),
+      linear-gradient(to bottom, transparent 6%, #000 38%, #000 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(90deg, transparent, #000 20%, #000 86%, transparent),
+      linear-gradient(to bottom, transparent 6%, #000 38%, #000 100%);
+    mask-composite: intersect;
+  }
+
+  &[data-visible] {
+    opacity: 1;
+  }
+
+  @include reduced-motion {
+    transition: none;
+  }
+  @media print {
+    display: none;
+  }
+}
+
+// The Education anchor is not covered by the Hero module's shared scroll-margin
+// rule; add the same 5rem offset (scoped to the /v2 page, outside protected CSS)
+// so clicking Education lands the section below the floating deck.
+:global([data-portfolio-variant="v2"] #education) {
+  scroll-margin-top: 5rem;
+}
+
+// =================================================================================
+// Control Deck (desktop + tablet top)
+// =================================================================================
+.deck {
+  --deck-top: 0.625rem; // 10px float below viewport top
+  --deck-pad-inline: clamp(0.85rem, 1.1vw, 1.15rem);
+  --deck-gap: clamp(0.75rem, 1.6vw, 1.75rem);
+
+  position: fixed;
+  inset-block-start: var(--deck-top);
+  inset-inline: 0;
+  z-index: $z-deck;
+  margin-inline: auto;
+  width: max-content;
+  max-width: calc(100% - 2 * var(--page-gutter, 1.25rem));
+
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  column-gap: var(--deck-gap);
+  padding: 0.25rem var(--deck-pad-inline);
+  // ~54px tall + 10px top = ~64px, inside the Hero's 68px (tablet) / 72px (desktop)
+  // reserved --header-height band at every breakpoint.
+  min-block-size: 3.25rem;
+
+  color: var(--color-text-primary);
+  font-family: var(--font-geist), system-ui, sans-serif;
+
+  // Dark premium surface — near-opaque, restrained blur (not a glass pill).
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-surface-high) 92%, transparent),
+      color-mix(in srgb, var(--color-canvas-navy) 94%, transparent)
+    );
+  border: 1px solid var(--color-border-medium);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 0 0 color-mix(in srgb, #ffffff 6%, transparent) inset,
+    0 18px 40px -24px rgb(3 6 11 / 82%),
+    0 4px 14px -10px rgb(3 6 11 / 70%);
+  backdrop-filter: blur(12px) saturate(1.08);
+
+  animation: deck-enter 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition:
+    padding 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 320ms ease,
+    border-color 320ms ease,
+    box-shadow 320ms ease;
+
+  @include reduced-motion {
+    animation: none;
+    transition: none;
+  }
+
+  @media print {
+    display: none;
+  }
+
+  // Technical corner ticks — restrained "control module" cue (not a HUD).
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inline-size: 9px;
+    block-size: 9px;
+    border: 1px solid color-mix(in srgb, var(--color-signal-cyan) 42%, transparent);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  &::before {
+    inset-block-start: 5px;
+    inset-inline-start: 5px;
+    border-inline-end: 0;
+    border-block-end: 0;
+    border-start-start-radius: 10px;
+  }
+  &::after {
+    inset-block-end: 5px;
+    inset-inline-end: 5px;
+    border-inline-start: 0;
+    border-block-start: 0;
+    border-end-end-radius: 10px;
+  }
+
+  // Compact (post-Hero) — tighten padding, firm up the surface. Non-reflowing.
+  &[data-compact] {
+    --deck-pad-inline: clamp(0.7rem, 0.9vw, 0.95rem);
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-surface-high) 96%, transparent),
+        color-mix(in srgb, var(--color-canvas-void) 96%, transparent)
+      );
+    box-shadow:
+      0 1px 0 0 color-mix(in srgb, #ffffff 5%, transparent) inset,
+      0 14px 30px -22px rgb(3 6 11 / 88%);
+  }
+}
+
+@keyframes deck-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ---- Identity / wordmark -------------------------------------------------------
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-block-size: 2.75rem; // 44px touch target (home link)
+  padding: 0.3rem 0.5rem 0.3rem 0.4rem;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+// Small cyan signal point — brightens once, never pulses.
+.brandDot {
+  flex: none;
+  inline-size: 0.48rem;
+  block-size: 0.48rem;
+  border-radius: 50%;
+  background: var(--color-signal-cyan);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--color-signal-cyan) 14%, transparent),
+    0 0 9px color-mix(in srgb, var(--color-signal-cyan) 55%, transparent);
+  animation: brand-dot-in 640ms ease both;
+
+  @include reduced-motion {
+    animation: none;
+  }
+}
+
+@keyframes brand-dot-in {
+  0% { opacity: 0; transform: scale(0.4); }
+  60% { opacity: 1; transform: scale(1.18); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.brandIdentity {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.06rem;
+  min-inline-size: 0;
+}
+
+.brandWordmark {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.brandAccent {
+  color: var(--color-signal-cyan);
+}
+
+.brand:hover .brandWordmark {
+  color: var(--color-text-primary);
+}
+
+// Technical role kicker — wide desktop only, hidden in compact/tablet/mobile.
+// The hidden state collapses BOTH axes so it reserves no width (a 0-height-only
+// collapse would keep the deck too wide and clip Contact on tablet).
+.brandSubtitle {
+  max-block-size: 1rem;
+  max-inline-size: 22rem;
+  overflow: hidden;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  opacity: 1;
+  transition:
+    max-block-size 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    max-inline-size 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease;
+
+  @include reduced-motion {
+    transition: none;
+  }
+}
+
+@media (max-width: 89.99rem) {
+  .brandSubtitle {
+    max-block-size: 0;
+    max-inline-size: 0;
+    opacity: 0;
+  }
+}
+.deck[data-compact] .brandSubtitle {
+  max-block-size: 0;
+  max-inline-size: 0;
+  opacity: 0;
+}
+
+// ---- Primary links + shared signal route ---------------------------------------
+.deckNav {
+  justify-self: center;
+}
+
+.deckNavTrack {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--deck-count, 3), 1fr);
+  align-items: stretch;
+}
+
+.deckLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42rem;
+  min-block-size: 2.75rem; // 44px touch target
+  padding: 0.3rem 0.8rem 0.42rem; // extra block-end room for the route
+  border-radius: 9px;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+
+  @include reduced-motion {
+    transition: none;
+  }
+
+  &:hover {
+    color: var(--color-text-primary);
+    background: color-mix(in srgb, var(--color-surface-focus) 50%, transparent);
+  }
+  &:hover .deckLinkIcon {
+    transform: translateY(-1px);
+    color: var(--color-text-secondary);
+  }
+
+  &[data-active] {
+    color: var(--color-text-primary);
+  }
+  &[data-active] .deckLinkIcon {
+    color: var(--color-signal-cyan);
+  }
+  &[data-active] .deckLinkLabel {
+    font-weight: 600;
+  }
+}
+
+.deckLinkIcon {
+  flex: none;
+  inline-size: 0.98rem;
+  block-size: 0.98rem;
+  color: var(--color-text-muted);
+  transition:
+    color 180ms ease,
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  @include reduced-motion {
+    transition: none;
+  }
+}
+
+.deckLinkLabel {
+  font-size: 0.9rem; // 14.4px
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+}
+
+// Muted baseline of the signal route (fades in once, then static).
+.deckRoute {
+  position: absolute;
+  inset-inline: 0.3rem;
+  inset-block-end: 0.28rem;
+  block-size: 1px;
+  border-radius: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-border-medium) 16%,
+    var(--color-border-medium) 84%,
+    transparent
+  );
+  opacity: 0;
+  animation: route-in 560ms ease 200ms both;
+  pointer-events: none;
+
+  @include reduced-motion {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@keyframes route-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// Luminous active signal point — moves along the route using transform only.
+.deckIndicator {
+  position: absolute;
+  inset-block-end: 0.28rem;
+  inset-inline-start: 0;
+  inline-size: calc(100% / var(--deck-count, 3));
+  block-size: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(calc(var(--deck-active, 0) * 100%)) translateY(0.5px);
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms ease;
+  pointer-events: none;
+
+  &::before {
+    content: "";
+    inline-size: 1.7rem;
+    block-size: 2px;
+    border-radius: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-signal-cyan) 22%,
+      var(--color-signal-cyan) 78%,
+      transparent
+    );
+    box-shadow: 0 0 10px color-mix(in srgb, var(--color-signal-cyan) 60%, transparent);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inline-size: 5px;
+    block-size: 5px;
+    border-radius: 50%;
+    background: var(--color-signal-cyan);
+    box-shadow: 0 0 9px 1px color-mix(in srgb, var(--color-signal-cyan) 70%, transparent);
+  }
+
+  @include reduced-motion {
+    transition: opacity 1ms;
+  }
+}
+
+.deckNavTrack[data-has-active] .deckIndicator {
+  opacity: 1;
+}
+
+// ---- Contact CTA ---------------------------------------------------------------
+.contact {
+  --contact-accent: var(--color-signal-cyan);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-block-size: 2.75rem; // 44px touch target
+  padding: 0.4rem 0.95rem;
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-canvas-void);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--contact-accent) 96%, #ffffff 4%),
+    var(--contact-accent)
+  );
+  border: 1px solid color-mix(in srgb, var(--contact-accent) 70%, #000000);
+  box-shadow: 0 6px 18px -12px color-mix(in srgb, var(--contact-accent) 70%, transparent);
+  transition:
+    transform 160ms ease,
+    box-shadow 200ms ease,
+    filter 200ms ease;
+
+  @include reduced-motion {
+    transition: none;
+  }
+
+  // Restrained signal sweep on hover/focus (no continuous motion).
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      transparent 20%,
+      color-mix(in srgb, #ffffff 45%, transparent) 48%,
+      transparent 76%
+    );
+    transform: translateX(-120%);
+    transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    filter: brightness(1.04);
+    box-shadow: 0 8px 22px -12px color-mix(in srgb, var(--contact-accent) 82%, transparent);
+  }
+  &:hover::after,
+  &:focus-visible::after {
+    transform: translateX(120%);
+  }
+
+  @include reduced-motion {
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.contactIcon {
+  flex: none;
+  inline-size: 0.95rem;
+  block-size: 0.95rem;
+}
+
+// Active treatment when the contact section is physically in view.
+.contact[data-active] {
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--contact-accent) 24%, transparent),
+    0 8px 22px -12px color-mix(in srgb, var(--contact-accent) 82%, transparent);
+}
+
+// ---- Shared focus-visible (readable over the translucent deck) ------------------
+.brand:focus-visible,
+.deckLink:focus-visible,
+.contact:focus-visible {
+  outline: 2px solid var(--color-signal-cyan);
+  outline-offset: 3px;
+}
+
+// Tighten the deck across the tablet band (narrowest at 768px) so the wordmark +
+// three icon links + Contact fit without clipping.
+@media (min-width: 48rem) and (max-width: 68.6875rem) {
+  .deck {
+    --deck-gap: clamp(0.5rem, 1vw, 0.85rem);
+    --deck-pad-inline: 0.72rem;
+  }
+  .deckLink {
+    padding-inline: 0.62rem;
+  }
+}
+
+// =================================================================================
+// Side section-progress rail (desktop only, appears after leaving the Hero)
+// =================================================================================
+.rail {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: clamp(0.9rem, 1.4vw, 1.6rem);
+  margin-block: auto;
+  block-size: max-content;
+  z-index: $z-rail;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition:
+    opacity 300ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 320ms;
+
+  // Desktop-only; a fixed overlay that never reduces layout width.
+  @media (max-width: 73.74rem) {
+    display: none;
+  }
+  @media print {
+    display: none;
+  }
+
+  &[data-visible] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    transition:
+      opacity 300ms ease,
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s;
+  }
+
+  @include reduced-motion {
+    transform: none;
+    transition: visibility 0s;
+    &[data-visible] {
+      transform: none;
+      transition: visibility 0s;
+    }
+  }
+}
+
+.railList {
+  --rail-line-inset: 0.66rem; // dot centre from the right edge of the column
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.15rem;
+  margin: 0;
+  padding: 0.4rem 0;
+  list-style: none;
+
+  // Connector + progress fill, aligned to the dot column.
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline-end: var(--rail-line-inset);
+    inline-size: 1.5px;
+    transform: translateX(50%);
+    border-radius: 2px;
+  }
+  &::before {
+    inset-block: 0.75rem;
+    background: var(--color-border-medium);
+  }
+  &::after {
+    inset-block-start: 0.75rem;
+    block-size: calc((100% - 1.5rem) * var(--rail-progress, 0));
+    background: color-mix(in srgb, var(--color-signal-cyan) 55%, transparent);
+    transition: block-size 320ms cubic-bezier(0.22, 1, 0.36, 1);
+
+    @include reduced-motion {
+      transition: none;
+    }
+  }
+}
+
+.railItem {
+  margin: 0;
+}
+
+.railNode {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.4rem 0.35rem;
+  border-radius: 8px;
+  text-decoration: none;
+  outline: none;
+}
+
+.railLabel {
+  position: absolute;
+  inset-inline-end: calc(100% + 0.1rem);
+  top: 50%;
+  transform: translate(6px, -50%);
+  white-space: nowrap;
+  padding: 0.22rem 0.55rem;
+  border-radius: 7px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  color: var(--color-text-primary);
+  background: color-mix(in srgb, var(--color-surface-high) 95%, transparent);
+  border: 1px solid var(--color-border-medium);
+  box-shadow: 0 10px 24px -16px rgb(3 6 11 / 92%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 160ms ease,
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  @include reduced-motion {
+    transition: none;
+  }
+}
+
+.railDot {
+  inline-size: 0.62rem;
+  block-size: 0.62rem;
+  border-radius: 50%;
+  background: var(--color-canvas-navy);
+  border: 1.5px solid var(--color-border-medium);
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    box-shadow 200ms ease;
+
+  @include reduced-motion {
+    transition: none;
+  }
+}
+
+.railNode:hover .railDot {
+  border-color: color-mix(in srgb, var(--color-signal-cyan) 60%, transparent);
+}
+
+.railNode:hover .railLabel,
+.railNode:focus-visible .railLabel {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+.railNode[data-active] .railDot {
+  background: var(--color-signal-cyan);
+  border-color: var(--color-signal-cyan);
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--color-signal-cyan) 16%, transparent),
+    0 0 10px color-mix(in srgb, var(--color-signal-cyan) 55%, transparent);
+}
+
+.railNode:focus-visible {
+  outline: 2px solid var(--color-signal-cyan);
+  outline-offset: 2px;
+}
+
+// =================================================================================
+// Mobile: Control Deck collapses to a compact identity chip (top-left).
+// Section links + Contact move to the bottom dock (added in a later phase).
+// =================================================================================
+@media (max-width: 47.99rem) {
+  .deck {
+    --deck-top: 0.6rem;
+    inset-inline: 0.9rem auto; // pin left; no longer centered
+    margin-inline: 0;
+    grid-template-columns: auto;
+    min-block-size: 2.75rem;
+    padding: 0.15rem 0.55rem;
+  }
+
+  .deckNav,
+  .contact {
+    display: none;
+  }
+}
+
+// =================================================================================
+// Mobile bottom dock (< 768px) — replaces the desktop Control Deck.
+// =================================================================================
+.dock {
+  position: fixed;
+  inset-inline: 0.75rem;
+  inset-block-end: calc(env(safe-area-inset-bottom, 0px) + 0.6rem);
+  margin-inline: auto;
+  max-inline-size: 30rem;
+  z-index: $z-dock;
+
+  padding: 0.35rem 0.4rem;
+  border-radius: 18px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-surface-high) 94%, transparent),
+    color-mix(in srgb, var(--color-canvas-void) 96%, transparent)
+  );
+  border: 1px solid var(--color-border-medium);
+  box-shadow:
+    0 1px 0 0 color-mix(in srgb, #ffffff 5%, transparent) inset,
+    0 -10px 28px -20px rgb(3 6 11 / 88%),
+    0 12px 30px -18px rgb(3 6 11 / 82%);
+  backdrop-filter: blur(14px) saturate(1.08);
+
+  animation: dock-enter 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  // The Control Deck owns tablet + desktop.
+  @media (min-width: 48rem) {
+    display: none;
+  }
+  @media print {
+    display: none;
+  }
+  @include reduced-motion {
+    animation: none;
+  }
+}
+
+@keyframes dock-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dockList {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dockItem {
+  margin: 0;
+}
+
+.dockLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  min-block-size: 3.25rem; // 52px touch target
+  padding: 0.4rem 0.2rem;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  @include reduced-motion {
+    transition: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-signal-cyan);
+    outline-offset: 2px;
+  }
+
+  &[data-active] {
+    color: var(--color-text-primary);
+    transform: translateY(-2px);
+  }
+}
+
+.dockIcon {
+  flex: none;
+  inline-size: 1.12rem; // ~18px
+  block-size: 1.12rem;
+  color: var(--color-text-muted);
+  transition:
+    color 180ms ease,
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  @include reduced-motion {
+    transition: none;
+  }
+}
+
+.dockLink[data-active] .dockIcon {
+  color: var(--color-signal-cyan);
+}
+
+.dockLabel {
+  font-size: 0.75rem; // 12px
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+// Contact CTA in the dock — accent-forward.
+.dockContact {
+  color: var(--color-signal-cyan);
+
+  .dockIcon {
+    color: var(--color-signal-cyan);
+  }
+  &[data-active] {
+    background: color-mix(in srgb, var(--color-signal-cyan) 12%, transparent);
+  }
+}
+
+// Bottom content clearance so the fixed dock never covers final content.
+.pageMain {
+  @media (max-width: 47.99rem) {
+    padding-block-end: calc(env(safe-area-inset-bottom, 0px) + 5.5rem);
+  }
+}

@@ -615,20 +615,39 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
     }
   });
 
-  it("implements the accessible sticky Blueprint Tabs navigation model", () => {
-    const navigation = readSource(
-      "src/components/portfolio/hero/adaptive-hero-nav.tsx",
+  it("implements the accessible portfolio Control Deck navigation model", () => {
+    const root = readSource(
+      "src/components/portfolio/navigation/portfolio-navigation.tsx",
     );
-    expect(navigation).toContain('aria-current={active ? "location" : undefined}');
-    expect(navigation).toContain('event.key === "Escape"');
-    expect(navigation).toContain('event.key !== "Tab"');
-    expect(navigation).toContain('document.body.style.overflow = "hidden"');
-    expect(navigation).toContain("triggerRef.current?.focus");
-    expect(navigation).toContain('{open ? "CLOSE" : "MENU"}');
-    expect(navigation).toContain("CONTACT");
-    expect(navigation).not.toMatch(
-      /SYSTEM RAIL|SIGNAL CONSOLE|NAV \/ 04|MENU \/ 04|START A CONVERSATION|WORK WITH ME/,
+    const deck = readSource(
+      "src/components/portfolio/navigation/portfolio-control-deck.tsx",
     );
+    const data = readSource(
+      "src/components/portfolio/navigation/navigation-data.ts",
+    );
+
+    // Semantic banner + runtime marker used by the QA/preflight harness.
+    expect(root).toContain("<header");
+    expect(root).toContain("data-portfolio-navigation");
+
+    // Primary navigation is a real <nav> of real anchors exposing active state.
+    expect(deck).toContain("<nav");
+    expect(deck).toContain('aria-label="Primary"');
+    expect(deck).toContain(
+      'aria-current={activeId === link.id ? "location" : undefined}',
+    );
+    expect(deck).toContain("href={link.href}");
+
+    // Contact remains the primary CTA, sourced from the profile token.
+    expect(deck).toContain("CONTACT_ACTION.href");
+    expect(data).toContain("mailto:");
+    expect(data).toContain("RECRUITER_PROFILE.email");
+
+    // Verified section anchors preserved — no invented or broken anchors.
+    expect(data).toContain('href: "#experience"');
+    expect(data).toContain('href: "#work"');
+    expect(data).toContain('href: "#contact"');
+    expect(data).toContain('href: "#main-content"');
   });
 
   it("preserves root, protected sections, canonical data, and approved media", () => {

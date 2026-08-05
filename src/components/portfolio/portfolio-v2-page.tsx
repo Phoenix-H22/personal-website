@@ -2,7 +2,7 @@ import { CareerChapter } from "@/components/concept-v3-rebuild/career/career-cha
 import { OriginChapter } from "@/components/concept-v3-rebuild/origin/origin-chapter";
 import { LayoutModeProvider } from "@/components/concept-v3-rebuild/shared/layout-mode-provider";
 import { AdaptiveEngineerHero } from "@/components/portfolio/hero/adaptive-engineer-hero";
-import { AdaptiveHeroNav } from "@/components/portfolio/hero/adaptive-hero-nav";
+import { PortfolioNavigation } from "@/components/portfolio/navigation/portfolio-navigation";
 import { RecruiterCompletionSections } from "@/components/portfolio/recruiter/recruiter-completion-sections";
 import { SystemsObservatorySection } from "@/components/portfolio/systems-observatory/systems-observatory-section";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -16,6 +16,7 @@ import { getSiteUrl } from "@/lib/metadata/site";
 import { MotionPreferenceProvider } from "@/lib/motion-preference-context";
 import { RECRUITER_PROFILE } from "@/lib/portfolio/recruiter-profile";
 import styles from "@/styles/portfolio/adaptive-engineer-hero.module.scss";
+import navigationStyles from "@/styles/portfolio/portfolio-navigation.module.scss";
 import "@/styles/concept-v3-rebuild/responsive-tokens.scss";
 
 export function PortfolioV2Page() {
@@ -34,8 +35,8 @@ export function PortfolioV2Page() {
       />
       <LayoutModeProvider>
         <div className={styles.page} data-portfolio-variant="v2">
-          <AdaptiveHeroNav />
-          <main id="main-content">
+          <PortfolioNavigation />
+          <main id="main-content" className={navigationStyles.pageMain}>
             <AdaptiveEngineerHero />
             <OriginChapter education={education} />
             <CareerChapter
