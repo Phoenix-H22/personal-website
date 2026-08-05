@@ -680,7 +680,7 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
       observatorySection: "b7ffe233ab27b861f0d358531fabb869423ff452",
       observatoryConfig: "88c79804f2bdcbf70f37f28a125c9638a52adc76",
       completion: "89cdece16e8aa3fa879fb247c09cedbdd6c52e65",
-      work: "d58f190dd0b1b3d2ac216cc8b0ac9e8a7360df0b",
+      work: "c9fa9b91f0afdaf6ec3fc3f98064ab966e298449",
       caseStudy: "e6dc0528417b6f7461ecff5853f9d1213fb1ea22",
       canonical: "e45a32f64ed28a35e9694ca0c7359d91a0a1e628",
       media: "3b64be01228ceb8690e255023945c8bcf2878290",

@@ -1,0 +1,6 @@
+node_modules/
+out/
+install.log
+render.log
+render4k.log
+.DS_Store
