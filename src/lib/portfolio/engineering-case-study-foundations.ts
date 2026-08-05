@@ -107,7 +107,7 @@ export const ENGINEERING_CASE_STUDY_FOUNDATIONS = {
   },
   "smart-lockers-platform": {
     slug: "smart-lockers-platform",
-    title: "Smart Medication Lockers",
+    title: "Smart Lockers",
     systemInOneSentence: confirmed(
       "A payment-to-device command system where a backend decision opens a physical locker.",
     ),

@@ -228,7 +228,7 @@ export const projects: Project[] = [
   {
     slug: "smart-vending-medication-dispensing",
     index: "03",
-    title: "Smart Vending / Medication Dispensing Platform",
+    title: "Smart Vending / Dispensing Platform",
     proposition:
       "An API-driven medication-dispensing platform connecting dashboards, QR flows, payments, machine controllers, and real-world dispensing actions.",
     summary:
