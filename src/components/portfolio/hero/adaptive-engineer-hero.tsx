@@ -1,4 +1,5 @@
 import { AdaptiveStackLens } from "@/components/portfolio/hero/adaptive-stack-lens";
+import { HeroPromoVideo } from "@/components/portfolio/hero/hero-promo-video";
 import { LivingToolchain } from "@/components/portfolio/hero/living-toolchain";
 import { RecruiterBriefSection } from "@/components/portfolio/recruiter/recruiter-brief-section";
 import { ADAPTIVE_HERO_CONTENT } from "@/lib/portfolio/adaptive-hero";
@@ -82,10 +83,14 @@ export async function AdaptiveEngineerHero() {
             </nav>
           </div>
 
-          <AdaptiveStackLens
-            modes={lensModes}
-            defaultSlug={DEFAULT_ADAPTIVE_STACK_LENS_SLUG}
-          />
+          {/* Right column: promo video. The original Adaptive Stack Lens is
+              kept mounted (styles + animation untouched) but hidden behind it. */}
+          <HeroPromoVideo>
+            <AdaptiveStackLens
+              modes={lensModes}
+              defaultSlug={DEFAULT_ADAPTIVE_STACK_LENS_SLUG}
+            />
+          </HeroPromoVideo>
         </div>
       </div>
     </section>

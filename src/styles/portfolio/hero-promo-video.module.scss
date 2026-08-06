@@ -1,0 +1,786 @@
+// Hero promo video — occupies the right column of the hero composition in place
+// of the (now hidden) Adaptive Stack Lens. Self-contained module so the hero's
+// own stylesheet stays untouched.
+
+.root {
+  --promo-accent: var(--hero-accent, #31e6d0);
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-width: 0;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+// The original hero artifact is kept mounted (its styles + animation are never
+// touched); it is simply made invisible and non-interactive behind the video.
+.lensHidden {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.frame {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid rgb(104 158 169 / 30%);
+  border-radius: 1rem;
+  background: #05070d;
+  box-shadow:
+    0 28px 70px -30px rgb(0 0 0 / 80%),
+    0 0 0 1px rgb(3 6 11 / 40%),
+    inset 0 0 60px rgb(3 10 14 / 60%);
+}
+
+.trigger {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+}
+
+.preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1), filter 400ms ease;
+  filter: saturate(1.02);
+}
+
+.frame:hover .preview,
+.trigger:focus-visible .preview {
+  transform: scale(1.06);
+}
+
+// Legibility + cinematic grade.
+.shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(200deg, rgb(3 6 11 / 0%) 45%, rgb(3 6 11 / 55%)),
+    radial-gradient(120% 90% at 50% 30%, transparent 55%, rgb(3 6 11 / 45%));
+}
+
+// A slow diagonal light sheen — calm motion that draws the eye.
+.sheen {
+  position: absolute;
+  inset: -40%;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgb(49 230 208 / 8%) 48%,
+    transparent 56%
+  );
+  animation: promo-sheen 7s ease-in-out infinite;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 3%) 0 1px,
+    transparent 1px 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+.playBadge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  display: grid;
+  place-items: center;
+  width: clamp(3.25rem, 6vw, 4.25rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgb(49 230 208 / 55%);
+  background: rgb(3 6 11 / 55%);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 0 8px rgb(49 230 208 / 6%), 0 10px 30px rgb(0 0 0 / 55%);
+  color: var(--promo-accent);
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), background 260ms ease,
+    box-shadow 260ms ease;
+}
+
+.frame:hover .playBadge,
+.trigger:focus-visible .playBadge {
+  transform: translate(0, 0) scale(1.08);
+  background: rgb(3 6 11 / 40%);
+  box-shadow: 0 0 0 12px rgb(49 230 208 / 8%), 0 12px 34px rgb(0 0 0 / 60%);
+}
+
+.playIcon {
+  margin-left: 0.15em;
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  line-height: 1;
+}
+
+.meta {
+  position: absolute;
+  left: 0.85rem;
+  right: 0.85rem;
+  top: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: none;
+  color: #b8c7d3;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.metaDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--promo-accent);
+  box-shadow: 0 0 8px var(--promo-accent);
+  animation: promo-pulse 2.6s ease-in-out infinite;
+}
+
+.metaSpacer {
+  flex: 1;
+  height: 1px;
+  background: rgb(139 171 204 / 20%);
+}
+
+// Corner ticks — restrained "viewport" cue.
+.tick {
+  position: absolute;
+  width: 0.85rem;
+  height: 0.85rem;
+  pointer-events: none;
+  border-color: rgb(49 230 208 / 55%);
+}
+
+.tickTL {
+  left: 0.6rem;
+  top: 0.6rem;
+  border-left: 1px solid;
+  border-top: 1px solid;
+}
+
+.tickTR {
+  right: 0.6rem;
+  top: 0.6rem;
+  border-right: 1px solid;
+  border-top: 1px solid;
+}
+
+.tickBL {
+  left: 0.6rem;
+  bottom: 0.6rem;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.tickBR {
+  right: 0.6rem;
+  bottom: 0.6rem;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+// Floating invite — the calm attention-grabber.
+.pill {
+  position: absolute;
+  left: 0.9rem;
+  bottom: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  max-width: calc(100% - 1.8rem);
+  padding: 0.6rem 0.85rem;
+  border: 1px solid rgb(49 230 208 / 45%);
+  border-radius: 0.75rem;
+  background: linear-gradient(180deg, rgb(6 20 24 / 88%), rgb(3 6 11 / 88%));
+  backdrop-filter: blur(8px);
+  box-shadow: 0 14px 34px -18px rgb(0 0 0 / 85%), 0 0 24px rgb(49 230 208 / 12%);
+  text-align: left;
+  pointer-events: none;
+  animation: promo-float 4.5s ease-in-out infinite;
+}
+
+.pillPulse {
+  position: relative;
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--promo-accent);
+  box-shadow: 0 0 10px var(--promo-accent);
+}
+
+.pillPulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--promo-accent);
+  animation: promo-ping 2.4s ease-out infinite;
+}
+
+.pillText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.pillLead {
+  color: #f2f7f8;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.pillSub {
+  color: var(--promo-accent);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.frame:hover .pill,
+.trigger:focus-visible ~ .pill {
+  border-color: rgb(49 230 208 / 70%);
+  box-shadow: 0 16px 40px -18px rgb(0 0 0 / 90%), 0 0 30px rgb(49 230 208 / 18%);
+}
+
+.caption {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #7d93a3;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.captionLine {
+  flex: 1;
+  height: 1px;
+  background: rgb(139 171 204 / 16%);
+}
+
+// ---- Modal ------------------------------------------------------------------
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  padding: clamp(0.75rem, 3vw, 2.5rem);
+}
+
+// Real scrim (works even where backdrop-filter is unsupported/disabled) plus a
+// blur where available — hides the page so the modal never looks like it is
+// floating over live content.
+.backdrop {
+  position: fixed;
+  inset: 0;
+  border: none;
+  background: rgb(2 5 9 / 72%);
+  backdrop-filter: blur(16px) saturate(1.05);
+  cursor: pointer;
+  animation: promo-fade 0.25s ease;
+}
+
+// A designed player card that frames the video.
+.dialog {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  max-width: min(72rem, 90vw);
+  padding: 0.55rem;
+  border: 1px solid rgb(104 158 169 / 34%);
+  border-radius: 1.15rem;
+  background: linear-gradient(180deg, rgb(8 16 22 / 96%), rgb(3 6 11 / 97%));
+  box-shadow:
+    0 44px 120px -40px rgb(0 0 0 / 85%),
+    0 0 60px -22px rgb(49 230 208 / 22%),
+    inset 0 0 60px rgb(6 20 24 / 40%);
+  animation: promo-rise 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.playerHead {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0.45rem 0.55rem;
+}
+
+.headDot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--promo-accent);
+  box-shadow: 0 0 8px var(--promo-accent);
+  animation: promo-pulse 2.6s ease-in-out infinite;
+}
+
+.headLabel {
+  color: #b8c7d3;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.headSpacer {
+  flex: 1;
+  height: 1px;
+  background: rgb(139 171 204 / 16%);
+}
+
+.close {
+  flex: none;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgb(139 171 204 / 36%);
+  border-radius: 0.5rem;
+  background: rgb(3 6 11 / 55%);
+  color: #eef4f8;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.close:hover {
+  border-color: rgb(49 230 208 / 60%);
+  background: rgb(6 20 24 / 70%);
+  color: var(--promo-accent);
+}
+
+.videoWrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.8rem;
+  border: 1px solid rgb(139 171 204 / 12%);
+  background: #000;
+}
+
+// Scale to the video's own 16:9 ratio while always fitting inside the viewport
+// (width and height are both capped; the smaller cap wins). No forced ratio.
+// ---- Custom player ----------------------------------------------------------
+
+.player {
+  position: relative;
+  display: block;
+  line-height: 0;
+  background: #000;
+}
+
+// Height is capped to the space left after the card header + all paddings so
+// the whole card (and the video's own bottom) always fits the viewport.
+.playerVideo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(70rem, 88vw);
+  max-height: calc(100vh - 9rem);
+  background: #000;
+  cursor: pointer;
+}
+
+.player:fullscreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.player:fullscreen .playerVideo {
+  max-width: 100vw;
+  max-height: 100vh;
+  cursor: default;
+}
+
+.player[data-controls="false"] {
+  cursor: none;
+}
+
+.bigPlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.bigPlay[data-visible="true"] {
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.bigPlayIcon {
+  display: grid;
+  place-items: center;
+  width: clamp(3rem, 6vw, 4.25rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgb(49 230 208 / 55%);
+  background: rgb(3 6 11 / 55%);
+  backdrop-filter: blur(6px);
+  color: var(--promo-accent);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  line-height: 0;
+  box-shadow: 0 0 0 8px rgb(49 230 208 / 6%), 0 10px 30px rgb(0 0 0 / 55%);
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bigPlay:hover .bigPlayIcon {
+  transform: scale(1.08);
+}
+
+.controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.75rem 0.85rem 0.7rem;
+  line-height: normal;
+  background: linear-gradient(
+    to top,
+    rgb(3 6 11 / 90%) 8%,
+    rgb(3 6 11 / 45%) 55%,
+    transparent
+  );
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.controls[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 14px;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.progress::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 2px;
+  background: rgb(139 171 204 / 22%);
+  transition: height 140ms ease;
+}
+
+.progress:hover::before,
+.progress:focus-visible::before {
+  height: 6px;
+}
+
+.progressBuffered,
+.progressPlayed {
+  position: absolute;
+  left: 0;
+  height: 4px;
+  border-radius: 2px;
+  transition: height 140ms ease;
+}
+
+.progress:hover .progressBuffered,
+.progress:hover .progressPlayed {
+  height: 6px;
+}
+
+.progressBuffered {
+  width: calc(var(--buffered, 0) * 100%);
+  background: rgb(139 171 204 / 34%);
+}
+
+.progressPlayed {
+  width: calc(var(--played, 0) * 100%);
+  background: var(--promo-accent);
+  box-shadow: 0 0 8px rgb(49 230 208 / 45%);
+}
+
+.progressThumb {
+  position: absolute;
+  left: calc(var(--played, 0) * 100%);
+  width: 12px;
+  height: 12px;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: var(--promo-accent);
+  box-shadow: 0 0 10px rgb(49 230 208 / 70%);
+  transform: scale(0);
+  transition: transform 160ms ease;
+}
+
+.progress:hover .progressThumb,
+.progress:focus-visible .progressThumb,
+.progress:active .progressThumb {
+  transform: scale(1);
+}
+
+.controlsRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #dbe6ee;
+}
+
+.ctrlBtn {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.45rem;
+  background: transparent;
+  color: #dbe6ee;
+  font-size: 1.15rem;
+  line-height: 0;
+  cursor: pointer;
+  transition: color 150ms ease, background 150ms ease;
+}
+
+.ctrlBtn:hover {
+  color: var(--promo-accent);
+  background: rgb(49 230 208 / 12%);
+}
+
+.volumeGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+// Revealed on hover/focus of the speaker. Built from divs (like the seek bar)
+// so it renders reliably: a clearly visible light track, accent fill, and a
+// bright thumb.
+.volumeBar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 0;
+  height: 14px;
+  opacity: 0;
+  cursor: pointer;
+  touch-action: none;
+  transition: width 220ms ease, opacity 220ms ease;
+}
+
+.volumeGroup:hover .volumeBar,
+.volumeGroup:focus-within .volumeBar {
+  width: 4.75rem;
+  opacity: 1;
+}
+
+.volumeBar::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 5px;
+  border-radius: 3px;
+  background: rgb(198 214 227 / 55%);
+}
+
+.volumeFill {
+  position: absolute;
+  left: 0;
+  height: 5px;
+  width: calc(var(--vol, 1) * 100%);
+  border-radius: 3px;
+  background: var(--promo-accent);
+  box-shadow: 0 0 6px rgb(49 230 208 / 45%);
+}
+
+.volumeThumb {
+  position: absolute;
+  left: calc(var(--vol, 1) * 100%);
+  width: 12px;
+  height: 12px;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: #eafffb;
+  box-shadow: 0 0 0 3px rgb(49 230 208 / 30%), 0 0 8px rgb(49 230 208 / 60%);
+}
+
+.time {
+  color: #b8c7d3;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.timeSep {
+  margin: 0 0.15rem;
+  color: #5b7382;
+}
+
+.controlsSpacer {
+  flex: 1;
+}
+
+.mtick {
+  position: absolute;
+  z-index: 1;
+  width: 0.9rem;
+  height: 0.9rem;
+  pointer-events: none;
+  border-color: rgb(49 230 208 / 45%);
+}
+
+.mtickTL {
+  left: 0.5rem;
+  top: 0.5rem;
+  border-left: 1px solid;
+  border-top: 1px solid;
+}
+
+.mtickTR {
+  right: 0.5rem;
+  top: 0.5rem;
+  border-right: 1px solid;
+  border-top: 1px solid;
+}
+
+.mtickBL {
+  left: 0.5rem;
+  bottom: 0.5rem;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.mtickBR {
+  right: 0.5rem;
+  bottom: 0.5rem;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+@keyframes promo-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes promo-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes promo-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+@keyframes promo-sheen {
+  0%,
+  100% {
+    transform: translateX(-12%);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(12%);
+    opacity: 1;
+  }
+}
+
+@keyframes promo-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes promo-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheen,
+  .pill,
+  .metaDot,
+  .pillPulse::after {
+    animation: none;
+  }
+  .preview {
+    transition: none;
+  }
+}
