@@ -70,6 +70,6 @@ describe("route-oriented project selectors", () => {
     expect(variants).toMatch(/current:[\s\S]*showSystemsExhibition:\s*false/);
     expect(variants).toMatch(/v2:[\s\S]*showSystemsExhibition:\s*true/);
     expect(page).toMatch(/SystemsObservatorySection/);
-    expect(fs.existsSync(path.join(root, "src", "app", "v2", "work"))).toBe(true);
+    expect(fs.existsSync(path.join(root, "src", "app", "projects"))).toBe(true);
   });
 });

@@ -261,8 +261,8 @@ describe("Systems Observatory integration boundaries", () => {
       "src/components/portfolio/systems-observatory/systems-observatory-project-navigation.tsx",
     );
     const clientSource = `${experience}\n${presentation}\n${projectNavigation}`;
-    expect(fs.existsSync(path.join(root, "src", "app", "v2", "work"))).toBe(true);
-    expect(clientSource).not.toMatch(/architectureDiagram|gallery|\/v2\/work|case stud/i);
+    expect(fs.existsSync(path.join(root, "src", "app", "projects"))).toBe(true);
+    expect(clientSource).not.toMatch(/architectureDiagram|gallery|["'`]\/projects\/|case stud/i);
     expect(clientSource).not.toMatch(/public-projects\.(?:snapshot|editorial)\.json/);
     expect(experience).toMatch(/effective === "reduced"/);
     expect(projectNavigation).toMatch(/aria-label=.*project/i);

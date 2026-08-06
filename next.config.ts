@@ -3,6 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Dev only: allow loading /_next/* over 127.0.0.1 as well as localhost, so
+  // opening the app on either host doesn't 403 the client chunks (which breaks
+  // hydration and stops the JS-driven animations).
+  allowedDevOrigins: ["localhost", "127.0.0.1"],
   async headers() {
     return [
       {

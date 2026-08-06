@@ -56,7 +56,7 @@
   display: flex;
   flex-direction: column;
   gap: clamp(1.1rem, 2vw, 1.6rem);
-  width: min(100%, 90rem);
+  width: min(100%, 112rem);
   margin-inline: auto;
   // Top padding clears the fixed Control Deck (~64px float); bottom padding on
   // mobile clears the fixed bottom dock (added in the responsive section).
@@ -65,12 +65,25 @@
 
 // ---- Header -----------------------------------------------------------------
 
+/* Hidden on every breakpoint — masthead stays in JSX for easy restore. */
 .header {
-  display: flex;
+  display: none;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
   gap: 1.25rem;
+}
+
+.pageHeading {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .headline {
@@ -232,6 +245,11 @@
 
 // ---- Readout ----------------------------------------------------------------
 
+/* Hidden on every breakpoint — sweep readout stays in JSX for easy restore. */
+.readoutSlot {
+  display: none;
+}
+
 .readout {
   position: relative;
   display: flex;
@@ -390,6 +408,34 @@
 }
 
 // ---- Sonar map --------------------------------------------------------------
+
+// Radar + monitor wall. Stacked by default; side by side (radar left, the
+// system index list on its right) once there is room for both.
+.mapRow {
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 78rem) {
+  .mapRow {
+    grid-template-columns: minmax(22rem, 42rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .mapRow .mapWrap {
+    padding-top: 0;
+  }
+
+  // Keep the list beside the radar rather than towering past it.
+  .mapRow .wall {
+    max-height: 42rem;
+    overflow-y: auto;
+    padding-right: 0.3rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(139 171 204 / 30%) transparent;
+  }
+}
 
 .mapWrap {
   padding: clamp(1rem, 3vw, 2rem) 0 0;

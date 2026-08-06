@@ -200,7 +200,7 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
       expect(mode.technologies.length).toBeGreaterThan(0);
       expect(mode.technologies.length).toBeLessThanOrEqual(4);
       expect(mode.technologies.every(Boolean)).toBe(true);
-      expect(mode.caseStudyHref).toMatch(/^\/v2\/work/);
+      expect(mode.caseStudyHref).toMatch(/^\/projects/);
     }
   });
 

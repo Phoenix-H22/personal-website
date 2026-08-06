@@ -100,13 +100,15 @@ export function ProjectsOrbit() {
       <OrbitNav />
 
       <div className={styles.shell}>
-        <header className={styles.header}>
+        <h1 className={styles.pageHeading}>Projects</h1>
+        {/* Kept in the tree for future reuse; visually hidden on every breakpoint. */}
+        <header className={styles.header} hidden aria-hidden="true">
           <div className={styles.headline}>
             <p className={styles.eyebrow}>
               <span className={styles.livePip} aria-hidden="true" />
               <span>Systems map / 13 nodes online</span>
             </p>
-            <h1 className={styles.title}>I build the systems products depend on.</h1>
+            <p className={styles.title}>I build the systems products depend on.</p>
           </div>
           <div className={styles.identity}>
             <strong>Abdalrhman M. Alkady</strong>
@@ -131,37 +133,42 @@ export function ProjectsOrbit() {
           onOwnerChange={orbit.setOwner}
         />
 
-        <OrbitReadout
-          readout={readout}
-          scanning={orbit.scanning}
-          locked={orbit.scan.locked}
-          acquiring={orbit.acquiring}
-          lockPing={orbit.scan.ping}
-          auto={orbit.auto}
-          onToggleAuto={orbit.toggleAuto}
-          onOpen={orbit.openDossier}
-        />
+        {/* Kept in the tree for future reuse; visually hidden on every breakpoint. */}
+        <div className={styles.readoutSlot} hidden aria-hidden="true">
+          <OrbitReadout
+            readout={readout}
+            scanning={orbit.scanning}
+            locked={orbit.scan.locked}
+            acquiring={orbit.acquiring}
+            lockPing={orbit.scan.ping}
+            auto={orbit.auto}
+            onToggleAuto={orbit.toggleAuto}
+            onOpen={orbit.openDossier}
+          />
+        </div>
 
-        <OrbitMap
-          visibleSlugs={visibleSlugs}
-          focusSlug={orbit.focusSlug}
-          activeDomainKeys={activeDomainKeys}
-          scanning={orbit.scanning}
-          angle={orbit.scan.angle}
-          seekSeconds={orbit.seekMs / 1000}
-          acquiredSlug={orbit.scan.acquired}
-          core={core}
-          onOpen={orbit.openDossier}
-          onHover={orbit.setHover}
-        />
+        <div className={styles.mapRow}>
+          <OrbitMap
+            visibleSlugs={visibleSlugs}
+            focusSlug={orbit.focusSlug}
+            activeDomainKeys={activeDomainKeys}
+            scanning={orbit.scanning}
+            angle={orbit.scan.angle}
+            seekSeconds={orbit.seekMs / 1000}
+            acquiredSlug={orbit.scan.acquired}
+            core={core}
+            onOpen={orbit.openDossier}
+            onHover={orbit.setHover}
+          />
 
-        <OrbitWall
-          systems={orbit.systems}
-          focusSlug={orbit.focusSlug}
-          hintText="Hover the map or the wall"
-          onOpen={orbit.openDossier}
-          onHover={orbit.setHover}
-        />
+          <OrbitWall
+            systems={orbit.systems}
+            focusSlug={orbit.focusSlug}
+            hintText="Hover the map or the wall"
+            onOpen={orbit.openDossier}
+            onHover={orbit.setHover}
+          />
+        </div>
 
         <footer className={styles.footer}>
           <span>Core backbone — Laravel · Queues · Redis · MQTT</span>
