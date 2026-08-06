@@ -77,16 +77,16 @@ export async function CaseStudyPage({ slug }: { slug: CaseStudySlug }) {
       data-accent={presentation.accent}
     >
       <nav className={styles.topNav} aria-label="Case study navigation">
-        <Link href="/v2" prefetch={false}>AK / Portfolio V2</Link>
-        <Link href="/projects" prefetch={false}>Systems Ledger</Link>
+        <Link href="/" prefetch={false}>AK / Home</Link>
+        <Link href="/projects" prefetch={false}>Projects</Link>
         <a href="#architecture">Architecture</a>
         <a href="#evidence">Evidence</a>
       </nav>
 
       <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
         <ol>
-          <li><Link href="/v2" prefetch={false}>Portfolio V2</Link></li>
-          <li><Link href="/projects" prefetch={false}>Systems Ledger</Link></li>
+          <li><Link href="/" prefetch={false}>Home</Link></li>
+          <li><Link href="/projects" prefetch={false}>Projects</Link></li>
           <li aria-current="page">{project.title}</li>
         </ol>
       </nav>
@@ -305,8 +305,8 @@ export async function CaseStudyPage({ slug }: { slug: CaseStudySlug }) {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Portfolio V2", item: new URL("/v2", siteUrl).toString() },
-            { "@type": "ListItem", position: 2, name: "Systems Ledger", item: new URL("/projects", siteUrl).toString() },
+            { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", siteUrl).toString() },
+            { "@type": "ListItem", position: 2, name: "Projects", item: new URL("/projects", siteUrl).toString() },
             { "@type": "ListItem", position: 3, name: project.title, item: new URL(`/projects/${slug}`, siteUrl).toString() },
           ],
         }}

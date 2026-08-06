@@ -15,22 +15,24 @@ import navStyles from "@/styles/portfolio/portfolio-navigation.module.scss";
 /**
  * Projects-page navigation: the home page's Control Deck + mobile dock, reused
  * verbatim (same styles, labels, and icons from `navigation-data`) but with
- * section links resolved against `/v2` so they work from this sub-route. The
+ * section links resolved against `/` so they work from this sub-route. The
  * shared deck itself can't be reused directly — its anchors are same-page
  * hashes that don't exist here — so this renders the same markup with absolute
  * hrefs. "Projects" is the active section, since this page is that section.
  */
 
-const HOME = "/v2";
+const HOME = "/";
 const ACTIVE_ID = "systems";
 
 const DECK_LINKS = DECK_LINK_IDS.map((id) => sectionById(id));
 const DOCK_LINKS = DOCK_SECTION_IDS.map((id) => sectionById(id));
-const CONTACT_HREF = `${HOME}${sectionById("contact").href}`;
+const CONTACT_HREF = `${HOME}${sectionById("contact").href.replace(/^\//, "")}`;
 const IDENTITY_SUBTITLE = (IDENTITY as { subtitle?: string }).subtitle;
 
-/** Turn a home-page anchor (e.g. "#work") into a cross-page link ("/v2#work"). */
+/** Turn a home-page anchor (e.g. "#work") into a cross-page link ("/#work"). */
 function homeLink(href: string): string {
+  if (href.startsWith("#")) return `${HOME}${href}`;
+  if (href.startsWith("/")) return href;
   return `${HOME}${href}`;
 }
 

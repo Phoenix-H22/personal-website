@@ -185,7 +185,7 @@ export function SystemsIndexExperience({
       </div>
 
       <p className={styles.back}>
-        <Link href="/v2">Back to portfolio V2</Link>
+        <Link href="/">Back to home</Link>
       </p>
     </div>
   );

@@ -113,7 +113,8 @@ export const IDENTITY = {
   /** Trailing accent that is part of the wordmark. */
   accent: ".",
   // subtitle: "BACKEND SYSTEMS ENGINEER",
-  homeHref: "#main-content",
+  // Always the site root — never `/v2`, even when the visitor arrived there.
+  homeHref: "/",
   ariaLabel: `${RECRUITER_PROFILE.name}, home`,
 } as const;
 

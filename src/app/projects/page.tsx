@@ -62,8 +62,8 @@ export default function ProjectsReelPage() {
             {
               "@type": "ListItem",
               position: 1,
-              name: "Portfolio V2",
-              item: new URL("/v2", siteUrl).toString(),
+              name: "Home",
+              item: new URL("/", siteUrl).toString(),
             },
             {
               "@type": "ListItem",

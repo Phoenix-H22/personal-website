@@ -65,7 +65,7 @@ export function PortfolioPage({ config }: PortfolioPageProps) {
           data-portfolio-variant={config.id}
         >
           <RebuildNav
-            homeHref={config.route}
+            homeHref="/"
             links={config.id === "v2" ? v2NavigationLinks : undefined}
           />
           <main id="main-content" className={styles.main}>
