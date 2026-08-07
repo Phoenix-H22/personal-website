@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useId, useRef } from "react";
 
-import { CASE_STUDY_SLUGS } from "@/lib/portfolio/case-studies";
+import { resolveDossier } from "@/lib/portfolio/projects/orbit-dossiers";
 import {
   ORBIT_SYSTEMS,
   statusTone,
@@ -12,7 +11,7 @@ import {
   systemCover,
   type OrbitSystem,
 } from "@/lib/portfolio/projects/orbit-systems";
-import { formatIndex } from "@/components/portfolio/projects-orbit/orbit-utils";
+import { OrbitMechanicCard } from "@/components/portfolio/projects-orbit/orbit-mechanic-card";
 import styles from "@/styles/portfolio/projects-orbit.module.scss";
 
 interface OrbitDossierProps {
@@ -23,10 +22,6 @@ interface OrbitDossierProps {
 
 const FOCUSABLE = 'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
-function hasCaseStudy(slug: string): boolean {
-  return (CASE_STUDY_SLUGS as readonly string[]).includes(slug);
-}
-
 export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -35,7 +30,7 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
   const globalIndex = ORBIT_SYSTEMS.findIndex((item) => item.slug === system.slug);
   const nextSystem = ORBIT_SYSTEMS[(globalIndex + 1) % ORBIT_SYSTEMS.length];
   const tone = statusTone(system.status);
-  const caseStudyHref = hasCaseStudy(system.slug) ? `/projects/${system.slug}` : null;
+  const dossier = resolveDossier(system);
 
   // Lock body scroll and move focus into the dialog while it is open.
   useEffect(() => {
@@ -65,11 +60,10 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
     }
   };
 
-  const facts: Array<{ label: string; value: string }> = [
-    { label: "System type", value: system.systemType },
-    { label: "Ownership", value: system.ownership },
-    { label: "Status", value: system.status },
-    { label: "Domain", value: system.domains.join(" / ") },
+  const meta: Array<{ label: string; value: string }> = [
+    { label: "Role", value: dossier.role },
+    ...(dossier.shipped ? [{ label: "Shipped", value: dossier.shipped }] : []),
+    { label: "Stack", value: dossier.stackLine },
   ];
 
   return (
@@ -89,23 +83,15 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
         className={styles.dialog}
         onKeyDown={onKeyDown}
       >
-        <div className={styles.dialogCover}>
-          <Image
-            src={systemCover(system.slug)}
-            alt={`${system.name} cover`}
-            fill
-            sizes="(max-width: 64rem) 100vw, 64rem"
-          />
-          <span className={styles.dialogCoverShade} aria-hidden="true" />
-          <button ref={closeRef} type="button" className={styles.dialogClose} onClick={onClose}>
-            Close ✕
-          </button>
-        </div>
+        <button ref={closeRef} type="button" className={styles.dialogClose} onClick={onClose}>
+          Close ✕
+        </button>
 
         <div className={styles.dialogBody}>
-          <div>
+          {/* Header — identity, tagline, and the role / shipped / stack ledger. */}
+          <header className={styles.dossierHeader}>
             <p className={styles.dossierMeta}>
-              <span>Node {formatIndex(globalIndex)} / 13</span>
+              <span>{system.systemType}</span>
               <span
                 className={styles.statusDot}
                 data-tone={tone}
@@ -116,36 +102,101 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
             </p>
             <h2 id={titleId} className={styles.dossierTitle}>
               {system.name}
+              <span className={styles.titleDot} aria-hidden="true">
+                .
+              </span>
             </h2>
-          </div>
-
-          <p className={styles.dossierSummary}>{system.summary}</p>
-
-          <dl className={styles.factGrid}>
-            {facts.map((fact) => (
-              <div key={fact.label} className={styles.factCell}>
-                <dt>{fact.label}</dt>
-                <dd>{fact.value}</dd>
-              </div>
-            ))}
-          </dl>
-
-          <div className={styles.metricPanel}>
-            <p className={styles.blockLabel}>Headline metric</p>
-            <p className={styles.metricValue}>{system.metric}</p>
-          </div>
-
-          <div>
-            <p className={styles.blockLabel}>Stack</p>
-            <ul className={styles.techRow} aria-label={`${system.name} stack`}>
-              {system.tech.map((tech) => (
-                <li key={tech} className={styles.tech}>
-                  {tech}
-                </li>
+            {dossier.tagline ? (
+              <p className={styles.dossierTagline}>{dossier.tagline}</p>
+            ) : null}
+            <dl className={styles.dossierMetaRow}>
+              {meta.map((item) => (
+                <div key={item.label}>
+                  <dt>{item.label}</dt>
+                  <dd>{item.value}</dd>
+                </div>
               ))}
-            </ul>
-          </div>
+            </dl>
+          </header>
 
+          {/* Preview — the product behind a browser chrome. */}
+          <figure className={styles.preview}>
+            <div className={styles.previewChrome}>
+              <span className={styles.previewDots} aria-hidden="true">
+                <i />
+                <i />
+                <i />
+              </span>
+              {system.website ? (
+                <a
+                  className={styles.previewUrl}
+                  href={`https://${system.website}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className={styles.livePip} aria-hidden="true" />
+                  {system.website}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                <span className={styles.previewUrl} data-private="true">
+                  {system.websiteNote ?? "Private / client-owned deployment"}
+                </span>
+              )}
+            </div>
+            <div className={styles.previewShot}>
+              <Image
+                src={systemCover(system.slug)}
+                alt={`${system.name} cover`}
+                fill
+                sizes="(max-width: 64rem) 100vw, 64rem"
+              />
+            </div>
+          </figure>
+
+          {/* Act I — the challenge. */}
+          {dossier.challenge ? (
+            <section className={styles.act}>
+              <p className={styles.actLabel}>Act I · The challenge</p>
+              <p className={styles.actBody}>{dossier.challenge}</p>
+            </section>
+          ) : null}
+
+          {/* Act II — what I built, alongside the numbers panel. */}
+          <section className={styles.actGrid}>
+            <div className={styles.act}>
+              <p className={styles.actLabel}>Act II · What I built</p>
+              <p className={styles.actBody}>{dossier.whatIBuilt}</p>
+            </div>
+            {dossier.numbers.length > 0 ? (
+              <aside className={styles.numbersPanel}>
+                <p className={styles.blockLabel}>By the numbers</p>
+                <ul className={styles.numbersList}>
+                  {dossier.numbers.slice(0, 3).map((number) => (
+                    <li key={`${number.label}-${number.value}`} className={styles.numberItem}>
+                      <span className={styles.numberValue}>{number.value}</span>
+                      <span className={styles.numberLabel}>{number.label}</span>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            ) : null}
+          </section>
+
+          {/* The cast — flip cards that explain how the system works. */}
+          {dossier.mechanics.length > 0 ? (
+            <section className={styles.cast}>
+              <p className={styles.actLabel}>What actually makes it work</p>
+              <p className={styles.castHint}>Read the card, then flip it to watch the mechanism run.</p>
+              <div className={styles.castGrid}>
+                {dossier.mechanics.map((mechanic) => (
+                  <OrbitMechanicCard key={mechanic.code} slug={system.slug} mechanic={mechanic} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {/* System architecture — optional public diagram. */}
           {system.hasArchitecture ? (
             <div>
               <p className={styles.archHead}>
@@ -166,26 +217,18 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
             </div>
           ) : null}
 
+          {/* Actions — open live, deeper case study, and next system. */}
           <div className={styles.dossierActions}>
-            {caseStudyHref ? (
-              <Link className={styles.caseStudyLink} href={caseStudyHref} prefetch={false}>
-                Read case study →
-              </Link>
-            ) : null}
             {system.website ? (
               <a
-                className={styles.visitLink}
+                className={styles.openLive}
                 href={`https://${system.website}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Visit {system.website} ↗
+                Open live ↗
               </a>
-            ) : (
-              <span className={styles.privateNote}>
-                {system.websiteNote ?? "Private / client-owned deployment"}
-              </span>
-            )}
+            ) : null}
             <button type="button" className={styles.nextButton} onClick={onNext}>
               Next: {nextSystem.name} →
             </button>
