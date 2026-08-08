@@ -14,7 +14,7 @@ export const RECRUITER_PROFILE = {
   phone: "+201069683986",
   /** E.164 WhatsApp number (same line). The wa.me path drops the leading `+`. */
   whatsapp: "+201069683986",
-  resume: "/documents/Abdalrhman_Alkady_Resume.pdf",
+  resume: "/Abdalrhman_M_Alkady_Resume.pdf",
   linkedin: "https://www.linkedin.com/in/alkady22/",
   upwork: "https://www.upwork.com/freelancers/alkady22h/",
   github: "https://github.com/Phoenix-H22/",

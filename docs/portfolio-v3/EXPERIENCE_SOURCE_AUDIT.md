@@ -76,7 +76,7 @@ Aliases (source only): Mohsillh
 | Role | Software Engineer (Contract) |
 | Kind | contract |
 | Canonical dates | **2025-03 – 2025-06** |
-| Location | Maadi, Egypt · onsite |
+| Location | Zagazig, Egypt · onsite |
 | Logo | Wired |
 | Publication | **primary** · featured |
 | Notes | Historical fixed-term; verified ERP outcomes stay here |

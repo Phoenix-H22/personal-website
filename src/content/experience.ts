@@ -108,7 +108,7 @@ export const experience: ExperienceEntry[] = [
     startDate: "2026-08",
     endDate: null,
     isCurrent: true,
-    location: "Maadi, Egypt",
+    location: "Zagazig, Egypt",
     workMode: null,
     mission:
       "Rejoined Kayanac ERP after an earlier 2025 contract, continuing work on its ERP platform and operational workflows.",
@@ -276,7 +276,7 @@ export const experience: ExperienceEntry[] = [
     startDate: "2025-03",
     endDate: "2025-06",
     isCurrent: false,
-    location: "Maadi, Egypt",
+    location: "Zagazig, Egypt",
     workMode: "onsite",
     mission:
       "Fixed-term contract turning manual operational processes into structured ERP workflows.",

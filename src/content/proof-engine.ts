@@ -16,7 +16,7 @@ export const proofEngineHero: ProofEngineHeroContent = {
   },
   secondaryAction: {
     label: "Download résumé",
-    href: "/documents/Abdalrhman_Alkady_Resume.pdf",
+    href: "/Abdalrhman_M_Alkady_Resume.pdf",
     ariaLabel: "Download résumé PDF",
     isExternal: true,
   },
