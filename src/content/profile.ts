@@ -21,15 +21,15 @@ export type Profile = {
 export const profile: Profile = {
   fullName: "Abdalrhman Mohamed Alkady",
   shortName: "Abdalrhman M. Alkady",
-  role: "Backend-Focused Product Engineer",
+  role: "Software Engineer",
   headline: "Most people see the product. I build what makes it work.",
   summary:
-    "I’m Abdalrhman M. Alkady, a backend-focused product engineer building reliable SaaS platforms, integrations, automation systems, and mobile-backed products with Laravel, Node.js, and modern frontend technologies.",
+    "I’m Abdalrhman M. Alkady, a Software Engineer with a strong backend foundation. I turn business requirements into practical production systems — APIs, integrations, commerce workflows, and web products — and I collaborate with teams and stakeholders to ship and support them.",
   location: "Egypt",
   mobility: "Open to remote roles and relocation opportunities",
   availability: {
     isAvailable: true,
-    label: "Available for senior engineering roles and selected projects",
+    label: "Open to Software Engineer roles and selected projects",
   },
   socialLinks: [
     { label: "Email", href: "mailto:alkady2019@gmail.com" },
@@ -53,15 +53,15 @@ export const evidence: EvidenceItem[] = [
     tone: "credential",
   },
   {
-    value: "200+ · 20K+ · 12M+ SAR",
-    label: "Merchants · monthly orders · handled order value",
+    value: "200 · 20K · ~SAR 12M",
+    label: "Merchants · avg monthly orders · order value (≈2–3 months)",
     scope: "Commerce operations systems",
     tone: "scale",
   },
   {
-    value: "10K+",
-    label: "Users served",
-    scope: "Educational platform",
+    value: "EGP 21M+",
+    label: "Commerce sales scale",
+    scope: "Warqah Store",
     tone: "reach",
   },
 ];

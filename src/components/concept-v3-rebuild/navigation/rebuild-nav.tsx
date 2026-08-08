@@ -1,7 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type MouseEvent,
+} from "react";
 
 import styles from "@/styles/concept-v3-rebuild/hero.module.scss";
 
@@ -27,6 +35,7 @@ export function RebuildNav({
   homeHref = "/",
   links = defaultLinks,
 }: RebuildNavProps) {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -36,6 +45,20 @@ export function RebuildNav({
     setOpen(false);
     buttonRef.current?.focus();
   }, []);
+
+  /** Same-route brand click: stay mounted — scroll home instead of remounting the page. */
+  const onBrandClick = useCallback(
+    (event: MouseEvent<HTMLAnchorElement>) => {
+      if (pathname !== homeHref) return;
+      event.preventDefault();
+      if (window.location.hash) {
+        window.history.replaceState(null, "", homeHref);
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setOpen(false);
+    },
+    [homeHref, pathname],
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -63,6 +86,7 @@ export function RebuildNav({
           href={homeHref}
           className={styles.brand}
           aria-label="AK, Abdalrhman M. Alkady home"
+          onClick={onBrandClick}
         >
           <span className={styles.brandMark} aria-hidden="true">
             AK

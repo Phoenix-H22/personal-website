@@ -35,7 +35,6 @@ function highlightsFor(
       "Ownership progression across engagements",
     ];
   }
-  // Prefer shorter set for early career; richer for later ownership roles
   const limit =
     entry.era === "entering-production"
       ? 2
@@ -48,12 +47,18 @@ function highlightsFor(
 }
 
 function splitProof(value: string) {
-  // "Supports 200+ merchants" → "200+" / "merchants"
   const match = value.match(
     /(\d[\d,]*(?:\.\d+)?%?\+?|\d[\d,]*K\+?)\s+(.+)$/i,
   );
   if (!match) return { value, hint: "Impact" };
   return { value: match[1], hint: match[2] };
+}
+
+function techLabel(entry: ExperienceEntry) {
+  if (entry.id === "kayanac-erp-rejoin") {
+    return "Laravel · MySQL · ERP";
+  }
+  return entry.technologies.slice(0, 5).join(" · ");
 }
 
 export function ExperienceStory({
@@ -68,9 +73,10 @@ export function ExperienceStory({
   );
   const highlights = highlightsFor(entry, path);
   const outcomes = entry.outcomes.slice(0, 2);
-  const tech = entry.technologies.slice(0, 5);
+  const tech = techLabel(entry);
   const kicker =
-    path === "independent" ? "Independent work" : eraLabel ?? "Career";
+    path === "independent" ? "Freelance" : eraLabel ?? "Career";
+  const isKayanacCurrent = entry.id === "kayanac-erp-rejoin";
 
   return (
     <article
@@ -85,8 +91,6 @@ export function ExperienceStory({
       data-era={entry.era}
       data-path={path}
     >
-      <div className={styles.storySignature} aria-hidden="true" />
-
       <div className={styles.storySpread}>
         <div className={styles.storyIdentity}>
           <CompanyLogoFrame
@@ -95,11 +99,9 @@ export function ExperienceStory({
             companyShortName={entry.companyShortName}
             size="xl"
           />
-          <div>
+          <div className={styles.storyIdentityCopy}>
             <p className={styles.storyKicker}>{kicker}</p>
-            <h3 className={styles.storyCompany}>
-              {entry.companyShortName ?? entry.company}
-            </h3>
+            <h3 className={styles.storyCompany}>{entry.company}</h3>
             <p className={styles.storyRole}>{entry.role}</p>
             <p className={styles.storyMeta}>
               {period}
@@ -119,12 +121,14 @@ export function ExperienceStory({
           </div>
         </div>
 
+        <div className={styles.storyRule} aria-hidden="true" />
+
         <div className={styles.storyBody}>
           <p className={styles.storyOwnership} data-story-ownership>
             {ownershipStatement(entry, path)}
           </p>
 
-          {highlights.length > 0 ? (
+          {!isKayanacCurrent && highlights.length > 0 ? (
             <ul className={styles.storyHighlights} data-story-work>
               {highlights.map((item) => (
                 <li key={item}>{item}</li>
@@ -132,7 +136,7 @@ export function ExperienceStory({
             </ul>
           ) : null}
 
-          {outcomes.length > 0 ? (
+          {!isKayanacCurrent && outcomes.length > 0 ? (
             <ul className={styles.proofStrip} data-story-proof>
               {outcomes.map((item) => {
                 const proof = splitProof(item);
@@ -146,8 +150,17 @@ export function ExperienceStory({
             </ul>
           ) : null}
 
-          {tech.length > 0 ? (
-            <p className={styles.storyTech}>{tech.join(" · ")}</p>
+          {tech ? <p className={styles.storyTech}>{tech}</p> : null}
+
+          {isKayanacCurrent ? (
+            <p className={styles.storyPrevious}>
+              <span className={styles.storyPreviousLabel}>
+                Previously at Kayanac
+              </span>
+              <span className={styles.storyPreviousMeta}>
+                Mar 2025 – Jun 2025 · Contract
+              </span>
+            </p>
           ) : null}
         </div>
       </div>

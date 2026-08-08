@@ -58,7 +58,7 @@ export const education: EducationEntry[] = [
       src: portfolioAssets.education.universityOfSadatCity,
       alt: "University of Sadat City — Faculty of Computers and Artificial Intelligence",
     },
-    degree: "Bachelor’s degree in Computer & Artificial Intelligence",
+    degree: "Bachelor’s degree in Computer Science",
     fieldOfStudy: "Faculty of Computers and Artificial Intelligence",
     startDate: "2021-09",
     endDate: "2025-08",

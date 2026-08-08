@@ -21,15 +21,15 @@ describe("S2B featured systems + V2 hero copy", () => {
     const copy = portfolioVariants.v2.hero.copy;
     expect(copy?.eyebrow).toMatch(/SOFTWARE ENGINEER/i);
     expect(copy?.eyebrow).not.toMatch(/PRODUCT ENGINEER/i);
-    expect(copy?.summary).toMatch(/Backend-focused software engineer/i);
+    expect(copy?.summary).toMatch(/Software Engineer/i);
     expect(copy?.summary).not.toMatch(/product engineer/i);
     expect(copy?.technologyLine).toEqual([
       "PHP",
       "Laravel",
-      "Python",
-      "JavaScript",
+      "Node.js",
       "React",
-      "Next.js",
+      "MySQL",
+      "Redis",
     ]);
   });
 

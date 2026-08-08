@@ -50,10 +50,23 @@ export function PortfolioControlDeck({
     >
       <a
         className={styles.brand}
-        href={IDENTITY.homeHref}
+        href={sectionById("home").href}
         aria-label={IDENTITY.ariaLabel}
         aria-current={activeId === "home" ? "page" : undefined}
-        onClick={() => onNavigate?.("home")}
+        onClick={(event) => {
+          // In-page home: hash scroll only — never navigate to `/` (that remounts the SPA).
+          event.preventDefault();
+          const target = document.getElementById("main-content");
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          } else {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+          if (window.location.hash) {
+            window.history.replaceState(null, "", window.location.pathname);
+          }
+          onNavigate?.("home");
+        }}
       >
         <span className={styles.brandDot} aria-hidden="true" />
         <span className={styles.brandIdentity}>

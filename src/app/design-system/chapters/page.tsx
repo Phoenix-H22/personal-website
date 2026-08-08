@@ -152,7 +152,7 @@ export default function ChaptersDesignSystemPage() {
               <ExperienceStory
                 entry={sample}
                 path="main"
-                eraLabel="Owning production systems"
+                eraLabel="ERP & operations"
               />
             </div>
           ) : null}

@@ -85,6 +85,21 @@ export function getCurrentExperience() {
   return getAllExperience().filter((entry) => entry.isCurrent);
 }
 
+/** Primary Career company roles marked current (excludes independent/freelance lane). */
+export function getCurrentPrimaryExperience() {
+  return getAllExperience().filter(
+    (entry) =>
+      entry.isCurrent &&
+      entry.publicationLevel === "primary" &&
+      entry.kind !== "independent-company" &&
+      entry.kind !== "freelance",
+  );
+}
+
+/**
+ * Full independent-track inventory (includes archived Phoenix Tech’s).
+ * Prefer `getCareerTimefieldIndependent()` for recruiter-facing Career UI.
+ */
 export function getIndependentTrackExperience() {
   return getAllExperience().filter(
     (entry) =>
@@ -92,6 +107,11 @@ export function getIndependentTrackExperience() {
       entry.kind === "independent-company" ||
       entry.kind === "freelance",
   );
+}
+
+/** Recruiter-facing Independent / Freelance lane (curated; excludes archived Phoenix). */
+export function getPublicIndependentTrackExperience() {
+  return getCareerTimefieldIndependent();
 }
 
 export function getEarlyFoundationExperience() {

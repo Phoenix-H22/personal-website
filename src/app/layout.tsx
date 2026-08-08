@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s — Abdalrhman M. Alkady",
   },
   description:
-    "Backend-focused software engineer building reliable APIs, integrations, commerce platforms, connected hardware, and production web products.",
+    "Software Engineer building production web systems across SaaS, commerce, payments, integrations, and connected products.",
   applicationName: "Abdalrhman M. Alkady",
   authors: [{ name: "Abdalrhman Mohamed Alkady" }],
   creator: "Abdalrhman Mohamed Alkady",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     title: "Abdalrhman M. Alkady | Software Engineer",
     description:
-      "Backend systems, product engineering, integrations, commerce, and connected hardware with verified production evidence.",
+      "Software Engineer — production systems, APIs, integrations, commerce, and connected products with verified delivery evidence.",
     siteName: "Abdalrhman M. Alkady",
     images: [
       {
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Abdalrhman M. Alkady | Software Engineer",
     description:
-      "Backend systems, product engineering, integrations, commerce, and connected hardware.",
+      "Software Engineer — production systems, APIs, integrations, commerce, and connected products.",
     images: ["/opengraph-image?v=20260805"],
   },
 };

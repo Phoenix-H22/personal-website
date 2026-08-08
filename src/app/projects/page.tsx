@@ -10,7 +10,7 @@ const description =
   "A sonar systems map of 13 production systems built, owned, integrated, deployed, or operated by Abdalrhman M. Alkady.";
 
 export const metadata: Metadata = {
-  title: "Projects Orbit | Backend Systems and Product Engineering",
+  title: "Projects Orbit | Software Engineering Systems",
   description,
   alternates: { canonical: "/projects" },
   robots: { index: true, follow: true },

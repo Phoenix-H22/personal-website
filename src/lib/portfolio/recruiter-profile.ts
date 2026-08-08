@@ -1,11 +1,11 @@
 export const RECRUITER_PROFILE = {
   name: "Abdalrhman M. Alkady",
   targetRoles: [
-    "Senior Backend Engineer",
-    "Backend-Focused Full-Stack Engineer",
+    "Software Engineer",
+    "Full-Stack Software Engineer",
   ],
   identity:
-    "A backend-focused full-stack engineer who owns systems from architecture and integrations through deployment and production operations.",
+    "A Software Engineer with a strong backend foundation who can deliver frontend when needed, own meaningful features, and support production systems inside a team.",
   location: "Egypt",
   availability: "Open to remote work",
   relocation: "Open to relocation opportunities in Saudi Arabia and the UAE",
@@ -42,7 +42,6 @@ export const RECRUITER_CORE_STACK = [
   "APIs & webhooks",
   "Queues, retries & idempotency",
   "Redis, PostgreSQL & MySQL",
+  "React, Vue & Livewire when needed",
   "Docker, Linux & deployment",
-  "Flutter products",
-  "System architecture & integrations",
 ] as const;

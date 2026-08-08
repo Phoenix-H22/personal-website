@@ -28,7 +28,7 @@ interface CareerReelProps {
   independent: ExperienceEntry[];
 }
 
-const DEFAULT_ID = "mohssilh";
+const DEFAULT_ID = "kayanac-erp-rejoin";
 
 function indexOf(list: ExperienceEntry[], id: string) {
   return list.findIndex((entry) => entry.id === id);
@@ -73,8 +73,10 @@ export function CareerReel({ eras, primary, independent }: CareerReelProps) {
 
   const eraLabel =
     displayPath === "independent"
-      ? "Independent work"
-      : mainEras.find((era) => era.id === displayEntry.era)?.title;
+      ? "Freelance"
+      : displayEntry.isCurrent
+        ? "Current role"
+        : mainEras.find((era) => era.id === displayEntry.era)?.title;
 
   const registerNode = useCallback((id: string, el: HTMLButtonElement | null) => {
     if (el) nodeRefs.current.set(id, el);
@@ -474,16 +476,9 @@ export function CareerReel({ eras, primary, independent }: CareerReelProps) {
         onSelect={selectCompany}
       />
 
-      <p
-        className={[
-          styles.eraContext,
-          displayPath === "independent" ? styles.eraContextIndependent : "",
-        ]
-          .filter(Boolean)
-          .join(" ")}
-      >
-        {eraLabel}
-      </p>
+      {displayPath !== "independent" ? (
+        <p className={styles.eraContext}>{eraLabel}</p>
+      ) : null}
 
       <div
         className={[
@@ -519,8 +514,10 @@ export function CareerReel({ eras, primary, independent }: CareerReelProps) {
               path={bufferPath}
               eraLabel={
                 bufferPath === "independent"
-                  ? "Independent work"
-                  : mainEras.find((era) => era.id === bufferEntry.era)?.title
+                  ? "Freelance"
+                  : bufferEntry.isCurrent
+                    ? "Current role"
+                    : mainEras.find((era) => era.id === bufferEntry.era)?.title
               }
             />
           </div>
@@ -537,10 +534,6 @@ export function CareerReel({ eras, primary, independent }: CareerReelProps) {
           </div>
         </div>
       </div>
-
-      <p className={styles.closing}>
-        The roles changed. The responsibility kept compounding.
-      </p>
     </div>
   );
 }

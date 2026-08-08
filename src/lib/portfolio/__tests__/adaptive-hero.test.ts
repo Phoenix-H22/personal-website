@@ -74,7 +74,7 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
       "I learn the system, choose what fits, and ship what survives production.",
     );
     expect(ADAPTIVE_HERO_CONTENT.summary).toBe(
-      "Software engineer with a backend focus, working across web, mobile, commerce, integrations, connected devices, and infrastructure.",
+      "I build production software across SaaS, commerce, payments, integrations, and connected systems.",
     );
     expect(ADAPTIVE_HERO_CONTENT.fundamentals).toBe(
       "Built before AI became a daily development tool. Now I use research, automation, and AI to move faster — without outsourcing the thinking.",
@@ -680,7 +680,7 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
       observatorySection: "ef27634a65c06701752adaae41915a4362b1815f",
       observatoryConfig: "88c79804f2bdcbf70f37f28a125c9638a52adc76",
       completion: "89cdece16e8aa3fa879fb247c09cedbdd6c52e65",
-      work: "d2253a927b7d4508148b1cb51d6d68b3117422ff",
+      work: "008bd0fae4d9d293f8404a6aa0017f9bf9277426",
       caseStudy: "d33ec7b317808bb4b57059fc5785e6b5868ee56c",
       canonical: "e45a32f64ed28a35e9694ca0c7359d91a0a1e628",
       media: "3b64be01228ceb8690e255023945c8bcf2878290",

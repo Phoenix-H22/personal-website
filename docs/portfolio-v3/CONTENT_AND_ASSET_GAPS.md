@@ -23,11 +23,11 @@ Legend: **Missing** · **Present** · **Needs owner confirmation** · **OK**
 
 ## 2. Experience gaps (high signal)
 
-| Entry | Logo | Date conflict | Notes |
-|-------|------|---------------|-------|
-| Mohssilh | Present | Jan vs Mar 2025 | Confirmation required |
-| Theqah | Present | Present vs Feb 2025 | Confirmation required |
-| Kayanac | Present | — | Résumé-only; weak outcomes |
+| Entry | Logo | Dates (canonical) | Notes |
+|-------|------|-------------------|-------|
+| Mohssilh | Present | 2025-03 – 2026-04 | Ended — not Present |
+| Theqah | Present | 2024-08 – 2025-02 · 2025-09 – 2026-06 | Two separate periods |
+| Kayanac | Present | 2025-03 – 2025-06 · 2026-08 – Present | Current company = second stint |
 | Intsolutions | Missing | — | LinkedIn-only |
 | Eraasoft | Present | — | LinkedIn-only internship |
 | Marqity | Present | — | Supporting; overlaps Tjar |

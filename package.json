@@ -2,7 +2,7 @@
   "name": "abdalrhman-alkady",
   "version": "0.1.0",
   "private": true,
-  "description": "The personal site of backend-focused product engineer Abdalrhman M. Alkady.",
+  "description": "The personal site of Software Engineer Abdalrhman M. Alkady.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

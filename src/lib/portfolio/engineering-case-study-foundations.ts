@@ -206,7 +206,7 @@ export const ENGINEERING_CASE_STUDY_FOUNDATIONS = {
       "A multi-merchant automation platform built around unreliable external events.",
     ),
     productionEvidence: [
-      confirmed("200+ merchants"),
+      confirmed("200 registered merchants"),
       confirmed("20K+ monthly orders"),
       confirmed("12M+ SAR order value"),
       confirmed("Webhook failures reduced from 30-40% to near zero"),

@@ -51,7 +51,7 @@ export const portfolioVariants: Record<
   current: {
     id: "current",
     route: "/",
-    title: "Abdalrhman M. Alkady — Backend-Focused Product Engineer",
+    title: "Abdalrhman M. Alkady — Software Engineer",
     indexable: true,
     canonical: "/",
     hero: {
@@ -85,17 +85,16 @@ export const portfolioVariants: Record<
       showSelectedSystemsSignal: true,
       showTechnologyLine: true,
       copy: {
-        eyebrow:
-          "SOFTWARE ENGINEER · BACKEND SYSTEMS · PRODUCTS & INTEGRATIONS",
+        eyebrow: "SOFTWARE ENGINEER",
         summary:
-          "Backend-focused software engineer who genuinely enjoys turning complex business problems into reliable systems — from APIs, queues, and integrations to polished web products.",
+          "Software Engineer with a strong backend foundation — building production web systems across SaaS, commerce, payments, and integrations.",
         technologyLine: [
           "PHP",
           "Laravel",
-          "Python",
-          "JavaScript",
+          "Node.js",
           "React",
-          "Next.js",
+          "MySQL",
+          "Redis",
         ],
       },
     },

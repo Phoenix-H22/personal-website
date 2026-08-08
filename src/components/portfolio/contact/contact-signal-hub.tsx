@@ -158,9 +158,8 @@ export function ContactSignalHub() {
             </span>
           </h2>
           <p className={styles.lede}>
-            Available for senior backend and backend-focused full-stack
-            opportunities, production systems, integrations, and ambitious
-            products.
+            Open to Software Engineer roles focused on production systems,
+            APIs, integrations, and reliable web products.
           </p>
         </div>
 

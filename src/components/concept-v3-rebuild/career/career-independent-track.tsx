@@ -27,11 +27,11 @@ export function CareerIndependentTrack({
         .join(" ")}
       data-independent-reel
     >
-      <p className={styles.indieHeading}>Independent track</p>
+      <p className={styles.indieHeading}>Freelance</p>
       <div
         className={styles.indieLinks}
         role="tablist"
-        aria-label="Independent work"
+        aria-label="Freelance work"
       >
         {entries.map((entry) => {
           const selected = path === "independent" && entry.id === selectedId;

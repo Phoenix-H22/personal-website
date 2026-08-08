@@ -52,7 +52,7 @@ type PublicationReadiness = "ready" | "partial" | "blocked" | "docs-only";
 | Role | Backend systems, integrations, reliability, operational workflows |
 | Ownership level | High — backend integrations, queues, webhooks, reporting, reconciliation |
 | Employment | Mohssilh (primary) |
-| Dates | start/end null in content · experience: 2025-03 – Present (résumé) |
+| Dates | start/end null in content · experience: Mohssilh 2025-03 – 2026-04 (ended) |
 | Status / production | live (employment context) · maintained |
 | Confidentiality | `public-limited` (client-confidential internals; public impact OK) |
 | Public-safe summary | Backend integrations, reporting, and reconciliation for multi-merchant commerce operations connected to Salla. |

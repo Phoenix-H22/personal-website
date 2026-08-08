@@ -1,18 +1,23 @@
 # Experience Source Audit — Stage S1-PRE
 
+> **SUPERSEDED for public facts (2026-08):**  
+> Use `docs/CANONICAL_CONTENT.md` and `src/content/experience.ts` as the live source of truth.  
+> Resolved: Mohssilh ends **Apr 2026**; Theqah has two periods (**Aug 2024 – Feb 2025** and **Sep 2025 – Jun 2026**); Kayanac has two periods (**Mar 2025 – Jun 2025** and **Aug 2026 – Present** Full-time current company role); public role is **Software Engineer**; degree is **Computer Science**; primary Career no longer includes Eraasoft/Intsolutions.  
+> **Phoenix Tech’s:** preserved in source/archive (`phoenix-techs`) but **intentionally excluded** from recruiter-facing public Career (`CAREER_TIMEFIELD_INDEPENDENT_IDS`). Hide ≠ delete.  
+> Sections below are retained as historical discovery notes and may contain obsolete conflict language.
+
 Sources (priority):
 
-1. Owner corrections in S1-PRE brief  
+1. Owner corrections (canonical content)  
 2. `docs/source/Abdalrhman_M_Alkady_Resume_2026-07-13.pdf`  
-3. `docs/source/Abdalrhman_Alkady_LinkedIn_Export.pdf`  
+3. LinkedIn export for discovery only  
 4. Existing canonical content  
 
 Rules applied:
 
 - LinkedIn auto-duration text ignored (e.g. “1 year 7 months”)
-- Date conflicts recorded, not silently resolved
-- Phone number from LinkedIn **not** published
-- Site positioning remains **Backend-Focused Product Engineer**
+- Date conflicts recorded historically; locked owner facts now win  
+- Site positioning is **Software Engineer**
 - LinkedIn summary not used verbatim
 
 ---
@@ -52,40 +57,41 @@ Rules applied:
 
 | Field | Value |
 |-------|--------|
-| Role | Software Engineer, Backend & Integrations (résumé) |
+| Role | Backend Software Engineer |
 | Kind | employment |
-| LinkedIn dates | 2025-01 – Present |
-| Résumé dates | 2025-03 – Present |
-| Selected dates | **2025-03 – Present** |
-| Location | Saudi Arabia (résumé); LinkedIn Riyadh |
+| Canonical dates | **2025-03 – 2026-04** (ENDED · not Present) |
+| Location | Saudi Arabia |
 | Logo | Wired `/images/companies/mohssilh.png` |
-| Confidence | Conflicting dates |
 | Publication | **primary** · featured |
-| Era | owning-production-systems |
-| Missing | Company URL; confirmed start month |
-| Confirmations | Start Jan vs Mar; title Backend Engineer vs résumé; LinkedIn-only metrics; location grain |
-| Public wording | Résumé mission/summary + approved commerce outcomes |
+| Era | owning-production-systems (`ERP & operations` public label) |
 
 Aliases (source only): Mohsillh  
 
 ---
 
-### `kayanac-erp` — Kayanac ERP
+### `kayanac-erp` — Kayanac ERP (first stint)
 
 | Field | Value |
 |-------|--------|
-| Role | Software Engineer, Full Stack / Contract |
+| Role | Software Engineer (Contract) |
 | Kind | contract |
-| LinkedIn dates | **Absent** |
-| Résumé dates | 2025-03 – 2025-06 |
-| Selected dates | **2025-03 – 2025-06** |
+| Canonical dates | **2025-03 – 2025-06** |
 | Location | Maadi, Egypt · onsite |
-| Logo | Wired `/images/companies/kayanac.webp` |
-| Confidence | Résumé only |
+| Logo | Wired |
 | Publication | **primary** · featured |
-| Era | owning-production-systems |
-| Missing | Outcomes; LinkedIn presence; URL |
-| Confirmations | Public publication; verified results |
+| Notes | Historical fixed-term; verified ERP outcomes stay here |
+
+### `kayanac-erp-rejoin` — Kayanac ERP (current)
+
+| Field | Value |
+|-------|--------|
+| Role | Software Engineer |
+| Kind | employment |
+| employmentType | **null** (not yet confirmed) |
+| Canonical dates | **2026-08 – Present** (**current company role**) |
+| Public label | Kayanac ERP (timeline short name: Kayanac) |
+| Publication | **primary** · featured |
+| Notes | Short rejoin copy only — do not copy first-stint achievements |
 
 ---
 
@@ -252,10 +258,11 @@ Do not create seven full Career cards. Do not let Graphic Designer dominate.
 
 | Era | Period | Contents |
 |-----|--------|----------|
-| Engineering foundations | 2018–2023 | Compressed STEM/community + Eraasoft + Intsolutions |
-| Shipping products | 2023–2024 | KLLIQ, Tjar, Marqity (supporting), Maryzad (archive) |
-| Owning production systems | 2024–Present | Theqah, Kayanac, Mohssilh |
-| Independent track (parallel) | 2020–Present | Phoenix Tech’s, Upwork — cross-era lane, not a fourth equal stack |
+| Shipping products | 2023–2024 | KLLIQ, Tjar |
+| ERP & operations (`owning-production-systems` id) | 2024–Present | Theqah ×2, Kayanac ×2, Mohssilh |
+| Independent track (parallel) | 2021–Present | Phoenix Tech’s, Upwork |
+
+Canonical date locks: Mohssilh Mar 2025 – Apr 2026 · Kayanac Mar–Jun 2025 and Aug 2026 – Present · Theqah Aug 2024 – Feb 2025 and Sep 2025 – Jun 2026.
 
 ---
 
@@ -285,7 +292,7 @@ No destructive normalization in this iteration. Future UI: `object-fit: contain`
 
 | Class | IDs |
 |-------|-----|
-| Primary professional | mohssilh, kayanac-erp, theqah, tjar, klliq, intsolutions, eraasoft |
+| Primary professional | klliq, tjar, theqah, kayanac-erp, mohssilh, theqah-rejoin, kayanac-erp-rejoin |
 | Supporting | marqity, phoenix-techs, upwork-freelance |
-| Archive | maryzad + all early STEM/community roles |
+| Archive | eraasoft, intsolutions, maryzad + early STEM/community roles |
 | Unpublished | *(none currently)* |

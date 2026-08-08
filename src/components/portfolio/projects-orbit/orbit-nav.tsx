@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { CSSProperties } from "react";
 
 import {
@@ -19,6 +20,9 @@ import navStyles from "@/styles/portfolio/portfolio-navigation.module.scss";
  * shared deck itself can't be reused directly — its anchors are same-page
  * hashes that don't exist here — so this renders the same markup with absolute
  * hrefs. "Projects" is the active section, since this page is that section.
+ *
+ * All destinations use next/link so leaving /projects stays client-side SPA
+ * navigation (plain <a href="/"> would hard-reload the document).
  */
 
 const HOME = "/";
@@ -46,7 +50,7 @@ export function OrbitNav() {
   return (
     <header className={navStyles.root} data-portfolio-navigation>
       <div className={navStyles.deck} data-control-deck data-active-section={ACTIVE_ID}>
-        <a className={navStyles.brand} href={HOME} aria-label={IDENTITY.ariaLabel}>
+        <Link className={navStyles.brand} href={HOME} aria-label={IDENTITY.ariaLabel}>
           <span className={navStyles.brandDot} aria-hidden="true" />
           <span className={navStyles.brandIdentity}>
             <span className={navStyles.brandWordmark}>
@@ -57,14 +61,14 @@ export function OrbitNav() {
               <span className={navStyles.brandSubtitle}>{IDENTITY_SUBTITLE}</span>
             ) : null}
           </span>
-        </a>
+        </Link>
 
         <nav className={navStyles.deckNav} aria-label="Primary">
           <div className={navStyles.deckNavTrack} style={trackStyle} data-has-active>
             {DECK_LINKS.map((link) => {
               const active = link.id === ACTIVE_ID;
               return (
-                <a
+                <Link
                   key={link.id}
                   className={navStyles.deckLink}
                   href={homeLink(link.href)}
@@ -75,7 +79,7 @@ export function OrbitNav() {
                     <NavIcon name={link.icon} className={navStyles.deckLinkIcon} />
                   ) : null}
                   <span className={navStyles.deckLinkLabel}>{link.label}</span>
-                </a>
+                </Link>
               );
             })}
             <span className={navStyles.deckRoute} aria-hidden="true" />
@@ -83,10 +87,10 @@ export function OrbitNav() {
           </div>
         </nav>
 
-        <a className={navStyles.contact} href={CONTACT_HREF}>
+        <Link className={navStyles.contact} href={CONTACT_HREF}>
           <NavIcon name={CONTACT_ACTION.icon} className={navStyles.contactIcon} />
           <span>{CONTACT_ACTION.label}</span>
-        </a>
+        </Link>
       </div>
 
       <nav className={navStyles.dock} aria-label="Primary" data-mobile-dock>
@@ -95,7 +99,7 @@ export function OrbitNav() {
             const active = section.id === ACTIVE_ID;
             return (
               <li key={section.id} className={navStyles.dockItem}>
-                <a
+                <Link
                   className={navStyles.dockLink}
                   href={homeLink(section.href)}
                   aria-current={active ? "location" : undefined}
@@ -105,15 +109,18 @@ export function OrbitNav() {
                     <NavIcon name={section.icon} className={navStyles.dockIcon} />
                   ) : null}
                   <span className={navStyles.dockLabel}>{section.shortLabel}</span>
-                </a>
+                </Link>
               </li>
             );
           })}
           <li className={navStyles.dockItem}>
-            <a className={`${navStyles.dockLink} ${navStyles.dockContact}`} href={CONTACT_HREF}>
+            <Link
+              className={`${navStyles.dockLink} ${navStyles.dockContact}`}
+              href={CONTACT_HREF}
+            >
               <NavIcon name={CONTACT_ACTION.icon} className={navStyles.dockIcon} />
               <span className={navStyles.dockLabel}>{CONTACT_ACTION.label}</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

@@ -55,7 +55,7 @@ Canonical Selected Systems art direction: `projects/SELECTED_SYSTEMS_STORYBOARD.
 
 - 2021-09 → 2025-08 · Sadat City, Egypt
 - Faculty of Computers and Artificial Intelligence
-- B.Sc. Computer & Artificial Intelligence
+- B.Sc. Computer Science
 - Cumulative A-grade with Honors *(overall result — not A+)*
 - Graduation project: Virtual Clinic / Dr. Robot — A+ *(capstone — not the cumulative result)*
 - Compact: `A-grade with Honors · Capstone graded A+` (owner-confirmed; wired in hero Education copy)
@@ -86,22 +86,22 @@ Canonical Selected Systems art direction: `projects/SELECTED_SYSTEMS_STORYBOARD.
 
 1. **Engineering foundations** — `engineering-foundations` (2018–2023) — Eraasoft, Intsolutions + compressed STEM/community archive  
 2. **Shipping products** — `shipping-products` (2023–2024) — KLLIQ, Tjar, Marqity (supporting), Maryzad (archive)  
-3. **Owning production systems** — `owning-production-systems` (2024–Present) — Theqah, Kayanac, Mohssilh  
-4. **Independent track** — `independent-track` (2020–Present, parallel) — Phoenix Tech’s, Upwork  
+3. **ERP & operations** — `owning-production-systems` (2024–Present) — Theqah, Kayanac, Mohssilh  
+4. **Freelance** (public Career lane) — Upwork only · Phoenix Tech’s preserved in source/archive but hidden from public Career  
 
-Full inventory + conflicts: `EXPERIENCE_SOURCE_AUDIT.md`.
+Canonical facts: `docs/CANONICAL_CONTENT.md`. Historical discovery notes: `EXPERIENCE_SOURCE_AUDIT.md`.
 
-### Primary Career records (structured; date conflicts flagged in content)
+### Primary Career records (canonical)
 
-| id | Company | Role | Period (selected) |
-|----|---------|------|-------------------|
-| `mohssilh` | Mohssilh / محصلة | SE, Backend & Integrations | 2025-03 – Present |
-| `kayanac-erp` | Kayanac ERP | SE Full Stack / Contract | 2025-03 – 2025-06 |
+| id | Company | Role | Period |
+|----|---------|------|--------|
+| `klliq` | KLLIQ LLC | Software Engineer (Contract) | 2023-09 – 2024-03 |
+| `tjar` | Tjar.sa | Software Engineer (Contract) | 2024-03 – 2024-05 |
 | `theqah` | Theqah.sa | Software Engineer | 2024-08 – 2025-02 |
-| `tjar` | Tjar.sa | SE Contract | 2024-03 – 2024-05 |
-| `klliq` | KLLIQ LLC | SE Contract | 2023-09 – 2024-03 |
-| `intsolutions` | Intsolutions | Full Stack Developer | 2023-04 – 2023-09 |
-| `eraasoft` | Eraasoft | Full Stack Developer Intern | 2023-02 – 2023-04 |
+| `kayanac-erp` | Kayanac ERP | Software Engineer (Contract) | 2025-03 – 2025-06 |
+| `mohssilh` | Mohssilh | Backend Software Engineer | 2025-03 – 2026-04 |
+| `theqah-rejoin` | Theqah.sa | Software Engineer | 2025-09 – 2026-06 |
+| `kayanac-erp-rejoin` | Kayanac ERP | Software Engineer | 2026-08 – Present (current) |
 
 Company logos: wired via `portfolio-assets.ts` except Intsolutions (`null`).
 

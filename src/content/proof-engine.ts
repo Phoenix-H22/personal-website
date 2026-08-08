@@ -3,12 +3,12 @@ import type { ProofEngineHeroContent } from "@/lib/proof-engine/types";
 import { validateProofEngineHero } from "@/lib/proof-engine/validation";
 
 export const proofEngineHero: ProofEngineHeroContent = {
-  eyebrow: "Software Engineer · Backend, Products & Integrations",
+  eyebrow: "Software Engineer",
   name: "Abdalrhman M. Alkady",
-  headline: "I engineer the systems businesses learn to depend on.",
-  headlineEmphasis: "depend on.",
+  headline: "I build production software that teams can rely on.",
+  headlineEmphasis: "rely on.",
   summary:
-    "Backend-focused product engineer building reliable SaaS, commerce, ERP, IoT, mobile, and AI-enabled products.",
+    "I build production software across SaaS, commerce, payments, integrations, and connected systems.",
   primaryAction: {
     label: "Enter the portfolio",
     href: "#proof-stage",
@@ -82,20 +82,20 @@ export const proofEngineHero: ProofEngineHeroContent = {
       metrics: [
         {
           id: "merchants",
-          value: "200+",
-          label: "merchants",
+          value: "200",
+          label: "registered merchants",
           accent: "cyan",
         },
         {
           id: "orders",
-          value: "20K+",
-          label: "monthly orders",
+          value: "20K",
+          label: "avg monthly orders",
           accent: "cyan",
         },
         {
           id: "value",
-          value: "12M+ SAR",
-          label: "handled order activity",
+          value: "~SAR 12M",
+          label: "order value (≈2–3 months)",
           accent: "amber",
         },
       ],
@@ -135,11 +135,11 @@ export const proofEngineHero: ProofEngineHeroContent = {
           id: "usc",
           institution: "University of Sadat City",
           period: "2021–2025",
-          qualification: "Bachelor’s in Computer & Artificial Intelligence",
+          qualification: "Bachelor’s degree in Computer Science",
           highlight: "A-grade with Honors · Capstone graded A+",
           mark: {
             src: portfolioAssets.education.universityOfSadatCity,
-            alt: "University of Sadat City — Faculty of Computers & Artificial Intelligence",
+            alt: "University of Sadat City — Faculty of Computers and Artificial Intelligence",
           },
         },
       ],

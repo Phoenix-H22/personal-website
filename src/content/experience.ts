@@ -98,32 +98,134 @@ function companyLogo(
 export const experience: ExperienceEntry[] = [
   // ——— Primary professional ———
   {
+    id: "kayanac-erp-rejoin",
+    company: "Kayanac ERP",
+    companyShortName: "Kayanac",
+    sourceAliases: [],
+    role: "Software Engineer",
+    kind: "employment",
+    employmentType: "full-time",
+    startDate: "2026-08",
+    endDate: null,
+    isCurrent: true,
+    location: "Maadi, Egypt",
+    workMode: null,
+    mission:
+      "Rejoined Kayanac ERP after an earlier 2025 contract, continuing work on its ERP platform and operational workflows.",
+    summary:
+      "Rejoined Kayanac ERP after an earlier 2025 contract, continuing work on its ERP platform and operational workflows.",
+    highlights: [],
+    outcomes: [],
+    technologies: ["Laravel", "MySQL", "ERP"],
+    companyUrl: null,
+    linkedinSourceUrl: null,
+    logo: companyLogo(portfolioAssets.companies.kayanac, "Kayanac ERP"),
+    confidentiality: "client-confidential",
+    publicationLevel: "primary",
+    featured: true,
+    era: "owning-production-systems",
+    sortOrder: 1,
+    sources: [
+      {
+        type: "owner",
+        reference:
+          "Owner-confirmed · Aug 2026 – Present · Software Engineer · Full-time · rejoin",
+        confidence: "owner-confirmed",
+      },
+      {
+        type: "canonical-content",
+        reference:
+          "docs/CANONICAL_CONTENT.md · Kayanac second period Aug 2026 – Present · Full-time",
+        confidence: "owner-confirmed",
+      },
+    ],
+    needsOwnerConfirmation: [],
+  },
+  {
+    id: "theqah-rejoin",
+    company: "Theqah.sa",
+    companyShortName: "Theqah",
+    sourceAliases: ["شركة موقع الثقة", "Theqah company"],
+    role: "Software Engineer",
+    kind: "employment",
+    employmentType: "full-time",
+    startDate: "2025-09",
+    endDate: "2026-06",
+    isCurrent: false,
+    location: "Riyadh, Saudi Arabia",
+    workMode: null,
+    mission:
+      "Returned to Theqah to deliver production systems across connected products and client projects.",
+    summary:
+      "Rejoined Theqah part-time, then transitioned to full-time as project scope expanded. Worked on multiple production projects under Theqah management and collaborated directly with the CEO on requirements, delivery, and release support.",
+    highlights: [
+      "Smart Lockers platform delivery",
+      "Wasfaty medication dispensing workflows",
+      "AI Photo Station",
+      "Chocolate Vending Machines",
+      "Requirement analysis, staged delivery, and stakeholder reviews",
+    ],
+    outcomes: [],
+    technologies: [
+      "Laravel",
+      "APIs",
+      "Integrations",
+      "IoT workflows",
+      "Payment systems",
+    ],
+    companyUrl: null,
+    linkedinSourceUrl: "https://www.linkedin.com/in/alkady22/",
+    logo: companyLogo(portfolioAssets.companies.theqah, "Theqah"),
+    confidentiality: "client-confidential",
+    publicationLevel: "primary",
+    featured: true,
+    era: "owning-production-systems",
+    sortOrder: 5,
+    sources: [
+      {
+        type: "owner",
+        reference:
+          "Owner-confirmed · Sep 2025 – Jun 2026 · Software Engineer · rejoin after break",
+        confidence: "owner-confirmed",
+      },
+      {
+        type: "canonical-content",
+        reference:
+          "docs/CANONICAL_CONTENT.md · Theqah second period Sep 2025 – Jun 2026",
+        confidence: "owner-confirmed",
+      },
+    ],
+    needsOwnerConfirmation: [],
+  },
+  {
     id: "mohssilh",
     company: "Mohssilh / محصلة",
     companyShortName: "Mohssilh",
     sourceAliases: ["Mohsillh"],
-    role: "Software Engineer, Backend & Integrations",
+    role: "Backend Software Engineer",
     kind: "employment",
     employmentType: "full-time",
     startDate: "2025-03",
-    endDate: null,
-    isCurrent: true,
+    endDate: "2026-04",
+    isCurrent: false,
     location: "Saudi Arabia",
     workMode: null,
     mission:
       "Building backend integrations, reporting, and reconciliation systems for multi-merchant commerce operations.",
     summary:
-      "Designed and maintained backend services for a multi-merchant reporting and reconciliation platform integrated with Salla APIs.",
+      "Designed and maintained backend services for a multi-merchant reporting and reconciliation platform integrated with Salla APIs — including queues, webhooks, MySQL optimization, and production support.",
     highlights: [
       "Reliable synchronization with queues, Redis caching, and webhook handling",
-      "Optimized MySQL queries across operational workflows",
+      "Product-sales reporting workflow materially optimized",
+      "Webhook failure rate reduced to nearly zero",
+      "Zero downtime maintained across a three-month period",
     ],
     outcomes: [
-      "Supports 200+ merchants",
-      "Handles 20K+ monthly orders",
-      "Handles order activity worth 12M+ SAR",
-      "API performance improved by 70–80%",
-      "Synchronization errors reduced by 15%",
+      "200 registered merchants",
+      "20K average monthly orders",
+      "Approximately SAR 12M in order value across roughly 2–3 months",
+      "Webhook failure rate reduced to nearly zero",
+      "Zero downtime across a three-month period",
     ],
     technologies: [
       "Laravel",
@@ -145,34 +247,30 @@ export const experience: ExperienceEntry[] = [
     sortOrder: 10,
     sources: [
       {
-        type: "resume",
-        reference: `${RESUME} · Mar 2025 – Present · Software Engineer, Backend & Integrations`,
+        type: "owner",
+        reference:
+          "Owner-confirmed · Mar 2025 – Apr 2026 · Backend Software Engineer",
         confidence: "owner-confirmed",
       },
       {
         type: "linkedin",
-        reference: `${LINKEDIN} · January 2025 – Present · Backend Engineer · spelling variant Mohsillh in body`,
-        confidence: "conflicting",
+        reference: `${LINKEDIN} · March 2025 – April 2026 · Backend Engineer · spelling variant Mohsillh in body`,
+        confidence: "multiple-sources",
       },
       {
         type: "canonical-content",
-        reference: "docs/CANONICAL_CONTENT.md · Mohssilh Mar 2025 – Present",
-        confidence: "multiple-sources",
+        reference: "docs/CANONICAL_CONTENT.md · Mohssilh Mar 2025 – Apr 2026",
+        confidence: "owner-confirmed",
       },
     ],
-    needsOwnerConfirmation: [
-      "NEEDS_OWNER_CONFIRMATION: LinkedIn start January 2025 vs résumé/canonical March 2025 — canonical March retained until confirmed",
-      "NEEDS_OWNER_CONFIRMATION: LinkedIn title Backend Engineer vs résumé Software Engineer, Backend & Integrations — résumé title retained",
-      "NEEDS_OWNER_CONFIRMATION: LinkedIn location Riyadh vs résumé Saudi Arabia",
-      "NEEDS_OWNER_CONFIRMATION: LinkedIn-only metrics (95%+ webhook improvement, 99%+ query optimization) not published until approved",
-    ],
+    needsOwnerConfirmation: [],
   },
   {
     id: "kayanac-erp",
     company: "Kayanac ERP",
     companyShortName: "Kayanac",
     sourceAliases: [],
-    role: "Software Engineer, Full Stack / Contract",
+    role: "Software Engineer (Contract)",
     kind: "contract",
     employmentType: "contract",
     startDate: "2025-03",
@@ -180,16 +278,28 @@ export const experience: ExperienceEntry[] = [
     isCurrent: false,
     location: "Maadi, Egypt",
     workMode: "onsite",
-    mission: "Turning complex manual operational processes into structured ERP workflows.",
+    mission:
+      "Fixed-term contract turning manual operational processes into structured ERP workflows.",
     summary:
-      "Built ERP modules across payroll, settlements, CRM, construction, transportation, and finance workflows.",
+      "Contract engagement building ERP modules across HR/employee management, attendance, biometric/fingerprint integration, payroll, CRM, transportation pricing, GPS workflows, and notifications.",
     highlights: [
       "Refactored legacy Laravel code into cleaner service-based modules",
-      "Fixed N+1 query problems",
-      "Improved maintainability of business-critical features",
+      "HR, attendance, payroll, and CRM workflow delivery",
+      "Biometric/fingerprint and GPS-related operational features",
+      "Blade, Bootstrap, and jQuery UI surfaces where required",
     ],
-    outcomes: [],
-    technologies: ["Laravel", "ERP modules", "MySQL"],
+    outcomes: [
+      "ERP used by 2,000 active employees",
+      "Achieved ~60% reduction in operational error rates",
+    ],
+    technologies: [
+      "Laravel",
+      "MySQL",
+      "Blade",
+      "Bootstrap",
+      "jQuery",
+      "ERP modules",
+    ],
     companyUrl: null,
     linkedinSourceUrl: null,
     logo: companyLogo(portfolioAssets.companies.kayanac, "Kayanac ERP"),
@@ -200,15 +310,18 @@ export const experience: ExperienceEntry[] = [
     sortOrder: 20,
     sources: [
       {
+        type: "owner",
+        reference:
+          "Owner-confirmed · Mar 2025 – Jun 2025 · Software Engineer (Contract)",
+        confidence: "owner-confirmed",
+      },
+      {
         type: "resume",
-        reference: `${RESUME} · Mar 2025 – Jun 2025 · present on résumé; absent from LinkedIn export`,
+        reference: `${RESUME} · Mar 2025 – Jun 2025 · contract / fixed-term`,
         confidence: "owner-confirmed",
       },
     ],
-    needsOwnerConfirmation: [
-      "NEEDS_OWNER_CONFIRMATION: Not present on LinkedIn export — confirm public publication of Kayanac ERP entry",
-      "NEEDS_OWNER_CONFIRMATION: No quantified outcomes on résumé — add verified results if available",
-    ],
+    needsOwnerConfirmation: [],
   },
   {
     id: "theqah",
@@ -224,21 +337,16 @@ export const experience: ExperienceEntry[] = [
     location: "Riyadh, Saudi Arabia",
     workMode: null,
     mission:
-      "Leading backend development and performance work for high-volume education and payment systems.",
+      "Backend and product delivery for education and payment-related systems.",
     summary:
-      "Led backend development for Fushati education and payment systems with reliability and checkout performance as primary concerns.",
+      "Built and maintained education and payment systems with reliability and checkout performance as primary concerns. Face-recognition payment work for a school canteen (Fushati) was completed but not adopted in production.",
     highlights: [
-      "AI-powered face-recognition payment system",
-      "Smart caching and load balancing for peak traffic",
+      "Education and payment system delivery",
+      "Caching and load considerations for peak traffic",
+      "Technical planning, testing, and release support with stakeholders",
     ],
-    outcomes: [
-      "Integrated 200+ schools",
-      "Processed 5,000+ daily transactions",
-      "Maintained 99.9% uptime",
-      "Reduced checkout time by 60%",
-      "Reduced server load by 35%",
-    ],
-    technologies: ["Laravel", "Caching", "Load balancing", "Payment systems"],
+    outcomes: [],
+    technologies: ["Laravel", "Caching", "Payment systems", "APIs"],
     companyUrl: null,
     linkedinSourceUrl: "https://www.linkedin.com/in/alkady22/",
     logo: companyLogo(portfolioAssets.companies.theqah, "Theqah"),
@@ -249,28 +357,31 @@ export const experience: ExperienceEntry[] = [
     sortOrder: 30,
     sources: [
       {
+        type: "owner",
+        reference:
+          "Owner-confirmed · Aug 2024 – Feb 2025 · Software Engineer · first period",
+        confidence: "owner-confirmed",
+      },
+      {
         type: "resume",
         reference: `${RESUME} · Aug 2024 – Feb 2025 · Software Engineer`,
         confidence: "owner-confirmed",
       },
       {
-        type: "linkedin",
-        reference: `${LINKEDIN} · August 2024 – Present · Full Stack Developer | SaaS, AI & Payment Systems`,
-        confidence: "conflicting",
+        type: "canonical-content",
+        reference:
+          "docs/CANONICAL_CONTENT.md · Theqah first period Aug 2024 – Feb 2025",
+        confidence: "owner-confirmed",
       },
     ],
-    needsOwnerConfirmation: [
-      "NEEDS_OWNER_CONFIRMATION: LinkedIn end date Present vs résumé February 2025 — résumé end retained; do not publish Present until confirmed",
-      "NEEDS_OWNER_CONFIRMATION: LinkedIn title Full Stack Developer vs résumé Software Engineer — résumé title retained",
-      "NEEDS_OWNER_CONFIRMATION: LinkedIn summary cites 40% system-efficiency improvement — not on résumé; not published in outcomes",
-    ],
+    needsOwnerConfirmation: [],
   },
   {
     id: "tjar",
     company: "Tjar.sa",
     companyShortName: "Tjar",
     sourceAliases: [],
-    role: "Software Engineer, Contract",
+    role: "Software Engineer (Contract)",
     kind: "contract",
     employmentType: "contract",
     startDate: "2024-03",
@@ -280,17 +391,14 @@ export const experience: ExperienceEntry[] = [
     workMode: null,
     mission: "Building tenant-aware commerce infrastructure and merchant analytics.",
     summary:
-      "Built and maintained a multi-tenant e-commerce SaaS platform with Laravel and Livewire.",
+      "Built and maintained a multi-tenant e-commerce SaaS platform with Laravel, Livewire, and Tailwind.",
     highlights: [
       "Tenant-aware commerce infrastructure",
-      "Real-time analytics dashboards for merchants",
+      "Merchant analytics dashboards",
+      "Laravel / Livewire / Tailwind delivery",
     ],
-    outcomes: [
-      "Supported 1,000+ stores",
-      "Maintained 99.9% uptime",
-      "Developed real-time analytics for 100+ merchants",
-    ],
-    technologies: ["Laravel", "Livewire", "Multi-tenant architecture"],
+    outcomes: [],
+    technologies: ["Laravel", "Livewire", "Tailwind CSS", "Multi-tenant architecture"],
     companyUrl: null,
     linkedinSourceUrl: "https://www.linkedin.com/in/alkady22/",
     logo: companyLogo(portfolioAssets.companies.tjar, "Tjar.sa"),
@@ -311,16 +419,14 @@ export const experience: ExperienceEntry[] = [
         confidence: "multiple-sources",
       },
     ],
-    needsOwnerConfirmation: [
-      "NEEDS_OWNER_CONFIRMATION: LinkedIn title Full Stack Developer vs résumé Software Engineer, Contract — résumé framing retained",
-    ],
+    needsOwnerConfirmation: [],
   },
   {
     id: "klliq",
     company: "KLLIQ LLC",
     companyShortName: "KLLIQ",
     sourceAliases: [],
-    role: "Software Engineer, Contract",
+    role: "Software Engineer (Contract)",
     kind: "contract",
     employmentType: "contract",
     startDate: "2023-09",
@@ -328,21 +434,16 @@ export const experience: ExperienceEntry[] = [
     isCurrent: false,
     location: "Khamis Mushait, Saudi Arabia",
     workMode: null,
-    mission: "Developing and stabilizing APIs and products for AI-enabled SaaS systems.",
+    mission: "Short contract developing and stabilizing APIs and product surfaces.",
     summary:
-      "Led API development and product stabilization for AI SaaS, CRM, and social application surfaces.",
+      "Contract engagement focused on API development and product stabilization across SaaS, CRM, and social application surfaces.",
     highlights: [
-      "API development for AI SaaS",
-      "CRM and social-app bug resolution",
+      "API development and bug resolution",
       "Legacy-code refactoring",
+      "Iterative delivery with stakeholder feedback",
     ],
-    outcomes: [
-      "Served 10,000+ users",
-      "Improved system efficiency by 35%",
-      "Reduced critical error rates by 50%",
-      "Increased stability and engagement by 30%",
-    ],
-    technologies: ["APIs", "AI SaaS", "CRM"],
+    outcomes: [],
+    technologies: ["APIs", "SaaS", "CRM"],
     companyUrl: null,
     linkedinSourceUrl: "https://www.linkedin.com/in/alkady22/",
     logo: companyLogo(portfolioAssets.companies.klliq, "KLLIQ LLC"),
@@ -363,9 +464,7 @@ export const experience: ExperienceEntry[] = [
         confidence: "multiple-sources",
       },
     ],
-    needsOwnerConfirmation: [
-      "NEEDS_OWNER_CONFIRMATION: LinkedIn location 'Asir vs résumé Khamis Mushait — related geography; confirm public location string",
-    ],
+    needsOwnerConfirmation: [],
   },
   {
     id: "marqity",
@@ -482,8 +581,8 @@ export const experience: ExperienceEntry[] = [
     linkedinSourceUrl: "https://www.linkedin.com/in/alkady22/",
     logo: companyLogo(portfolioAssets.companies.intsolutions, "Intsolutions"),
     confidentiality: "private",
-    publicationLevel: "primary",
-    featured: true,
+    publicationLevel: "archive",
+    featured: false,
     era: "entering-production",
     sortOrder: 80,
     sources: [
@@ -526,8 +625,8 @@ export const experience: ExperienceEntry[] = [
     linkedinSourceUrl: "https://www.linkedin.com/in/alkady22/",
     logo: companyLogo(portfolioAssets.companies.eraasoft, "Eraasoft"),
     confidentiality: "public",
-    publicationLevel: "primary",
-    featured: true,
+    publicationLevel: "archive",
+    featured: false,
     era: "entering-production",
     sortOrder: 90,
     sources: [
@@ -549,25 +648,25 @@ export const experience: ExperienceEntry[] = [
     company: "Phoenix Tech’s",
     companyShortName: "Phoenix Tech’s",
     sourceAliases: ["Phoenix Tech's", "Phoenix Techs"],
-    role: "Full Stack Developer | SaaS, AI, Cloud & API Engineering",
+    role: "Software Engineer",
     kind: "independent-company",
     employmentType: "other",
-    startDate: "2020-09",
+    startDate: "2021-08",
     endDate: null,
     isCurrent: true,
     location: "Banha, Al Qalyubiyah, Egypt",
     workMode: null,
     mission:
-      "Independent product and engineering studio work across SaaS, AI, APIs, and cloud delivery.",
+      "Self-employed software engineering through which selected products and client projects are delivered.",
     summary:
-      "Long-running independent engineering track building SaaS platforms, APIs, payment integrations, and cloud-backed products — not modeled as a conventional employer of record.",
+      "Independent Software Engineer track for selected products and project delivery. Kept as a parallel lane — not the primary employment story.",
     highlights: [
-      "SaaS and AI-powered application delivery",
-      "REST APIs and cloud infrastructure integration",
-      "Payment gateway and authentication systems",
+      "Selected SaaS and API delivery",
+      "Payment and authentication integrations when needed",
+      "Documentation and staged handoff for clients",
     ],
     outcomes: [],
-    technologies: ["Laravel", "APIs", "AWS", "Firebase", "DigitalOcean"],
+    technologies: ["Laravel", "APIs", "MySQL", "Docker"],
     companyUrl: null,
     linkedinSourceUrl: "https://www.linkedin.com/in/alkady22/",
     logo: companyLogo(
@@ -575,29 +674,37 @@ export const experience: ExperienceEntry[] = [
       "Phoenix Tech’s",
     ),
     confidentiality: "private",
-    publicationLevel: "supporting",
+    /**
+     * Preserved in source/archive. Intentionally excluded from recruiter-facing
+     * Career rendering (not in CAREER_TIMEFIELD_INDEPENDENT_IDS).
+     * Do not delete this record — hide from public Career only.
+     */
+    publicationLevel: "archive",
     featured: false,
     era: "independent-track",
     sortOrder: 100,
     sources: [
       {
-        type: "linkedin",
-        reference: `${LINKEDIN} · September 2020 – Present`,
-        confidence: "single-source",
+        type: "owner",
+        reference:
+          "Owner-confirmed · Aug 2021 – Present · Software Engineer · self-employed / own startup vehicle · preserved source; hidden from public Career",
+        confidence: "owner-confirmed",
+      },
+      {
+        type: "canonical-content",
+        reference:
+          "docs/CANONICAL_CONTENT.md · Phoenix Tech’s Aug 2021 – Present · preserved in source; excluded from public Career",
+        confidence: "owner-confirmed",
       },
     ],
-    needsOwnerConfirmation: [
-      "NEEDS_OWNER_CONFIRMATION: Treat as independent studio / parallel track (recommended) vs conventional employer",
-      "NEEDS_OWNER_CONFIRMATION: LinkedIn-only efficiency metrics (40%, 35%) not published until verified against canonical claims",
-      "NEEDS_OWNER_CONFIRMATION: Public company URL / portfolio domain publication policy",
-    ],
+    needsOwnerConfirmation: [],
   },
   {
     id: "upwork-freelance",
     company: "Upwork",
     companyShortName: "Upwork",
     sourceAliases: ["upwork"],
-    role: "Freelance Full Stack Developer",
+    role: "Freelance Software Engineer",
     kind: "freelance",
     employmentType: "freelance",
     startDate: "2023-08",
@@ -606,13 +713,13 @@ export const experience: ExperienceEntry[] = [
     location: null,
     workMode: "remote",
     mission:
-      "Independent client delivery across product backends, integrations, and AI-enabled systems.",
+      "Independent client delivery across backends, integrations, and web products under a personal Upwork profile.",
     summary:
-      "Verified freelance track for selected client systems and global remote delivery. Career chapter should emphasize duration and progression — not repeat the Hero Upwork JSS credential artifact.",
+      "Freelance Software Engineer track for selected client systems and remote delivery. Separate from Phoenix Tech’s. Career emphasizes duration and progression — Hero keeps the Upwork Top Rated credential.",
     highlights: [
       "Top Rated freelance delivery track",
       "Selected client systems across Laravel and modern frontends",
-      "Remote CI/CD and deployment workflows",
+      "Remote deployment and production support workflows",
     ],
     outcomes: [],
     technologies: ["Laravel", "Vue.js", "React.js", "Docker", "CI/CD"],
@@ -626,9 +733,15 @@ export const experience: ExperienceEntry[] = [
     sortOrder: 110,
     sources: [
       {
+        type: "owner",
+        reference:
+          "Owner-confirmed · Aug 2023 – Present · Freelance Software Engineer",
+        confidence: "owner-confirmed",
+      },
+      {
         type: "linkedin",
         reference: `${LINKEDIN} · August 2023 – Present · Freelance Full Stack Developer`,
-        confidence: "single-source",
+        confidence: "multiple-sources",
       },
       {
         type: "canonical-content",
@@ -636,10 +749,7 @@ export const experience: ExperienceEntry[] = [
         confidence: "owner-confirmed",
       },
     ],
-    needsOwnerConfirmation: [
-      "NEEDS_OWNER_CONFIRMATION: LinkedIn-only 10+ projects / five-star average — confirm before Career copy (Hero keeps Top Rated · 100% JSS)",
-      "NEEDS_OWNER_CONFIRMATION: Start date August 2023 is LinkedIn-only",
-    ],
+    needsOwnerConfirmation: [],
   },
 
   // ——— Early technical leadership & community (archive / foundation) ———
@@ -917,66 +1027,64 @@ export const experience: ExperienceEntry[] = [
  */
 export const careerEras: CareerEra[] = [
   {
-    id: "entering-production",
-    title: "Entering production engineering",
-    period: "2023",
-    proposition: "Guided delivery and the first professional production systems.",
-    description:
-      "Internship and early full-stack delivery — backend foundations, code quality, logistics systems, and the move from learning into professional production work.",
-    experienceIds: ["eraasoft", "intsolutions"],
-    visualState: "foundation",
-    sortOrder: 1,
-  },
-  {
     id: "shipping-products",
     title: "Shipping products across teams",
     period: "2023 – 2024",
-    proposition: "APIs, SaaS commerce, and broader product responsibility.",
+    proposition: "Contract delivery across APIs and commerce systems.",
     description:
-      "Contract delivery across AI SaaS and multi-tenant commerce where APIs, collaboration, and tenant-aware systems mattered.",
+      "Short contract engagements focused on APIs, SaaS commerce, and tenant-aware product surfaces.",
     experienceIds: ["klliq", "tjar"],
     visualState: "building",
-    sortOrder: 2,
+    sortOrder: 1,
   },
   {
     id: "owning-production-systems",
-    title: "Owning production systems",
+    title: "ERP & operations",
     period: "2024 – Present",
-    proposition: "Integrations, reliability, and operational ownership.",
+    proposition: "Integrations, reliability, and production delivery.",
     description:
-      "Business-critical backends across education payments, ERP workflows, and multi-merchant commerce operations.",
-    experienceIds: ["theqah", "kayanac-erp", "mohssilh"],
+      "Production backends and connected products across education/payment systems, ERP workflows, multi-merchant commerce, a return to Theqah, and a later return to Kayanac.",
+    experienceIds: [
+      "theqah",
+      "kayanac-erp",
+      "mohssilh",
+      "theqah-rejoin",
+      "kayanac-erp-rejoin",
+    ],
     visualState: "owning",
-    sortOrder: 3,
+    sortOrder: 2,
   },
   {
     id: "independent-track",
-    title: "Independent engineering track",
-    period: "2020 – Present",
-    proposition: "Studio and freelance delivery running in parallel.",
+    title: "Freelance",
+    period: "2023 – Present",
+    proposition: "Freelance delivery running in parallel with employment.",
     description:
-      "Phoenix Tech’s independent product/engineering track and Upwork freelance progression — parallel lane, not a fourth chronological era.",
+      "Upwork freelance Software Engineer track — parallel lane, not a chronological employment era. Phoenix Tech’s remains in source/archive data but is excluded from recruiter-facing Career rendering.",
+    /** Source-complete IDs (includes archived Phoenix). Public Career uses CAREER_TIMEFIELD_INDEPENDENT_IDS. */
     experienceIds: ["phoenix-techs", "upwork-freelance"],
     visualState: "independent",
-    sortOrder: 4,
+    sortOrder: 3,
   },
 ];
 
 /** Ordered primary company path for the Career Timefield (homepage). */
 export const CAREER_TIMEFIELD_PRIMARY_IDS = [
-  "eraasoft",
-  "intsolutions",
   "klliq",
   "tjar",
   "theqah",
   "kayanac-erp",
   "mohssilh",
+  "theqah-rejoin",
+  "kayanac-erp-rejoin",
 ] as const;
 
-export const CAREER_TIMEFIELD_INDEPENDENT_IDS = [
-  "phoenix-techs",
-  "upwork-freelance",
-] as const;
+/**
+ * Public Independent / Freelance lane for Career UI.
+ * Phoenix Tech’s (`phoenix-techs`) is intentionally omitted here — preserved in
+ * `experience` + archive — re-enable by adding the id back to this list.
+ */
+export const CAREER_TIMEFIELD_INDEPENDENT_IDS = ["upwork-freelance"] as const;
 
 /** Optional supporting disclosure — not a main Timefield node. */
 export const CAREER_TIMEFIELD_SUPPORTING_IDS = ["marqity"] as const;

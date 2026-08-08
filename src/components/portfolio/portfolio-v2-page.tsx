@@ -56,7 +56,7 @@ export function PortfolioV2Page() {
               name: RECRUITER_PROFILE.name,
               url: new URL("/v2", getSiteUrl()).toString(),
               email: `mailto:${RECRUITER_PROFILE.email}`,
-              jobTitle: "Backend-Focused Full-Stack Engineer",
+              jobTitle: "Software Engineer",
               sameAs: [
                 RECRUITER_PROFILE.linkedin,
                 RECRUITER_PROFILE.github,

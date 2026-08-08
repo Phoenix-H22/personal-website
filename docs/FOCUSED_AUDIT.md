@@ -3,7 +3,7 @@
 Status: specification only. No UI changes until `FOCUSED AUDIT APPROVED`.
 
 Brand concept to preserve: **Systems Under the Surface**.  
-Positioning to preserve: **Backend-Focused Product Engineer**.
+Positioning to preserve: **Software Engineer** (see `docs/CANONICAL_CONTENT.md`; older “Backend-Focused Product Engineer” wording is obsolete).
 
 Legacy site and old résumé files are historical references only. They are not canonical. Anything not explicitly confirmed by the owner is `NEEDS_CONFIRMATION` and must not be published.
 
@@ -105,7 +105,7 @@ Mark all of the following `NEEDS_CONFIRMATION` until the owner replies in writin
 Confirmed enough to keep for now (already in active product copy / links):
 
 - Name: Abdalrhman Mohamed Alkady
-- Role label: Backend-Focused Product Engineer
+- Role label: Software Engineer
 - Email: alkady2019@gmail.com
 - LinkedIn: https://www.linkedin.com/in/alkady22/
 - GitHub: https://github.com/Phoenix-H22
