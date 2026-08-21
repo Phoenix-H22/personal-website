@@ -17,7 +17,7 @@ const defaultLinks = [
   { href: "#work", label: "Work" },
   { href: "#experience", label: "Experience" },
   { href: "#education", label: "Education" },
-  { href: "#contact", label: "Contact" },
+  { href: "#contact", label: "Contact Us" },
 ] as const;
 
 export interface RebuildNavLink {

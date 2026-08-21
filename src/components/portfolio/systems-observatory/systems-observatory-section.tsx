@@ -12,13 +12,16 @@ export async function SystemsObservatorySection() {
   return (
     <>
       <SystemsObservatoryExperience lenses={lenses} />
-      <aside className={styles.ledgerTransition} aria-label="Complete project inventory">
+      <aside className={styles.ledgerTransition} aria-label="View all projects">
         <div>
-          <p>SYSTEMS LEDGER / 13 PRODUCTION BUILDS</p>
-          <span>Continue from the selected evidence into the complete engineering record.</span>
+          <p>All projects / 13 production systems</p>
+          <span>
+            Open the full projects page for every build — ownership, stack, and
+            complete details, not only the selected evidence above.
+          </span>
         </div>
         <Link href="/projects" prefetch={false}>
-          Open Systems Ledger <span aria-hidden="true">-&gt;</span>
+          View all projects <span aria-hidden="true">-&gt;</span>
         </Link>
       </aside>
     </>

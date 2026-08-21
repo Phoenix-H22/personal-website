@@ -32,7 +32,7 @@ const v2NavigationLinks = [
   { href: "#recruiter-brief", label: "Recruiter Brief" },
   { href: "/projects", label: "Systems Ledger" },
   { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
+  { href: "#contact", label: "Contact Us" },
 ] as const;
 
 /**

@@ -23,6 +23,7 @@ interface OrbitDossierProps {
 const FOCUSABLE = 'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
 export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
+  const overlayRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const titleId = useId();
@@ -43,6 +44,13 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
       previousActive?.focus?.();
     };
   }, []);
+
+  // Next keeps this overlay mounted. Jump to the top and move focus off the
+  // footer button — otherwise the focused Next control pins the scroll at the end.
+  useEffect(() => {
+    overlayRef.current?.scrollTo({ top: 0, left: 0 });
+    closeRef.current?.focus();
+  }, [system.slug]);
 
   // Trap Tab focus within the dialog.
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -67,7 +75,7 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
   ];
 
   return (
-    <div className={styles.dossier}>
+    <div className={styles.dossier} ref={overlayRef}>
       <button
         type="button"
         className={styles.backdrop}
@@ -190,7 +198,11 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
               <p className={styles.castHint}>Read the card, then flip it to watch the mechanism run.</p>
               <div className={styles.castGrid}>
                 {dossier.mechanics.map((mechanic) => (
-                  <OrbitMechanicCard key={mechanic.code} slug={system.slug} mechanic={mechanic} />
+                  <OrbitMechanicCard
+                    key={`${system.slug}-${mechanic.code}`}
+                    slug={system.slug}
+                    mechanic={mechanic}
+                  />
                 ))}
               </div>
             </section>

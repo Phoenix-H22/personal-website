@@ -102,7 +102,7 @@ export const DOCK_SECTION_IDS = ["experience", "education", "systems"] as const;
 
 /** Primary call to action. Sourced from the profile token for consistency. */
 export const CONTACT_ACTION = {
-  label: "Contact",
+  label: "Contact Us",
   href: `mailto:${RECRUITER_PROFILE.email}`,
   icon: "contact" as NavIconName,
 } as const;
