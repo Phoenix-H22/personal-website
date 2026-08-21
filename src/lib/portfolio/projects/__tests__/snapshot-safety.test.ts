@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { CANONICAL_PROJECT_SLUGS } from "@/lib/portfolio/projects/canonical-projects";
 import editorial from "@/lib/portfolio/projects/data/public-projects.editorial.json";
 import snapshot from "@/lib/portfolio/projects/data/public-projects.snapshot.json";
+import { PUBLIC_PROJECT_ROLE_BY_SLUG } from "@/lib/portfolio/projects/public-roles";
 import { publicProjectsSnapshotSchema } from "@/lib/portfolio/projects/schema";
 
 const forbidden = [
@@ -31,7 +32,6 @@ const editorialProjectFields = [
   "featuredOrder",
   "listingOrder",
   "ownershipTypeOverride",
-  "roleOverride",
   "secondaryCategory",
   "slug",
   "strongestCapability",
@@ -79,10 +79,7 @@ describe("public project editorial input", () => {
       [...CANONICAL_PROJECT_SLUGS].sort(),
     );
     for (const project of editorial.projects) {
-      const expectedFields = editorialProjectFields.filter(
-        (field) => field !== "roleOverride" || project.slug === "wasfaty-smart-vending",
-      );
-      expect(Object.keys(project).sort()).toEqual(expectedFields);
+      expect(Object.keys(project).sort()).toEqual(editorialProjectFields);
     }
   });
 
@@ -93,8 +90,8 @@ describe("public project editorial input", () => {
 });
 
 describe("public project role boundaries", () => {
-  it.each(["Built Entirely by Me", "Founder Built", "Technical Owner"])(
-    "rejects ownership-only role %s",
+  it.each(["Built Entirely by Me", "Founder Built", "Technical Owner", "Platform Architect"])(
+    "rejects seniority or ownership-only role %s",
     (role) => {
       const candidate = structuredClone(snapshot);
       candidate.projects[0].role = role;
@@ -102,11 +99,15 @@ describe("public project role boundaries", () => {
     },
   );
 
-  it("keeps Wasfaty role distinct from ownership", () => {
-    const wasfaty = snapshot.projects.find(
-      ({ slug }) => slug === "wasfaty-smart-vending",
-    );
-    expect(wasfaty?.role).toBe("Backend, Integration & DevOps Owner");
-    expect(wasfaty?.ownershipType).toBe("built-entirely");
+  it("keeps every public project role scoped to the actual work", () => {
+    for (const project of snapshot.projects) {
+      expect(project.role).toBe(PUBLIC_PROJECT_ROLE_BY_SLUG[project.slug]);
+    }
+    expect(
+      snapshot.projects.find(({ slug }) => slug === "warqah-store")?.role,
+    ).toBe("Backend & DevOps Engineer");
+    expect(
+      snapshot.projects.find(({ slug }) => slug === "alzahaby-loyalty-app")?.role,
+    ).toBe("Flutter Software Engineer");
   });
 });

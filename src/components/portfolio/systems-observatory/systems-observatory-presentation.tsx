@@ -57,12 +57,12 @@ interface ObservatoryPanelProps {
 }
 
 const OWNERSHIP_LABELS: Record<PublicOwnershipType, string> = {
-  "founder-built": "Founder-built / end to end",
-  "built-entirely": "Built entirely",
-  "backend-devops-owner": "Backend + DevOps ownership",
-  "technical-owner": "Technical ownership",
-  "lead-developer": "Lead development",
-  "major-contributor": "Major contribution",
+  "founder-built": "Independent product",
+  "built-entirely": "Built the system",
+  "backend-devops-owner": "Backend & DevOps",
+  "technical-owner": "Backend work",
+  "lead-developer": "Primary developer",
+  "major-contributor": "Contributor",
 };
 
 const STATUS_LABELS: Record<PublicProjectStatus, string> = {

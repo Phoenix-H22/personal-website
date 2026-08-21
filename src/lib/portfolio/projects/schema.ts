@@ -7,6 +7,10 @@ import {
   FEATURED_PROJECT_SLUGS,
   LISTING_PROJECT_SLUGS,
 } from "@/lib/portfolio/projects/canonical-projects";
+import {
+  isForbiddenPublicRole,
+  PUBLIC_PROJECT_ROLE_BY_SLUG,
+} from "@/lib/portfolio/projects/public-roles";
 
 const canonicalSlugByTitle = new Map(
   CANONICAL_PROJECTS.map(({ title, slug }) => [title, slug]),
@@ -60,34 +64,6 @@ const capabilitySchema = z.enum([
 
 const nullablePublicUrlSchema = z.string().url().nullable();
 
-const forbiddenRoleLabels = new Set([
-  "built entirely by me",
-  "founder built",
-  "technical owner",
-]);
-
-const ownershipRoleLabels = {
-  "founder-built": "Founder Built",
-  "built-entirely": "Built Entirely by Me",
-  "backend-devops-owner": "Backend & DevOps Owner",
-  "technical-owner": "Technical Owner",
-  "lead-developer": "Lead Developer",
-  "major-contributor": "Major Contributor",
-} as const;
-
-const approvedOwnershipRoleMatches = new Map([
-  ["warqah-store", "Backend & DevOps Owner"],
-]);
-
-const publicRoleSchema = z.string().trim().min(1).refine((role) => {
-  const normalized = role
-    .toLowerCase()
-    .replace(/[-_]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-  return !forbiddenRoleLabels.has(normalized);
-}, "Role must describe a technical or product responsibility");
-
 const verifiedMetricSchema = z.object({
   value: z.string().trim().min(1),
   label: z.string().trim().min(1),
@@ -115,7 +91,7 @@ export const publicProjectContentSchema = z
     title: z.enum(CANONICAL_PROJECT_TITLES),
     shortTagline: z.string().trim().min(1),
     publicSummary: z.string().trim().min(1),
-    role: publicRoleSchema,
+    role: z.string().trim().min(1),
     ownershipType: ownershipTypeSchema,
     status: publicStatusSchema,
     primaryCategory: categorySchema,
@@ -150,14 +126,18 @@ export const publicProjectContentSchema = z
         message: "featured and featuredOrder must agree",
       });
     }
-    if (
-      project.role === ownershipRoleLabels[project.ownershipType] &&
-      approvedOwnershipRoleMatches.get(project.slug) !== project.role
-    ) {
+    if (isForbiddenPublicRole(project.role)) {
       ctx.addIssue({
         code: "custom",
         path: ["role"],
-        message: "role must not duplicate ownership without explicit approval",
+        message: "role must not use Founder, Architect, Owner, Lead, Senior, Principal, or CTO",
+      });
+    }
+    if (project.role !== PUBLIC_PROJECT_ROLE_BY_SLUG[project.slug]) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["role"],
+        message: `role must match the approved public role for ${project.slug}`,
       });
     }
     if (

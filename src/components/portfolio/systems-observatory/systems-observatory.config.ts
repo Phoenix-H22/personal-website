@@ -57,21 +57,23 @@ export const SYSTEMS_OBSERVATORY_TABS = [
       },
       {
         slug: "your-obour-guide",
-        storyAngle: "Founder ownership across product, brand, backend, mobile, web, and release.",
+        storyAngle: "API, mobile app, website, and release work on one city-guide system.",
         statement:
-          "I did not inherit the product. I created the product, the brand, the platform, and the release path.",
+          "I built the Laravel API, Flutter app, public website, and the path to ship them together.",
         accent: "violet",
       },
       {
         slug: "autopay-eg",
-        storyAngle: "Payment-confirmation infrastructure turned into a founder-built merchant SaaS.",
+        storyAngle: "Backend, web, Android, integrations, and design on one payment product.",
         statement:
-          "The buyer pays outside the system. The platform makes confirmation reliable inside it.",
+          "I built Autopay from the first invoice flow through production — every product layer.",
         accent: "blue",
       },
       {
         slug: "nabd",
-        storyAngle: "A messaging API evolved into a multi-service, multi-channel production platform.",
+        storyAngle: "Laravel, Node.js, WhatsApp, Telegram, dashboards, and commerce integrations.",
+        statement:
+          "I built NABD from the first messaging API through production — every product layer.",
         accent: "green",
       },
       {
@@ -103,16 +105,16 @@ export const SYSTEMS_OBSERVATORY_TABS = [
       },
       {
         slug: "autopay-eg",
-        storyAngle: "A real merchant problem shaped into product strategy, software, integrations, and operations.",
+        storyAngle: "I built every layer: product, backend, web, Android, integrations, and operations.",
         statement:
           "I identified the problem, designed the business, built every product layer, and operated the result.",
         accent: "blue",
       },
       {
         slug: "nabd",
-        storyAngle: "Founder-led evolution from reusable API to multi-channel commerce messaging SaaS.",
+        storyAngle: "I built every layer: Laravel, Node.js, WhatsApp, Telegram, dashboards, and commerce integrations.",
         statement:
-          "I conceived the platform, built its service boundaries, and evolved it through production use.",
+          "I built NABD from the first API through production — every product layer.",
         accent: "green",
       },
     ],

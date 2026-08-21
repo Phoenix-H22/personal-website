@@ -79,15 +79,27 @@ const FORBIDDEN_PUBLIC_PATTERNS = [
   /bearer\s+[a-z0-9]/i,
 ];
 
-const FORBIDDEN_ROLE_LABELS = new Set([
-  "built entirely by me",
-  "founder built",
-  "technical owner",
-]);
+const PUBLIC_PROJECT_ROLE_BY_SLUG = {
+  "warqah-store": "Backend & DevOps Engineer",
+  "your-obour-guide": "Software Engineer — Laravel, Flutter, Next.js, and design",
+  "autopay-eg": "Software Engineer — Laravel, Vue, Android, integrations, and design",
+  nabd: "Software Engineer — Laravel, Node.js, WhatsApp, Telegram, and integrations",
+  "alzahaby-loyalty-app": "Flutter Software Engineer",
+  "smart-lockers-platform": "Backend Software Engineer",
+  "wasfaty-smart-vending": "Backend Software Engineer",
+  "riders-shopify-wordpress": "Software Engineer — Shopify and WooCommerce",
+  "sim-express": "Backend Software Engineer",
+  tawfir: "Backend Software Engineer",
+  "pdf-extractor": "Software Engineer — Laravel and Vue",
+  pinoyaid: "Backend Software Engineer",
+  "chocolate-smart-vending": "Backend Software Engineer",
+};
 
-const APPROVED_OWNERSHIP_ROLE_MATCHES = new Map([
-  ["warqah-store", "Backend & DevOps Owner"],
-]);
+function publicProjectRole(slug) {
+  const role = PUBLIC_PROJECT_ROLE_BY_SLUG[slug];
+  if (!role) fail(`Missing public role for ${slug}`);
+  return role;
+}
 
 const capabilitySchema = z.enum([
   "Backend Architecture",
@@ -211,18 +223,8 @@ const editorialProjectSchema = z
     listingOrder: z.number().int().positive(),
     caseStudyAvailability: z.enum(["hidden", "planned", "published"]),
     ownershipTypeOverride: z.literal("founder-built").nullable(),
-    roleOverride: z.literal("Backend, Integration & DevOps Owner").optional(),
   })
-  .strict()
-  .superRefine((project, context) => {
-    if (project.roleOverride && project.slug !== "wasfaty-smart-vending") {
-      context.addIssue({
-        code: "custom",
-        path: ["roleOverride"],
-        message: "Role override is approved only for Wasfaty Smart Vending",
-      });
-    }
-  });
+  .strict();
 
 const editorialSchema = z
   .object({
@@ -563,19 +565,9 @@ function normalizeConfidentiality(confidentiality) {
   return confidentiality === "Public" ? "public" : "public-limited";
 }
 
-function normalizedRoleLabel(role) {
-  return role.toLowerCase().replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim();
-}
-
-function validateProfessionalRole(project, rawOwnership) {
-  if (FORBIDDEN_ROLE_LABELS.has(normalizedRoleLabel(project.role))) {
-    fail(`Ownership label cannot be used as role for ${project.slug}`);
-  }
-  if (
-    project.role === rawOwnership &&
-    APPROVED_OWNERSHIP_ROLE_MATCHES.get(project.slug) !== project.role
-  ) {
-    fail(`Role must not duplicate raw ownership for ${project.slug}`);
+function validateProfessionalRole(project) {
+  if (project.role !== publicProjectRole(project.slug)) {
+    fail(`Public role must match the approved role for ${project.slug}`);
   }
 }
 
@@ -593,7 +585,7 @@ function buildCandidate(mcpExport, editorial) {
       title,
       shortTagline: source.shortTagline,
       publicSummary: source.publicSummary,
-      role: profile.roleOverride ?? source.role,
+      role: publicProjectRole(slug),
       ownershipType: normalizeOwnership(source.ownership, profile.ownershipTypeOverride),
       status: normalizeStatus(source),
       primaryCategory: normalizePrimaryCategory(source.primaryCategory),
@@ -612,7 +604,7 @@ function buildCandidate(mcpExport, editorial) {
       caseStudyAvailability: profile.caseStudyAvailability,
       caseStudy: null,
     };
-    validateProfessionalRole(project, source.ownership);
+    validateProfessionalRole(project);
     return project;
   });
 
@@ -640,8 +632,8 @@ function validateCandidate(rawCandidate) {
     if (project.featured !== (project.featuredOrder !== null)) {
       fail(`Featured fields disagree for ${project.slug}`);
     }
-    if (FORBIDDEN_ROLE_LABELS.has(normalizedRoleLabel(project.role))) {
-      fail(`Ownership label cannot be used as role for ${project.slug}`);
+    if (project.role !== publicProjectRole(project.slug)) {
+      fail(`Public role must match the approved role for ${project.slug}`);
     }
   }
   const featured = candidate.projects

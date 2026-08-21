@@ -161,7 +161,7 @@ Strongest public project set for job search: NABD · Warqah Store · Smart Locke
 
 Homepage and `/work` selection: see `docs/portfolio-v3/PROJECT_SELECTION_MATRIX.md`.
 
-Project inventory may retain ownership labels internally; homepage/career positioning must not repeatedly surface Founder / Platform Architect as identity.
+Public project roles stay mid-level and **specific to the work** (backend, DevOps, Flutter, Laravel/Vue, and so on). They must not use Founder, Architect, Owner, Lead, Senior, Principal, or CTO as a title. Ownership type can stay in data for filtering; it must not appear as the job title.
 
 ---
 

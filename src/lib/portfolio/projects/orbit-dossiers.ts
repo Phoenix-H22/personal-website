@@ -1,5 +1,6 @@
 import { CASE_STUDY_PRESENTATION, isCaseStudySlug } from "@/lib/portfolio/case-studies";
 import type { CanonicalProjectSlug } from "@/lib/portfolio/projects/canonical-projects";
+import { publicProjectRole } from "@/lib/portfolio/projects/public-roles";
 import type { OrbitSystem } from "@/lib/portfolio/projects/orbit-systems";
 
 /**
@@ -36,7 +37,6 @@ export interface DossierMechanic {
 
 export interface DossierContent {
   tagline?: string;
-  role?: string;
   shipped?: string;
   /** Act I — the problem the system had to solve. */
   challenge?: string;
@@ -66,7 +66,6 @@ export interface ResolvedDossier {
 export const ORBIT_DOSSIERS: Partial<Record<CanonicalProjectSlug, DossierContent>> = {
   "warqah-store": {
     tagline: "High-scale commerce backend that keeps orders, payments, and stock dependable.",
-    role: "Backend & DevOps engineer",
     challenge:
       "Warqah Store needed to handle real commercial activity without losing order accuracy, overselling stock, or breaking fulfillment when external services were slow. The core challenge was keeping order creation, payment confirmation, inventory updates, and shipping handoff aligned as one reliable business process.",
     whatIBuilt:
@@ -99,7 +98,6 @@ export const ORBIT_DOSSIERS: Partial<Record<CanonicalProjectSlug, DossierContent
   },
   "smart-lockers-platform": {
     tagline: "A reusable control plane between business systems and locker hardware.",
-    role: "Hardware to backend, solo",
     challenge:
       "A single business application needed to control remotely managed locker hardware. A direct integration would have buried device communication, MQTT commands, authentication, and command-state handling inside that one app, forcing every future integration to rebuild the same complex device layer.",
     whatIBuilt:
@@ -132,7 +130,6 @@ export const ORBIT_DOSSIERS: Partial<Record<CanonicalProjectSlug, DossierContent
   },
   "wasfaty-smart-vending": {
     tagline: "Smart vending that validates prescriptions and dispenses controlled medicine.",
-    role: "Solo full-stack build",
     challenge:
       "The challenge was to provide controlled self-service access to prescribed medicines during high-demand healthcare scenarios without losing prescription validity, patient eligibility, stock accuracy, or dispensing auditability. The system also had to account for physical machine state, failure recovery, and reliable confirmation of what actually happened at dispense time.",
     whatIBuilt:
@@ -164,12 +161,10 @@ export const ORBIT_DOSSIERS: Partial<Record<CanonicalProjectSlug, DossierContent
     ],
   },
   "your-obour-guide": {
-    tagline: "A founder-built city guide spanning Laravel, Flutter, and Next.js.",
-    role: "Founder & sole developer",
     challenge:
       "Useful information about Obour and New Obour is fragmented, business listings are inconsistent, and residents need faster discovery of nearby services where location, language, data quality, and trust all affect usefulness. A generic national directory does not fully serve the local context of these cities.",
     whatIBuilt:
-      "A founder-built city-discovery ecosystem: a Laravel API and admin platform, a Flutter mobile app, a Next.js public website, a geospatial place-data ingestion and review pipeline, Bunny CDN media infrastructure, and a QA and release-engineering system, all owned end-to-end and built for a bilingual Arabic and English experience.",
+      "A city-discovery ecosystem: a Laravel API and admin platform, a Flutter mobile app, a Next.js public website, a geospatial place-data ingestion and review pipeline, Bunny CDN media infrastructure, and a QA and release-engineering system, built for a bilingual Arabic and English experience.",
     numbers: [
       { value: "397", label: "Laravel tests passed" },
       { value: "143", label: "Flutter tests passed" },
@@ -197,12 +192,11 @@ export const ORBIT_DOSSIERS: Partial<Record<CanonicalProjectSlug, DossierContent
     ],
   },
   nabd: {
-    tagline: "A founder-built messaging SaaS with WhatsApp, Telegram, and commerce integrations.",
-    role: "Founder & sole developer",
+    tagline: "My messaging product — WhatsApp, Telegram, and commerce, built end to end.",
     challenge:
       "Businesses needed to automate customer communication without rebuilding messaging infrastructure for every channel. Each channel has a different authentication, connection, and execution model, external websites needed a reusable API, and commerce merchants needed event-driven messaging tied to store and order activity, all requiring queues, retries, state tracking, and service isolation.",
     whatIBuilt:
-      "A production messaging SaaS connecting a Laravel business and orchestration platform with independent WhatsApp and Telegram execution services. It began as a reusable messaging API, evolved into a multi-channel multi-tenant SaaS, and expanded into native Salla and Zid commerce integrations, with a public messaging API, campaigns, templates, subscriptions, and dashboards.",
+      "I built this product from the first API through production: the Laravel business platform, WhatsApp and Telegram execution services, queues and recovery, campaigns, templates, subscriptions, dashboards, a public messaging API, and native Salla and Zid integrations.",
     numbers: [
       { value: "5,000+", label: "Messages / week" },
       { value: "2", label: "Channels (WhatsApp, Telegram)" },
@@ -230,12 +224,11 @@ export const ORBIT_DOSSIERS: Partial<Record<CanonicalProjectSlug, DossierContent
     ],
   },
   "autopay-eg": {
-    tagline: "Founder-built payment automation for Vodafone Cash and InstaPay.",
-    role: "Founder & sole developer",
+    tagline: "My payment product — Vodafone Cash and InstaPay confirmation, built end to end.",
     challenge:
       "Egyptian merchants face payment-gateway costs that scale with sales volume, and manually confirming local wallet transfers eats staff time while delaying orders and risking incorrect matches. Buyers use familiar local payment methods, but confirmation is slow and merchants often cannot tell whether a transfer was received.",
     whatIBuilt:
-      "A founder-built SaaS that automates transfer detection, invoice matching, confirmation, and merchant notification for Vodafone Cash and InstaPay. Buyers pay in their external wallet app while Autopay handles hosted invoices, Android payment-event ingestion, a matching engine, merchant APIs, webhooks, dashboards, and WooCommerce and Shopify integrations.",
+      "I built this product from the first invoice flow through production: hosted invoices, Android payment-event ingestion, the matching engine, merchant APIs, webhooks, dashboards, WooCommerce and Shopify integrations, and the product design.",
     numbers: [
       { value: "2", label: "Wallet methods automated" },
       { value: "2", label: "Commerce integrations" },
@@ -263,8 +256,6 @@ export const ORBIT_DOSSIERS: Partial<Record<CanonicalProjectSlug, DossierContent
     ],
   },
   "riders-shopify-wordpress": {
-    tagline: "Shipping integrations bridging Shopify and WooCommerce to Riders.",
-    role: "Sole developer, both integrations",
     challenge:
       "Merchants manage orders inside their commerce platforms while Riders runs the shipping lifecycle externally in Kuwait. Store orders must map accurately into shipping requests, shipment state must stay synchronized, tracking and cancellation must flow back, and failed or duplicate events must never create inconsistent shipments.",
     whatIBuilt:
@@ -296,16 +287,14 @@ export const ORBIT_DOSSIERS: Partial<Record<CanonicalProjectSlug, DossierContent
     ],
   },
   "alzahaby-loyalty-app": {
-    tagline: "QR-powered loyalty turning cable products into points and rewards.",
-    role: "Sole developer, full-stack",
     challenge:
       "An electrical-cable manufacturer wanted a direct digital channel to build a closer relationship with customers and make product engagement measurable. The goal was to turn product packaging and codes into an ongoing loyalty experience instead of a static label.",
     whatIBuilt:
-      "A production loyalty and rewards platform combining a Flutter customer app, a Laravel backend, and an administration dashboard. Customers scan supported QR or product codes, earn points through server-side validation, browse rewards, and submit redemption requests, with the app distributed on iOS and Android.",
+      "The Flutter customer app and its App Store and Google Play releases. Customers scan supported QR or product codes, earn points through server-side validation, browse rewards, and submit redemption requests.",
     numbers: [
       { value: "2", label: "App stores (iOS + Android)" },
-      { value: "3", label: "System layers" },
-      { value: "5", label: "Redemption statuses" },
+      { value: "Live", label: "Customer app in production" },
+      { value: "QR", label: "Product-code scans" },
     ],
     mechanics: [
       {
@@ -330,11 +319,10 @@ export const ORBIT_DOSSIERS: Partial<Record<CanonicalProjectSlug, DossierContent
   },
   "sim-express": {
     tagline: "Self-service telecom kiosk platform for stc SIM and eSIM activation.",
-    role: "Backend & platform developer",
     challenge:
       "Telecom onboarding in high-demand environments must handle identity verification, inventory control, payment coordination, hardware dependencies, and operational visibility all at once. SIM Express was built for Hajj-oriented, multilingual customer journeys where physical SIM handling and recoverable activation steps all matter.",
     whatIBuilt:
-      "I owned the backend architecture, the kiosk-facing REST API, the Filament operations dashboard, the stc integration layer, queue-based processing, and the DevOps needed for handover. The multi-tenant platform coordinates inventory, activation, and monitoring across seven kiosk hardware categories for SIM and eSIM sales and activation.",
+      "I built the backend, the kiosk-facing REST API, the Filament operations dashboard, the stc integration layer, queue-based processing, and the DevOps needed for handover. The multi-tenant platform coordinates inventory, activation, and monitoring across seven kiosk hardware categories for SIM and eSIM sales and activation.",
     numbers: [
       { value: "7", label: "Kiosk hardware categories" },
       { value: "1", label: "stc activation integration" },
@@ -363,7 +351,6 @@ export const ORBIT_DOSSIERS: Partial<Record<CanonicalProjectSlug, DossierContent
   },
   tawfir: {
     tagline: "UAE surplus-food marketplace for discounted restaurant pickup.",
-    role: "Backend & web platform",
     challenge:
       "Restaurants often have unsold prepared food, creating waste and lost revenue, while customers want discounted meals. Restaurants need accurate control over quantities, prices, availability, and pickup windows to offer time-sensitive surplus inventory in an organized way.",
     whatIBuilt:
@@ -395,8 +382,6 @@ export const ORBIT_DOSSIERS: Partial<Record<CanonicalProjectSlug, DossierContent
     ],
   },
   "pdf-extractor": {
-    tagline: "Document extraction with OCR fallback and live progress.",
-    role: "Solo full-stack build",
     challenge:
       "Business documents may contain embedded text or scanned page images, and manual extraction and correction are slow and inconsistent. Large documents cannot reliably be processed inside one blocking web request, and processing failures should not destroy already extracted content.",
     whatIBuilt:
@@ -429,7 +414,6 @@ export const ORBIT_DOSSIERS: Partial<Record<CanonicalProjectSlug, DossierContent
   },
   pinoyaid: {
     tagline: "Rebuilt crowdfunding platform with multi-gateway payments.",
-    role: "Backend rebuild & payments",
     challenge:
       "The client needed a customized crowdfunding operation capable of creating and managing campaigns, reviewing submissions, accepting gateway-based donations, tracking donation states, updating campaign progress, and managing balances and withdrawals. The inherited base script was not enough and required major redevelopment.",
     whatIBuilt:
@@ -462,7 +446,6 @@ export const ORBIT_DOSSIERS: Partial<Record<CanonicalProjectSlug, DossierContent
   },
   "chocolate-smart-vending": {
     tagline: "Scan a QR, pay, and the locker opens itself.",
-    role: "Commerce platform & integration",
     shipped: "July 2026",
     challenge:
       "Aani & Dani needed a self-service retail experience that could sell chocolate products through secure locker compartments without a traditional staffed checkout, connecting product discovery, payment, and collection to the physical machine while keeping locker-control infrastructure reusable across smart-machine projects.",
@@ -550,7 +533,7 @@ export function resolveDossier(system: OrbitSystem): ResolvedDossier {
 
   return {
     tagline: authored.tagline,
-    role: authored.role ?? system.ownership,
+    role: publicProjectRole(system.slug),
     shipped: authored.shipped,
     stackLine: stackLine(system.tech),
     challenge: authored.challenge ?? caseStudy?.situation,
