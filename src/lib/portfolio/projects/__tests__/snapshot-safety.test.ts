@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { CANONICAL_PROJECT_SLUGS } from "@/lib/portfolio/projects/canonical-projects";
+import { CANONICAL_PROJECT_SLUGS, isCanonicalProjectSlug } from "@/lib/portfolio/projects/canonical-projects";
 import editorial from "@/lib/portfolio/projects/data/public-projects.editorial.json";
 import snapshot from "@/lib/portfolio/projects/data/public-projects.snapshot.json";
 import { PUBLIC_PROJECT_ROLE_BY_SLUG } from "@/lib/portfolio/projects/public-roles";
@@ -101,6 +101,8 @@ describe("public project role boundaries", () => {
 
   it("keeps every public project role scoped to the actual work", () => {
     for (const project of snapshot.projects) {
+      expect(isCanonicalProjectSlug(project.slug)).toBe(true);
+      if (!isCanonicalProjectSlug(project.slug)) continue;
       expect(project.role).toBe(PUBLIC_PROJECT_ROLE_BY_SLUG[project.slug]);
     }
     expect(

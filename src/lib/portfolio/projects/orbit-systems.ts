@@ -299,6 +299,12 @@ export function isFounderBuilt(system: OrbitSystem): boolean {
   return system.ownership === "Founder-built";
 }
 
+export function getOrbitSystemBySlug(
+  slug: string,
+): OrbitSystem | undefined {
+  return ORBIT_SYSTEMS.find((system) => system.slug === slug);
+}
+
 const ASSET_ROOT = "/portfolio/projects";
 
 export function systemCover(slug: CanonicalProjectSlug): string {

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import { resolveDossier } from "@/lib/portfolio/projects/orbit-dossiers";
 import {
@@ -11,6 +11,7 @@ import {
   systemCover,
   type OrbitSystem,
 } from "@/lib/portfolio/projects/orbit-systems";
+import { projectPath } from "@/lib/portfolio/projects/project-routes";
 import { OrbitMechanicCard } from "@/components/portfolio/projects-orbit/orbit-mechanic-card";
 import styles from "@/styles/portfolio/projects-orbit.module.scss";
 
@@ -27,6 +28,7 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const titleId = useId();
+  const [shareLabel, setShareLabel] = useState("Share link");
 
   const globalIndex = ORBIT_SYSTEMS.findIndex((item) => item.slug === system.slug);
   const nextSystem = ORBIT_SYSTEMS[(globalIndex + 1) % ORBIT_SYSTEMS.length];
@@ -73,6 +75,24 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
     ...(dossier.shipped ? [{ label: "Shipped", value: dossier.shipped }] : []),
     { label: "Stack", value: dossier.stackLine },
   ];
+
+  const shareProject = async () => {
+    const url = new URL(projectPath(system.slug), window.location.origin).toString();
+    try {
+      if (typeof navigator.share === "function") {
+        await navigator.share({ title: system.name, url });
+        return;
+      }
+      await navigator.clipboard.writeText(url);
+      setShareLabel("Link copied");
+      window.setTimeout(() => setShareLabel("Share link"), 2000);
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
+      await navigator.clipboard.writeText(url);
+      setShareLabel("Link copied");
+      window.setTimeout(() => setShareLabel("Share link"), 2000);
+    }
+  };
 
   return (
     <div className={styles.dossier} ref={overlayRef}>
@@ -241,6 +261,9 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
                 Open live ↗
               </a>
             ) : null}
+            <button type="button" className={styles.caseStudyLink} onClick={() => void shareProject()}>
+              {shareLabel}
+            </button>
             <button type="button" className={styles.nextButton} onClick={onNext}>
               Next: {nextSystem.name} →
             </button>

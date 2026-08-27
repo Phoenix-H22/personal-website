@@ -6,6 +6,8 @@ import { beforeAll, describe, expect, it, vi } from "vitest";
 import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
 import { CASE_STUDY_PRESENTATION, CASE_STUDY_SLUGS } from "@/lib/portfolio/case-studies";
+import { CANONICAL_PROJECT_SLUGS } from "@/lib/portfolio/projects/canonical-projects";
+import { allProjectPaths } from "@/lib/portfolio/projects/project-routes";
 
 vi.mock("server-only", () => ({}));
 
@@ -16,7 +18,7 @@ beforeAll(async () => {
 });
 
 describe("Phase D public work routes", () => {
-  it("publishes exactly the three approved case-study routes", () => {
+  it("publishes every canonical project through a shared /projects/[slug] route", () => {
     const workDirectory = path.join(process.cwd(), "src", "app", "projects");
     const routeDirectories = fs
       .readdirSync(workDirectory, { withFileTypes: true })
@@ -29,12 +31,12 @@ describe("Phase D public work routes", () => {
       "warqah-store",
       "autopay-eg",
     ]);
-    expect(routeDirectories).toEqual([...CASE_STUDY_SLUGS].sort());
+    expect(routeDirectories).toEqual(["@modal", "[slug]"]);
+    expect(fs.existsSync(path.join(workDirectory, "[slug]", "page.tsx"))).toBe(true);
     expect(
-      CASE_STUDY_SLUGS.every((slug) =>
-        fs.existsSync(path.join(workDirectory, slug, "page.tsx")),
-      ),
+      fs.existsSync(path.join(workDirectory, "@modal", "(.)[slug]", "page.tsx")),
     ).toBe(true);
+    expect(CANONICAL_PROJECT_SLUGS).toHaveLength(13);
   });
 
   it("backs every case study with canonical project data and explicit framing", async () => {
@@ -52,14 +54,9 @@ describe("Phase D public work routes", () => {
     );
   });
 
-  it("exposes all public portfolio routes to crawlers", () => {
+  it("exposes the listing and every project slug to crawlers", () => {
     const paths = sitemap().map(({ url }) => new URL(url).pathname);
-    expect(paths).toEqual([
-      "/",
-      "/v2",
-      "/projects",
-      ...CASE_STUDY_SLUGS.map((slug) => `/projects/${slug}`),
-    ]);
+    expect(paths).toEqual(["/", "/v2", "/projects", ...allProjectPaths()]);
     expect(robots().rules).toEqual({
       allow: "/",
       disallow: ["/design-system"],

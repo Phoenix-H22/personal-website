@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 import {
   ORBIT_DOMAINS,
@@ -11,6 +12,11 @@ import {
   type OrbitSystem,
 } from "@/lib/portfolio/projects/orbit-systems";
 import { scanOrder } from "@/lib/portfolio/projects/orbit-geometry";
+import {
+  PROJECTS_INDEX_PATH,
+  projectPath,
+  projectSlugFromPathname,
+} from "@/lib/portfolio/projects/project-routes";
 import {
   useOrbitScan,
   type OrbitScanState,
@@ -105,11 +111,13 @@ function useIntroProgress(): number {
 }
 
 export function useProjectsOrbit(): ProjectsOrbitState {
+  const router = useRouter();
+  const pathname = usePathname();
   const [domain, setDomainState] = useState<DomainFilter>("all");
   const [owner, setOwnerState] = useState<OwnerFilter>("all");
   const [hoverSlug, setHoverSlug] = useState<string | null>(null);
-  const [openSlug, setOpenSlug] = useState<string | null>(null);
   const [auto, setAuto] = useState(true);
+  const openSlug = projectSlugFromPathname(pathname);
 
   const progress = useIntroProgress();
 
@@ -166,26 +174,35 @@ export function useProjectsOrbit(): ProjectsOrbitState {
   }, []);
 
   const toggleAuto = useCallback(() => setAuto((value) => !value), []);
-  const openDossier = useCallback((slug: string) => setOpenSlug(slug), []);
-  const closeDossier = useCallback(() => setOpenSlug(null), []);
+
+  const openDossier = useCallback(
+    (slug: string) => {
+      router.push(projectPath(slug), { scroll: false });
+    },
+    [router],
+  );
+
+  const closeDossier = useCallback(() => {
+    router.push(PROJECTS_INDEX_PATH, { scroll: false });
+  }, [router]);
 
   const showNext = useCallback(() => {
-    setOpenSlug((current) => {
-      if (!current) return current;
-      const index = ORBIT_SYSTEMS.findIndex((system) => system.slug === current);
-      return ORBIT_SYSTEMS[(index + 1) % ORBIT_SYSTEMS.length].slug;
-    });
-  }, []);
+    const current = projectSlugFromPathname(pathname);
+    if (!current) return;
+    const index = ORBIT_SYSTEMS.findIndex((system) => system.slug === current);
+    const next = ORBIT_SYSTEMS[(index + 1) % ORBIT_SYSTEMS.length].slug;
+    router.replace(projectPath(next), { scroll: false });
+  }, [pathname, router]);
 
-  // Escape closes the dossier.
+  // Escape closes the dossier and restores the listing URL.
   useEffect(() => {
     if (!openSlug) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpenSlug(null);
+      if (event.key === "Escape") closeDossier();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [openSlug]);
+  }, [openSlug, closeDossier]);
 
   const countBy = useCallback(
     (predicate: (system: OrbitSystem) => boolean) => ORBIT_SYSTEMS.filter(predicate).length,

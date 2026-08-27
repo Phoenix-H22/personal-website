@@ -1544,6 +1544,7 @@ a.previewUrl:hover .livePip {
 }
 
 .dossierActions .caseStudyLink {
+  appearance: none;
   border: 1px solid rgb(49 230 208 / 40%);
   background: rgb(49 230 208 / 8%);
   color: var(--orbit-accent-strong);

@@ -7,7 +7,6 @@ import {
   statusTone,
   systemCover,
 } from "@/lib/portfolio/projects/orbit-systems";
-import { OrbitDossier } from "@/components/portfolio/projects-orbit/orbit-dossier";
 import { OrbitNav } from "@/components/portfolio/projects-orbit/orbit-nav";
 import { OrbitFilters } from "@/components/portfolio/projects-orbit/orbit-filters";
 import { OrbitMap, type OrbitCore } from "@/components/portfolio/projects-orbit/orbit-map";
@@ -175,14 +174,6 @@ export function ProjectsOrbit() {
           <span>EGP 21M+ processed · 3 founder-built products</span>
         </footer>
       </div>
-
-      {orbit.openSystem ? (
-        <OrbitDossier
-          system={orbit.openSystem}
-          onClose={orbit.closeDossier}
-          onNext={orbit.showNext}
-        />
-      ) : null}
     </main>
   );
 }

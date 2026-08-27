@@ -10,6 +10,7 @@ import {
   CASE_STUDY_SLUGS,
   type CaseStudySlug,
 } from "@/lib/portfolio/case-studies";
+import { buildProjectPageMetadata, getProjectJsonLd } from "@/lib/metadata/projects";
 import { getProjectBySlug } from "@/lib/portfolio/projects";
 import { getSiteUrl } from "@/lib/metadata/site";
 import styles from "@/styles/portfolio/case-study.module.scss";
@@ -21,33 +22,7 @@ function caseStudyPosition(slug: CaseStudySlug) {
 export async function getCaseStudyMetadata(slug: CaseStudySlug): Promise<Metadata> {
   const project = await getProjectBySlug(slug);
   if (!project) return {};
-  const description = `${project.publicSummary.split("\n")[0]} Role: ${project.role}.`;
-  return {
-    title: `${project.title} Case Study | ${project.systemType}`,
-    description,
-    alternates: { canonical: `/projects/${slug}` },
-    robots: { index: true, follow: true },
-    openGraph: {
-      type: "article",
-      title: `${project.title} — Engineering Case Study`,
-      description,
-      url: `/projects/${slug}`,
-      images: [
-        {
-          url: project.cover.src,
-          width: project.cover.width,
-          height: project.cover.height,
-          alt: project.cover.alt,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${project.title} — Engineering Case Study`,
-      description,
-      images: [project.cover.src],
-    },
-  };
+  return buildProjectPageMetadata(project);
 }
 
 export async function CaseStudyPage({ slug }: { slug: CaseStudySlug }) {
@@ -288,29 +263,7 @@ export async function CaseStudyPage({ slug }: { slug: CaseStudySlug }) {
         </Link>
       </nav>
 
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "CreativeWork",
-          name: project.title,
-          description: project.publicSummary.split("\n")[0],
-          url: new URL(`/projects/${slug}`, siteUrl).toString(),
-          image: new URL(project.cover.src, siteUrl).toString(),
-          author: { "@type": "Person", name: "Abdalrhman M. Alkady" },
-          keywords: project.technologies.join(", "),
-        }}
-      />
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", siteUrl).toString() },
-            { "@type": "ListItem", position: 2, name: "Projects", item: new URL("/projects", siteUrl).toString() },
-            { "@type": "ListItem", position: 3, name: project.title, item: new URL(`/projects/${slug}`, siteUrl).toString() },
-          ],
-        }}
-      />
+      <JsonLd data={getProjectJsonLd(project, siteUrl)} />
     </main>
   );
 }
