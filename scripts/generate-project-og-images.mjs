@@ -60,7 +60,7 @@ function indexSvg() {
 
 async function writeJpeg(filePath, image) {
   await sharp(image)
-    .jpeg({ quality: 82, mozjpeg: true })
+    .jpeg({ quality: 82, progressive: false, chromaSubsampling: "4:2:0" })
     .toFile(filePath);
 }
 
@@ -79,7 +79,7 @@ async function main() {
     });
     const composed = await cover
       .composite([{ input: overlaySvg(project.title, project.systemType), top: 0, left: 0 }])
-      .jpeg({ quality: 82, mozjpeg: true })
+      .jpeg({ quality: 82, progressive: false, chromaSubsampling: "4:2:0" })
       .toBuffer();
     await fs.writeFile(outPath, composed);
     console.log("wrote", path.relative(ROOT, outPath));

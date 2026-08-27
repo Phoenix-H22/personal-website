@@ -89,10 +89,18 @@ describe("Phase D public work routes", () => {
   it("exposes the listing and every project slug to crawlers", () => {
     const paths = sitemap().map(({ url }) => new URL(url).pathname);
     expect(paths).toEqual(["/", "/v2", "/projects", ...allProjectPaths()]);
-    expect(robots().rules).toEqual({
-      allow: "/",
-      disallow: ["/design-system"],
-      userAgent: "*",
-    });
+    expect(robots().rules).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          userAgent: expect.arrayContaining(["WhatsApp", "facebookexternalhit"]),
+          allow: "/",
+        }),
+        expect.objectContaining({
+          userAgent: "*",
+          allow: "/",
+          disallow: ["/design-system", "/social-card"],
+        }),
+      ]),
+    );
   });
 });

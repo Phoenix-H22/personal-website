@@ -4,11 +4,23 @@ import { getSiteUrl } from "@/lib/metadata/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      allow: "/",
-      disallow: ["/design-system"],
-      userAgent: "*",
-    },
+    rules: [
+      {
+        userAgent: [
+          "facebookexternalhit",
+          "Facebot",
+          "WhatsApp",
+          "Twitterbot",
+          "LinkedInBot",
+        ],
+        allow: "/",
+      },
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/design-system", "/social-card"],
+      },
+    ],
     sitemap: new URL("/sitemap.xml", getSiteUrl()).toString(),
   };
 }
