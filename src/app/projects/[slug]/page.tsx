@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { CaseStudyPage } from "@/components/portfolio/case-study/case-study-page";
-import { ProjectDossierPage } from "@/components/portfolio/project-page/project-dossier-page";
-import { isCaseStudySlug } from "@/lib/portfolio/case-studies";
-import { buildProjectPageMetadata } from "@/lib/metadata/projects";
+import { OrbitDossierRoute } from "@/components/portfolio/projects-orbit/orbit-dossier-route";
+import { ProjectsOrbit } from "@/components/portfolio/projects-orbit/projects-orbit";
+import { JsonLd } from "@/components/seo/json-ld";
+import { buildProjectPageMetadata, getProjectJsonLd } from "@/lib/metadata/projects";
+import { getSiteUrl } from "@/lib/metadata/site";
+import { getProjectBySlug } from "@/lib/portfolio/projects";
 import {
   CANONICAL_PROJECT_SLUGS,
   isCanonicalProjectSlug,
 } from "@/lib/portfolio/projects/canonical-projects";
-import { getProjectBySlug } from "@/lib/portfolio/projects";
 
 interface ProjectSlugPageProps {
   params: Promise<{ slug: string }>;
@@ -30,13 +31,22 @@ export async function generateMetadata({
   return buildProjectPageMetadata(project);
 }
 
+/**
+ * Shared project URLs render the orbit with that system's dossier open.
+ * Dedicated long-form project documents stay in the codebase unused for now.
+ */
 export default async function ProjectSlugPage({ params }: ProjectSlugPageProps) {
   const { slug } = await params;
   if (!isCanonicalProjectSlug(slug)) notFound();
 
-  if (isCaseStudySlug(slug)) {
-    return <CaseStudyPage slug={slug} />;
-  }
+  const project = await getProjectBySlug(slug);
+  if (!project) notFound();
 
-  return <ProjectDossierPage slug={slug} />;
+  return (
+    <>
+      <ProjectsOrbit />
+      <OrbitDossierRoute slug={slug} />
+      <JsonLd data={getProjectJsonLd(project, getSiteUrl())} />
+    </>
+  );
 }

@@ -36,6 +36,38 @@ describe("Phase D public work routes", () => {
     expect(
       fs.existsSync(path.join(workDirectory, "@modal", "(.)[slug]", "page.tsx")),
     ).toBe(true);
+    const slugPage = fs.readFileSync(
+      path.join(workDirectory, "[slug]", "page.tsx"),
+      "utf8",
+    );
+    expect(slugPage).toContain("<ProjectsOrbit");
+    expect(slugPage).toContain("<OrbitDossierRoute");
+    expect(slugPage).not.toMatch(/<CaseStudyPage\b/);
+    expect(slugPage).not.toMatch(/<ProjectDossierPage\b/);
+    expect(
+      fs.existsSync(
+        path.join(
+          process.cwd(),
+          "src",
+          "components",
+          "portfolio",
+          "case-study",
+          "case-study-page.tsx",
+        ),
+      ),
+    ).toBe(true);
+    expect(
+      fs.existsSync(
+        path.join(
+          process.cwd(),
+          "src",
+          "components",
+          "portfolio",
+          "project-page",
+          "project-dossier-page.tsx",
+        ),
+      ),
+    ).toBe(true);
     expect(CANONICAL_PROJECT_SLUGS).toHaveLength(13);
   });
 

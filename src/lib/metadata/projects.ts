@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 
 import { isCaseStudySlug } from "@/lib/portfolio/case-studies";
+import {
+  OG_IMAGE_SIZE,
+  OG_IMAGE_TYPE,
+  projectSocialImagePath,
+  projectsIndexSocialImagePath,
+} from "@/lib/metadata/social-image";
 import { getSiteUrl } from "@/lib/metadata/site";
 import { ORBIT_SYSTEMS } from "@/lib/portfolio/projects/orbit-systems";
 import { resolveDossier } from "@/lib/portfolio/projects/orbit-dossiers";
@@ -28,19 +34,30 @@ const INDEXABLE_ROBOTS = {
   },
 };
 
-const SITE_OG_IMAGE = {
-  url: "/opengraph-image?v=20260805",
-  width: 1200,
-  height: 630,
-  alt: "Abdalrhman M. Alkady — Software Engineer",
-};
+const SOCIAL_DESCRIPTION_MAX = 160;
 
 function firstParagraph(value: string): string {
   return value.split("\n").map((part) => part.trim()).find(Boolean) ?? "";
 }
 
+function clipSocialText(value: string): string {
+  const text = value.trim();
+  if (text.length <= SOCIAL_DESCRIPTION_MAX) return text;
+  return `${text.slice(0, SOCIAL_DESCRIPTION_MAX - 1).replace(/\s+\S*$/, "")}…`;
+}
+
 export function projectSeoDescription(project: ProjectDetailDto): string {
-  return firstParagraph(project.publicSummary) || project.shortTagline;
+  return clipSocialText(project.shortTagline || firstParagraph(project.publicSummary));
+}
+
+function socialImage(url: string, alt: string) {
+  return {
+    url,
+    width: OG_IMAGE_SIZE.width,
+    height: OG_IMAGE_SIZE.height,
+    type: OG_IMAGE_TYPE,
+    alt,
+  };
 }
 
 export function projectDocumentTitle(project: ProjectDetailDto): string {
@@ -106,13 +123,23 @@ export function getProjectsIndexMetadata(): Metadata {
       description: PROJECTS_INDEX_DESCRIPTION,
       url: PROJECTS_INDEX_PATH,
       siteName: RECRUITER_PROFILE.name,
-      images: [SITE_OG_IMAGE],
+      images: [
+        socialImage(
+          projectsIndexSocialImagePath(),
+          "Projects orbit — 13 production systems by Abdalrhman M. Alkady",
+        ),
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${PROJECTS_INDEX_TITLE} — ${RECRUITER_PROFILE.name}`,
       description: PROJECTS_INDEX_DESCRIPTION,
-      images: [SITE_OG_IMAGE],
+      images: [
+        socialImage(
+          projectsIndexSocialImagePath(),
+          "Projects orbit — 13 production systems by Abdalrhman M. Alkady",
+        ),
+      ],
     },
   };
 }
@@ -122,12 +149,10 @@ export function buildProjectPageMetadata(project: ProjectDetailDto): Metadata {
   const title = projectDocumentTitle(project);
   const ogTitle = projectOgTitle(project);
   const canonical = projectPath(project.slug);
-  const image = {
-    url: project.cover.src,
-    width: project.cover.width,
-    height: project.cover.height,
-    alt: project.cover.alt,
-  };
+  const image = socialImage(
+    projectSocialImagePath(project.slug),
+    `${project.title} — ${project.systemType}`,
+  );
 
   return {
     title,
@@ -233,7 +258,7 @@ export function getProjectJsonLd(
         headline: dossier?.tagline ?? project.shortTagline,
         description,
         url,
-        image: new URL(project.cover.src, siteUrl).toString(),
+        image: new URL(projectSocialImagePath(project.slug), siteUrl).toString(),
         inLanguage: "en-US",
         dateModified: project.lastReviewed,
         keywords: project.technologies.join(", "),

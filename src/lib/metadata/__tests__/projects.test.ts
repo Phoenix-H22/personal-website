@@ -8,6 +8,11 @@ import {
 } from "@/lib/metadata/projects";
 import { CANONICAL_PROJECT_SLUGS } from "@/lib/portfolio/projects/canonical-projects";
 import { projectPath } from "@/lib/portfolio/projects/project-routes";
+import {
+  OG_IMAGE_TYPE,
+  projectSocialImagePath,
+  projectsIndexSocialImagePath,
+} from "@/lib/metadata/social-image";
 
 vi.mock("server-only", () => ({}));
 
@@ -28,6 +33,17 @@ describe("project SEO metadata", () => {
     });
     expect(metadata.twitter).toMatchObject({ card: "summary_large_image" });
     expect(String(metadata.description).length).toBeGreaterThan(40);
+    expect(String(metadata.description).length).toBeLessThanOrEqual(200);
+    expect(metadata.openGraph?.images).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          url: projectsIndexSocialImagePath(),
+          type: OG_IMAGE_TYPE,
+          width: 1200,
+          height: 630,
+        }),
+      ]),
+    );
   });
 
   it("gives every public project a unique indexable /projects/[slug] document", async () => {
@@ -43,6 +59,7 @@ describe("project SEO metadata", () => {
 
       expect(metadata.title).toEqual(expect.stringContaining(project.title));
       expect(String(metadata.description).length).toBeGreaterThan(40);
+      expect(String(metadata.description).length).toBeLessThanOrEqual(160);
       expect(metadata.alternates?.canonical).toBe(canonical);
       expect(metadata.robots).toMatchObject({ index: true, follow: true });
       expect(metadata.openGraph).toMatchObject({
@@ -50,8 +67,16 @@ describe("project SEO metadata", () => {
         url: canonical,
       });
       expect(metadata.openGraph?.images).toEqual(
-        expect.arrayContaining([expect.objectContaining({ url: project.cover.src })]),
+        expect.arrayContaining([
+          expect.objectContaining({
+            url: projectSocialImagePath(slug),
+            type: OG_IMAGE_TYPE,
+            width: 1200,
+            height: 630,
+          }),
+        ]),
       );
+      expect(JSON.stringify(metadata.openGraph?.images)).not.toContain(".webp");
       expect(metadata.twitter).toMatchObject({ card: "summary_large_image" });
 
       const json = JSON.stringify(getProjectJsonLd(project, siteUrl));

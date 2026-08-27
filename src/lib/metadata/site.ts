@@ -1,7 +1,11 @@
 export function getSiteUrl() {
   const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL;
-  const vercelUrl = process.env.VERCEL_URL;
-  const siteUrl = configuredUrl ?? (vercelUrl ? `https://${vercelUrl}` : undefined);
+  if (configuredUrl) return new URL(configuredUrl);
 
-  return new URL(siteUrl ?? "http://localhost:3000");
+  if (process.env.VERCEL_ENV === "production") {
+    return new URL("https://alkady.dev");
+  }
+
+  const vercelUrl = process.env.VERCEL_URL;
+  return new URL(vercelUrl ? `https://${vercelUrl}` : "http://localhost:3000");
 }

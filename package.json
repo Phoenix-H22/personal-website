@@ -12,7 +12,8 @@
     "test": "vitest run",
     "qa:lighthouse": "node scripts/run-phase-d-lighthouse.mjs",
     "portfolio:sync": "node scripts/sync-portfolio-projects.mjs",
-    "portfolio:media": "node scripts/publish-portfolio-media.mjs"
+    "portfolio:media": "node scripts/publish-portfolio-media.mjs",
+    "portfolio:og": "node scripts/generate-project-og-images.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
