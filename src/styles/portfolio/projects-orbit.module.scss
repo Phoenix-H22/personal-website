@@ -1853,10 +1853,30 @@ a.previewUrl:hover .livePip {
   }
 }
 
-// Very small screens drop the sonar entirely and rely on the monitor wall.
+// Galaxy S8+ and other 360px Androids still get the sonar — scale it, don't drop it.
 @media (max-width: 400px) {
-  .mapWrap {
-    display: none;
+  .map {
+    max-width: 18.25rem;
+  }
+
+  .node {
+    --beam-h: 0.7rem;
+    width: 1.85rem;
+    height: 1.85rem;
+  }
+
+  .nodeMark {
+    width: 8px;
+    height: 8px;
+  }
+
+  .node[data-active="true"] .nodeMark {
+    width: 12px;
+    height: 12px;
+  }
+
+  .legend {
+    gap: 0.45rem 0.75rem;
   }
 }
 
