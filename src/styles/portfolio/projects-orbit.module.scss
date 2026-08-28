@@ -1,7 +1,8 @@
 // Projects Orbit — sonar systems map for /projects.
 // Palette and accent match the Systems Ledger this view replaces.
 
-.page {
+.page,
+.dossier {
   --orbit-bg: #03060b;
   --orbit-accent: #31e6d0;
   --orbit-accent-strong: #63f0de;
@@ -17,7 +18,9 @@
   --orbit-tone-active: #78aefb;
   --orbit-tone-settled: #d8ad65;
   --orbit-mono: var(--font-mono), ui-monospace, monospace;
+}
 
+.page {
   position: relative;
   min-height: 100vh;
   overflow-x: clip;
@@ -1148,12 +1151,24 @@
   align-items: center;
   flex-wrap: wrap;
   pointer-events: none;
-  gap: 0.55rem;
+  gap: 0.55rem 0.85rem;
   color: var(--orbit-faint);
   font-family: var(--orbit-mono);
   font-size: 0.56rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;
+}
+
+.statusMark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex: none;
+  white-space: nowrap;
+}
+
+.statusMark .statusDot[data-tone="live"] {
+  animation: om-blink 1.4s ease-in-out infinite;
 }
 
 .dossierTitle {

@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 
 import { resolveDossier } from "@/lib/portfolio/projects/orbit-dossiers";
@@ -23,6 +25,7 @@ interface OrbitDossierProps {
 const FOCUSABLE = 'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
 export function OrbitDossier({ system, onNext }: OrbitDossierProps) {
+  const router = useRouter();
   const overlayRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLAnchorElement>(null);
@@ -53,16 +56,15 @@ export function OrbitDossier({ system, onNext }: OrbitDossierProps) {
     closeRef.current?.focus();
   }, [system.slug]);
 
-  const leaveListing = (event?: { preventDefault(): void }) => {
-    event?.preventDefault();
-    window.location.assign(PROJECTS_INDEX_PATH);
+  const closeDossier = () => {
+    router.push(PROJECTS_INDEX_PATH, { scroll: false });
   };
 
   // Trap Tab focus within the dialog. Escape returns to the listing.
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Escape") {
       event.preventDefault();
-      leaveListing();
+      closeDossier();
       return;
     }
     if (event.key !== "Tab") return;
@@ -105,12 +107,12 @@ export function OrbitDossier({ system, onNext }: OrbitDossierProps) {
 
   return (
     <div className={styles.dossier} ref={overlayRef}>
-      <a
+      <Link
         href={PROJECTS_INDEX_PATH}
+        scroll={false}
         className={styles.backdrop}
         aria-label="Close dossier"
         tabIndex={-1}
-        onClick={leaveListing}
       />
       <div
         ref={dialogRef}
@@ -126,22 +128,24 @@ export function OrbitDossier({ system, onNext }: OrbitDossierProps) {
             <div className={styles.dossierHeaderTop}>
               <p className={styles.dossierMeta}>
                 <span>{system.systemType}</span>
-                <span
-                  className={styles.statusDot}
-                  data-tone={tone}
-                  data-founder={system.ownership === "Founder-built"}
-                  aria-hidden="true"
-                />
-                <span>{system.status}</span>
+                <span className={styles.statusMark}>
+                  <span
+                    className={styles.statusDot}
+                    data-tone={tone}
+                    data-founder={system.ownership === "Founder-built"}
+                    aria-hidden="true"
+                  />
+                  <span>{system.status}</span>
+                </span>
               </p>
-              <a
+              <Link
                 ref={closeRef}
                 href={PROJECTS_INDEX_PATH}
+                scroll={false}
                 className={styles.dialogClose}
-                onClick={leaveListing}
               >
                 Close ✕
-              </a>
+              </Link>
             </div>
             <h2 id={titleId} className={styles.dossierTitle}>
               {system.name}
