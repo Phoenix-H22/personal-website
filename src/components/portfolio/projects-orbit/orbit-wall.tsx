@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 import {
   ORBIT_SYSTEMS,
   statusTone,
@@ -10,6 +8,7 @@ import {
   type OrbitSystem,
   type OrbitTier,
 } from "@/lib/portfolio/projects/orbit-systems";
+import { LazyMedia } from "@/components/portfolio/media/lazy-media";
 import { formatIndex } from "@/components/portfolio/projects-orbit/orbit-utils";
 import styles from "@/styles/portfolio/projects-orbit.module.scss";
 
@@ -61,7 +60,7 @@ export function OrbitWall({ systems, focusSlug, hintText, onOpen, onHover }: Orb
               >
                 <span className={styles.screen}>
                   <span className={styles.screenCover}>
-                    <Image
+                    <LazyMedia
                       src={systemThumb(system.slug)}
                       alt=""
                       fill

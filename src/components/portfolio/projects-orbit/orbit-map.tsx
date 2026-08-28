@@ -7,6 +7,7 @@ import {
   ORBIT_SECTOR_LINES,
   spokeInnerPoint,
 } from "@/lib/portfolio/projects/orbit-geometry";
+import { LazyMedia } from "@/components/portfolio/media/lazy-media";
 import { OrbitNode } from "@/components/portfolio/projects-orbit/orbit-node";
 import { cssVars } from "@/components/portfolio/projects-orbit/orbit-utils";
 import styles from "@/styles/portfolio/projects-orbit.module.scss";
@@ -141,11 +142,17 @@ export function OrbitMap({
         ))}
 
         <div className={styles.core} data-focused={core.focused}>
-          <div
-            className={styles.coreImg}
-            aria-hidden="true"
-            style={core.coverImg ? cssVars({ "--img": `url("${core.coverImg}")` }) : undefined}
-          />
+          <div className={styles.coreImg} aria-hidden="true">
+            {core.coverImg ? (
+              <LazyMedia
+                src={core.coverImg}
+                alt=""
+                fill
+                sizes="14rem"
+                loading="lazy"
+              />
+            ) : null}
+          </div>
           <div className={styles.coreText}>
             <p className={styles.coreEyebrow}>{core.eyebrow}</p>
             <p className={styles.coreValue}>{core.value}</p>

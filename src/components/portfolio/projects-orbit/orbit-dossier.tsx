@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 
 import { resolveDossier } from "@/lib/portfolio/projects/orbit-dossiers";
@@ -12,6 +11,7 @@ import {
   type OrbitSystem,
 } from "@/lib/portfolio/projects/orbit-systems";
 import { projectPath } from "@/lib/portfolio/projects/project-routes";
+import { LazyMedia } from "@/components/portfolio/media/lazy-media";
 import { OrbitMechanicCard } from "@/components/portfolio/projects-orbit/orbit-mechanic-card";
 import styles from "@/styles/portfolio/projects-orbit.module.scss";
 
@@ -186,11 +186,12 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
               )}
             </div>
             <div className={styles.previewShot}>
-              <Image
+              <LazyMedia
                 src={systemCover(system.slug)}
                 alt={`${system.name} cover`}
                 fill
                 sizes="(max-width: 64rem) 100vw, 64rem"
+                preload
               />
             </div>
           </figure>
@@ -249,13 +250,14 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
                 <span className={styles.line} aria-hidden="true" />
               </p>
               <div className={styles.archFrame}>
-                <Image
+                <LazyMedia
                   src={systemArchitecture(system.slug)}
                   alt={`${system.name} architecture diagram`}
-                  width={0}
-                  height={0}
+                  width={1600}
+                  height={900}
                   sizes="(max-width: 64rem) 100vw, 60rem"
                   className={styles.archImage}
+                  frameClassName={styles.archMedia}
                   loading="lazy"
                 />
               </div>

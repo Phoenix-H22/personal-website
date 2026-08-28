@@ -6,6 +6,7 @@ import {
   systemTier,
   type OrbitSystem,
 } from "@/lib/portfolio/projects/orbit-systems";
+import { LazyMedia } from "@/components/portfolio/media/lazy-media";
 import { cssVars, formatIndex } from "@/components/portfolio/projects-orbit/orbit-utils";
 import styles from "@/styles/portfolio/projects-orbit.module.scss";
 
@@ -59,10 +60,15 @@ export function OrbitNode({
       {online ? <span className={styles.nodeBeam} aria-hidden="true" /> : null}
       {online ? (
         <span className={styles.nodeCard} aria-hidden="true">
-          <span
-            className={styles.nodeCardImg}
-            style={cssVars({ "--img": `url("${systemThumb(system.slug)}")` })}
-          />
+          <span className={styles.nodeCardImg}>
+            <LazyMedia
+              src={systemThumb(system.slug)}
+              alt=""
+              fill
+              sizes="4.5rem"
+              loading="lazy"
+            />
+          </span>
         </span>
       ) : null}
       {acquired ? <span className={styles.nodePing} aria-hidden="true" /> : null}

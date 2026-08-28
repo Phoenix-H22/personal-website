@@ -266,7 +266,7 @@ describe("Systems Observatory integration boundaries", () => {
     expect(clientSource).not.toMatch(/public-projects\.(?:snapshot|editorial)\.json/);
     expect(experience).toMatch(/effective === "reduced"/);
     expect(projectNavigation).toMatch(/aria-label=.*project/i);
-    expect(presentation.match(/<Image\b/g)).toHaveLength(1);
+    expect(presentation.match(/<LazyMedia\b/g)).toHaveLength(1);
   });
 
   it("uses exact capture-phase annotation boundaries without broad owner markers", () => {

@@ -551,9 +551,6 @@
 .coreImg {
   position: absolute;
   inset: 0;
-  background-image: var(--img, none);
-  background-size: cover;
-  background-position: center;
   opacity: 0;
   filter: saturate(0.8);
   transition: opacity 400ms ease;
@@ -561,6 +558,10 @@
 
 .core[data-focused="true"] .coreImg {
   opacity: 0.42;
+}
+
+.coreImg img {
+  object-fit: cover;
 }
 
 .coreText {
@@ -671,18 +672,21 @@
 
 .nodeCardImg {
   display: block;
+  position: relative;
+  overflow: hidden;
   width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 0.1rem;
-  background-image: var(--img, none);
-  background-size: cover;
-  background-position: center;
+}
+
+.nodeCardImg img {
+  object-fit: cover;
   opacity: 0.62;
   filter: grayscale(0.9);
   transition: filter 250ms ease, opacity 250ms ease;
 }
 
-.node[data-active="true"] .nodeCardImg {
+.node[data-active="true"] .nodeCardImg img {
   opacity: 1;
   filter: none;
 }
@@ -1697,10 +1701,15 @@ a.previewUrl:hover .livePip {
 .archFrame {
   position: relative;
   margin-top: 0.6rem;
+  min-height: 12rem;
   overflow: hidden;
   border: 1px solid var(--orbit-line);
   border-radius: 0.5rem;
   background: var(--orbit-bg);
+}
+
+.archMedia {
+  min-height: 12rem;
 }
 
 .archImage {

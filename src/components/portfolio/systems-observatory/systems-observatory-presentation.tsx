@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import {
   useEffect,
   useRef,
@@ -8,6 +7,7 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
 
+import { LazyMedia } from "@/components/portfolio/media/lazy-media";
 import {
   AnnotationControl,
   MicroSystemNode,
@@ -239,12 +239,12 @@ function ProjectMedia({
             <span />
             <span />
           </div>
-          <Image
+          <LazyMedia
             key={project.cover.src}
             src={project.cover.src}
             alt={project.cover.alt}
-            width={project.cover.width}
-            height={project.cover.height}
+            fill
+            preload
             sizes="(max-width: 1080px) calc(100vw - 2rem), min(63vw, 960px)"
             className={styles.cover}
             draggable={false}
