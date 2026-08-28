@@ -663,7 +663,7 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
       completion: gitBlobSha1(
         "src/components/portfolio/recruiter/recruiter-completion-sections.tsx",
       ),
-      work: gitBlobSha1("src/app/projects/page.tsx"),
+      work: gitBlobSha1("src/app/projects/[[...slug]]/page.tsx"),
       caseStudy: gitBlobSha1(
         "src/components/portfolio/case-study/case-study-page.tsx",
       ),
@@ -680,7 +680,7 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
       observatorySection: "91f2253bdf4ca8361a07aeb5edc9c58a7a863933",
       observatoryConfig: "f4c8399e40949442289ecc72bd5977e1da7e5aa2",
       completion: "89cdece16e8aa3fa879fb247c09cedbdd6c52e65",
-      work: "2c434c2693885cab4cf1d57a3a396839a7fa309b",
+      work: "dec26a82e1a59ee36fb66642bc0b2fabce995aa3",
       caseStudy: "f6a3014081ed93ccf527f83a43d164e953515f49",
       canonical: "dd0e4f756c68ca3b4fdd37105b85965d5105bc72",
       media: "3b64be01228ceb8690e255023945c8bcf2878290",

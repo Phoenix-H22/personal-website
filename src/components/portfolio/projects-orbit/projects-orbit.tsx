@@ -14,6 +14,7 @@ import {
   OrbitReadout,
   type ReadoutModel,
 } from "@/components/portfolio/projects-orbit/orbit-readout";
+import { OrbitDossier } from "@/components/portfolio/projects-orbit/orbit-dossier";
 import { OrbitWall } from "@/components/portfolio/projects-orbit/orbit-wall";
 import { useProjectsOrbit } from "@/components/portfolio/projects-orbit/use-projects-orbit";
 import { formatIndex } from "@/components/portfolio/projects-orbit/orbit-utils";
@@ -174,6 +175,14 @@ export function ProjectsOrbit() {
           <span>EGP 21M+ processed · 3 founder-built products</span>
         </footer>
       </div>
+
+      {orbit.openSystem ? (
+        <OrbitDossier
+          system={orbit.openSystem}
+          onClose={orbit.closeDossier}
+          onNext={orbit.showNext}
+        />
+      ) : null}
     </main>
   );
 }

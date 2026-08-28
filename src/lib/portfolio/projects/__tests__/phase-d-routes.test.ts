@@ -31,19 +31,47 @@ describe("Phase D public work routes", () => {
       "warqah-store",
       "autopay-eg",
     ]);
-    expect(routeDirectories).toEqual(["@modal", "[slug]"]);
-    expect(fs.existsSync(path.join(workDirectory, "[slug]", "page.tsx"))).toBe(true);
-    expect(
-      fs.existsSync(path.join(workDirectory, "@modal", "(.)[slug]", "page.tsx")),
-    ).toBe(true);
-    const slugPage = fs.readFileSync(
-      path.join(workDirectory, "[slug]", "page.tsx"),
+    expect(routeDirectories).toEqual(["[[...slug]]"]);
+    expect(fs.existsSync(path.join(workDirectory, "[[...slug]]", "page.tsx"))).toBe(
+      true,
+    );
+    expect(fs.existsSync(path.join(workDirectory, "page.tsx"))).toBe(false);
+    expect(fs.existsSync(path.join(workDirectory, "@modal"))).toBe(false);
+    const layout = fs.readFileSync(path.join(workDirectory, "layout.tsx"), "utf8");
+    const projectsPage = fs.readFileSync(
+      path.join(workDirectory, "[[...slug]]", "page.tsx"),
       "utf8",
     );
-    expect(slugPage).toContain("<ProjectsOrbit");
-    expect(slugPage).toContain("<OrbitDossierRoute");
-    expect(slugPage).not.toMatch(/<CaseStudyPage\b/);
-    expect(slugPage).not.toMatch(/<ProjectDossierPage\b/);
+    const orbit = fs.readFileSync(
+      path.join(
+        process.cwd(),
+        "src",
+        "components",
+        "portfolio",
+        "projects-orbit",
+        "projects-orbit.tsx",
+      ),
+      "utf8",
+    );
+    const orbitHook = fs.readFileSync(
+      path.join(
+        process.cwd(),
+        "src",
+        "components",
+        "portfolio",
+        "projects-orbit",
+        "use-projects-orbit.ts",
+      ),
+      "utf8",
+    );
+    expect(layout).toContain("<ProjectsOrbit");
+    expect(projectsPage).not.toContain("<ProjectsOrbit");
+    expect(projectsPage).not.toContain("OrbitDossierRoute");
+    expect(orbit).toContain("<OrbitDossier");
+    expect(orbitHook).toContain("syncProjectsLocation");
+    expect(orbitHook).not.toContain("useRouter");
+    expect(projectsPage).not.toMatch(/<CaseStudyPage\b/);
+    expect(projectsPage).not.toMatch(/<ProjectDossierPage\b/);
     expect(
       fs.existsSync(
         path.join(

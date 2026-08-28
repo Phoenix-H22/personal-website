@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import {
   ORBIT_DOMAINS,
@@ -12,7 +12,12 @@ import {
   type OrbitSystem,
 } from "@/lib/portfolio/projects/orbit-systems";
 import { scanOrder } from "@/lib/portfolio/projects/orbit-geometry";
-import { projectPath, projectSlugFromPathname } from "@/lib/portfolio/projects/project-routes";
+import {
+  PROJECTS_INDEX_PATH,
+  projectPath,
+  projectSlugFromPathname,
+  syncProjectsLocation,
+} from "@/lib/portfolio/projects/project-routes";
 import {
   useOrbitScan,
   type OrbitScanState,
@@ -61,6 +66,7 @@ export interface ProjectsOrbitState {
   setHover: (slug: string | null) => void;
   toggleAuto: () => void;
   openDossier: (slug: string) => void;
+  closeDossier: () => void;
   showNext: () => void;
 }
 
@@ -106,13 +112,23 @@ function useIntroProgress(): number {
 }
 
 export function useProjectsOrbit(): ProjectsOrbitState {
-  const router = useRouter();
   const pathname = usePathname();
   const [domain, setDomainState] = useState<DomainFilter>("all");
   const [owner, setOwnerState] = useState<OwnerFilter>("all");
   const [hoverSlug, setHoverSlug] = useState<string | null>(null);
   const [auto, setAuto] = useState(true);
-  const openSlug = projectSlugFromPathname(pathname);
+  const [openSlug, setOpenSlug] = useState<string | null>(() =>
+    projectSlugFromPathname(pathname),
+  );
+
+  useEffect(() => {
+    const syncFromLocation = () => {
+      setOpenSlug(projectSlugFromPathname(window.location.pathname));
+    };
+    syncFromLocation();
+    window.addEventListener("popstate", syncFromLocation);
+    return () => window.removeEventListener("popstate", syncFromLocation);
+  }, []);
 
   const progress = useIntroProgress();
 
@@ -170,20 +186,24 @@ export function useProjectsOrbit(): ProjectsOrbitState {
 
   const toggleAuto = useCallback(() => setAuto((value) => !value), []);
 
-  const openDossier = useCallback(
-    (slug: string) => {
-      router.push(projectPath(slug), { scroll: false });
-    },
-    [router],
-  );
+  const openDossier = useCallback((slug: string) => {
+    setOpenSlug(slug);
+    syncProjectsLocation(projectPath(slug));
+  }, []);
+
+  const closeDossier = useCallback(() => {
+    setOpenSlug(null);
+    syncProjectsLocation(PROJECTS_INDEX_PATH);
+  }, []);
 
   const showNext = useCallback(() => {
-    const current = projectSlugFromPathname(pathname);
+    const current = openSlug ?? projectSlugFromPathname(window.location.pathname);
     if (!current) return;
     const index = ORBIT_SYSTEMS.findIndex((system) => system.slug === current);
     const next = ORBIT_SYSTEMS[(index + 1) % ORBIT_SYSTEMS.length].slug;
-    router.replace(projectPath(next), { scroll: false });
-  }, [pathname, router]);
+    setOpenSlug(next);
+    syncProjectsLocation(projectPath(next), "replace");
+  }, [openSlug]);
 
   const countBy = useCallback(
     (predicate: (system: OrbitSystem) => boolean) => ORBIT_SYSTEMS.filter(predicate).length,
@@ -244,6 +264,7 @@ export function useProjectsOrbit(): ProjectsOrbitState {
     setHover: setHoverSlug,
     toggleAuto,
     openDossier,
+    closeDossier,
     showNext,
   };
 }
