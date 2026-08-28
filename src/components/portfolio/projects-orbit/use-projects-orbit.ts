@@ -12,11 +12,7 @@ import {
   type OrbitSystem,
 } from "@/lib/portfolio/projects/orbit-systems";
 import { scanOrder } from "@/lib/portfolio/projects/orbit-geometry";
-import {
-  PROJECTS_INDEX_PATH,
-  projectPath,
-  projectSlugFromPathname,
-} from "@/lib/portfolio/projects/project-routes";
+import { projectPath, projectSlugFromPathname } from "@/lib/portfolio/projects/project-routes";
 import {
   useOrbitScan,
   type OrbitScanState,
@@ -65,7 +61,6 @@ export interface ProjectsOrbitState {
   setHover: (slug: string | null) => void;
   toggleAuto: () => void;
   openDossier: (slug: string) => void;
-  closeDossier: () => void;
   showNext: () => void;
 }
 
@@ -182,10 +177,6 @@ export function useProjectsOrbit(): ProjectsOrbitState {
     [router],
   );
 
-  const closeDossier = useCallback(() => {
-    router.push(PROJECTS_INDEX_PATH, { scroll: false });
-  }, [router]);
-
   const showNext = useCallback(() => {
     const current = projectSlugFromPathname(pathname);
     if (!current) return;
@@ -193,16 +184,6 @@ export function useProjectsOrbit(): ProjectsOrbitState {
     const next = ORBIT_SYSTEMS[(index + 1) % ORBIT_SYSTEMS.length].slug;
     router.replace(projectPath(next), { scroll: false });
   }, [pathname, router]);
-
-  // Escape closes the dossier and restores the listing URL.
-  useEffect(() => {
-    if (!openSlug) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeDossier();
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [openSlug, closeDossier]);
 
   const countBy = useCallback(
     (predicate: (system: OrbitSystem) => boolean) => ORBIT_SYSTEMS.filter(predicate).length,
@@ -263,7 +244,6 @@ export function useProjectsOrbit(): ProjectsOrbitState {
     setHover: setHoverSlug,
     toggleAuto,
     openDossier,
-    closeDossier,
     showNext,
   };
 }

@@ -12,5 +12,5 @@ export default async function InterceptedProjectPage({
 }: InterceptedProjectPageProps) {
   const { slug } = await params;
   if (!isCanonicalProjectSlug(slug)) notFound();
-  return <OrbitDossierRoute slug={slug} />;
+  return <OrbitDossierRoute slug={slug} dismissWithBack />;
 }

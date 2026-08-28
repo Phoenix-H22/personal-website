@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 
 import { resolveDossier } from "@/lib/portfolio/projects/orbit-dossiers";
@@ -13,22 +11,22 @@ import {
   systemCover,
   type OrbitSystem,
 } from "@/lib/portfolio/projects/orbit-systems";
-import { PROJECTS_INDEX_PATH, projectPath } from "@/lib/portfolio/projects/project-routes";
+import { projectPath } from "@/lib/portfolio/projects/project-routes";
 import { OrbitMechanicCard } from "@/components/portfolio/projects-orbit/orbit-mechanic-card";
 import styles from "@/styles/portfolio/projects-orbit.module.scss";
 
 interface OrbitDossierProps {
   system: OrbitSystem;
+  onClose: () => void;
   onNext: () => void;
 }
 
 const FOCUSABLE = 'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
-export function OrbitDossier({ system, onNext }: OrbitDossierProps) {
-  const router = useRouter();
+export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
-  const closeRef = useRef<HTMLAnchorElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const titleId = useId();
   const [shareLabel, setShareLabel] = useState("Share link");
 
@@ -56,15 +54,11 @@ export function OrbitDossier({ system, onNext }: OrbitDossierProps) {
     closeRef.current?.focus();
   }, [system.slug]);
 
-  const closeDossier = () => {
-    router.push(PROJECTS_INDEX_PATH, { scroll: false });
-  };
-
   // Trap Tab focus within the dialog. Escape returns to the listing.
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Escape") {
       event.preventDefault();
-      closeDossier();
+      onClose();
       return;
     }
     if (event.key !== "Tab") return;
@@ -107,12 +101,12 @@ export function OrbitDossier({ system, onNext }: OrbitDossierProps) {
 
   return (
     <div className={styles.dossier} ref={overlayRef}>
-      <Link
-        href={PROJECTS_INDEX_PATH}
-        scroll={false}
+      <button
+        type="button"
         className={styles.backdrop}
         aria-label="Close dossier"
         tabIndex={-1}
+        onClick={onClose}
       />
       <div
         ref={dialogRef}
@@ -138,14 +132,14 @@ export function OrbitDossier({ system, onNext }: OrbitDossierProps) {
                   <span>{system.status}</span>
                 </span>
               </p>
-              <Link
+              <button
                 ref={closeRef}
-                href={PROJECTS_INDEX_PATH}
-                scroll={false}
+                type="button"
                 className={styles.dialogClose}
+                onClick={onClose}
               >
                 Close ✕
-              </Link>
+              </button>
             </div>
             <h2 id={titleId} className={styles.dossierTitle}>
               {system.name}
