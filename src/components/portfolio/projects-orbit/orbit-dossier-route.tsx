@@ -7,10 +7,7 @@ import {
   getOrbitSystemBySlug,
   ORBIT_SYSTEMS,
 } from "@/lib/portfolio/projects/orbit-systems";
-import {
-  PROJECTS_INDEX_PATH,
-  projectPath,
-} from "@/lib/portfolio/projects/project-routes";
+import { projectPath } from "@/lib/portfolio/projects/project-routes";
 
 export function OrbitDossierRoute({ slug }: { slug: string }) {
   const router = useRouter();
@@ -24,7 +21,6 @@ export function OrbitDossierRoute({ slug }: { slug: string }) {
   return (
     <OrbitDossier
       system={system}
-      onClose={() => router.push(PROJECTS_INDEX_PATH, { scroll: false })}
       onNext={() => router.replace(projectPath(nextSlug), { scroll: false })}
     />
   );

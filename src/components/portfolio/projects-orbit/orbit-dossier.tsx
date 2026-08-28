@@ -11,22 +11,21 @@ import {
   systemCover,
   type OrbitSystem,
 } from "@/lib/portfolio/projects/orbit-systems";
-import { projectPath } from "@/lib/portfolio/projects/project-routes";
+import { PROJECTS_INDEX_PATH, projectPath } from "@/lib/portfolio/projects/project-routes";
 import { OrbitMechanicCard } from "@/components/portfolio/projects-orbit/orbit-mechanic-card";
 import styles from "@/styles/portfolio/projects-orbit.module.scss";
 
 interface OrbitDossierProps {
   system: OrbitSystem;
-  onClose: () => void;
   onNext: () => void;
 }
 
 const FOCUSABLE = 'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
-export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
+export function OrbitDossier({ system, onNext }: OrbitDossierProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
-  const closeRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLAnchorElement>(null);
   const titleId = useId();
   const [shareLabel, setShareLabel] = useState("Share link");
 
@@ -54,8 +53,18 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
     closeRef.current?.focus();
   }, [system.slug]);
 
-  // Trap Tab focus within the dialog.
+  const leaveListing = (event?: { preventDefault(): void }) => {
+    event?.preventDefault();
+    window.location.assign(PROJECTS_INDEX_PATH);
+  };
+
+  // Trap Tab focus within the dialog. Escape returns to the listing.
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      leaveListing();
+      return;
+    }
     if (event.key !== "Tab") return;
     const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE);
     if (!focusable || focusable.length === 0) return;
@@ -96,12 +105,12 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
 
   return (
     <div className={styles.dossier} ref={overlayRef}>
-      <button
-        type="button"
+      <a
+        href={PROJECTS_INDEX_PATH}
         className={styles.backdrop}
         aria-label="Close dossier"
         tabIndex={-1}
-        onClick={onClose}
+        onClick={leaveListing}
       />
       <div
         ref={dialogRef}
@@ -111,23 +120,29 @@ export function OrbitDossier({ system, onClose, onNext }: OrbitDossierProps) {
         className={styles.dialog}
         onKeyDown={onKeyDown}
       >
-        <button ref={closeRef} type="button" className={styles.dialogClose} onClick={onClose}>
-          Close ✕
-        </button>
-
         <div className={styles.dialogBody}>
           {/* Header — identity, tagline, and the role / shipped / stack ledger. */}
           <header className={styles.dossierHeader}>
-            <p className={styles.dossierMeta}>
-              <span>{system.systemType}</span>
-              <span
-                className={styles.statusDot}
-                data-tone={tone}
-                data-founder={system.ownership === "Founder-built"}
-                aria-hidden="true"
-              />
-              <span>{system.status}</span>
-            </p>
+            <div className={styles.dossierHeaderTop}>
+              <p className={styles.dossierMeta}>
+                <span>{system.systemType}</span>
+                <span
+                  className={styles.statusDot}
+                  data-tone={tone}
+                  data-founder={system.ownership === "Founder-built"}
+                  aria-hidden="true"
+                />
+                <span>{system.status}</span>
+              </p>
+              <a
+                ref={closeRef}
+                href={PROJECTS_INDEX_PATH}
+                className={styles.dialogClose}
+                onClick={leaveListing}
+              >
+                Close ✕
+              </a>
+            </div>
             <h2 id={titleId} className={styles.dossierTitle}>
               {system.name}
               <span className={styles.titleDot} aria-hidden="true">
