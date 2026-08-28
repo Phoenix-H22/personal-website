@@ -1,15 +1,23 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { isSocialCrawler } from "@/lib/metadata/social-crawler";
+import { getSocialPreviewHtml } from "@/lib/metadata/social-preview";
+import { getSiteUrl } from "@/lib/metadata/site";
 
 export function proxy(request: NextRequest) {
   if (!isSocialCrawler(request.headers.get("user-agent"))) {
     return NextResponse.next();
   }
 
-  const rewriteUrl = request.nextUrl.clone();
-  rewriteUrl.pathname = `/social-card${request.nextUrl.pathname}`;
-  return NextResponse.rewrite(rewriteUrl);
+  const html = getSocialPreviewHtml(request.nextUrl.pathname, getSiteUrl());
+  if (!html) return NextResponse.next();
+
+  return new NextResponse(html, {
+    headers: {
+      "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": "public, s-maxage=3600",
+    },
+  });
 }
 
 export const config = {

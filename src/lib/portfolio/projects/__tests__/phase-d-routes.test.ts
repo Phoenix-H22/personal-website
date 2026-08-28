@@ -98,7 +98,7 @@ describe("Phase D public work routes", () => {
         expect.objectContaining({
           userAgent: "*",
           allow: "/",
-          disallow: ["/design-system", "/social-card"],
+          disallow: ["/design-system"],
         }),
       ]),
     );

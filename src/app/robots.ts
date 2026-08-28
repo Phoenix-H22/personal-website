@@ -18,7 +18,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/design-system", "/social-card"],
+        disallow: ["/design-system"],
       },
     ],
     sitemap: new URL("/sitemap.xml", getSiteUrl()).toString(),
