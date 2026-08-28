@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, IBM_Plex_Mono } from "next/font/google";
 
 import { getSiteUrl } from "@/lib/metadata/site";
+import { homeSocialImagePath, socialJpeg } from "@/lib/metadata/social-image";
 import { getMotionBootstrapScript } from "@/lib/motion-preference";
 import "@/styles/globals.css";
 
@@ -48,12 +49,7 @@ export const metadata: Metadata = {
       "Software Engineer — production systems, APIs, integrations, commerce, and connected products with verified delivery evidence.",
     siteName: "Abdalrhman M. Alkady",
     images: [
-      {
-        url: "/opengraph-image?v=20260805",
-        width: 1200,
-        height: 630,
-        alt: "Abdalrhman M. Alkady — Software Engineer",
-      },
+      socialJpeg(homeSocialImagePath(), "Abdalrhman M. Alkady — Software Engineer"),
     ],
   },
   twitter: {
@@ -61,7 +57,7 @@ export const metadata: Metadata = {
     title: "Abdalrhman M. Alkady | Software Engineer",
     description:
       "Software Engineer — production systems, APIs, integrations, commerce, and connected products.",
-    images: ["/opengraph-image?v=20260805"],
+    images: [socialJpeg(homeSocialImagePath(), "Abdalrhman M. Alkady — Software Engineer")],
   },
 };
 

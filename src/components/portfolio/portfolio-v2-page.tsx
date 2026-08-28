@@ -54,7 +54,7 @@ export function PortfolioV2Page() {
               "@context": "https://schema.org",
               "@type": "Person",
               name: RECRUITER_PROFILE.name,
-              url: new URL("/v2", getSiteUrl()).toString(),
+              url: new URL("/", getSiteUrl()).toString(),
               email: `mailto:${RECRUITER_PROFILE.email}`,
               jobTitle: "Software Engineer",
               sameAs: [

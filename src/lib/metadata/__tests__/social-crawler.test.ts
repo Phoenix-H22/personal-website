@@ -17,6 +17,19 @@ describe("social crawler cards", () => {
     expect(isSocialCrawler("LinkedInBot/1.0")).toBe(true);
     expect(isSocialCrawler("Mozilla/5.0 Chrome/120.0")).toBe(false);
     expect(isSocialCrawler("Mozilla/5.0 (compatible; Googlebot/2.1)")).toBe(false);
+    expect(isSocialCrawler("facebookexternalua/1.1")).toBe(true);
+  });
+
+  it("gives the homepage and /v2 the same tiny JPEG card so WhatsApp never fetches the 166KB app shell", () => {
+    const home = getSocialPreviewHtml("/", SITE);
+    const v2 = getSocialPreviewHtml("/v2", SITE);
+    expect(home).toBe(v2);
+    expect(home).toContain('og:url" content="https://alkady.dev/"');
+    expect(home).toContain("/opengraph.jpg");
+    expect(home).not.toContain("opengraph-image");
+    expect(home).not.toContain(".webp");
+    expect(home?.length).toBeLessThan(2500);
+    expect(home?.indexOf("og:title") ?? 9999).toBeLessThan(500);
   });
 
   it("emits a tiny HTML document with JPEG Open Graph tags first", () => {
@@ -76,5 +89,7 @@ describe("social crawler cards", () => {
     expect(getSocialPreviewHtml("/projects/", SITE)).toBe(
       getSocialPreviewHtml("/projects", SITE),
     );
+    expect(getSocialPreviewHtml("/", SITE)?.length).toBeLessThan(2500);
+    expect(getSocialPreviewHtml("/v2", SITE)?.length).toBeLessThan(2500);
   });
 });

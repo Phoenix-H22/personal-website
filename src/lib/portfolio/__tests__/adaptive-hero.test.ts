@@ -674,7 +674,7 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
         "src/lib/portfolio/projects/data/public-media-manifest.json",
       ),
     }).toEqual({
-      root: "691cc0a294c59313b5f9c84f2febaac9bae14292",
+      root: "c2728ee5471fde76ec591f5fcdedffd447f21bf6",
       origin: "62d72f5f489e0aecef05d603e5c09e5fe7f8c9ff",
       career: "655a864979b633df4359d090a00e22aaa73c6caa",
       observatorySection: "91f2253bdf4ca8361a07aeb5edc9c58a7a863933",

@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 
 import { isCaseStudySlug } from "@/lib/portfolio/case-studies";
 import {
-  OG_IMAGE_SIZE,
-  OG_IMAGE_TYPE,
   projectSocialImagePath,
   projectsIndexSocialImagePath,
+  socialJpeg,
 } from "@/lib/metadata/social-image";
 import { getSiteUrl } from "@/lib/metadata/site";
 import { ORBIT_SYSTEMS } from "@/lib/portfolio/projects/orbit-systems";
@@ -48,16 +47,6 @@ function clipSocialText(value: string): string {
 
 export function projectSeoDescription(project: ProjectDetailDto): string {
   return clipSocialText(project.shortTagline || firstParagraph(project.publicSummary));
-}
-
-function socialImage(url: string, alt: string) {
-  return {
-    url,
-    width: OG_IMAGE_SIZE.width,
-    height: OG_IMAGE_SIZE.height,
-    type: OG_IMAGE_TYPE,
-    alt,
-  };
 }
 
 export function projectDocumentTitle(project: ProjectDetailDto): string {
@@ -124,7 +113,7 @@ export function getProjectsIndexMetadata(): Metadata {
       url: PROJECTS_INDEX_PATH,
       siteName: RECRUITER_PROFILE.name,
       images: [
-        socialImage(
+        socialJpeg(
           projectsIndexSocialImagePath(),
           "Projects orbit — 13 production systems by Abdalrhman M. Alkady",
         ),
@@ -135,7 +124,7 @@ export function getProjectsIndexMetadata(): Metadata {
       title: `${PROJECTS_INDEX_TITLE} — ${RECRUITER_PROFILE.name}`,
       description: PROJECTS_INDEX_DESCRIPTION,
       images: [
-        socialImage(
+        socialJpeg(
           projectsIndexSocialImagePath(),
           "Projects orbit — 13 production systems by Abdalrhman M. Alkady",
         ),
@@ -149,7 +138,7 @@ export function buildProjectPageMetadata(project: ProjectDetailDto): Metadata {
   const title = projectDocumentTitle(project);
   const ogTitle = projectOgTitle(project);
   const canonical = projectPath(project.slug);
-  const image = socialImage(
+  const image = socialJpeg(
     projectSocialImagePath(project.slug),
     `${project.title} — ${project.systemType}`,
   );

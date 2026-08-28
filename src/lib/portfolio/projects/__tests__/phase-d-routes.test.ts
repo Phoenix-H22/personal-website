@@ -130,5 +130,7 @@ describe("Phase D public work routes", () => {
         }),
       ]),
     );
+    const proxy = fs.readFileSync(path.join(process.cwd(), "src", "proxy.ts"), "utf8");
+    expect(proxy).toContain('matcher: ["/", "/v2", "/projects", "/projects/:path*"]');
   });
 });

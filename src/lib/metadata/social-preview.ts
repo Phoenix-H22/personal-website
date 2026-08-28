@@ -3,8 +3,10 @@ import snapshot from "@/lib/portfolio/projects/data/public-projects.snapshot.jso
 import { PROJECTS_INDEX_PATH } from "@/lib/portfolio/projects/project-routes";
 import { RECRUITER_PROFILE } from "@/lib/portfolio/recruiter-profile";
 
+import { HOME_IMAGE_ALT, HOME_OG_DESCRIPTION, HOME_PATH, HOME_TITLE } from "@/lib/metadata/home";
 import { renderSocialCardHtml } from "@/lib/metadata/social-card-html";
 import {
+  homeSocialImagePath,
   projectSocialImagePath,
   projectsIndexSocialImagePath,
 } from "@/lib/metadata/social-image";
@@ -35,6 +37,19 @@ export function buildSocialPreviewCatalog(
   siteUrl: URL,
 ): ReadonlyMap<string, string> {
   const catalog = new Map<string, string>();
+  const homeImage = new URL(homeSocialImagePath(), siteUrl).toString();
+  const homeUrl = new URL(HOME_PATH, siteUrl).toString();
+  const homeCard = renderSocialCardHtml({
+    title: HOME_TITLE,
+    description: clipSocialText(HOME_OG_DESCRIPTION),
+    url: homeUrl,
+    image: homeImage,
+    imageAlt: HOME_IMAGE_ALT,
+    type: "website",
+  });
+  catalog.set(HOME_PATH, homeCard);
+  catalog.set("/v2", homeCard);
+
   const title = `${PROJECTS_INDEX_TITLE} — ${RECRUITER_PROFILE.name}`;
 
   catalog.set(

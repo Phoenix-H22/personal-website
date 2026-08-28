@@ -76,7 +76,7 @@ export const portfolioVariants: Record<
     route: "/v2",
     title: "Abdalrhman M. Alkady | Software Engineer",
     indexable: true,
-    canonical: "/v2",
+    canonical: "/",
     hero: {
       variant: "simplified",
       showEducationArtifact: false,

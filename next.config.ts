@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: "/opengraph.jpg",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
         source: "/portfolio/projects/opengraph.jpg",
         headers: [
           {
@@ -43,6 +52,18 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      {
+        source: "/",
+        has: [{ type: "host", value: "www.alkady.dev" }],
+        destination: "https://alkady.dev/",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.alkady.dev" }],
+        destination: "https://alkady.dev/:path*",
+        permanent: true,
+      },
       // Former experimental primary route — bookmarks / QA scripts land on `/`.
       {
         source: "/concept-v3-rebuild",
@@ -60,6 +81,14 @@ const nextConfig: NextConfig = {
         source: "/v2/work/:slug",
         destination: "/projects/:slug",
         permanent: true,
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/opengraph-image",
+        destination: "/opengraph.jpg",
       },
     ];
   },

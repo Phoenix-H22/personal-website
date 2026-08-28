@@ -1,5 +1,5 @@
 /**
- * Builds WhatsApp/Facebook-safe 1200×630 JPEG cards from public project covers.
+ * Builds WhatsApp/Facebook-safe 1200×630 JPEG cards.
  * ImageResponse/WebP previews fail on WhatsApp; these static JPEGs are the share surface.
  */
 import fs from "node:fs/promises";
@@ -46,6 +46,20 @@ function overlaySvg(title, subtitle) {
 </svg>`);
 }
 
+function homeSvg() {
+  return Buffer.from(`<svg width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+  <rect width="${WIDTH}" height="${HEIGHT}" fill="#03060b"/>
+  <circle cx="980" cy="70" r="280" fill="#31e6d0" fill-opacity="0.14"/>
+  <circle cx="60" cy="580" r="200" fill="#31e6d0" fill-opacity="0.06"/>
+  <rect x="48" y="48" width="1104" height="534" rx="20" fill="#07191f" fill-opacity="0.7" stroke="#31e6d0" stroke-opacity="0.28"/>
+  <text x="80" y="118" fill="#31e6d0" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="4">SOFTWARE ENGINEER</text>
+  <text x="80" y="280" fill="#f2f6fa" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700">Abdalrhman M. Alkady</text>
+  <text x="80" y="348" fill="#cbd9de" font-family="Arial, Helvetica, sans-serif" font-size="28">I learn the system, choose what fits,</text>
+  <text x="80" y="390" fill="#cbd9de" font-family="Arial, Helvetica, sans-serif" font-size="28">and ship what survives production.</text>
+  <text x="80" y="520" fill="#8fa4ae" font-family="Arial, Helvetica, sans-serif" font-size="20">13 production systems  ·  3 founder-built  ·  Upwork Top Rated</text>
+</svg>`);
+}
+
 function indexSvg() {
   return Buffer.from(`<svg width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
   <rect width="${WIDTH}" height="${HEIGHT}" fill="#03060b"/>
@@ -66,6 +80,10 @@ async function writeJpeg(filePath, image) {
 
 async function main() {
   const snapshot = JSON.parse(await fs.readFile(SNAPSHOT, "utf8"));
+  const outHome = path.join(ROOT, "public", "opengraph.jpg");
+  await writeJpeg(outHome, homeSvg());
+  console.log("wrote", path.relative(ROOT, outHome));
+
   const outIndex = path.join(PUBLIC_PROJECTS, "opengraph.jpg");
   await writeJpeg(outIndex, indexSvg());
   console.log("wrote", path.relative(ROOT, outIndex));

@@ -97,7 +97,7 @@ export function PortfolioPage({ config }: PortfolioPageProps) {
                 "@context": "https://schema.org",
                 "@type": "Person",
                 name: RECRUITER_PROFILE.name,
-                url: new URL("/v2", getSiteUrl()).toString(),
+                url: new URL("/", getSiteUrl()).toString(),
                 email: `mailto:${RECRUITER_PROFILE.email}`,
                 jobTitle: RECRUITER_PROFILE.targetRoles[0],
                 sameAs: [

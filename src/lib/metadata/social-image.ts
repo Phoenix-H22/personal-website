@@ -8,3 +8,17 @@ export function projectSocialImagePath(slug: string): string {
 export function projectsIndexSocialImagePath(): string {
   return `/portfolio/projects/opengraph.jpg`;
 }
+
+export function homeSocialImagePath(): string {
+  return "/opengraph.jpg";
+}
+
+export function socialJpeg(url: string, alt: string) {
+  return {
+    url,
+    width: OG_IMAGE_SIZE.width,
+    height: OG_IMAGE_SIZE.height,
+    type: OG_IMAGE_TYPE,
+    alt,
+  };
+}
