@@ -7,6 +7,7 @@ import {
 import { getSiteUrl } from "@/lib/metadata/site";
 
 export const metadata = getProjectsIndexMetadata();
+export const dynamic = "force-static";
 
 export default function ProjectsReelPage() {
   return (

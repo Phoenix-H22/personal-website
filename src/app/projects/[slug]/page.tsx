@@ -17,6 +17,7 @@ interface ProjectSlugPageProps {
 }
 
 export const dynamicParams = false;
+export const dynamic = "force-static";
 
 export function generateStaticParams() {
   return CANONICAL_PROJECT_SLUGS.map((slug) => ({ slug }));

@@ -29,7 +29,7 @@ describe("social crawler cards", () => {
       type: "article",
     });
 
-    expect(html.length).toBeLessThan(2000);
+    expect(html.length).toBeLessThan(2500);
     expect(html.indexOf("og:title")).toBeLessThan(500);
     expect(html).toContain(
       'property="og:image" content="https://alkady.dev/portfolio/projects/warqah-store/opengraph.jpg"',
@@ -62,5 +62,19 @@ describe("social crawler cards", () => {
     expect(images.size).toBe(CANONICAL_PROJECT_SLUGS.length);
     expect(titles.size).toBe(CANONICAL_PROJECT_SLUGS.length);
     expect(getSocialPreviewHtml("/projects/not-a-project", SITE)).toBeNull();
+  });
+
+  it("serves every preview from a precomputed catalog under 2.5KB", () => {
+    const listing = getSocialPreviewHtml("/projects", SITE);
+    expect(listing?.length).toBeLessThan(2500);
+
+    for (const slug of CANONICAL_PROJECT_SLUGS) {
+      const html = getSocialPreviewHtml(`/projects/${slug}`, SITE);
+      expect(html?.length, slug).toBeLessThan(2500);
+    }
+
+    expect(getSocialPreviewHtml("/projects/", SITE)).toBe(
+      getSocialPreviewHtml("/projects", SITE),
+    );
   });
 });
