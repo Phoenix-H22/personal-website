@@ -135,7 +135,7 @@ export const proofEngineHero: ProofEngineHeroContent = {
           id: "usc",
           institution: "University of Sadat City",
           period: "2021–2025",
-          qualification: "Bachelor’s degree in Computer Science",
+          qualification: "Bachelor of Computers and Artificial Intelligence",
           highlight: "A-grade with Honors · Capstone graded A+",
           mark: {
             src: portfolioAssets.education.universityOfSadatCity,

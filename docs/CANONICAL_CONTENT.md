@@ -44,7 +44,7 @@ Tone: strong practical engineer with real production exposure; still growing pro
 
 - Faculty: Faculty of Computers and Artificial Intelligence
 - Period: September 2021 – August 2025
-- Degree: Bachelor’s degree in Computer Science
+- Degree: Bachelor of Computers and Artificial Intelligence
 - **Cumulative result:** Cumulative A-grade with Honors *(not A+)*
 - **Graduation project:** Virtual Clinic / Dr. Robot — A+ *(not the cumulative result)*
 - Compact UI: `A-grade with Honors · Capstone graded A+`

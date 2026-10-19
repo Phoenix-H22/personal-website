@@ -88,7 +88,7 @@ export function EducationCredential() {
         </p>
       </div>
       <span className={styles.srOnly}>
-        Bachelor’s degree in Computer and Artificial Intelligence, cumulative
+        Bachelor of Computers and Artificial Intelligence, cumulative
         A-grade with Honors, capstone graded A+.
       </span>
     </div>
