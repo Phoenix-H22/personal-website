@@ -1,50 +1,36 @@
+# Production CD for alkady.dev (FASTPANEL Node site on the Hostinger server).
+# A push to main asks the server to deploy: the per-repo key only runs `site-deploy-gate personal-website`
+# there (forced command). site-deploy fast-forwards the checkout, runs npm ci/build when needed, reloads the
+# FASTPANEL pm2 app and fails the run unless https://alkady.dev/ answers 200.
 name: Deploy production
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+    paths-ignore: ['.github/**', 'docs/**']
   workflow_dispatch:
+    inputs:
+      dry_run: { description: Only show what would be deployed, type: boolean, default: false }
 
-concurrency:
-  group: production-deploy
-  cancel-in-progress: false
+concurrency: { group: production-deploy, cancel-in-progress: false }
 
-permissions:
-  contents: read
+permissions: { contents: read }
 
 jobs:
   deploy:
-    name: Pull, build, restart
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
     steps:
-      - name: Deploy over SSH
-        uses: appleboy/ssh-action@v1.2.5
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: "22"
-          command_timeout: 20m
-          script: |
-            set -euo pipefail
-            export HOME=/var/www/alkady_dev_usr/data
-            export PM2_HOME="${HOME}/.pm2"
-            export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${HOME}/bin:${HOME}/.local/bin"
-            cd /var/www/alkady_dev_usr/data/www/alkady.dev
-
-            echo "Fetching origin/main"
-            git fetch origin
-            git reset --hard origin/main
-
-            echo "Installing dependencies"
-            npm ci
-
-            echo "Building"
-            npm run build
-
-            echo "Restarting alkady.dev"
-            pm2 restart alkady.dev --update-env
-            pm2 save
-
-            echo "Deployed $(git log -1 --oneline)"
+      - name: Deploy ${{ github.ref_name }}
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          BRANCH: ${{ github.ref_name }}
+          MODE: ${{ inputs.dry_run && 'dry-run' || '' }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            -o ServerAliveInterval=30 "deployer@$DEPLOY_HOST" "$BRANCH $MODE"
