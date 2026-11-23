@@ -69,7 +69,7 @@ export async function AdaptiveEngineerHero() {
               <span aria-hidden="true">·</span>
               <strong>{founderBuiltCount} FOUNDER-BUILT PRODUCTS</strong>
               <span aria-hidden="true">·</span>
-              <strong>UPWORK TOP RATED — 100% JOB SUCCESS</strong>
+              <strong>20K AVG MONTHLY ORDERS IN PRODUCTION</strong>
             </p>
 
             <nav className={styles.actions} aria-label="Portfolio actions">

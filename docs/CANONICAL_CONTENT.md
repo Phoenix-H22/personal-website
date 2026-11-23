@@ -186,7 +186,7 @@ From latest résumé:
 
 From owner / proof-engine:
 
-- Upwork Top Rated · 100% Job Success Score — profile URL in hero content
+- Upwork Top Rated · 100% Job Success Score — lower homepage social-proof section only (owner decision 2026-11-23: keep freelance-platform credentials out of the hero for full-time job search; hero proof ribbon uses the verified Mohssilh 20K average monthly orders instead)
 
 Do not dump certificates into the homepage. Eraasoft recognition belongs in training / certifications / awards contexts if surfaced, not the primary Career path.
 

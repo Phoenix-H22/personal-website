@@ -715,7 +715,7 @@ export const experience: ExperienceEntry[] = [
     mission:
       "Independent client delivery across backends, integrations, and web products under a personal Upwork profile.",
     summary:
-      "Freelance Software Engineer track for selected client systems and remote delivery. Separate from Phoenix Tech’s. Career emphasizes duration and progression — Hero keeps the Upwork Top Rated credential.",
+      "Freelance Software Engineer track for selected client systems and remote delivery. Separate from Phoenix Tech’s. Career emphasizes duration and progression — the Upwork Top Rated credential sits in the lower social-proof section, not the hero.",
     highlights: [
       "Top Rated freelance delivery track",
       "Selected client systems across Laravel and modern frontends",
@@ -745,7 +745,7 @@ export const experience: ExperienceEntry[] = [
       },
       {
         type: "canonical-content",
-        reference: "Hero / proof-engine Upwork Top Rated · 100% JSS credential",
+        reference: "Social-proof section Upwork Top Rated · 100% JSS credential",
         confidence: "owner-confirmed",
       },
     ],

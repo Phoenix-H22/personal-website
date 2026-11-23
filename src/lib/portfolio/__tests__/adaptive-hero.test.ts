@@ -211,7 +211,9 @@ describe("Phase E.3 living Adaptive Stack hero", () => {
     expect(hero).not.toMatch(/^\s*["']use client["']/m);
     expect(hero.match(/className={styles\.narrative}/g)).toHaveLength(1);
     expect(hero.match(/data-proof-ribbon/g)).toHaveLength(1);
-    expect(hero).toContain("100% JOB SUCCESS");
+    expect(hero).toContain("20K AVG MONTHLY ORDERS IN PRODUCTION");
+    // Freelance-platform credentials live in the lower social-proof section, not the hero.
+    expect(hero).not.toMatch(/UPWORK|JOB SUCCESS/i);
     expect(hero).not.toMatch(/\bJSS\b/);
     expect(hero).toMatch(/href="#work"[^>]*>[\s\S]*?EXPLORE THE SYSTEMS/);
     expect(hero.match(/<RecruiterBriefSection\s*\/>/g)).toHaveLength(1);
